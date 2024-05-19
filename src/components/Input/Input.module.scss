@@ -1,0 +1,39 @@
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+.label {
+  color: #1b1b1b; // 나중에 기본 컬러로 바꾸기
+  font-size: 16px;
+  line-height: 26px;
+}
+
+.input {
+  padding: 16px 20px;
+  border-radius: 6px;
+  border: 1px solid #a4a1aa; // 나중에 기본 컬러
+  font-size: 16px;
+  line-height: 26px;
+  align-content: center;
+}
+
+.input:focus {
+  border: 1px solid #79747e; // 나중에 기본 컬러로 바꾸기
+  outline: none;
+}
+
+.password-container {
+  width: 100%;
+}
+
+img {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  bottom: 18px;
+  right: 18px;
+  cursor: pointer;
+}
