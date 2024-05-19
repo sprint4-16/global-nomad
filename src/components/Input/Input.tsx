@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import eyeOff from '@/images/btn/btn_eye_off.svg';
-import eyeOn from '@/images/btn/btn_eye_on.svg';
+import EyeOff from '@/images/btn/btn_eye_off.svg';
+import EyeOn from '@/images/btn/btn_eye_on.svg';
 import styles from './Input.module.scss';
 import classNames from 'classnames/bind';
 
@@ -23,7 +23,7 @@ export function Input({ label, type, placeholder, color, className }: InputProps
       {type === 'password' ? (
         <>
           <input type={type} id={type} placeholder={placeholder} className={cx('input', color)} />
-          <img src={eyeOff} />
+          <EyeOff className={cx('img')} />
         </>
       ) : (
         <input type={type} id={type} placeholder={placeholder} className={cx('input', color)} />
