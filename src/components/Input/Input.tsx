@@ -14,6 +14,12 @@ interface InputProps {
   className?: string;
 }
 
+interface DropdownProps {
+  buttonText?: string;
+  menuItems: string[];
+  className?: string;
+}
+
 export function Input({ label, type, placeholder, color, className }: InputProps) {
   return (
     <div className={cx('input-container', className)}>
@@ -28,6 +34,16 @@ export function Input({ label, type, placeholder, color, className }: InputProps
       ) : (
         <input type={type} id={type} placeholder={placeholder} className={cx('input', color)} />
       )}
+    </div>
+  );
+}
+
+export function Dropdown({ buttonText, menuItems, className }: DropdownProps) {
+  return (
+    <div className={cx('dropdown-wrapper', className)}>
+      <div className={cx('dropdown-box')}>
+        <button className={cx('dropdown-button')}>{buttonText}</button>
+      </div>
     </div>
   );
 }
