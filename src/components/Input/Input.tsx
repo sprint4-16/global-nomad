@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import eyeOff from '@/images/btn/btn_eye_off';
-import eyeOn from '@/images/btn/btn_eye_on';
+import eyeOff from '@/images/btn/btn_eye_off.svg';
+import eyeOn from '@/images/btn/btn_eye_on.svg';
 import styles from './Input.module.scss';
 import classNames from 'classnames/bind';
 
