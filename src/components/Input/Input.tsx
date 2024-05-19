@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
 import EyeOff from '@/images/btn/btn_eye_off.svg';
 import EyeOn from '@/images/btn/btn_eye_on.svg';
+import ArrowDown from '@/images/btn/btn_chevron_down.svg';
+import ArrowUp from '@/images/btn/btn_chevron_up.svg';
 import styles from './Input.module.scss';
 import classNames from 'classnames/bind';
 
@@ -16,7 +18,7 @@ interface InputProps {
 
 interface DropdownProps {
   buttonText?: string;
-  menuItems: string[];
+  menuItems?: string[];
   className?: string;
 }
 
@@ -29,7 +31,7 @@ export function Input({ label, type, placeholder, color, className }: InputProps
       {type === 'password' ? (
         <>
           <input type={type} id={type} placeholder={placeholder} className={cx('input', color)} />
-          <EyeOff className={cx('img')} />
+          <EyeOff className={cx('eye-img')} />
         </>
       ) : (
         <input type={type} id={type} placeholder={placeholder} className={cx('input', color)} />
@@ -43,6 +45,7 @@ export function Dropdown({ buttonText, menuItems, className }: DropdownProps) {
     <div className={cx('dropdown-wrapper', className)}>
       <div className={cx('dropdown-box')}>
         <button className={cx('dropdown-button')}>{buttonText}</button>
+        <ArrowDown className={cx('arrow-img')} />
       </div>
     </div>
   );
