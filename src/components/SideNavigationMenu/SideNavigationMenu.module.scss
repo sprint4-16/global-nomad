@@ -1,19 +1,19 @@
 .sideNavigationMenu {
   display: flex;
   width: 100%;
-  max-width: 384px;
-  padding: 24px;
+  max-width: 38.4rem;
+  padding: 2.4rem;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  gap: 24px;
-  border-radius: 12px;
-  border: 1px solid var(--gray-gray_DDDDDD, #ddd);
+  gap: 2.4rem;
+  border-radius: 1.2rem;
+  border: 0.1rem solid var(--gray-gray_DDDDDD, #ddd);
   background: var(--white-white_FFFFFF, #fff);
-  box-shadow: 0px 4px 16px 0px rgba(17, 34, 17, 0.05);
+  box-shadow: 0 0.4rem 1.6rem 0 rgba(17, 34, 17, 0.05);
 
   @include tablet {
-    width: 251px;
+    width: 25.1rem;
   }
 }
 
@@ -29,8 +29,8 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 160px;
-  height: 160px;
+  width: 16rem;
+  height: 16rem;
 }
 
 .profileImg {
@@ -38,16 +38,16 @@
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0.4rem 1.6rem 0 rgba(0, 0, 0, 0.08);
 }
 
 .penWrapper {
-  width: 44px;
-  height: 44px;
-  padding: 10px;
+  width: 4.4rem;
+  height: 4.4rem;
+  padding: 1rem;
   position: absolute;
-  right: 12.5px;
-  bottom: 0px;
+  right: 1.25rem;
+  bottom: 0;
   border-radius: 50%;
   background: var(--green-green_0B3B2D, #0b3b2d);
   cursor: pointer;
@@ -57,16 +57,16 @@
   display: flex;
   width: 100%;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.8rem;
 }
 
 .navMenu {
   display: flex;
   width: 100%;
-  gap: 14px;
-  padding: 9px 16px;
+  gap: 1.4rem;
+  padding: 0.9rem 1.6rem;
   align-items: center;
-  border-radius: 12px;
+  border-radius: 1.2rem;
   cursor: pointer;
 
   &:hover {
@@ -79,13 +79,13 @@
 }
 
 .navIcon {
-  width: 24px;
-  height: 24px;
+  width: 2.4rem;
+  height: 2.4rem;
 }
 
 .navTitle {
   color: var(--gray-gray_A1A1A1, #a1a1a1);
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: 700;
   line-height: 162.5%;
 }
