@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  width: 16rem;
+  gap: 8px;
+  @include mobile {
+    width: 10.7rem;
+  }
+}
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1.6rem 2rem;
+  border-radius: 1.5rem;
+  border: 0.1rem solid $green-200;
+  background: #fff;
+  .text {
+    color: $green-200;
+    font-size: 1.8rem;
+    font-weight: 500;
+    @include mobile {
+      font-size: 1.6rem;
+    }
+  }
+}
+.dropdown {
+  width: 100%;
+  box-shadow: 0rem 0.4rem 1.6rem 0rem rgba(17, 34, 17, 0.05);
+  border-radius: 0.6rem;
+  border: 0.1rem solid $gray-300;
+  .item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5.8rem;
+    color: $gray-800;
+    font-size: 1.8rem;
+    border-bottom: 0.1rem solid $gray-300;
+    &:hover {
+      background: $gray-200;
+    }
+    @include mobile {
+      height: 4.1rem;
+      font-size: 1.4rem;
+    }
+  }
+}
