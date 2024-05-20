@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  gap: 24px;
+  @include tablet {
+    gap: 14px;
+  }
+  @include mobile {
+    gap: 8px;
+  }
+}
+.wrapper {
+  display: flex;
+  width: 127px;
+  padding: 16px 30px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  border: 1px solid $green-200;
+  background: #fff;
+  color: $green-200;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  white-space: nowrap;
+  &:hover {
+    background: #112211;
+    color: #fff;
+  }
+  @include mobile {
+    width: 100px;
+    padding: 16px 20px;
+    font-size: 14px;
+  }
+}
+.clicked {
+  background: #121;
+  color: #fff;
+}
