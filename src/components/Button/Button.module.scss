@@ -1,16 +1,43 @@
+.btn {
+  font-size: 1.6rem;
+  font-weight: 700;
+  padding: 1.4rem 0;
+  border-radius: 0.6rem;
+  font-family: 'Spoqa Han Sans Neo';
+}
+
 .primary {
   color: #fff;
   background-color: #112211;
-  // font-family: 'Courier New', Courier, monospace;
 }
 
 .secondary {
   color: #112211;
   background-color: #fff;
-  //   border: 1px solid;
+  border: 1px solid;
 }
 
 .disabled {
   color: #fff;
   background-color: #a4a1aa;
+}
+
+.large {
+  padding-left: 13.6rem;
+  padding-right: 13.6rem;
+}
+
+.medium {
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
+}
+
+.small {
+  font-size: 1.4rem;
+  padding: 1rem 2rem;
+}
+
+.full {
+  width: 100%;
+  display: block;
 }
