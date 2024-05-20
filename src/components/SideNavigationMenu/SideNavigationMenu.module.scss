@@ -1,0 +1,91 @@
+.sideNavigationMenu {
+  display: flex;
+  width: 100%;
+  max-width: 384px;
+  padding: 24px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  border-radius: 12px;
+  border: 1px solid var(--gray-gray_DDDDDD, #ddd);
+  background: var(--white-white_FFFFFF, #fff);
+  box-shadow: 0px 4px 16px 0px rgba(17, 34, 17, 0.05);
+
+  @include tablet {
+    width: 251px;
+  }
+}
+
+.profileImgWrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.profileImgContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 160px;
+  height: 160px;
+}
+
+.profileImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.08);
+}
+
+.penWrapper {
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  position: absolute;
+  right: 12.5px;
+  bottom: 0px;
+  border-radius: 50%;
+  background: var(--green-green_0B3B2D, #0b3b2d);
+  cursor: pointer;
+}
+
+.navMenuList {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.navMenu {
+  display: flex;
+  width: 100%;
+  gap: 14px;
+  padding: 9px 16px;
+  align-items: center;
+  border-radius: 12px;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--green-green_CED8D5, #ced8d5);
+
+    .navTitle {
+      color: var(--Brand-Nomad-black_112211, #121);
+    }
+  }
+}
+
+.navIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.navTitle {
+  color: var(--gray-gray_A1A1A1, #a1a1a1);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 162.5%;
+}
