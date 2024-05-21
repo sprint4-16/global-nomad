@@ -18,7 +18,7 @@ export default function Filter() {
     <div className={cn('container')}>
       <div className={cn('wrapper')} onClick={toggleDropdown}>
         <span className={cn('text')}>{selectedItem}</span>
-        <ArrowDown />
+        <ArrowDown fill={'#0B3B2D'} />
       </div>
       {isOpen ? <FilterList setIsOpen={setIsOpen} setSelectedItem={setSelectedItem} /> : <></>}
     </div>
