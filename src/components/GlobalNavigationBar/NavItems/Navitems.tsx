@@ -1,9 +1,10 @@
 import classNames from 'classnames/bind';
 import styles from './NavItems.module.scss';
+import Link from 'next/link';
 
 const cn = classNames.bind(styles);
 
-import { ButtonLogin, ButtonRegister, ButtonAlertIcon, ButtonProfile } from './items';
+import { ButtonAlertIcon, ButtonProfile } from './items';
 
 export default function NavItems() {
   const loggeninStatus = false;
@@ -11,13 +12,13 @@ export default function NavItems() {
     <>
       {loggeninStatus ? (
         <div className={cn('loggedOutComponent', 'navItems')}>
-          <ButtonLogin className={cn('buttonLogin')} />
-          <ButtonRegister className={cn('ButtonRegister')} />
+          <Link href="/signin">로그인</Link>
+          <Link href="signup">회원가입</Link>
         </div>
       ) : (
         <div className={cn('loggedInComponent', 'navItems')}>
-          <ButtonAlertIcon className={cn('ButtonAlertIcon')} />
-          <ButtonProfile className={cn('ButtonProfile')} />
+          <ButtonAlertIcon />
+          <ButtonProfile />
         </div>
       )}
     </>

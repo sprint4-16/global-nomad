@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './GlobalNavigationBar.module.scss';
 import Logo from '@/images/logo/logo_small.svg';
+import Link from 'next/link';
 
 import NavItems from './NavItems/Navitems';
 
@@ -10,7 +11,9 @@ export default function GlobalNavigationBar() {
   return (
     <div className={cn('background')}>
       <div className={cn('navBar')}>
-        <Logo className={cn('logoIcon')} alt="logoIcon" />
+        <Link href="/">
+          <Logo className={cn('logoIcon')} />
+        </Link>
         <NavItems />
       </div>
     </div>
