@@ -1,3 +1,16 @@
 @import './_colors.scss';
 @import './_font.scss';
 @import './mixins.scss';
+@import './z-index';
+
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100vh;
+}
+
+#contentWrapper {
+  position: relative;
+}
