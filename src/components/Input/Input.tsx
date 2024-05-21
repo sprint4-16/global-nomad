@@ -4,6 +4,7 @@ import EyeOn from '@/images/btn/btn_eye_on.svg';
 import ArrowDown from '@/images/btn/btn_chevron_down.svg';
 import ArrowUp from '@/images/btn/btn_chevron_up.svg';
 import Calendar from '@/images/icon/icon_calendar.svg';
+import CheckMark from '@/images/icon/icon_checkmark.svg';
 import styles from './Input.module.scss';
 import classNames from 'classnames/bind';
 
@@ -62,8 +63,16 @@ export function Input({ label, type, placeholder, color, onClick, className }: I
   );
 }
 
-export function Dropdown({ buttonText, menuItems = defaultMenuItems, onClick, className }: DropdownProps) {
+export function Dropdown({
+  buttonText: initialButtonText,
+  menuItems = defaultMenuItems,
+  onClick,
+  className,
+}: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [hoveredItemId, setHoveredItemId] = useState<number | null>(null);
+  const [buttonText, setButtonText] = useState(initialButtonText || 'Select');
+  const isDefaultButtonText = buttonText === (initialButtonText || 'Select');
 
   return (
     <div className={cn('dropdownWrapper', className)}>
@@ -73,13 +82,25 @@ export function Dropdown({ buttonText, menuItems = defaultMenuItems, onClick, cl
           setIsOpen(!isOpen);
         }}
       >
-        <button className={cn('dropdownButton')}>{buttonText}</button>
-        <ArrowDown className={cn('arrowImg')} />
+        <button className={cn('dropdownButton', { 'dropdownButton--selected': !isDefaultButtonText })}>
+          {buttonText}
+        </button>
+        {isOpen ? <ArrowUp className={cn('arrowImg')} /> : <ArrowDown className={cn('arrowImg')} />}
       </div>
       {isOpen && (
         <ul className={cn('menuItems')}>
           {menuItems?.map((item) => (
-            <li key={item.id} className={cn('menuItem')}>
+            <li
+              key={item.id}
+              className={cn('menuItem')}
+              onMouseEnter={() => setHoveredItemId(item.id)}
+              onMouseLeave={() => setHoveredItemId(null)}
+              onClick={() => {
+                setButtonText(item.itemText);
+                setIsOpen(false);
+              }}
+            >
+              {hoveredItemId === item.id && <CheckMark className={cn('checkMarkImg')} />}
               {item.itemText}
             </li>
           ))}
