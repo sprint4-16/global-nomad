@@ -7,7 +7,7 @@ import Calendar from '@/images/icon/icon_calendar.svg';
 import styles from './Input.module.scss';
 import classNames from 'classnames/bind';
 
-const cx = classNames.bind(styles);
+const cn = classNames.bind(styles);
 
 interface InputProps {
   label?: ReactNode;
@@ -33,17 +33,17 @@ interface DateInputProps {
 
 export function Input({ label, type, placeholder, color, onClick, className }: InputProps) {
   return (
-    <div className={cx('input-container', className)}>
-      <label htmlFor={type} className={cx('label')}>
+    <div className={cn('input-container', className)}>
+      <label htmlFor={type} className={cn('label')}>
         {label}
       </label>
       {type === 'password' ? (
         <>
-          <input type={type} id={type} placeholder={placeholder} className={cx('input', color)} />
-          <EyeOff className={cx('eye-img')} />
+          <input type={type} id={type} placeholder={placeholder} className={cn('input', color)} />
+          <EyeOff className={cn('eye-img')} />
         </>
       ) : (
-        <input type={type} id={type} placeholder={placeholder} className={cx('input', color)} />
+        <input type={type} id={type} placeholder={placeholder} className={cn('input', color)} />
       )}
     </div>
   );
@@ -51,10 +51,10 @@ export function Input({ label, type, placeholder, color, onClick, className }: I
 
 export function Dropdown({ buttonText, menuItems, onClick, className }: DropdownProps) {
   return (
-    <div className={cx('dropdown-wrapper', className)}>
-      <div className={cx('dropdown-box')}>
-        <button className={cx('dropdown-button')}>{buttonText}</button>
-        <ArrowDown className={cx('arrow-img')} />
+    <div className={cn('dropdown-wrapper', className)}>
+      <div className={cn('dropdown-box')}>
+        <button className={cn('dropdown-button')}>{buttonText}</button>
+        <ArrowDown className={cn('arrow-img')} />
       </div>
     </div>
   );
@@ -62,10 +62,10 @@ export function Dropdown({ buttonText, menuItems, onClick, className }: Dropdown
 
 export function DateInput({ dateText, onClick, className }: DateInputProps) {
   return (
-    <div className={cx('date-input-wrapper', className)}>
-      <div className={cx('date-input-box')}>
+    <div className={cn('date-input-wrapper', className)}>
+      <div className={cn('date-input-box')}>
         {dateText}
-        <Calendar className={cx('calendar-img')} />
+        <Calendar className={cn('calendar-img')} />
       </div>
     </div>
   );
