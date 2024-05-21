@@ -2,7 +2,7 @@ import Image from 'next/image';
 import classNames from 'classnames/bind';
 import styles from './CardResource.module.scss';
 import CardContent from './CardContent';
-import { CardResourceProps } from './CardType';
+import { CardResourceProps } from './CardResourceType';
 
 export default function CardResource({ imgUrl, rating, reviewCount, price, children }: CardResourceProps) {
   const cn = classNames.bind(styles);

@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './CardContent.module.scss';
 import StarBold from '@/images/icon/icon_star_bold.svg';
-import { CardContentProps } from './CardType';
+import { CardContentProps } from './CardResourceType';
 
 export default function CardContent({ size, rating, reviewCount, price, children }: CardContentProps) {
   const cn = classNames.bind(styles);
