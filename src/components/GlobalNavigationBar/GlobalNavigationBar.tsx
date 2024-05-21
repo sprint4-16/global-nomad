@@ -13,7 +13,7 @@ export default function GlobalNavigationBar() {
     <div className={cn('background')}>
       <div className={cn('navBar')}>
         <Link href={ROUTE.HOME}>
-          <Logo className={cn('logoIcon')} />
+          <Logo width="165.51" height="28" />
         </Link>
         <NavItems />
       </div>

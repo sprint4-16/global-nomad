@@ -7,7 +7,7 @@ const cn = classNames.bind(styles);
 export default function ButtonAlertIcon() {
   return (
     <div className={cn('notificaionContainer')}>
-      <NotificationIcon width="20" height="20" viewBox="0 0 22 22" />
+      <NotificationIcon width="20" height="20" viewBox="0 0 24 24" />
     </div>
   );
 }
