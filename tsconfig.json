@@ -17,6 +17,6 @@
       "@/images/*": ["./public/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.mjs"],
+  "include": ["globals.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.mjs"],
   "exclude": ["node_modules"]
 }
