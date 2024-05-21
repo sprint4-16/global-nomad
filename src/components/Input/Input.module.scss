@@ -43,13 +43,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 16px;
   border: 1px solid $gray-700;
   border-radius: 4px;
-  cursor: pointer;
 }
 
 .dropdown-button {
-  padding: 16px 16px 12px 16px;
   color: $gray-600;
   background: #fff;
   align-items: flex-start;
@@ -58,5 +57,22 @@
 }
 
 .arrow-img {
-  margin-right: 16px;
+  cursor: pointer;
+}
+
+.date-input-box {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  border: 1px solid $gray-700;
+  border-radius: 4px;
+  color: $gray-600;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+.calendar-img {
+  cursor: pointer;
 }
