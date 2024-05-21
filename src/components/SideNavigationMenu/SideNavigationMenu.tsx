@@ -7,19 +7,7 @@ import AccountCheck from '@/images/icon/icon_account_check.svg';
 import TextBoxCheck from '@/images/icon/icon_text_box_check.svg';
 import CalendarCheck from '@/images/icon/icon_calendar_check.svg';
 import Setting from '@/images/icon/icon_setting.svg';
-
-export type NavState = 'profile' | 'history' | 'experiences' | 'status';
-
-interface NavItem {
-  id: number;
-  icon: JSX.Element;
-  title: string;
-  state: NavState;
-}
-
-interface SideNavigationMenuProps {
-  onNavClick: (state: NavState) => void;
-}
+import { NavItem, NavState, SideNavigationMenuProps } from './SideNavigationType';
 
 const navItems: NavItem[] = [
   { id: 1, icon: <AccountCheck />, title: '내 정보', state: 'profile' },
