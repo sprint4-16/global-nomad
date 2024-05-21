@@ -1,7 +1,7 @@
 import { StaticImageData } from 'next/image';
 import { ReactNode } from 'react';
 
-export type cardState = 'large' | 'small';
+export type cardSize = 'large' | 'small';
 
 export interface CardResourceProps {
   imgUrl?: StaticImageData;
@@ -12,5 +12,5 @@ export interface CardResourceProps {
 }
 
 export interface CardContentProps extends CardResourceProps {
-  state: cardState;
+  size: cardSize;
 }

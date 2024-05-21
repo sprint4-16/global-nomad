@@ -10,7 +10,7 @@ export default function CardResource({ imgUrl, rating, reviewCount, price, child
   return (
     <div className={cn('cardResource')}>
       {imgUrl ? <Image className={cn('backgroundImg')} src={imgUrl} alt="배경화면" /> : null}
-      <CardContent state="large" rating={rating} reviewCount={reviewCount} price={price}>
+      <CardContent size="large" rating={rating} reviewCount={reviewCount} price={price}>
         {children}
       </CardContent>
     </div>
