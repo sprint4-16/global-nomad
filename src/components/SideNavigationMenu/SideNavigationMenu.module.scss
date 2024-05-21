@@ -8,8 +8,8 @@
   align-items: flex-start;
   gap: 2.4rem;
   border-radius: 1.2rem;
-  border: 0.1rem solid var(--gray-gray_DDDDDD, #ddd);
-  background: var(--white-white_FFFFFF, #fff);
+  border: 0.1rem solid $gray-DDD;
+  background: $white;
   box-shadow: 0 0.4rem 1.6rem 0 rgba(17, 34, 17, 0.05);
 
   @include tablet {
@@ -49,7 +49,7 @@
   right: 1.25rem;
   bottom: 0;
   border-radius: 50%;
-  background: var(--green-green_0B3B2D, #0b3b2d);
+  background: $green-200;
   cursor: pointer;
 }
 
@@ -70,10 +70,10 @@
   cursor: pointer;
 
   &:hover {
-    background: var(--green-green_CED8D5, #ced8d5);
+    background: $green-100;
 
     .navTitle {
-      color: var(--Brand-Nomad-black_112211, #121);
+      color: $green-121;
     }
   }
 }
@@ -84,7 +84,7 @@
 }
 
 .navTitle {
-  color: var(--gray-gray_A1A1A1, #a1a1a1);
+  color: $gray-A1;
   font-size: 1.6rem;
   font-weight: 700;
   line-height: 162.5%;
