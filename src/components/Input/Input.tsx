@@ -33,14 +33,14 @@ interface DateInputProps {
 
 export function Input({ label, type, placeholder, color, onClick, className }: InputProps) {
   return (
-    <div className={cn('input-container', className)}>
+    <div className={cn('inputContainer', className)}>
       <label htmlFor={type} className={cn('label')}>
         {label}
       </label>
       {type === 'password' ? (
         <>
           <input type={type} id={type} placeholder={placeholder} className={cn('input', color)} />
-          <EyeOff className={cn('eye-img')} />
+          <EyeOff className={cn('eyeImg')} />
         </>
       ) : (
         <input type={type} id={type} placeholder={placeholder} className={cn('input', color)} />
@@ -51,10 +51,10 @@ export function Input({ label, type, placeholder, color, onClick, className }: I
 
 export function Dropdown({ buttonText, menuItems, onClick, className }: DropdownProps) {
   return (
-    <div className={cn('dropdown-wrapper', className)}>
-      <div className={cn('dropdown-box')}>
-        <button className={cn('dropdown-button')}>{buttonText}</button>
-        <ArrowDown className={cn('arrow-img')} />
+    <div className={cn('dropdownWrapper', className)}>
+      <div className={cn('dropdownBox')}>
+        <button className={cn('dropdownButton')}>{buttonText}</button>
+        <ArrowDown className={cn('arrowImg')} />
       </div>
     </div>
   );
@@ -62,10 +62,10 @@ export function Dropdown({ buttonText, menuItems, onClick, className }: Dropdown
 
 export function DateInput({ dateText, onClick, className }: DateInputProps) {
   return (
-    <div className={cn('date-input-wrapper', className)}>
-      <div className={cn('date-input-box')}>
+    <div className={cn('dateInputWrapper', className)}>
+      <div className={cn('dateInputBox')}>
         {dateText}
-        <Calendar className={cn('calendar-img')} />
+        <Calendar className={cn('calendarImg')} />
       </div>
     </div>
   );

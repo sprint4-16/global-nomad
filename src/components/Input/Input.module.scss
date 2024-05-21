@@ -1,4 +1,4 @@
-.input-container {
+.inputContainer {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
@@ -25,11 +25,11 @@
   outline: none;
 }
 
-.password-container {
+.passwordContainer {
   width: 100%;
 }
 
-.eye-img {
+.eyeImg {
   position: absolute;
   width: 2.4rem;
   height: 2.4rem;
@@ -38,7 +38,7 @@
   cursor: pointer;
 }
 
-.dropdown-box {
+.dropdownBox {
   width: 100%;
   display: flex;
   align-items: center;
@@ -48,7 +48,7 @@
   border-radius: 0.4rem;
 }
 
-.dropdown-button {
+.dropdownButton {
   color: $gray-600;
   background: #fff;
   align-items: flex-start;
@@ -56,11 +56,11 @@
   line-height: 2.6rem;
 }
 
-.arrow-img {
+.arrowImg {
   cursor: pointer;
 }
 
-.date-input-box {
+.dateInputBox {
   width: 100%;
   display: flex;
   align-items: center;
@@ -73,6 +73,6 @@
   line-height: 2.6rem;
 }
 
-.calendar-img {
+.calendarImg {
   cursor: pointer;
 }
