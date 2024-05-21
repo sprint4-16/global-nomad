@@ -40,32 +40,32 @@
 }
 
 .rating.large {
-  color: var(--white-white_FFFFFF, #fff);
+  color: $white;
   font-size: 1.4rem;
   font-weight: 600;
 }
 
 .rating.small {
-  color: var(--black-black_1B1B1B, #1b1b1b);
+  color: $black;
   font-size: 1.6rem;
   font-weight: 500;
 }
 
 .reviewCount.large {
-  color: var(--white-white_FFFFFF, #fff);
+  color: $white;
   font-size: 1.4rem;
   font-weight: 600;
 }
 
 .reviewCount.small {
-  color: var(--gray-gray_A1A1A1, #a1a1a1);
+  color: $gray-A1;
   font-size: 1.6rem;
   font-weight: 500;
 }
 
 .cardDescription.large {
   width: 23rem;
-  color: var(--white-white_FFFFFF, #fff);
+  color: $white;
   font-size: 3rem;
   font-weight: 700;
 
@@ -78,7 +78,7 @@
 .cardDescription.small {
   width: 100%;
   padding-bottom: 0.5rem;
-  color: var(--black-black_1B1B1B, #1b1b1b);
+  color: $black;
   font-size: 2.4rem;
   font-weight: 600;
 
@@ -95,7 +95,7 @@
 }
 
 .priceContainer.large {
-  color: var(--white-white_FFFFFF, #fff);
+  color: $white;
   font-size: 2rem;
 
   @include mobile {
@@ -104,7 +104,7 @@
 }
 
 .priceContainer.small {
-  color: var(--black-black_1B1B1B, #1b1b1b);
+  color: $black;
   font-size: 2.8rem;
 
   @include mobile {
@@ -117,12 +117,12 @@
 }
 
 .perPerson.large {
-  color: var(--gray-gray_A1A1A1, #a1a1a1);
+  color: $gray-A1;
   font-size: 1.4rem;
 }
 
 .perPerson.small {
-  color: var(--gray-gray_4B4B4B, #4b4b4b);
+  color: $gray-800;
   font-size: 2rem;
 
   @include mobile {
