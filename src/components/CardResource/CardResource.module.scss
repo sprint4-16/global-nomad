@@ -1,0 +1,30 @@
+.cardResource {
+  width: 384px;
+  height: 384px;
+  position: relative;
+  padding-top: 170px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 33.33%, rgba(0, 0, 0, 0.8) 91.67%);
+
+  @include mobile {
+    width: 186px;
+    height: 186px;
+    padding-top: 55px;
+    padding-bottom: 16px;
+  }
+}
+
+.backgroundImg {
+  width: 384px;
+  height: 384px;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  border-radius: 20px;
+  object-fit: cover;
+
+  @include mobile {
+    width: 186px;
+    height: 186px;
+  }
+}
