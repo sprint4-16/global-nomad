@@ -1,0 +1,42 @@
+@import '/src/styles/reset.scss';
+
+.navBar {
+  background-color: $white;
+  border-bottom: 0.1rem solid $gray-300;
+
+  width: 192rem;
+  height: 7rem;
+
+  padding-left: 36.9rem;
+  padding-right: 35.1rem;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logoIcon {
+  width: 16.551rem;
+  height: 2.8rem;
+  background-color: #fff;
+}
+
+@include tablet {
+  .navBar {
+    width: 74.4rem;
+
+    padding-left: 2.4rem;
+    padding-right: 2.4rem;
+  }
+}
+
+@include mobile {
+  .navBar {
+    width: 37.5rem;
+
+    padding-left: 2.4rem;
+    padding-right: 2.4rem;
+  }
+}
