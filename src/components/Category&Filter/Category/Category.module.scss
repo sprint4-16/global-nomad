@@ -16,7 +16,7 @@
   align-items: center;
   border-radius: 1.5rem;
   border: 0.1rem solid $green-200;
-  background: #fff;
+  background: $white;
   color: $green-200;
   text-align: center;
   white-space: nowrap;
@@ -28,6 +28,6 @@
   }
 }
 .clickedItem {
-  background: #121;
-  color: #fff;
+  background: $nomad-black;
+  color: $white;
 }

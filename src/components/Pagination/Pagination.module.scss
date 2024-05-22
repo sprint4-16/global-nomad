@@ -10,7 +10,7 @@
   height: 5.5rem;
   border-radius: 1.5rem;
   border: 0.1rem solid $green-200;
-  background: #fff;
+  background: $white;
   @include mobile {
     width: 4rem;
     height: 4rem;
@@ -30,7 +30,7 @@
   height: 5.5rem;
   border-radius: 1.5rem;
   border: 1px solid $green-200;
-  background: #fff;
+  background: $white;
   color: $green-200;
   text-align: center;
   @include pretendard-18-500;
@@ -41,5 +41,5 @@
 }
 .clickedPage {
   background: $green-200;
-  color: #fff;
+  color: $white;
 }
