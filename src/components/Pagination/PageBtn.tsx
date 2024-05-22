@@ -4,12 +4,12 @@ import ArrowDown from '@/images/btn/btn_arrow_down.svg';
 
 const cn = classNames.bind(styles);
 
-interface tempProps {
+interface pageBtnProps {
   direction: 'left' | 'right';
   disabled: boolean;
   onClick: () => void;
 }
-export default function PageBtn({ direction, disabled, onClick }: tempProps) {
+export default function PageBtn({ direction, disabled, onClick }: pageBtnProps) {
   return (
     <button className={cn('pageBtn')} onClick={onClick} disabled={disabled}>
       <ArrowDown

@@ -4,11 +4,11 @@ import React, { useEffect, useRef } from 'react';
 
 const cn = classNames.bind(styles);
 
-interface tempProps {
+interface filterListProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setSelectedItem: React.Dispatch<React.SetStateAction<string>>;
 }
-export default function FilterList({ setIsOpen, setSelectedItem }: tempProps) {
+export default function FilterList({ setIsOpen, setSelectedItem }: filterListProps) {
   const filterList = ['많은 리뷰 순', '낮은 가격 순', '높은 가격 순', '최신 순'];
   const filterRef = useRef<HTMLDivElement>(null);
 

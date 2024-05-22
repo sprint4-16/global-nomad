@@ -4,10 +4,10 @@ import styles from './Category.module.scss';
 
 const cn = classNames.bind(styles);
 
-interface tempProps {
+interface categoryProps {
   list: string[];
 }
-export default function Category({ list }: tempProps) {
+export default function Category({ list }: categoryProps) {
   const [clicked, setClicked] = useState<string | ''>('');
 
   const handleCategoryClick = (item: string) => {

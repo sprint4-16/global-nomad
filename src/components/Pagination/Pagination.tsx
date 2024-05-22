@@ -6,10 +6,10 @@ import { useEffect, useState } from 'react';
 const cn = classNames.bind(styles);
 const PAGE_UNIT = 5;
 
-interface tempProps {
+interface paginationProps {
   total: number;
 }
-export default function Pagination({ total }: tempProps) {
+export default function Pagination({ total }: paginationProps) {
   const [endPoint, setEndPoint] = useState<number>(1);
   const [currentPoint, setCurrentPoint] = useState<number>(1);
   const [clicked, setClicked] = useState<number>(1);
