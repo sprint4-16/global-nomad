@@ -6,27 +6,28 @@ import GrayRightArrow from '../../../../public/btn/btn_gray_arrow_right.svg';
 interface ArrowBtnProps {
   type: 'prev' | 'next';
   isDisabled: boolean;
+  size?: number;
   onClick?: () => void;
 }
 
-const render = (type: 'prev' | 'next', isDidsabled: boolean) => {
+const render = (type: 'prev' | 'next', isDidsabled: boolean, size: number) => {
   if (type === 'prev') {
     if (isDidsabled) {
-      return <GrayLeftArrow />;
+      return <GrayLeftArrow width={size} height={size} />;
     }
-    return <BlackLeftArrow />;
+    return <BlackLeftArrow width={size} height={size} />;
   } else {
     if (isDidsabled) {
-      return <GrayRightArrow />;
+      return <GrayRightArrow width={size} height={size} />;
     }
-    return <BlackRightArrow />;
+    return <BlackRightArrow width={size} height={size} />;
   }
 };
 
-export default function ArrowBtn({ type, isDisabled, onClick }: ArrowBtnProps) {
+export default function ArrowBtn({ type, isDisabled, size = 44, onClick }: ArrowBtnProps) {
   return (
     <button disabled={isDisabled} onClick={onClick}>
-      {render(type, isDisabled)}
+      {render(type, isDisabled, size)}
     </button>
   );
 }
