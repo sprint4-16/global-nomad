@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  gap: 1rem;
+}
+.pageBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 1.5rem;
+  border: 0.1rem solid $green-200;
+  background: $white;
+  @include mobile {
+    width: 4rem;
+    height: 4rem;
+  }
+  &:disabled {
+    border: 0.1rem solid $gray-300;
+  }
+}
+.pageLeft {
+  transform: rotate(90deg);
+}
+.pageRight {
+  transform: rotate(270deg);
+}
+.page {
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 1.5rem;
+  border: 1px solid $green-200;
+  background: $white;
+  color: $green-200;
+  text-align: center;
+  @include pretendard-18-500;
+  @include mobile {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+.clickedPage {
+  background: $green-200;
+  color: $white;
+}
