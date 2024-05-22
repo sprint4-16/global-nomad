@@ -19,13 +19,12 @@
   background: #fff;
   color: $green-200;
   text-align: center;
-  font-size: 1.8rem;
-  font-weight: 500;
   white-space: nowrap;
+  @include pretendard-18-500;
   @include mobile {
+    @include pretendard-14-400;
     width: 10rem;
     padding: 1.6rem 2rem;
-    font-size: 1.4rem;
   }
 }
 .clickedItem {

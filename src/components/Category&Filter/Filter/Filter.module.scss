@@ -20,10 +20,9 @@
   background: #fff;
   .text {
     color: $green-200;
-    font-size: 1.8rem;
-    font-weight: 500;
+    @include pretendard-18-500;
     @include mobile {
-      font-size: 1.6rem;
+      @include pretendard-16-400;
     }
   }
 }
