@@ -1,4 +1,4 @@
-import NotificationBtnIcon from '../../../../public/btn/btn_notification.svg';
+import NotificationBtnIcon from '@/images/btn/btn_notification.svg';
 
 interface NotificationProps {
   onClick?: () => void;

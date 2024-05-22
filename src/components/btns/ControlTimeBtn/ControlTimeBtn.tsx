@@ -1,5 +1,5 @@
-import AddBtnIcon from '../../../../public/btn/btn_add.svg';
-import MinusBtnIcon from '../../../../public/btn/btn_minus.svg';
+import AddBtnIcon from '@/images/btn/btn_add.svg';
+import MinusBtnIcon from '@/images/btn/btn_minus.svg';
 
 interface ArrowBtnProps {
   type: 'plus' | 'minus';

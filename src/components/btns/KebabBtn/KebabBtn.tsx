@@ -1,4 +1,4 @@
-import MeatBallBtnIcon from '../../../../public/btn/btn_meatball.svg';
+import MeatBallBtnIcon from '@/images/btn/btn_meatball.svg';
 
 interface KebabBtnProps {
   onClick?: () => void;

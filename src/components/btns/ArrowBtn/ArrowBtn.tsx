@@ -1,7 +1,7 @@
-import BlackLeftArrow from '../../../../public/btn/btn_black_arrow_left.svg';
-import BlackRightArrow from '../../../../public/btn/btn_black_arrow_right.svg';
-import GrayLeftArrow from '../../../../public/btn/btn_gray_arrow_left.svg';
-import GrayRightArrow from '../../../../public/btn/btn_gray_arrow_right.svg';
+import BlackLeftArrow from '@/images/btn/btn_black_arrow_left.svg';
+import BlackRightArrow from '@/images/btn/btn_black_arrow_right.svg';
+import GrayLeftArrow from '@/images/btn/btn_gray_arrow_left.svg';
+import GrayRightArrow from '@/images/btn/btn_gray_arrow_right.svg';
 
 interface ArrowBtnProps {
   type: 'prev' | 'next';

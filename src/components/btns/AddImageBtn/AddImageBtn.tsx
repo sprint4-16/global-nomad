@@ -1,4 +1,4 @@
-import AddImageIcon from '../../../../public/btn/btn_add_img.svg';
+import AddImageIcon from '@/images/btn/btn_add_img.svg';
 
 interface AddImageBtnProps {
   onClick?: () => void;

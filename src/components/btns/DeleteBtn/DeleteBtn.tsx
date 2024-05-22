@@ -1,4 +1,4 @@
-import DeleteBtnIcon from '../../../../public/btn/btn_delete.svg';
+import DeleteBtnIcon from '@/images/btn/btn_delete.svg';
 
 interface DeleteBtnProps {
   onClick?: () => void;
