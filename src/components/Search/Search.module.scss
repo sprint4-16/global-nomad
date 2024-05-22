@@ -1,0 +1,70 @@
+.searchContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 3.2rem 2.4rem;
+  border-radius: 1.6rem;
+  box-shadow: 0rem 0.4rem 1.6rem 0rem rgba(17, 34, 17, 0.05);
+  gap: 3.2rem;
+}
+
+.searchLabel {
+  @include pretendard-20-700;
+}
+
+.searchBox {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  position: relative;
+}
+
+.bedImg {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 1rem;
+  z-index: 1;
+}
+
+.inputContainer {
+  position: relative;
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  padding: 1rem 1.6rem 1rem 4rem;
+  border-radius: 0.4rem;
+  border: 1px solid $nomad-black;
+  @include pretendard-16-400;
+  &:focus + .placeholder,
+  &:not(:placeholder-shown) + .placeholder {
+    top: -1.2rem;
+    left: 2rem;
+    color: $gray-600;
+    background-color: #fff;
+    @include pretendard-16-400;
+  }
+}
+
+.placeholder {
+  position: absolute;
+  top: 1rem;
+  left: 4rem;
+  color: $gray-600;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  @include pretendard-16-400;
+}
+
+.large {
+  width: 120rem;
+}
+
+.medium {
+  width: 70rem;
+}
+
+.small {
+  width: 34.3rem;
+}
