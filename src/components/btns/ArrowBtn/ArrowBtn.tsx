@@ -16,12 +16,11 @@ const render = (type: 'prev' | 'next', isDidsabled: boolean, size: number) => {
       return <GrayLeftArrow width={size} height={size} />;
     }
     return <BlackLeftArrow width={size} height={size} />;
-  } else {
-    if (isDidsabled) {
-      return <GrayRightArrow width={size} height={size} />;
-    }
-    return <BlackRightArrow width={size} height={size} />;
   }
+  if (isDidsabled) {
+    return <GrayRightArrow width={size} height={size} />;
+  }
+  return <BlackRightArrow width={size} height={size} />;
 };
 
 export default function ArrowBtn({ type, isDisabled, size = 44, onClick }: ArrowBtnProps) {
