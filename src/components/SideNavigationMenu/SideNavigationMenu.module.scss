@@ -1,0 +1,91 @@
+.sideNavigationMenu {
+  display: flex;
+  width: 100%;
+  max-width: 38.4rem;
+  padding: 2.4rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2.4rem;
+  border-radius: 1.2rem;
+  border: 0.1rem solid $gray-DDD;
+  background: $white;
+  box-shadow: 0 0.4rem 1.6rem 0 rgba(17, 34, 17, 0.05);
+
+  @include tablet {
+    width: 25.1rem;
+  }
+}
+
+.profileImgWrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.profileImgContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 16rem;
+  height: 16rem;
+}
+
+.profileImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 0.4rem 1.6rem 0 rgba(0, 0, 0, 0.08);
+}
+
+.penWrapper {
+  width: 4.4rem;
+  height: 4.4rem;
+  padding: 1rem;
+  position: absolute;
+  right: 1.25rem;
+  bottom: 0;
+  border-radius: 50%;
+  background: $green-200;
+  cursor: pointer;
+}
+
+.navMenuList {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.navMenu {
+  display: flex;
+  width: 100%;
+  gap: 1.4rem;
+  padding: 0.9rem 1.6rem;
+  align-items: center;
+  border-radius: 1.2rem;
+  cursor: pointer;
+
+  &:hover {
+    background: $green-100;
+
+    .navTitle {
+      color: $green-121;
+    }
+  }
+}
+
+.navIcon {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.navTitle {
+  color: $gray-A1;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 162.5%;
+}
