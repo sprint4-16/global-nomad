@@ -27,7 +27,9 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
 
+.starBold {
   &.large {
     width: 1.8rem;
     height: 1.8rem;
@@ -119,6 +121,7 @@
 
 .perPerson {
   font-weight: 400;
+
   &.large {
     color: $gray-A1;
     font-size: 1.4rem;
