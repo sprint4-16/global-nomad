@@ -7,7 +7,7 @@ const cn = classNames.bind(styles);
 import { ROUTE } from '@/constants';
 import { ButtonAlertIcon, ButtonProfile } from './items';
 
-export default function NavItems({ loggeninStatus = false }: { loggeninStatus?: boolean }) {
+export default function NavItems({ loggeninStatus = !false }: { loggeninStatus?: boolean }) {
   return (
     <>
       {loggeninStatus ? (
