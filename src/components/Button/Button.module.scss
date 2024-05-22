@@ -3,23 +3,23 @@
   font-weight: 700;
   padding: 1.4rem 0;
   border-radius: 0.6rem;
-  font-family: 'Spoqa Han Sans Neo';
+  @include Spoqa-16-700;
 }
 
 .primary {
-  color: #fff;
-  background-color: #112211;
+  color: $white;
+  background-color: $nomad-black;
 }
 
 .secondary {
-  color: #112211;
-  background-color: #fff;
-  border: 1px solid;
+  color: $nomad-black;
+  background-color: $white;
+  border: 0.1rem solid;
 }
 
 .disabled {
-  color: #fff;
-  background-color: #a4a1aa;
+  color: $white;
+  background-color: $gray-600;
 }
 
 .large {
