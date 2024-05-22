@@ -24,5 +24,9 @@ const render = (type: 'prev' | 'next', isDidsabled: boolean) => {
 };
 
 export default function ArrowBtn({ type, isDisabled, onClick }: ArrowBtnProps) {
-  return <button onClick={onClick}>{render(type, isDisabled)}</button>;
+  return (
+    <button disabled={isDisabled} onClick={onClick}>
+      {render(type, isDisabled)}
+    </button>
+  );
 }
