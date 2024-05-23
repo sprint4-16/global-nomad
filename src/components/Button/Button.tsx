@@ -8,6 +8,7 @@ interface ButtonProps {
   size: Size;
   sx?: CSSProperties;
   onClick?: () => void;
+  className: string;
 }
 
 type Type = 'primary' | 'secondary' | 'disabled';
@@ -15,9 +16,9 @@ type Size = 'large' | 'medium' | 'small' | 'full';
 
 const cn = classNames.bind(styles);
 
-export default function Button({ type, size, sx, onClick, children }: ButtonProps) {
+export default function Button({ type, size, sx, onClick, className, children }: ButtonProps) {
   return (
-    <button onClick={onClick} style={sx} className={cn('btn', type, size)}>
+    <button onClick={onClick} style={sx} className={cn('btn', type, size, className)}>
       {children}
     </button>
   );
