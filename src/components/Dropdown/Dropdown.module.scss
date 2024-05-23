@@ -30,7 +30,7 @@
   margin-top: 0.8rem;
   list-style-type: none;
   border-radius: 0.6rem;
-  box-shadow: 0px 1rem 3rem 0.3rem $box-shadow;
+  box-shadow: 0px 1rem 3rem 0.3rem rgba($box-shadow, 0.15);
 }
 
 .menuItem {
