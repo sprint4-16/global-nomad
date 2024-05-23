@@ -29,8 +29,8 @@ export default function ConfirmationModal({
   useOutsideClick({ ref: modalRef, onClick: handleModalOpen });
 
   return (
-    <div className={cn('background', className)}>
-      <div className={cn('container')} ref={modalRef}>
+    <div className={cn('background')}>
+      <div className={cn('container', className)} ref={modalRef}>
         <div className={cn('IconContainer')}>
           <CheckIcon />
         </div>

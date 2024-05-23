@@ -1,7 +1,7 @@
 import ConfirmModal from './ConfirmationModal';
 
 export default {
-  title: 'Example/AlertModal',
+  title: 'Example/ConfirmModal',
   component: ConfirmModal,
 };
 

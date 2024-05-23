@@ -1,7 +1,8 @@
-import AlertModal from '@/components/Popup/PopupComponents/AlertModal';
-import ConfirmationModal from '@/components/Popup/PopupComponents/ConfirmationModal';
 import { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+
+import AlertModal from '@/components/Popup/PopupComponents/AlertModal';
+import ConfirmationModal from '@/components/Popup/PopupComponents/ConfirmationModal';
 
 interface PopupComponentParams {
   className?: string;
@@ -12,7 +13,7 @@ interface PopupComponentParams {
   handleModalOpen: () => void;
 }
 
-export default function PopUpComponent({
+export default function PopupComponent({
   className,
   modalType,
   alertMessage,
