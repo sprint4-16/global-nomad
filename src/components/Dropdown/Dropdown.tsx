@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 const cn = classNames.bind(styles);
 
-interface menuItem {
+export interface menuItem {
   id: number;
   itemText: string;
 }
@@ -17,6 +17,7 @@ interface DropdownProps {
   menuItems?: menuItem[];
   className?: string;
   onClick?: () => void;
+  onSelect?: (selectedItem: menuItem) => void;
 }
 
 const defaultMenuItems: menuItem[] = [
@@ -31,6 +32,7 @@ export function Dropdown({
   buttonText: initialButtonText,
   menuItems = defaultMenuItems,
   onClick,
+  onSelect,
   className,
 }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,6 +64,9 @@ export function Dropdown({
               onClick={() => {
                 setButtonText(item.itemText);
                 setIsOpen(false);
+                if (onSelect) {
+                  onSelect(item);
+                }
               }}
             >
               {hoveredItemId === item.id && <CheckMark className={cn('checkMarkImg')} />}
