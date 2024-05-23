@@ -7,8 +7,7 @@
   border: 0.1rem solid $gray-700;
   border-radius: 0.4rem;
   color: $gray-600;
-  font-size: 1.6rem;
-  line-height: 2.6rem;
+  @include pretendard-16-400;
 }
 
 .calendarImg {

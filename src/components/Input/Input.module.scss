@@ -7,17 +7,15 @@
 
 .label {
   color: $black;
-  font-size: 1.6rem;
-  line-height: 2.6rem;
+  @include pretendard-16-400;
 }
 
 .input {
   padding: 1.6rem 2rem;
   border-radius: 0.6rem;
   border: 0.1rem solid $gray-600;
-  font-size: 1.6rem;
-  line-height: 2.6rem;
   align-content: center;
+  @include pretendard-16-400;
 }
 
 .input:focus {

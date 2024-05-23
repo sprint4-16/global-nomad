@@ -11,14 +11,13 @@
 
 .dropdownButton {
   color: $gray-600;
-  background: #fff;
+  background: $white;
   align-items: flex-start;
-  font-size: 1.6rem;
-  line-height: 2.6rem;
+  @include pretendard-16-400;
 }
 
 .dropdownButton--selected {
-  color: #000;
+  color: $nomad-black;
 }
 
 .arrowImg {
@@ -31,20 +30,19 @@
   margin-top: 0.8rem;
   list-style-type: none;
   border-radius: 0.6rem;
-  box-shadow: 0px 1rem 3rem 0.3rem rgba(5, 16, 55, 0.15);
+  box-shadow: 0px 1rem 3rem 0.3rem $box-shadow;
 }
 
 .menuItem {
   padding: 0.8rem 3.6rem;
-  font-size: 1.6rem;
-  line-height: 2.6rem;
   border-radius: 0.6rem;
   position: relative;
+  @include pretendard-16-400;
 }
 
 .menuItem:hover {
   background-color: $nomad-black;
-  color: #fff;
+  color: $white;
   cursor: pointer;
 }
 
