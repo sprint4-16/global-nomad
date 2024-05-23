@@ -29,6 +29,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <div id="wrapper">
+        <div id="modal-root" />
         {checkRouteInGNB && <GlobalNavigationBar />}
         <div id="contentWrapper" style={contentStyle}>
           <Component {...pageProps} />
