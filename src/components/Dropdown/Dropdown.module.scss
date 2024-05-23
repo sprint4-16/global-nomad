@@ -1,0 +1,56 @@
+.dropdownBox {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.6rem;
+  border: 0.1rem solid $gray-700;
+  border-radius: 0.4rem;
+  user-select: none;
+}
+
+.dropdownButton {
+  color: $gray-600;
+  background: #fff;
+  align-items: flex-start;
+  font-size: 1.6rem;
+  line-height: 2.6rem;
+}
+
+.dropdownButton--selected {
+  color: #000;
+}
+
+.arrowImg {
+  cursor: pointer;
+}
+
+.menuItems {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 0.8rem;
+  list-style-type: none;
+  border-radius: 0.6rem;
+  box-shadow: 0px 1rem 3rem 0.3rem rgba(5, 16, 55, 0.15);
+}
+
+.menuItem {
+  padding: 0.8rem 3.6rem;
+  font-size: 1.6rem;
+  line-height: 2.6rem;
+  border-radius: 0.6rem;
+  position: relative;
+}
+
+.menuItem:hover {
+  background-color: $nomad-black;
+  color: #fff;
+  cursor: pointer;
+}
+
+.checkMarkImg {
+  position: absolute;
+  left: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
