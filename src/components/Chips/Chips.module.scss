@@ -6,21 +6,35 @@
 
 .large {
   width: 11rem;
-  font-size: 1.4rem;
-  font-weight: 500;
-  line-height: normal;
+  @include pretendard-14-500;
 }
 
 .medium {
   width: 5.8rem;
-  font-size: 1.4rem;
-  font-weight: 500;
-  line-height: normal;
+  @include pretendard-14-500;
 }
 
 .small {
   width: 4.5rem;
-  font-size: 1.2rem;
-  line-height: normal;
-  font-weight: 500;
+  @include pretendard-14-500;
+}
+
+.seat {
+  background-color: $white;
+  color: $blue-300;
+}
+
+.reservation {
+  background-color: $blue-300;
+  color: $white;
+}
+
+.complete {
+  background-color: $gray-300;
+  color: $gray-800;
+}
+
+.confirmed {
+  background-color: $red-100;
+  color: $orange-200;
 }
