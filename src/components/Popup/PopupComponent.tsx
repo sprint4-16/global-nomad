@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 interface PopupComponentParams {
+  className?: string;
   modalType: 'alert' | 'confirm';
   alertMessage: string;
   onConfirm: () => void;
@@ -12,6 +13,7 @@ interface PopupComponentParams {
 }
 
 export default function PopUpComponent({
+  className,
   modalType,
   alertMessage,
   onConfirm,
@@ -26,10 +28,24 @@ export default function PopUpComponent({
 
   const renderModal = () => {
     if (modalType === 'alert') {
-      return <AlertModal alertMessage={alertMessage} onConfirm={onConfirm} handleModalOpen={handleModalOpen} />;
+      return (
+        <AlertModal
+          className={className}
+          alertMessage={alertMessage}
+          onConfirm={onConfirm}
+          handleModalOpen={handleModalOpen}
+        />
+      );
     }
     if (modalType === 'confirm') {
-      return <ConfirmationModal confirmMessage={alertMessage} onCancel={onConfirm} handleModalOpen={handleModalOpen} />;
+      return (
+        <ConfirmationModal
+          className={className}
+          confirmMessage={alertMessage}
+          onCancel={onConfirm}
+          handleModalOpen={handleModalOpen}
+        />
+      );
     }
   };
 

@@ -26,7 +26,7 @@ export default function AlertModal({
   };
 
   const modalRef = useRef<HTMLDivElement>(null);
-  useOutsideClick(modalRef, handleModalOpen);
+  useOutsideClick({ ref: modalRef, onClick: handleModalOpen });
 
   return (
     <div className={cn('background')}>

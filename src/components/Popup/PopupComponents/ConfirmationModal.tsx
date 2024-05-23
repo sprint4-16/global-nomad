@@ -1,20 +1,22 @@
 import classNames from 'classnames/bind';
 import styles from './Confirmation.module.scss';
-import { MouseEvent } from 'react';
+import { MouseEvent, useRef } from 'react';
 
 import CheckIcon from '@/images/icon/icon_check.svg';
+import useOutsideClick from '@/hooks/useOutsideClick';
 
 const cn = classNames.bind(styles);
 
 interface ConfirmationProps {
+  className?: string;
   confirmMessage?: string;
   onCancel: () => void;
   handleModalOpen: () => void;
 }
 
 export default function ConfirmationModal({
+  className,
   confirmMessage = '메시지가 없습니다.',
-
   onCancel,
   handleModalOpen,
 }: ConfirmationProps) {
@@ -23,9 +25,12 @@ export default function ConfirmationModal({
     onCancel();
   };
 
+  const modalRef = useRef<HTMLDivElement>(null);
+  useOutsideClick({ ref: modalRef, onClick: handleModalOpen });
+
   return (
-    <div className={cn('background')}>
-      <form className={cn('container')}>
+    <div className={cn('background', className)}>
+      <div className={cn('container')} ref={modalRef}>
         <div className={cn('IconContainer')}>
           <CheckIcon />
         </div>
@@ -38,7 +43,7 @@ export default function ConfirmationModal({
             취소하기
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }
