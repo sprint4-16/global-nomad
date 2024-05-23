@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { CSSProperties, ReactNode, useState } from 'react';
 import EyeOff from '@/images/btn/btn_eye_off.svg';
 import EyeOn from '@/images/btn/btn_eye_on.svg';
 import styles from './Input.module.scss';
@@ -11,11 +11,12 @@ interface InputProps {
   type: React.HTMLInputTypeAttribute;
   placeholder?: string;
   color?: string;
+  sx?: CSSProperties;
   className?: string;
   onClick?: () => void;
 }
 
-export function Input({ label, type, placeholder, color, onClick, className }: InputProps) {
+export function Input({ label, type, placeholder, color, sx, onClick, className }: InputProps) {
   return (
     <div className={cn('inputContainer', className)}>
       <label htmlFor={type} className={cn('label')}>
@@ -23,8 +24,8 @@ export function Input({ label, type, placeholder, color, onClick, className }: I
       </label>
       {type === 'password' ? (
         <>
-          <input type={type} id={type} placeholder={placeholder} className={cn('input', color)} />
-          <EyeOff className={cn('eyeImg')} />
+          <input type={type} id={type} placeholder={placeholder} className={cn('input', color)} style={sx} />
+          <EyeOff className={cn('eyeImg')} onClick={onClick} />
         </>
       ) : (
         <input type={type} id={type} placeholder={placeholder} className={cn('input', color)} />
