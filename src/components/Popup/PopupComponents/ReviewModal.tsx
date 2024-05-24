@@ -3,6 +3,7 @@ import styles from './ReviewModal.module.scss';
 import { MouseEvent, useRef } from 'react';
 
 import CloseIcon from '@/images/btn/btn_X.svg';
+import RaitingComponent from './RaitingComponent/RaitingComponent';
 import useOutsideClick from '@/hooks/useOutsideClick';
 
 const cn = classNames.bind(styles);
@@ -22,6 +23,10 @@ export default function ReviewModal({ className, onConfirm, handleModalOpen }: R
     handleModalOpen();
   };
 
+  const onClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    handleConfirm;
+  };
   useOutsideClick({ ref: modalRef, onClick: handleModalOpen });
 
   return (
@@ -29,13 +34,13 @@ export default function ReviewModal({ className, onConfirm, handleModalOpen }: R
       <div className={cn('container', className)} ref={modalRef}>
         <div className={cn('header')}>
           <span>후기 작성</span>
-          <CloseIcon />
+          <CloseIcon onClick={handleModalOpen} />
         </div>
         <form className={cn('form')}>
-          <div className={cn('card')}></div>
-          <div className={cn('rating')}></div>
+          <div className={cn('card')} />
+          <RaitingComponent />
           <div className={cn('textarea')}></div>
-          <button className={cn('button')} onClick={handleConfirm}>
+          <button className={cn('button')} onClick={onClick}>
             작성하기
           </button>
         </form>
