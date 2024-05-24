@@ -1,4 +1,5 @@
 import GlobalNavigationBar from './GlobalNavigationBar';
+import '@/styles/reset.scss';
 
 export default {
   title: 'Example/GlobalNavigationBar',

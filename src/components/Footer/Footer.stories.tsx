@@ -1,4 +1,5 @@
 import Footer from './Footer';
+import '@/styles/reset.scss';
 
 export default {
   title: 'Example/Footer',

@@ -1,4 +1,5 @@
 import ReviewModal from './ReviewModal';
+import '@/styles/reset.scss';
 
 export default {
   title: 'Example/ReviewModal',
