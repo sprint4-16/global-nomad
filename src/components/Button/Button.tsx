@@ -8,7 +8,7 @@ interface ButtonProps {
   size: Size;
   sx?: CSSProperties;
   onClick?: () => void;
-  className: string;
+  className?: string;
 }
 
 type Type = 'primary' | 'secondary' | 'disabled';
