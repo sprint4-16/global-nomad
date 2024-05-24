@@ -1,21 +1,16 @@
 import { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 
-import ReviewModal from './PopupComponents/ReviewModal';
+import ReviewModal from './PopupComponents/ReviewModal/ReviewModal';
 
-interface ReviewModalParams {
+interface ReviewModalProps {
   className?: string;
   onConfirm: () => void;
   isModalOpen: boolean;
   handleModalOpen: () => void;
 }
 
-export default function ReviewModalComponent({
-  className,
-  onConfirm,
-  isModalOpen,
-  handleModalOpen,
-}: ReviewModalParams) {
+export default function CreateReviewModal({ className, onConfirm, isModalOpen, handleModalOpen }: ReviewModalProps) {
   const [modalRoot, setModalRoot] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -26,5 +21,5 @@ export default function ReviewModalComponent({
     return <ReviewModal className={className} onConfirm={onConfirm} handleModalOpen={handleModalOpen} />;
   };
 
-  return <>{isModalOpen && modalRoot && ReactDOM.createPortal(renderModal(), modalRoot)}</>;
+  return <>{isModalOpen && modalRoot && createPortal(renderModal(), modalRoot)}</>;
 }

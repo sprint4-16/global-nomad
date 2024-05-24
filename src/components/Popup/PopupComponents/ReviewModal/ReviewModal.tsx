@@ -1,21 +1,22 @@
-import classNames from 'classnames/bind';
-import styles from './ReviewModal.module.scss';
 import { MouseEvent, useRef } from 'react';
 
+import classNames from 'classnames/bind';
+import styles from './ReviewModal.module.scss';
+
 import CloseIcon from '@/images/btn/btn_X.svg';
-import RaitingComponent from './RaitingComponent/RaitingComponent';
-import Textarea from '@/components/Textarea/Textarea';
 import useOutsideClick from '@/hooks/useOutsideClick';
+import Textarea from '@/components/Textarea/Textarea';
+import RaitingComponent from './RaitingComponent/RaitingComponent';
 
 const cn = classNames.bind(styles);
 
-interface ReviewModalParams {
+interface ReviewModalProps {
   className?: string;
   onConfirm: () => void;
   handleModalOpen: () => void;
 }
 
-export default function ReviewModal({ className, onConfirm, handleModalOpen }: ReviewModalParams) {
+export default function ReviewModal({ className, onConfirm, handleModalOpen }: ReviewModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const handleConfirm = (e: MouseEvent<HTMLButtonElement>) => {

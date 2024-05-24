@@ -1,6 +1,7 @@
-import classNames from 'classnames/bind';
-import styles from './Confirmation.module.scss';
 import { MouseEvent, useRef } from 'react';
+
+import classNames from 'classnames/bind';
+import styles from './ConfirmationModal.module.scss';
 
 import CheckIcon from '@/images/icon/icon_check.svg';
 import useOutsideClick from '@/hooks/useOutsideClick';
