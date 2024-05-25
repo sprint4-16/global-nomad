@@ -96,10 +96,10 @@
     @include tablet {
       display: none;
     }
-    .tempBtns {
+    .timeBtns {
       display: flex;
       gap: 1.2rem;
-      .btn1 {
+      .btnClicked {
         padding: 1rem 1.2rem;
         border-radius: 0.8rem;
         border: 0.1rem solid $nomad-black;
@@ -107,7 +107,7 @@
         color: $white;
         @include pretendard-16-500;
       }
-      .btn2 {
+      .btn {
         padding: 1rem 1.2rem;
         border-radius: 0.8rem;
         border: 0.1rem solid $nomad-black;
