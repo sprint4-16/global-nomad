@@ -3,7 +3,7 @@ import NotificationBtn from './Notification';
 import '@/styles/reset.scss';
 
 const meta = {
-  title: 'Example/btn/NotificationBtn',
+  title: 'Project/btn/NotificationBtn',
   component: NotificationBtn,
   parameters: {
     layout: 'centered',
