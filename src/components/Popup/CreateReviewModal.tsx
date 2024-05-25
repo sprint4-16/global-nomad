@@ -17,9 +17,9 @@ export default function CreateReviewModal({ className, onConfirm, isModalOpen, h
     setModalRoot(document.getElementById('modal-root'));
   }, []);
 
-  const renderModal = () => {
+  const RenderModal = () => {
     return <ReviewModal className={className} onConfirm={onConfirm} handleModalOpen={handleModalOpen} />;
   };
 
-  return <>{isModalOpen && modalRoot && createPortal(renderModal(), modalRoot)}</>;
+  return <>{isModalOpen && modalRoot && createPortal(RenderModal(), modalRoot)}</>;
 }
