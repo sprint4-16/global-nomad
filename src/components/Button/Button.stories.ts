@@ -3,7 +3,7 @@ import Button from './Button';
 import '@/styles/reset.scss';
 
 const meta = {
-  title: 'Example/Button',
+  title: 'Project/Button',
   component: Button,
   parameters: {
     layout: 'centered',

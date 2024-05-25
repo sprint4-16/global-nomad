@@ -1,7 +1,8 @@
 import AlertModal from './AlertModal';
+import '@/styles/reset.scss';
 
 export default {
-  title: 'Example/AlertModal',
+  title: 'Project/popup/AlertModal',
   component: AlertModal,
 };
 

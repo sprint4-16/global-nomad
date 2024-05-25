@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 import AlertModal from './PopupComponents/AlertModal/AlertModal';
-import ConfirmationModal from './PopupComponents/ConfirmModal/ConfirmationModal';
+import ConfirmationModal from './PopupComponents/ConfirmationModal/ConfirmationModal';
 
 interface PopupComponentProps {
   className?: string;

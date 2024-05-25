@@ -3,7 +3,7 @@ import VisibilityBtn from './VisibilityBtn';
 import '@/styles/reset.scss';
 
 const meta = {
-  title: 'Example/btn/VisibilityBtn',
+  title: 'Project/btn/VisibilityBtn',
   component: VisibilityBtn,
   parameters: {
     layout: 'centered',

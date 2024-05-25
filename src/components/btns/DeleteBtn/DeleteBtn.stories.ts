@@ -3,7 +3,7 @@ import DeleteBtn from './DeleteBtn';
 import '@/styles/reset.scss';
 
 const meta = {
-  title: 'Example/btn/DeleteBtn',
+  title: 'Project/btn/DeleteBtn',
   component: DeleteBtn,
   parameters: {
     layout: 'centered',

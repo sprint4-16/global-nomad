@@ -3,7 +3,7 @@ import ControlTimeBtn from './ControlTimeBtn';
 import '@/styles/reset.scss';
 
 const meta = {
-  title: 'Example/btn/ControlTimeBtn',
+  title: 'Project/btn/ControlTimeBtn',
   component: ControlTimeBtn,
   parameters: {
     layout: 'centered',
