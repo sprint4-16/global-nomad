@@ -25,7 +25,7 @@ export default function FloatingBox({ price }: FloatingBoxProps) {
       <Stroke width={336} className={cn('stroke')} />
       <DateInfo />
       <HeadCountInfo count={count} setCount={setCount} />
-      <Button type="primary" size="large">
+      <Button type="primary" size="large" className={cn('reservationBtn')}>
         예약하기
       </Button>
       <Stroke width={336} className={cn('stroke')} />

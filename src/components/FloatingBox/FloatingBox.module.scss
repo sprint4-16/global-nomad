@@ -3,6 +3,22 @@
   flex-direction: column;
   padding: 2.4rem;
   gap: 1.6rem;
+  border-radius: 0.6rem;
+  background: $white;
+  box-shadow:
+    0rem 0rem 0rem 0.1rem $gray-400 inset,
+    0rem 0.2rem 0.4rem 0rem rgba(5, 16, 55, 0.06);
+
+  @include mobile {
+    display: grid;
+    grid-template-areas:
+      'priceInfo headInfo . . . . . btn'
+      'dateInfo  dateInfo . . . . . btn';
+    width: 100vw;
+    gap: 0.4rem;
+    padding: 1.6rem;
+    border-radius: 0;
+  }
 }
 .price {
   display: flex;
@@ -15,14 +31,38 @@
     @include pretendard-20-700;
     font-weight: 400;
   }
+  @include mobile {
+    display: none;
+  }
 }
 .mainText {
   color: $nomad-black;
   @include pretendard-20-700;
+  @include mobile {
+    display: none;
+  }
 }
 .stroke {
   @include tablet {
     width: 25.1rem;
+  }
+  @include mobile {
+    display: none;
+  }
+}
+.reservationBtn {
+  @include tablet {
+    width: 100%;
+    height: 5.6rem;
+    padding: 0.8rem 4rem;
+    margin-top: 1.6rem;
+    margin-bottom: 1.6rem;
+  }
+  @include mobile {
+    width: 10.6rem;
+    padding: 1.4rem 2rem;
+    margin: 0;
+    grid-area: btn;
   }
 }
 // HeadCountInfo css
@@ -31,17 +71,27 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 0.8rem;
+  @include mobile {
+    grid-area: headInfo;
+    justify-content: center;
+  }
   .countBox {
     display: inline-flex;
     align-items: flex-start;
     border-radius: 0.6rem;
     background: $white;
     box-shadow:
-      0rem 0rem 0rem 0.1rem #cdd0dc inset,
+      0rem 0rem 0rem 0.1rem $gray-400 inset,
       0rem 0.2rem 0.4rem 0rem rgba(5, 16, 55, 0.06);
+    @include mobile {
+      box-shadow: none;
+    }
     .minus,
     .plus {
       margin: 1rem;
+      @include mobile {
+        display: none;
+      }
     }
     .number {
       display: flex;
@@ -53,6 +103,21 @@
       gap: 1rem;
       color: $gray-800;
       @include pretendard-16-400;
+      @include mobile {
+        flex-direction: row;
+        width: fit-content;
+        padding: 0;
+        gap: 0;
+        color: $green-200;
+        @include pretendard-18-500;
+        text-decoration-line: underline;
+      }
+      span {
+        display: none;
+        @include mobile {
+          display: inline;
+        }
+      }
     }
   }
 }
@@ -60,6 +125,29 @@
 .priceInfo {
   display: flex;
   justify-content: space-between;
+  @include mobile {
+    grid-area: priceInfo;
+    justify-content: space-around;
+  }
+  .totaltext {
+    color: $nomad-black;
+    @include pretendard-20-700;
+    @include mobile {
+      display: none;
+    }
+  }
+  .totalPrice {
+    color: $nomad-black;
+    @include pretendard-20-700;
+  }
+  span {
+    display: none;
+    @include mobile {
+      display: inline;
+      color: $nomad-black;
+      @include pretendard-20-700;
+    }
+  }
 }
 
 // DateInfo css (임시)
@@ -67,6 +155,9 @@
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+  @include mobile {
+    grid-area: dateInfo;
+  }
   .temp {
     width: 30.4653rem;
     height: 24.1rem;

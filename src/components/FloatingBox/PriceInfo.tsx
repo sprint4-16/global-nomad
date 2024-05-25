@@ -12,8 +12,9 @@ interface PriceInfoProps {
 export default function PriceInfo({ price, count }: PriceInfoProps) {
   return (
     <div className={cn('priceInfo')}>
-      <div className={cn('mainText')}>총 합계</div>
-      <div className={cn('mainText')}>{priceDataForm(price, count)}</div>
+      <div className={cn('totaltext')}>총 합계</div>
+      <div className={cn('totalPrice')}>{priceDataForm(price, count)}</div>
+      <span>&nbsp;/</span>
     </div>
   );
 }

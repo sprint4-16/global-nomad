@@ -23,7 +23,11 @@ export default function HeadCountInfo({ count, setCount }: HeadCountInfoProps) {
       <div className={cn('mainText')}>참여 인원 수</div>
       <div className={cn('countBox')}>
         <Subtract className={cn('minus')} onClick={handleMinusClick} />
-        <div className={cn('number')}>{count}</div>
+        <div className={cn('number')}>
+          <span>총&nbsp;</span>
+          {count}
+          <span>인</span>
+        </div>
         <Add className={cn('plus')} onClick={handlePlusClick} />
       </div>
     </div>
