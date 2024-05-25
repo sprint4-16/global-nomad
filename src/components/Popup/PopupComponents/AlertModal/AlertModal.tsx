@@ -1,12 +1,13 @@
+import { MouseEvent, useRef } from 'react';
+
 import classNames from 'classnames/bind';
 import styles from './AlertModal.module.scss';
-import { MouseEvent, useRef } from 'react';
 
 import useOutsideClick from '@/hooks/useOutsideClick';
 
 const cn = classNames.bind(styles);
 
-interface PopupModalParams {
+interface PopupModalProps {
   className?: string;
   alertMessage: string;
   onConfirm: () => void;
@@ -18,7 +19,7 @@ export default function AlertModal({
   alertMessage = '알림 메시지가 없습니다.',
   onConfirm,
   handleModalOpen,
-}: PopupModalParams) {
+}: PopupModalProps) {
   const handleConfirm = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     onConfirm();
