@@ -1,5 +1,4 @@
 import AlertModal from './AlertModal';
-import '@/styles/reset.scss';
 
 export default {
   title: 'Example/AlertModal',

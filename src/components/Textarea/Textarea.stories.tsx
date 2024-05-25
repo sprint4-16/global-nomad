@@ -2,7 +2,7 @@ import Textarea from './Textarea';
 import '@/styles/reset.scss';
 
 export default {
-  title: 'Example/Textarea',
+  title: 'Project/Textarea',
   component: Textarea,
 };
 

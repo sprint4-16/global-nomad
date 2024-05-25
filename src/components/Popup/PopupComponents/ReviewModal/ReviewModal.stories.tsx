@@ -2,7 +2,7 @@ import ReviewModal from './ReviewModal';
 import '@/styles/reset.scss';
 
 export default {
-  title: 'Example/ReviewModal',
+  title: 'Project/popup/ReviewModal',
   component: ReviewModal,
 };
 
