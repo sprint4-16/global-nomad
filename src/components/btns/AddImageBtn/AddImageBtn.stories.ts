@@ -3,7 +3,7 @@ import AddImageBtn from './AddImageBtn';
 import '@/styles/reset.scss';
 
 const meta = {
-  title: 'Example/btn/AddImageBtn',
+  title: 'Project/btn/AddImageBtn',
   component: AddImageBtn,
   parameters: {
     layout: 'centered',

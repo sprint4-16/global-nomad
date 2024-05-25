@@ -3,7 +3,7 @@ import ArrowBtn from './ArrowBtn';
 import '@/styles/reset.scss';
 
 const meta = {
-  title: 'Example/btn/ArrowBtn',
+  title: 'Project/btn/ArrowBtn',
   component: ArrowBtn,
   parameters: {
     layout: 'centered',
