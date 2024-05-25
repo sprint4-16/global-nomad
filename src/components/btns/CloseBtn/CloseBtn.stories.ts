@@ -3,7 +3,7 @@ import CloseBtn from './CloseBtn';
 import '@/styles/reset.scss';
 
 const meta = {
-  title: 'Example/btn/CloseBtn',
+  title: 'Project/btn/CloseBtn',
   component: CloseBtn,
   parameters: {
     layout: 'centered',

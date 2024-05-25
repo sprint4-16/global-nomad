@@ -3,7 +3,7 @@ import KebabBtn from './KebabBtn';
 import '@/styles/reset.scss';
 
 const meta = {
-  title: 'Example/btn/KebabBtn',
+  title: 'Project/btn/KebabBtn',
   component: KebabBtn,
   parameters: {
     layout: 'centered',
