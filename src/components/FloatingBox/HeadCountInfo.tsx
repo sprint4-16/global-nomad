@@ -1,11 +1,15 @@
 import classNames from 'classnames/bind';
-import styles from './FloatingBox.module.scss';
 import Subtract from '@/images/icon/icon_subtract.svg';
 import Add from '@/images/icon/icon_add.svg';
-import { HeadCountInfoProps } from './FloatingBoxType';
+
+import styles from './FloatingBox.module.scss';
 
 const cn = classNames.bind(styles);
 
+interface HeadCountInfoProps {
+  count: number;
+  setCount: React.Dispatch<React.SetStateAction<number>>;
+}
 export default function HeadCountInfo({ count, setCount }: HeadCountInfoProps) {
   const handleMinusClick = () => {
     if (count <= 1) return;

@@ -1,14 +1,15 @@
-import classNames from 'classnames/bind';
-import styles from './Filter.module.scss';
 import React, { useEffect, useRef } from 'react';
+import classNames from 'classnames/bind';
+
+import styles from './Filter.module.scss';
 
 const cn = classNames.bind(styles);
 
-interface filterListProps {
+interface FilterListProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setSelectedItem: React.Dispatch<React.SetStateAction<string>>;
 }
-export default function FilterList({ setIsOpen, setSelectedItem }: filterListProps) {
+export default function FilterList({ setIsOpen, setSelectedItem }: FilterListProps) {
   const filterList = ['많은 리뷰 순', '낮은 가격 순', '높은 가격 순', '최신 순'];
   const filterRef = useRef<HTMLDivElement>(null);
 

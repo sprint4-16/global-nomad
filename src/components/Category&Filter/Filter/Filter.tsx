@@ -1,8 +1,9 @@
-import classNames from 'classnames/bind';
-import styles from './Filter.module.scss';
-import ArrowDown from '@/images/btn/btn_arrow_down.svg';
 import { useState } from 'react';
+import classNames from 'classnames/bind';
+import ArrowDown from '@/images/btn/btn_arrow_down.svg';
+
 import FilterList from './FilterList';
+import styles from './Filter.module.scss';
 
 const cn = classNames.bind(styles);
 

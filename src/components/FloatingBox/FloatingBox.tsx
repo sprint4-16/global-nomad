@@ -1,16 +1,19 @@
+import { useState } from 'react';
 import classNames from 'classnames/bind';
-import styles from './FloatingBox.module.scss';
+import Button from '@/components/Button/Button';
 import Stroke from '@/images/icon/icon_stroke.svg';
+
 import DateInfo from './DateInfo';
 import HeadCountInfo from './HeadCountInfo';
 import PriceInfo from './PriceInfo';
-import Button from '@/components/Button/Button';
-import { useState } from 'react';
-import { FloatingBoxProps } from './FloatingBoxType';
 import { priceDataForm } from './priceDataForm';
+import styles from './FloatingBox.module.scss';
 
 const cn = classNames.bind(styles);
 
+interface FloatingBoxProps {
+  price: number;
+}
 export default function FloatingBox({ price }: FloatingBoxProps) {
   const [count, setCount] = useState<number>(1);
   return (

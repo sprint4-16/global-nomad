@@ -1,10 +1,14 @@
 import classNames from 'classnames/bind';
-import styles from './FloatingBox.module.scss';
-import { PriceInfoProps } from './FloatingBoxType';
+
 import { priceDataForm } from './priceDataForm';
+import styles from './FloatingBox.module.scss';
 
 const cn = classNames.bind(styles);
 
+interface PriceInfoProps {
+  price: number;
+  count: number;
+}
 export default function PriceInfo({ price, count }: PriceInfoProps) {
   return (
     <div className={cn('priceInfo')}>

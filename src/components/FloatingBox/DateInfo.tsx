@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
-import styles from './FloatingBox.module.scss';
 import Stroke from '@/images/icon/icon_stroke.svg';
+
+import styles from './FloatingBox.module.scss';
 
 const cn = classNames.bind(styles);
 

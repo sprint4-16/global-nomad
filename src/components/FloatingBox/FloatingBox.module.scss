@@ -45,21 +45,14 @@
     }
     .number {
       display: flex;
-      width: 40px;
-      padding: 8px;
+      width: 4rem;
+      padding: 0.8rem;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 10px;
-      color: var(--gray-gray_4B4B4B, #4b4b4b);
-      text-align: center;
-
-      /* Default/Body/Small */
-      font-family: 'Helvetica Neue';
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 24px; /* 171.429% */
+      gap: 1rem;
+      color: $gray-800;
+      @include pretendard-16-400;
     }
   }
 }
@@ -75,11 +68,12 @@
   flex-direction: column;
   gap: 0.8rem;
   .temp {
-    width: 304.653px;
-    height: 241px;
-    border-radius: 8px;
-    border: 1px solid var(--gray-gray_EEEEEE, #eee);
-    background: var(--white-white_FFFFFF, #111);
+    width: 30.4653rem;
+    height: 24.1rem;
+    border-radius: 0.8rem;
+    border: 0.1rem solid $gray-200;
+    // 임시
+    background: #111;
     margin: 0.8rem auto;
     @include tablet {
       display: none;
@@ -106,28 +100,20 @@
       display: flex;
       gap: 1.2rem;
       .btn1 {
-        padding: 10px 12px;
-        border-radius: 8px;
-        border: 1px solid var(--Brand-Nomad-black_112211, #121);
-        background: var(--Brand-Nomad-black_112211, #121);
-        color: var(--white-white_FFFFFF, #fff);
-        font-family: Pretendard;
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 26px;
+        padding: 1rem 1.2rem;
+        border-radius: 0.8rem;
+        border: 0.1rem solid $nomad-black;
+        background: $nomad-black;
+        color: $white;
+        @include pretendard-16-500;
       }
       .btn2 {
-        padding: 10px 12px;
-        border-radius: 8px;
-        border: 1px solid var(--Brand-Nomad-black_112211, #121);
-        background: var(--white-white_FFFFFF, #fff);
-        color: var(--Brand-Nomad-black_112211, #121);
-        font-family: Pretendard;
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 26px;
+        padding: 1rem 1.2rem;
+        border-radius: 0.8rem;
+        border: 0.1rem solid $nomad-black;
+        background: $white;
+        color: $nomad-black;
+        @include pretendard-16-500;
       }
     }
   }
