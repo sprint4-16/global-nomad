@@ -4,9 +4,9 @@ import classNames from 'classnames/bind';
 import styles from './ReviewModal.module.scss';
 
 import CloseIcon from '@/images/btn/btn_X.svg';
-import useOutsideClick from '@/hooks/useOutsideClick';
-import Textarea from '@/components/Textarea/Textarea';
 import RaitingComponent from './RaitingComponent/RaitingComponent';
+import Textarea from '@/components/Textarea/Textarea';
+import useOutsideClick from '@/hooks/useOutsideClick';
 
 const cn = classNames.bind(styles);
 
