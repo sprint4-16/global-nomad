@@ -1,107 +1,218 @@
-import classNames from 'classnames/bind';
-import styles from './ReservationCard.module.scss';
+import { PropsWithChildren, createContext, useContext, useRef, useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
-import { ReactNode, useEffect, useRef, useState } from 'react';
-import Button from '../Button/Button';
-import StarIcon from '@/images/icon/icon_star_on.svg';
-import MeatballIcon from '@/images/btn/btn_meatball.svg';
+import classNames from 'classnames/bind';
 
-type reservationState = 'completed' | 'canceled' | 'rejected' | 'finished';
+import styles from './ReservationCard.module.scss';
+import Button from '@/components/Button/Button';
+import useClickOutside from '@/hooks/useClickOutside';
+import { RESERVATION_STATE_LABEL_MAP } from '@/constants';
+import { StarIcon, MeatballIcon } from '@/images/icon';
 
-interface Star {
+type ReservationState = 'completed' | 'canceled' | 'rejected' | 'finished';
+
+interface StarRating {
   rating: number;
-  reviewer: number;
+  reviewerCount: number;
 }
 
-interface ReservationProps {
-  imgUrl?: StaticImageData;
-  reservationState?: reservationState;
-  star?: Star;
-  children: ReactNode;
+interface ActivityType {
+  imgUrl: StaticImageData;
+  reservationState?: ReservationState;
+  starRating?: StarRating;
+  title: string;
   schedule?: string;
-  price: string;
+  price: number;
 }
 
-export default function ReservationCard({
-  imgUrl,
-  reservationState,
-  star,
-  schedule,
-  price,
-  children,
-}: ReservationProps) {
-  const cn = classNames.bind(styles);
-  const [viewDropdown, setViewDropdown] = useState(false);
+// 예약 내역 컴포넌트
+export function ReservationCard({ activity }: { activity: ActivityType }) {
+  return (
+    <Activity activity={activity}>
+      <Activity.Thumbnail />
+      <Activity.Description>
+        <Activity.Info>
+          <Activity.ReservationState />
+          <Activity.Title />
+          <Activity.Schedule />
+        </Activity.Info>
+        <Footer>
+          <Activity.Price />
+          <Activity.ReservationButton />
+        </Footer>
+      </Activity.Description>
+    </Activity>
+  );
+}
+
+// 내 체험 컴포넌트
+export function ExperienceCard({ activity }: { activity: ActivityType }) {
+  return (
+    <Activity activity={activity}>
+      <Activity.Thumbnail />
+      <Activity.Description>
+        <Activity.Info>
+          <Activity.StarRating />
+          <Activity.Title />
+        </Activity.Info>
+        <Footer>
+          <Activity.Price />
+          <Activity.Dropdown />
+        </Footer>
+      </Activity.Description>
+    </Activity>
+  );
+}
+
+// 후기 작성 컴포넌트
+export function ReviewCard({ activity }: { activity: ActivityType }) {
+  return (
+    <Activity activity={activity} where="review">
+      <Activity.Thumbnail where="review" />
+      <Activity.Description where="review">
+        <Activity.Title where="review" />
+        <Activity.Schedule />
+        <Activity.Divider />
+        <Activity.Price where="review" />
+      </Activity.Description>
+    </Activity>
+  );
+}
+
+const cn = classNames.bind(styles);
+const ActivityContext = createContext<ActivityType>({} as ActivityType);
+
+function useActivity() {
+  return useContext(ActivityContext);
+}
+
+function Activity({ children, activity, where }: PropsWithChildren<{ activity: ActivityType; where?: 'review' }>) {
+  return (
+    <ActivityContext.Provider value={activity}>
+      <div className={cn('activityCard', where)}>{children}</div>
+    </ActivityContext.Provider>
+  );
+}
+Activity.Thumbnail = Thumbnail;
+Activity.Description = Description;
+Activity.Info = Info;
+Activity.ReservationState = ReservationState;
+Activity.StarRating = StarRating;
+Activity.Title = Title;
+Activity.Schedule = Schedule;
+Activity.Divider = Divider;
+Activity.Price = Price;
+Activity.ReservationButton = ReservationButton;
+Activity.Dropdown = Dropdown;
+
+function Thumbnail({ where }: { where?: 'review' }) {
+  const { imgUrl } = useActivity();
+
+  return <Image className={cn('thumbnail', where)} src={imgUrl} alt="activity thumbnail" priority />;
+}
+
+function Description({ where, children }: { where?: 'review'; children: React.ReactNode }) {
+  return <div className={cn('description', where)}>{children}</div>;
+}
+
+function Info({ children }: { children: React.ReactNode }) {
+  return <div className={cn('reservationInfo')}>{children}</div>;
+}
+
+function Title({ where }: { where?: 'review' }) {
+  const { title } = useActivity();
+
+  return <div className={cn('title', where)}>{title}</div>;
+}
+
+function Schedule() {
+  const { schedule } = useActivity();
+
+  return <div className={cn('schedule')}>{schedule}</div>;
+}
+
+function ReservationState() {
+  const { reservationState } = useActivity();
+
+  if (!reservationState) return null;
+  return (
+    <div className={cn('reservationState', reservationState)}>{RESERVATION_STATE_LABEL_MAP[reservationState]}</div>
+  );
+}
+
+function StarRating() {
+  const { starRating } = useActivity();
+
+  if (!starRating) return null;
+  return (
+    <div className={cn('starRating')}>
+      <StarIcon className={cn('starIcon')} viewBox="0 0 56 56" />
+      {starRating.rating} ({starRating.reviewerCount})
+    </div>
+  );
+}
+
+function Footer({ children }: { children: React.ReactNode }) {
+  return <div className={cn('footer')}>{children}</div>;
+}
+
+function Divider() {
+  return <div className={cn('divider')} />;
+}
+
+function Price({ where }: { where?: 'review' }) {
+  const { price } = useActivity();
+  const formattedPrice = new Intl.NumberFormat('ko-KR').format(Number(price));
+
+  return <div className={cn('price', where)}>₩{formattedPrice}</div>;
+}
+
+// 버튼 + onClick 처리 예정
+function ReservationButton() {
+  const { reservationState } = useActivity();
+
+  if (reservationState === 'completed') {
+    return (
+      <Button className={cn('reservationButton')} type="secondary" size="medium">
+        예약 취소
+      </Button>
+    );
+  }
+
+  if (reservationState === 'finished') {
+    return (
+      <Button className={cn('reservationButton')} type="primary" size="medium">
+        후기 작성
+      </Button>
+    );
+  }
+
+  return null;
+}
+
+// 드롭박스 + onClick 처리 예정
+function Dropdown() {
+  const [isOpenDropdown, setViewDropdown] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
 
-  const stateClassMap = {
-    completed: '예약 완료',
-    canceled: '예약 취소',
-    rejected: '예약 거절',
-    finished: '체험 완료',
+  const toggleDropdown = () => {
+    setViewDropdown(!isOpenDropdown);
   };
 
-  // 드롭다운 외부 클릭 감지
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (profileRef.current && !profileRef.current.contains(e.target as Node)) {
-        setViewDropdown(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [profileRef]);
+  const closeDropdown = () => {
+    setViewDropdown(false);
+  };
+
+  useClickOutside(profileRef, closeDropdown);
 
   return (
-    <div className={cn('reservationCard')}>
-      {imgUrl ? <Image className={cn('cardImg')} src={imgUrl} alt="Card Image" priority /> : null}
-      <div className={cn('cardDescription')}>
-        <div className={cn('reservationInfo')}>
-          {reservationState ? (
-            <div className={cn('reservationState', reservationState)}>{stateClassMap[reservationState]}</div>
-          ) : null}
-          {star ? (
-            <div className={cn('star')}>
-              <StarIcon className={cn('starIcon')} viewBox="0 0 56 56" />
-              {star.rating} ({star.reviewer})
-            </div>
-          ) : null}
-          <div className={cn('reservationTitle')}>{children}</div>
-          {schedule ? <div className={cn('reservationSchedule')}>{schedule}</div> : null}
+    <div className={cn('dropdownContainer')} ref={profileRef}>
+      <MeatballIcon className={cn('meatball')} viewBox="0 0 40 40" onClick={toggleDropdown} />
+      {isOpenDropdown && (
+        <div className={cn('dropdown')}>
+          <div className={cn('dropdownItem')}>수정하기</div>
+          <div className={cn('dropdownItem')}>삭제하기</div>
         </div>
-        <div className={cn('reservationFooter')}>
-          <div className={cn('reservationPrice')}>₩{price}</div>
-          {reservationState === 'completed' && (
-            <Button className={cn('reservationBtn')} type="secondary" size="medium">
-              예약 취소
-            </Button>
-          )}
-          {reservationState === 'finished' && (
-            <Button className={cn('reservationBtn')} type="primary" size="medium">
-              후기 작성
-            </Button>
-          )}
-          {star ? (
-            <div className={cn('dropdownContainer')} ref={profileRef}>
-              <MeatballIcon
-                className={cn('meatball')}
-                viewBox="0 0 40 40"
-                onClick={() => {
-                  setViewDropdown(!viewDropdown);
-                }}
-              />
-              {viewDropdown ? (
-                <div className={cn('dropdown')}>
-                  <div className={cn('dropdownItem')}>수정하기</div>
-                  <div className={cn('dropdownItem')}>삭제하기</div>
-                </div>
-              ) : null}
-            </div>
-          ) : null}
-        </div>
-      </div>
+      )}
     </div>
   );
 }
