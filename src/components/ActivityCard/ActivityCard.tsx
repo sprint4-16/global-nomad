@@ -2,8 +2,8 @@ import { PropsWithChildren, createContext, useContext, useRef, useState } from '
 import Image, { StaticImageData } from 'next/image';
 import classNames from 'classnames/bind';
 
-import styles from './ActivityCard.module.scss';
 import Button from '@/components/Button/Button';
+import styles from './ActivityCard.module.scss';
 import useClickOutside from '@/hooks/useClickOutside';
 import { RESERVATION_STATE_LABEL_MAP } from '@/constants';
 import { StarIcon, MeatballIcon } from '@/images/icon';
