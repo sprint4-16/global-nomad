@@ -1,8 +1,8 @@
-.reservationCard {
+.activityCard {
   display: flex;
-  // width: 100%;
-  // max-width: 792px;
-  width: 792px;
+  width: 100%;
+  max-width: 792px;
+
   border-radius: 24px;
   background: $white;
   box-shadow: 0px 4px 16px 0px rgba(17, 34, 17, 0.05);
@@ -15,215 +15,265 @@
     max-width: 344px;
   }
 
-  .cardImg {
-    width: 204px;
-    height: 204px;
-    border-radius: 24px 0 0 24px;
-    object-fit: cover;
-
-    @include tablet {
-      width: 156px;
-      height: 156px;
-    }
+  &.review {
+    display: flex;
+    max-width: 432px;
+    gap: 24px;
+    box-shadow: none;
 
     @include mobile {
-      width: 128px;
-      height: 128px;
+      max-width: 344px;
     }
   }
+}
 
-  .cardDescription {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: calc(100% - 204px);
-    padding: 25.5px 24px;
+.thumbnail {
+  width: 204px;
+  height: 204px;
+  border-radius: 24px 0 0 24px;
+  object-fit: cover;
 
-    @include tablet {
-      width: calc(100% - 156px);
-      padding: 12px 16px;
-    }
+  @include tablet {
+    width: 156px;
+    height: 156px;
+  }
+
+  @include mobile {
+    width: 128px;
+    height: 128px;
+  }
+
+  &.review {
+    width: 126px;
+    height: 126px;
+    border-radius: 12px;
 
     @include mobile {
-      width: calc(100% - 128px);
-      padding: 9px 8px;
+      width: 100px;
+      height: 100px;
     }
+  }
+}
 
-    .reservationInfo {
-      .reservationState {
-        padding-bottom: 8px;
-        font-size: 16px;
-        font-weight: 700;
-        line-height: 162.5%;
+.description {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: calc(100% - 204px);
+  padding: 25.5px 24px;
 
-        &.completed {
-          color: $blue-200;
-        }
+  @include tablet {
+    width: calc(100% - 156px);
+    padding: 12px 16px;
+  }
 
-        &.rejected {
-          color: $ed-200;
-        }
+  @include mobile {
+    width: calc(100% - 128px);
+    padding: 9px 8px;
+  }
 
-        &.canceled,
-        &.finished {
-          color: $gray-700;
-        }
+  &.review {
+    width: 100%;
+    padding: 0;
+  }
+}
 
-        @include tablet {
-          padding-bottom: 0;
-        }
+.reservationState {
+  padding-bottom: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 162.5%;
 
-        @include mobile {
-          font-size: 14px;
-          line-height: 185.714%;
-        }
-      }
+  &.completed {
+    color: $blue-200;
+  }
 
-      .star {
-        display: flex;
-        align-items: center;
-        padding-bottom: 6px;
-        gap: 6px;
-        color: var(--black-black_1B1B1B, #1b1b1b);
-        font-size: 16px;
-        font-weight: 400;
+  &.rejected {
+    color: $red-200;
+  }
 
-        @include mobile {
-          font-size: 14px;
-        }
+  &.canceled,
+  &.finished {
+    color: $gray-700;
+  }
 
-        .starIcon {
-          width: 19px;
-          height: 19px;
+  @include tablet {
+    padding-bottom: 0;
+  }
 
-          @include mobile {
-            width: 16px;
-            height: 16px;
-          }
-        }
-      }
+  @include mobile {
+    font-size: 14px;
+    line-height: 185.714%;
+  }
+}
 
-      .reservationTitle {
-        color: $green-121;
-        padding-bottom: 13px;
-        font-size: 20px;
-        font-weight: 700;
-        line-height: 130%;
+.starRating {
+  display: flex;
+  align-items: center;
+  padding-bottom: 6px;
+  gap: 6px;
+  color: var(--black-black_1B1B1B, #1b1b1b);
+  font-size: 16px;
+  font-weight: 400;
 
-        @include tablet {
-          padding-bottom: 5px;
-          font-size: 18px;
-          line-height: 144.444%;
-        }
+  @include mobile {
+    font-size: 14px;
+  }
+}
 
-        @include mobile {
-          padding-bottom: 0px;
-          font-size: 14px;
-          line-height: 185.714%;
-        }
-      }
+.starIcon {
+  width: 19px;
+  height: 19px;
 
-      .reservationSchedule {
-        color: $green-121;
-        font-size: 18px;
-        font-weight: 400;
-        line-height: 133.333%;
+  @include mobile {
+    width: 16px;
+    height: 16px;
+  }
+}
 
-        @include tablet {
-          font-size: 14px;
-          line-height: 171.429%;
-        }
+.title {
+  color: $green-121;
+  padding-bottom: 13px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 130%;
 
-        @include mobile {
-          font-size: 12px;
-          line-height: 200%;
-        }
-      }
+  @include tablet {
+    padding-bottom: 5px;
+    font-size: 18px;
+    line-height: 144.444%;
+  }
+
+  @include mobile {
+    padding-bottom: 0px;
+    font-size: 14px;
+    line-height: 185.714%;
+  }
+
+  &.review {
+    padding-bottom: 0px;
+
+    @include mobile {
+      font-size: 16px;
+      line-height: 162.5%;
     }
+  }
+}
 
-    .reservationFooter {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+.schedule {
+  color: $green-121;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 133.333%;
 
-      .reservationPrice {
-        color: $black;
-        text-align: right;
-        font-size: 24px;
-        font-weight: 500;
+  @include tablet {
+    font-size: 14px;
+    line-height: 171.429%;
+  }
 
-        @include tablet {
-          font-size: 20px;
-        }
+  @include mobile {
+    font-size: 12px;
+    line-height: 200%;
+  }
+}
 
-        @include mobile {
-          font-size: 16px;
-        }
-      }
+.divider {
+  width: 100%; /* 가로선이 컨테이너의 전체 너비를 가지도록 설정 */
+  height: 1px;
+  opacity: 0.1;
+  background: var(--Blackish-Green, #121);
+}
 
-      .reservationBtn {
-        width: 144px;
-        padding: 8px 12px;
-        line-height: 162.5%;
+.price {
+  color: $black;
+  font-size: 24px;
+  font-weight: 500;
 
-        @include tablet {
-          width: 112px;
-        }
+  @include tablet {
+    font-size: 20px;
+  }
 
-        @include mobile {
-          width: 80px;
-          padding: 6px 0;
-          font-size: 14px;
-          line-height: 142.857%;
-        }
-      }
+  @include mobile {
+    font-size: 16px;
+  }
 
-      .dropdownContainer {
-        position: relative;
+  &.review {
+    text-align: left;
+    font-size: 32px;
+    font-weight: 700;
 
-        .meatball {
-          width: 40px;
-          height: 40px;
-          cursor: pointer;
-
-          @include mobile {
-            width: 32px;
-            height: 32px;
-          }
-        }
-
-        .dropdown {
-          width: 160px;
-          position: absolute;
-          right: 0;
-          box-shadow: 0px 4px 16px 0px rgba(17, 34, 17, 0.05);
-          border-radius: 6px;
-          overflow: hidden;
-
-          &:hover {
-            box-shadow:
-              0 14px 28px rgba(0, 0, 0, 0.25),
-              0 10px 10px rgba(0, 0, 0, 0.22);
-          }
-
-          .dropdownItem {
-            padding: 18px 46px;
-            border: 1px solid var(--gray-gray_DDDDDD, #ddd);
-            background: #fff;
-            color: var(--gray-gray_4B4B4B, #4b4b4b);
-            text-align: center;
-            font-size: 18px;
-            font-weight: 500;
-            line-height: 122.222%;
-            cursor: pointer;
-
-            &:hover {
-              background-color: #f1effd;
-              color: blue;
-            }
-          }
-        }
-      }
+    @include mobile {
+      font-size: 20px;
     }
+  }
+}
+
+.reservationButton {
+  width: 144px;
+  padding: 8px 0;
+  line-height: 162.5%;
+
+  @include tablet {
+    width: 112px;
+  }
+
+  @include mobile {
+    width: 80px;
+    padding: 6px 0;
+    font-size: 14px;
+    line-height: 142.857%;
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdownContainer {
+  position: relative;
+}
+
+.meatball {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+
+  @include mobile {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.dropdown {
+  width: 160px;
+  position: absolute;
+  right: 0;
+  box-shadow: 0px 4px 16px 0px rgba(17, 34, 17, 0.05);
+  border-radius: 6px;
+  overflow: hidden;
+
+  &:hover {
+    box-shadow:
+      0 14px 28px rgba(0, 0, 0, 0.25),
+      0 10px 10px rgba(0, 0, 0, 0.22);
+  }
+}
+
+.dropdownItem {
+  padding: 18px 46px;
+  border: 1px solid var(--gray-gray_DDDDDD, #ddd);
+  background: #fff;
+  color: var(--gray-gray_4B4B4B, #4b4b4b);
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 122.222%;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f1effd;
+    color: blue;
   }
 }
