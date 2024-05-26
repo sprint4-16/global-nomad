@@ -2,7 +2,7 @@ import { PropsWithChildren, createContext, useContext, useRef, useState } from '
 import Image, { StaticImageData } from 'next/image';
 import classNames from 'classnames/bind';
 
-import styles from './ReservationCard.module.scss';
+import styles from './ActivityCard.module.scss';
 import Button from '@/components/Button/Button';
 import useClickOutside from '@/hooks/useClickOutside';
 import { RESERVATION_STATE_LABEL_MAP } from '@/constants';
@@ -30,11 +30,9 @@ export function ReservationCard({ activity }: { activity: ActivityType }) {
     <Activity activity={activity}>
       <Activity.Thumbnail />
       <Activity.Description>
-        <Activity.Info>
-          <Activity.ReservationState />
-          <Activity.Title />
-          <Activity.Schedule />
-        </Activity.Info>
+        <Activity.ReservationState />
+        <Activity.Title />
+        <Activity.Schedule />
         <Footer>
           <Activity.Price />
           <Activity.ReservationButton />
@@ -50,10 +48,8 @@ export function ExperienceCard({ activity }: { activity: ActivityType }) {
     <Activity activity={activity}>
       <Activity.Thumbnail />
       <Activity.Description>
-        <Activity.Info>
-          <Activity.StarRating />
-          <Activity.Title />
-        </Activity.Info>
+        <Activity.StarRating />
+        <Activity.Title />
         <Footer>
           <Activity.Price />
           <Activity.Dropdown />
@@ -94,7 +90,6 @@ function Activity({ children, activity, where }: PropsWithChildren<{ activity: A
 }
 Activity.Thumbnail = Thumbnail;
 Activity.Description = Description;
-Activity.Info = Info;
 Activity.ReservationState = ReservationState;
 Activity.StarRating = StarRating;
 Activity.Title = Title;
@@ -112,10 +107,6 @@ function Thumbnail({ where }: { where?: 'review' }) {
 
 function Description({ where, children }: { where?: 'review'; children: React.ReactNode }) {
   return <div className={cn('description', where)}>{children}</div>;
-}
-
-function Info({ children }: { children: React.ReactNode }) {
-  return <div className={cn('reservationInfo')}>{children}</div>;
 }
 
 function Title({ where }: { where?: 'review' }) {
