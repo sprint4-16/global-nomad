@@ -157,13 +157,20 @@ function Price({ where }: { where?: 'review' }) {
   return <div className={cn('price', where)}>₩{formattedPrice}</div>;
 }
 
-// 버튼 + onClick 처리 예정
 function ReservationButton() {
   const { reservationState } = useActivity();
 
+  const handleReservationCancelClick = () => {
+    console.log('예약 취소 버튼 클릭');
+  };
+
+  const handleReviewCreateClick = () => {
+    console.log('후기 작성');
+  };
+
   if (reservationState === 'completed') {
     return (
-      <Button className={cn('btn', 'reservationButton')} type="secondary" size="medium">
+      <Button className={cn('reservationButton')} type="secondary" size="medium" onClick={handleReservationCancelClick}>
         예약 취소
       </Button>
     );
@@ -171,7 +178,7 @@ function ReservationButton() {
 
   if (reservationState === 'finished') {
     return (
-      <Button className={cn('btn', 'reservationButton')} type="primary" size="medium">
+      <Button className={cn('reservationButton')} type="primary" size="medium" onClick={handleReviewCreateClick}>
         후기 작성
       </Button>
     );
@@ -180,7 +187,6 @@ function ReservationButton() {
   return null;
 }
 
-// 드롭박스 + onClick 처리 예정
 function Dropdown() {
   const [isOpenDropdown, setViewDropdown] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
@@ -193,6 +199,14 @@ function Dropdown() {
     setViewDropdown(false);
   };
 
+  const handleModifyClick = () => {
+    console.log('수정하기');
+  };
+
+  const handleDeleteClick = () => {
+    console.log('삭제하기');
+  };
+
   useClickOutside(profileRef, closeDropdown);
 
   return (
@@ -200,8 +214,12 @@ function Dropdown() {
       <MeatballIcon className={cn('meatball')} viewBox="0 0 40 40" onClick={toggleDropdown} />
       {isOpenDropdown && (
         <div className={cn('dropdown')}>
-          <div className={cn('dropdownItem')}>수정하기</div>
-          <div className={cn('dropdownItem')}>삭제하기</div>
+          <div className={cn('dropdownItem')} onClick={handleModifyClick}>
+            수정하기
+          </div>
+          <div className={cn('dropdownItem')} onClick={handleDeleteClick}>
+            삭제하기
+          </div>
         </div>
       )}
     </div>
