@@ -163,7 +163,7 @@ function ReservationButton() {
 
   if (reservationState === 'completed') {
     return (
-      <Button className={cn('reservationButton')} type="secondary" size="medium">
+      <Button className={cn('btn', 'reservationButton')} type="secondary" size="medium">
         예약 취소
       </Button>
     );
@@ -171,7 +171,7 @@ function ReservationButton() {
 
   if (reservationState === 'finished') {
     return (
-      <Button className={cn('reservationButton')} type="primary" size="medium">
+      <Button className={cn('btn', 'reservationButton')} type="primary" size="medium">
         후기 작성
       </Button>
     );
