@@ -1,0 +1,59 @@
+.reservationDetailCard {
+  display: flex;
+  flex-direction: column;
+  width: 381px;
+  height: 116px;
+  padding: 16px;
+  justify-content: space-between;
+  border-radius: 4px;
+  border: 1px solid var(--gray-gray_DDDDDD, #ddd);
+  background: #fff;
+}
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.info {
+  display: flex;
+  gap: 10px;
+  color: var(--gray-gray_79747E, #79747e);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.bold {
+  color: var(--black-black_1B1B1B, #1b1b1b);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.footer {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.button {
+  display: flex;
+  width: 82px;
+  padding: 10px 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.chips {
+  width: 85px;
+  padding: 10px;
+  border-radius: 26.5px;
+  text-align: center;
+  font-family: 'Spoqa Han Sans Neo';
+  font-size: 14px;
+  font-weight: 700;
+
+  &.rejected {
+    color: var(--red-red_FF472E, #ff472e);
+  }
+}
