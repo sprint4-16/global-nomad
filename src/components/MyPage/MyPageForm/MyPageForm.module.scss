@@ -16,3 +16,7 @@
   width: 79.2rem;
   gap: 3.2rem;
 }
+
+.customLabel {
+  @include pretendard-24-700;
+}

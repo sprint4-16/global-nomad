@@ -13,13 +13,14 @@ interface InputProps {
   color?: string;
   sx?: CSSProperties;
   className?: string;
+  labelClassName?: string;
   onClick?: () => void;
 }
 
-export function Input({ label, type, placeholder, color, sx, onClick, className }: InputProps) {
+export function Input({ label, type, placeholder, color, sx, onClick, className, labelClassName }: InputProps) {
   return (
     <div className={cn('inputContainer', className)}>
-      <label htmlFor={type} className={cn('label')}>
+      <label htmlFor={type} className={cn('label', labelClassName)}>
         {label}
       </label>
       {type === 'password' ? (
