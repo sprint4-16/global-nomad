@@ -3,6 +3,8 @@ import styles from './CreateCalendar.module.scss';
 import dayjs from 'dayjs';
 
 import { Chips } from '@/components/Chips/Chips';
+import ElipseIconGray from '@/images/icon/icon_ellipse_gray.svg';
+import ElipseIconBlue from '@/images/icon/icon_ellipse_blue.svg';
 
 const cn = classNames.bind(styles);
 
@@ -24,7 +26,14 @@ export default function CreateCalendar({ currentMonth, endOfMonth, startOfMonth 
         if (day.month() === currentMonth.month()) {
           return (
             <div key={day.format('YYYY-MM-DD')} className={cn('item')}>
-              {day.format('D')}
+              <div className={cn('dayWrapper')}>
+                {day.format('D')}
+                {reservationCount ? (
+                  <ElipseIconGray className={cn('alertIcon')} />
+                ) : (
+                  <ElipseIconBlue className={cn('alertIcon')} />
+                )}
+              </div>
               <div className={cn('chips')}>
                 {confirmedCount && (
                   <Chips className={cn('chip')} type="confirmed">

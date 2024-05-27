@@ -1,4 +1,4 @@
-import ReservationCalendarLayout from '@/pageLayouts/ReservationCalendar/ReservationCalendarLayout';
+import ReservationCalendarLayout from '@/pageLayouts/ReservationCalendarLayout/ReservationCalendarLayout';
 
 export default function ReservationCalendarPage() {
   return <ReservationCalendarLayout />;

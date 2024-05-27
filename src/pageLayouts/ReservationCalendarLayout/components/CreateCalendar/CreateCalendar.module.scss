@@ -8,11 +8,40 @@
     border-top: 0.1rem solid $calendar-border;
     border-left: 0.1rem solid $calendar-border;
 
-    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+
     position: relative;
+
+    padding: 1.2rem;
 
     @include Inter-21-500;
     color: $calendar-color;
+
+    .dayWrapper {
+      position: relative;
+    }
+
+    .alertIcon {
+      position: absolute;
+      top: 0;
+      right: -1rem;
+    }
+
+    .chips {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: stretch;
+      gap: 0.05rem;
+
+      position: absolute;
+      bottom: 0.2rem;
+      left: 0.2rem;
+      right: 0.2rem;
+    }
 
     &:nth-child(29) {
       border-bottom-left-radius: 0.8rem;
@@ -44,17 +73,4 @@
       border-right: 0.1rem solid $calendar-border;
     }
   }
-}
-
-.chips {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: stretch;
-  gap: 0.05rem;
-
-  position: absolute;
-  bottom: 0.2rem;
-  left: 0.2rem;
-  right: 0.2rem;
 }
