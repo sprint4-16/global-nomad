@@ -1,9 +1,10 @@
-import AlertModal from '@/components/Popup/PopupComponents/AlertModal';
-import ConfirmationModal from '@/components/Popup/PopupComponents/ConfirmationModal';
 import { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 
-interface PopupComponentParams {
+import AlertModal from './PopupComponents/AlertModal/AlertModal';
+import ConfirmationModal from './PopupComponents/ConfirmationModal/ConfirmationModal';
+
+interface PopupComponentProps {
   className?: string;
   modalType: 'alert' | 'confirm';
   alertMessage: string;
@@ -12,21 +13,21 @@ interface PopupComponentParams {
   handleModalOpen: () => void;
 }
 
-export default function PopUpComponent({
+export default function CreatePopupModal({
   className,
   modalType,
   alertMessage,
   onConfirm,
   isModalOpen,
   handleModalOpen,
-}: PopupComponentParams) {
+}: PopupComponentProps) {
   const [modalRoot, setModalRoot] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
     setModalRoot(document.getElementById('modal-root'));
   }, []);
 
-  const renderModal = () => {
+  const RenderModal = () => {
     if (modalType === 'alert') {
       return (
         <AlertModal
@@ -49,5 +50,5 @@ export default function PopUpComponent({
     }
   };
 
-  return <>{isModalOpen && modalRoot && ReactDOM.createPortal(renderModal(), modalRoot)}</>;
+  return <>{isModalOpen && modalRoot && createPortal(RenderModal(), modalRoot)}</>;
 }
