@@ -5,18 +5,15 @@ import React, { useEffect, useRef } from 'react';
 const cn = classNames.bind(styles);
 
 interface filterListProps {
+  filterList: { element: string; name: string; status: string }[];
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setSelectedItem: React.Dispatch<React.SetStateAction<string>>;
 }
-export default function FilterList({ setIsOpen, setSelectedItem }: filterListProps) {
-  const filterList = ['많은 리뷰 순', '낮은 가격 순', '높은 가격 순', '최신 순'];
+export default function FilterList({ filterList, setIsOpen, setSelectedItem }: filterListProps) {
   const filterRef = useRef<HTMLDivElement>(null);
 
   const handleItemClick = (index: number) => {
-    if (index === 0) setSelectedItem('리뷰');
-    else if (index === 1 || index === 2) setSelectedItem('가격');
-    else setSelectedItem('최신');
-
+    setSelectedItem(filterList[index].name);
     setIsOpen(false);
   };
 
@@ -35,8 +32,8 @@ export default function FilterList({ setIsOpen, setSelectedItem }: filterListPro
   return (
     <div ref={filterRef} className={cn('dropdown')}>
       {filterList.map((item, index) => (
-        <div key={`${index} ${item}`} className={cn('item')} onClick={() => handleItemClick(index)}>
-          {item}
+        <div key={`${index} ${item.element}`} className={cn('item')} onClick={() => handleItemClick(index)}>
+          {item.element}
         </div>
       ))}
     </div>
