@@ -33,10 +33,10 @@ export function ReservationCard({ activity }: { activity: ActivityType }) {
         <Activity.ReservationState />
         <Activity.Title />
         <Activity.Schedule />
-        <Footer>
+        <Activity.Footer>
           <Activity.Price />
           <Activity.ReservationButton />
-        </Footer>
+        </Activity.Footer>
       </Activity.Description>
     </Activity>
   );
@@ -50,10 +50,10 @@ export function ExperienceCard({ activity }: { activity: ActivityType }) {
       <Activity.Description>
         <Activity.StarRating />
         <Activity.Title />
-        <Footer>
+        <Activity.Footer>
           <Activity.Price />
           <Activity.Dropdown />
-        </Footer>
+        </Activity.Footer>
       </Activity.Description>
     </Activity>
   );
@@ -95,6 +95,7 @@ Activity.StarRating = StarRating;
 Activity.Title = Title;
 Activity.Schedule = Schedule;
 Activity.Divider = Divider;
+Activity.Footer = Footer;
 Activity.Price = Price;
 Activity.ReservationButton = ReservationButton;
 Activity.Dropdown = Dropdown;
