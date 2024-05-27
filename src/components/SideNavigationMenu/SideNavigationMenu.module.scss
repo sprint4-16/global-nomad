@@ -80,6 +80,14 @@
   }
 }
 
+.active {
+  background: $green-100;
+
+  .navTitle {
+    color: $green-121;
+  }
+}
+
 .navIcon {
   width: 2.4rem;
   height: 2.4rem;

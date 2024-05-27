@@ -39,7 +39,11 @@ export default function SideNavigationMenu({ className }: { className: string })
       </div>
       <div className={cn('navMenuList')}>
         {navItems.map((item) => (
-          <div key={item.id} className={cn('navMenu')} onClick={() => handleNavClick(item.state)}>
+          <div
+            key={item.id}
+            className={cn('navMenu', { active: router.pathname === item.state })}
+            onClick={() => handleNavClick(item.state)}
+          >
             <div className={cn('navIcon')}>{item.icon}</div>
             <div className={cn('navTitle')}>{item.title}</div>
           </div>
