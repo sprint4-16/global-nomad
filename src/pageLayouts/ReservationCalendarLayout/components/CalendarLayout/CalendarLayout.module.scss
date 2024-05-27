@@ -8,6 +8,8 @@
   align-items: center;
   gap: 2.4rem;
 
+  padding-top: 3rem;
+
   .header {
     width: 34.2rem;
     height: 3.6rem;
@@ -59,10 +61,17 @@
 
 @include tablet {
   .container {
+    padding: 2.4rem;
     .labelWrapper {
       .label {
         padding: 0.7rem;
       }
     }
+  }
+}
+
+@include mobile {
+  .container {
+    padding: 2.4rem;
   }
 }

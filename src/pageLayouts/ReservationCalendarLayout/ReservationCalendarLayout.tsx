@@ -2,23 +2,26 @@ import classNames from 'classnames/bind';
 import styles from './ReservationCalendarLayout.module.scss';
 
 import { Dropdown } from '@/components/Dropdown/Dropdown';
-import Calendar from './components/Calendar';
+import CalendarLayout from './components/CalendarLayout/CalendarLayout';
 import SideNavigationMenuLayout from '../SideNavigationMenuLayout/SideNavigationMenuLayout';
 import EmptyIcon from '@/images/icon/icon_empty.svg';
 
 const cn = classNames.bind(styles);
 
-export default function ReservationCalendarLayout() {
-  const reservationCount = 0;
+interface ReservationCalendarLayoutProps {
+  reservationData?: boolean;
+}
+
+export default function ReservationCalendarLayout({ reservationData = !false }: ReservationCalendarLayoutProps) {
   return (
     <SideNavigationMenuLayout>
-      {reservationCount ? (
+      {reservationData ? (
         <div className={cn('wrapper')}>
           <div className={cn('header')}>
             <div className={cn('text')}>예약 현황</div>
             <Dropdown isLabelVisible={true} />
           </div>
-          <Calendar />
+          <CalendarLayout />
         </div>
       ) : (
         <div className={cn('wrapper')}>

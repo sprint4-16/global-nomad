@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import classNames from 'classnames/bind';
-import styles from './Calendar.module.scss';
+import styles from './CalendarLayout.module.scss';
 import dayjs from 'dayjs';
 
 import PrevArrow from '@/images/btn/btn_prev_arrow.svg';
 import NextArrow from '@/images/btn/btn_next_arrow.svg';
-import CreateCalendar from './CreateCalendar/CreateCalendar';
+import CreateCalendar from '../CreateCalendar/CreateCalendar';
 
 const cn = classNames.bind(styles);
 
