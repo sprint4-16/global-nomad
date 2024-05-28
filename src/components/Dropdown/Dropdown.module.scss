@@ -37,11 +37,15 @@
     background: $white;
     align-items: flex-start;
     @include pretendard-16-400;
-    color: $nomad-black;
+    color: $gray-A1;
 
     .arrowImg {
       cursor: pointer;
     }
+  }
+
+  .selected {
+    color: $nomad-black;
   }
 
   .menuItems {

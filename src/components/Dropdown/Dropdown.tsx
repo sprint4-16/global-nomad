@@ -33,7 +33,7 @@ export function Dropdown({
           setIsDropdownOpen((prev) => !prev);
         }}
       >
-        <button className={cn('button')}>{selectedItem}</button>
+        <button className={cn('button', { selected: selectedItemIndex !== null })}>{selectedItem}</button>
         {isDropdownOpen ? <ArrowUp className={cn('arrowImg')} /> : <ArrowDown className={cn('arrowImg')} />}
       </div>
       {isDropdownOpen && (

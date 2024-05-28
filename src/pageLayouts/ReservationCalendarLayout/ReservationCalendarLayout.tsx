@@ -3,7 +3,6 @@ import styles from './ReservationCalendarLayout.module.scss';
 
 import { Dropdown } from '@/components/Dropdown/Dropdown';
 import CalendarLayout from './components/CalendarLayout/CalendarLayout';
-import SideNavigationMenuLayout from '../SideNavigationMenuLayout/SideNavigationMenuLayout';
 import EmptyIcon from '@/images/icon/icon_empty.svg';
 
 const cn = classNames.bind(styles);
@@ -12,9 +11,9 @@ interface ReservationCalendarLayoutProps {
   reservationData?: boolean;
 }
 
-export default function ReservationCalendarLayout({ reservationData = !false }: ReservationCalendarLayoutProps) {
+export default function ReservationCalendarLayout({ reservationData = false }: ReservationCalendarLayoutProps) {
   return (
-    <SideNavigationMenuLayout>
+    <>
       {reservationData ? (
         <div className={cn('wrapper')}>
           <div className={cn('header')}>
@@ -34,6 +33,6 @@ export default function ReservationCalendarLayout({ reservationData = !false }: 
           </div>
         </div>
       )}
-    </SideNavigationMenuLayout>
+    </>
   );
 }
