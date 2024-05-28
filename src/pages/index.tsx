@@ -1,3 +1,9 @@
+import ReservationDatePickPopover from '@/components/Popover/ReservationDatePickPopover/ReservationDatePickPopover';
+
 export default function Home() {
-  return <>랜딩페이지</>;
+  return (
+    <>
+      <ReservationDatePickPopover onClose={() => {}} />
+    </>
+  );
 }
