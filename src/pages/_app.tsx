@@ -1,4 +1,6 @@
 import '@/styles/reset.scss';
+import 'react-datepicker/dist/react-datepicker.css';
+import '@/styles/datepicker_custom.scss';
 import type { AppProps } from 'next/app';
 import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
