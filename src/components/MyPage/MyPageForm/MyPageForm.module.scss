@@ -20,3 +20,9 @@
 .customLabel {
   @include pretendard-24-700;
 }
+
+.error {
+  color: $red-200;
+  margin-bottom: 1rem;
+  @include pretendard-14-400;
+}
