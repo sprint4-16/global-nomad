@@ -7,7 +7,7 @@ export const ROUTE = {
   ACTIVITY_DETAIL: '/activity-detail',
 
   // 내 정보 페이지
-  USER: 'user',
+  USER: '/user',
 
   // 예약 내역 페이지
   RESERVATIONS: '/user/reservations',

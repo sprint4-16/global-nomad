@@ -20,10 +20,5 @@ export default function MyPage() {
     return null;
   }
 
-  return (
-    <MyPageLayout>
-      <SideNavigationMenu onNavClick={handleNavClick} />
-      <MyPageForm />
-    </MyPageLayout>
-  );
+  return <MyPageForm />;
 }
