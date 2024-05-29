@@ -1,8 +1,8 @@
-import { MouseEvent, useRef } from 'react';
-
+import { useRef } from 'react';
 import classNames from 'classnames/bind';
 import styles from './AlertModal.module.scss';
 
+import Button from '@/components/Button/Button';
 import useOutsideClick from '@/hooks/useOutsideClick';
 
 const cn = classNames.bind(styles);
@@ -20,8 +20,7 @@ export default function AlertModal({
   onConfirm,
   handleModalOpen,
 }: PopupModalProps) {
-  const handleConfirm = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const handleConfirm = () => {
     onConfirm();
     handleModalOpen();
   };
@@ -33,9 +32,9 @@ export default function AlertModal({
     <div className={cn('background')}>
       <div className={cn('container', className)} ref={modalRef}>
         <div className={cn('text')}>{alertMessage}</div>
-        <button className={cn('button')} onClick={handleConfirm}>
+        <Button className={cn('button')} onClick={handleConfirm} type="primary" size="large">
           확인
-        </button>
+        </Button>
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 import { MouseEvent, useRef } from 'react';
-
 import classNames from 'classnames/bind';
 import styles from './ReviewModal.module.scss';
 

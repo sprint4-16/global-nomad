@@ -35,3 +35,20 @@ export const GNB_REQUIRES: string[] = [
   ROUTE.ACTIVITIY_EDIT,
   ROUTE.RESERVATION_CALENDAR,
 ] as const;
+
+export const END_POINT = {
+  LOGIN: '/auth/login',
+  TOKENS: '/auth/tokens',
+
+  ACTIVITIES: '/activities',
+
+  MY_ACTIVITIES: '/my-activities',
+
+  MY_NOTIFICATIONS: '/my-notifications',
+
+  MY_RESERVATIONS: '/my-reservations',
+
+  USERS: '/users',
+} as const;
+
+export const COOKIE_NAMES = ['accessToken', 'refreshToken', 'nickname', 'profileImageUrl'] as const;

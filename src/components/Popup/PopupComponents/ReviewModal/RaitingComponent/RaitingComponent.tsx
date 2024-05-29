@@ -1,6 +1,6 @@
+import { useState, useRef } from 'react';
 import classNames from 'classnames/bind';
 import styles from './RaitingComponent.module.scss';
-import { useState, useRef } from 'react';
 
 import StarOn from '@/images/icon/icon_star_on.svg';
 import StarOff from '@/images/icon/icon_star_off.svg';
