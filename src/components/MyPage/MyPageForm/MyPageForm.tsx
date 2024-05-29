@@ -38,31 +38,39 @@ export default function MyPageForm() {
         </Button>
       </div>
       <div className={cn('formContainer')}>
-        <Input
-          label="닉네임"
-          type="text"
-          placeholder="정만철"
-          labelClassName={cn('customLabel')}
-          register={register('nickname')}
-        />
-        {errors.nickname && <div className={cn('error')}>{errors.nickname.message as string}</div>}
-        <Input label="이메일" type="email" placeholder="12345@example.com" labelClassName={cn('customLabel')} />
-        <Input
-          label="비밀번호"
-          type="text"
-          placeholder="8자 이상 입력해 주세요"
-          labelClassName={cn('customLabel')}
-          register={register('password')}
-        />
-        {errors.password && <div className={cn('error')}>{errors.password.message as string}</div>}
-        <Input
-          label="비밀번호 확인"
-          type="text"
-          placeholder="비밀번호를 한 번 더 입력해 주세요"
-          labelClassName={cn('customLabel')}
-          register={register('newPassword')}
-        />
-        {errors.newPassword && <div className={cn('error')}>{errors.newPassword.message as string}</div>}
+        <div className={cn('inputBox')}>
+          <Input
+            label="닉네임"
+            type="text"
+            placeholder="정만철"
+            labelClassName={cn('customLabel')}
+            register={register('nickname')}
+          />
+          {errors.nickname && <div className={cn('error')}>{errors.nickname.message as string}</div>}
+        </div>
+        <div className={cn('inputBox')}>
+          <Input label="이메일" type="email" placeholder="12345@example.com" labelClassName={cn('customLabel')} />
+        </div>
+        <div className={cn('inputBox')}>
+          <Input
+            label="비밀번호"
+            type="text"
+            placeholder="8자 이상 입력해 주세요"
+            labelClassName={cn('customLabel')}
+            register={register('password')}
+          />
+          {errors.password && <div className={cn('error')}>{errors.password.message as string}</div>}
+        </div>
+        <div className={cn('inputBox')}>
+          <Input
+            label="비밀번호 확인"
+            type="text"
+            placeholder="비밀번호를 한 번 더 입력해 주세요"
+            labelClassName={cn('customLabel')}
+            register={register('newPassword')}
+          />
+          {errors.newPassword && <div className={cn('error')}>{errors.newPassword.message as string}</div>}
+        </div>
       </div>
     </form>
   );
