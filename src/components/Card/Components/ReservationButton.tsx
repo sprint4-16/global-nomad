@@ -1,7 +1,7 @@
 import { useCard } from '../Card';
 import classNames from 'classnames/bind';
 import Button from '@/components/Button/Button';
-import styles from '../Card.module.scss';
+import styles from './ReservationButton.module.scss';
 
 const cn = classNames.bind(styles);
 

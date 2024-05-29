@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import classNames from 'classnames/bind';
 
 import { MeatballIcon } from '@/images/icon';
-import styles from '../Card.module.scss';
+import styles from './CardDropdown.module.scss';
 import useClickOutside from '@/hooks/useClickOutside';
 
 const cn = classNames.bind(styles);
