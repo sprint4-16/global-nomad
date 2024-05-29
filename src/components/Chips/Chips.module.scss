@@ -1,22 +1,16 @@
 .chips {
+  height: 2.3rem;
+
   padding: 0.3rem 0.4rem;
   border-radius: 0.4rem;
+
+  @include pretendard-14-500;
   color: white;
-}
 
-.large {
-  width: 11rem;
-  @include pretendard-14-500;
-}
-
-.medium {
-  width: 5.8rem;
-  @include pretendard-14-500;
-}
-
-.small {
-  width: 4.5rem;
-  @include pretendard-14-500;
+  @include mobile {
+    @include pretendard-12-500;
+    height: 2rem;
+  }
 }
 
 .seat {
