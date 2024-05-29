@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import Button from '../Button/Button';
-import styles from './ReservationDetailCard.module.scss';
 import { Chips } from '../Chips/Chips';
+import styles from './ReservationDetailCard.module.scss';
 
 type ReservationState = 'notReserved' | 'confirmed' | 'rejected';
 
@@ -44,12 +44,12 @@ export default function ReservationDetailCard({ nickname, people, reservationSta
           </>
         )}
         {reservationState == 'confirmed' && (
-          <Chips className={cn('chips', 'confirmed')} size="medium" type="confirmed">
+          <Chips className={cn('chips', 'confirmed')} type="reservation">
             예약확정
           </Chips>
         )}
         {reservationState == 'rejected' && (
-          <Chips className={cn('chips', 'rejected')} size="medium" type="confirmed">
+          <Chips className={cn('chips', 'rejected')} type="confirmed">
             예약거절
           </Chips>
         )}
