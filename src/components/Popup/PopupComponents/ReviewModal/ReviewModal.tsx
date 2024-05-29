@@ -5,6 +5,7 @@ import styles from './ReviewModal.module.scss';
 import CloseIcon from '@/images/btn/btn_X.svg';
 import RaitingComponent from './RaitingComponent/RaitingComponent';
 import Textarea from '@/components/Textarea/Textarea';
+import Button from '@/components/Button/Button';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import { usePostReservationReview } from '@/apis/apiHooks/MyReservations';
 
@@ -51,7 +52,9 @@ export default function ReviewModal({ className, onConfirm, handleModalOpen }: R
           <div className={cn('card')} />
           <RaitingComponent onRatingChange={onRatingChange} />
           <Textarea onChange={onChange} />
-          <button className={cn('button')}>작성하기</button>
+          <Button className={cn('button')} type="primary" size="large">
+            작성하기
+          </Button>
         </form>
       </div>
     </div>
