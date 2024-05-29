@@ -1,9 +1,14 @@
 import { useMutation } from '@tanstack/react-query';
 import { axiosInstance } from '../axiosInstance';
 import { END_POINT } from '@/constants/';
-import { useLoginParams } from './apiTypes';
 
 import useGetCookie from '@/hooks/useCookies';
+
+// 1. 로그인
+export interface useLoginParams {
+  email: string;
+  password: string;
+}
 
 export default function useLogin() {
   const { updateCookie } = useGetCookie();

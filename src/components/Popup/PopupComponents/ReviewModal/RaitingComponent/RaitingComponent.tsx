@@ -7,8 +7,12 @@ import StarOff from '@/images/icon/icon_star_off.svg';
 
 const cn = classNames.bind(styles);
 
-export default function RatingComponent() {
-  const [rating, setRating] = useState({ temporary: 0, permanent: 0 });
+interface RaitingComponentProps {
+  onRatingChange: (rating: number) => void;
+}
+
+export default function RatingComponent({ onRatingChange }: RaitingComponentProps) {
+  const [rating, setRating] = useState({ temporary: 0, permanent: 1 });
   const clicked = useRef(false);
 
   const handleMouseOver = (index: number) => {
@@ -23,6 +27,7 @@ export default function RatingComponent() {
   const onStarClick = (index: number) => {
     setRating({ ...rating, permanent: index + 1 });
     clicked.current = true;
+    onRatingChange(index + 1);
   };
 
   return (
