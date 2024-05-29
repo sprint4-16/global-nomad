@@ -18,7 +18,10 @@ export default function FloatingBox({ price }: FloatingBoxProps) {
   const [count, setCount] = useState(1);
   return (
     <div className={cn('container')}>
-      <div className={cn('price')}>{priceDataForm(price, 1) + ' / 인'}</div>
+      <div className={cn('price')}>
+        {priceDataForm(price, 1)}
+        <span className={cn('per')}>/ 인</span>
+      </div>
       <Stroke width={336} className={cn('stroke')} />
       <DateInfo />
       <HeadCountInfo count={count} setCount={setCount} />
