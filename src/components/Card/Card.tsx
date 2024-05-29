@@ -3,7 +3,7 @@ import Image, { StaticImageData } from 'next/image';
 import classNames from 'classnames/bind';
 
 import Button from '@/components/Button/Button';
-import styles from './ActivityCard.module.scss';
+import styles from './Card.module.scss';
 import useClickOutside from '@/hooks/useClickOutside';
 import { RESERVATION_STATE_LABEL_MAP } from '@/constants';
 import { StarIcon, MeatballIcon } from '@/images/icon';
@@ -15,95 +15,102 @@ interface StarRating {
   reviewerCount: number;
 }
 
-interface ActivityType {
+interface ScheduleType {
+  date: string;
+  startTime: string;
+  endTime: string;
+  headCount: number;
+}
+
+interface CardProps {
   imgUrl: StaticImageData;
   reservationState?: ReservationState;
   starRating?: StarRating;
   title: string;
-  schedule?: string;
+  schedule?: ScheduleType;
   price: number;
 }
 
 // 예약 내역 컴포넌트
-export function ReservationCard({ activity }: { activity: ActivityType }) {
+export function ReservationCard({ card }: { card: CardProps }) {
   return (
-    <Activity activity={activity}>
-      <Activity.Thumbnail />
-      <Activity.Description>
-        <Activity.ReservationState />
-        <Activity.Title />
-        <Activity.Schedule />
-        <Activity.Footer>
-          <Activity.Price />
-          <Activity.ReservationButton />
-        </Activity.Footer>
-      </Activity.Description>
-    </Activity>
+    <Card card={card}>
+      <Card.Thumbnail />
+      <Card.Description>
+        <Card.ReservationState />
+        <Card.Title />
+        <Card.Schedule />
+        <Card.Footer>
+          <Card.Price />
+          <Card.ReservationButton />
+        </Card.Footer>
+      </Card.Description>
+    </Card>
   );
 }
 
 // 내 체험 컴포넌트
-export function ExperienceCard({ activity }: { activity: ActivityType }) {
+export function ExperienceCard({ card }: { card: CardProps }) {
   return (
-    <Activity activity={activity}>
-      <Activity.Thumbnail />
-      <Activity.Description>
-        <Activity.StarRating />
-        <Activity.Title />
-        <Activity.Footer>
-          <Activity.Price />
-          <Activity.Dropdown />
-        </Activity.Footer>
-      </Activity.Description>
-    </Activity>
+    <Card card={card}>
+      <Card.Thumbnail />
+      <Card.Description>
+        <Card.StarRating />
+        <Card.Title />
+        <Card.Footer>
+          <Card.Price />
+          <Card.Dropdown />
+        </Card.Footer>
+      </Card.Description>
+    </Card>
   );
 }
 
 // 후기 작성 컴포넌트
-export function ReviewCard({ activity }: { activity: ActivityType }) {
+export function ReviewCard({ card }: { card: CardProps }) {
   return (
-    <Activity activity={activity} where="review">
-      <Activity.Thumbnail where="review" />
-      <Activity.Description where="review">
-        <Activity.Title where="review" />
-        <Activity.Schedule />
-        <Activity.Divider />
-        <Activity.Price where="review" />
-      </Activity.Description>
-    </Activity>
+    <Card card={card} where="review">
+      <Card.Thumbnail where="review" />
+      <Card.Description where="review">
+        <Card.Title where="review" />
+        <Card.Schedule />
+        <Card.Divider />
+        <Card.Price where="review" />
+      </Card.Description>
+    </Card>
   );
 }
 
 const cn = classNames.bind(styles);
-const ActivityContext = createContext<ActivityType>({} as ActivityType);
+const CardContext = createContext<CardProps>({} as CardProps);
 
-function useActivity() {
-  return useContext(ActivityContext);
+function useCard() {
+  return useContext(CardContext);
 }
 
-function Activity({ children, activity, where }: PropsWithChildren<{ activity: ActivityType; where?: 'review' }>) {
+function Card({ children, card, where }: PropsWithChildren<{ card: CardProps; where?: 'review' }>) {
   return (
-    <ActivityContext.Provider value={activity}>
-      <div className={cn('activityCard', where)}>{children}</div>
-    </ActivityContext.Provider>
+    <CardContext.Provider value={card}>
+      <div className={cn('card', where)}>{children}</div>
+    </CardContext.Provider>
   );
 }
-Activity.Thumbnail = Thumbnail;
-Activity.Description = Description;
-Activity.ReservationState = ReservationState;
-Activity.StarRating = StarRating;
-Activity.Title = Title;
-Activity.Schedule = Schedule;
-Activity.Divider = Divider;
-Activity.Footer = Footer;
-Activity.Price = Price;
-Activity.ReservationButton = ReservationButton;
-Activity.Dropdown = Dropdown;
+Card.Thumbnail = Thumbnail;
+Card.Description = Description;
+Card.ReservationState = ReservationState;
+Card.StarRating = StarRating;
+Card.Title = Title;
+Card.Schedule = Schedule;
+Card.Divider = Divider;
+Card.Footer = Footer;
+Card.Price = Price;
+Card.ReservationButton = ReservationButton;
+Card.Dropdown = Dropdown;
 
 function Thumbnail({ where }: { where?: 'review' }) {
-  const { imgUrl } = useActivity();
+  const { imgUrl } = useCard();
 
-  return <Image className={cn('thumbnail', where)} src={imgUrl} alt="activity thumbnail" priority />;
+  return <Image className={cn('thumbnail', where)} src={imgUrl} alt="card thumbnail" priority />;
 }
 
 function Description({ where, children }: { where?: 'review'; children: React.ReactNode }) {
@@ -111,19 +118,24 @@ function Description({ where, children }: { where?: 'review'; children: React.Re
 }
 
 function Title({ where }: { where?: 'review' }) {
-  const { title } = useActivity();
+  const { title } = useCard();
 
   return <div className={cn('title', where)}>{title}</div>;
 }
 
 function Schedule() {
-  const { schedule } = useActivity();
+  const { schedule } = useCard();
 
-  return <div className={cn('schedule')}>{schedule}</div>;
+  if (!schedule) return null;
+  return (
+    <div className={cn('schedule')}>
+      {schedule.date} · {schedule.startTime} - {schedule.endTime} · {schedule.headCount}명
+    </div>
+  );
 }
 
 function ReservationState() {
-  const { reservationState } = useActivity();
+  const { reservationState } = useCard();
 
   if (!reservationState) return null;
   return (
@@ -132,7 +144,7 @@ function ReservationState() {
 }
 
 function StarRating() {
-  const { starRating } = useActivity();
+  const { starRating } = useCard();
 
   if (!starRating) return null;
   return (
@@ -152,21 +164,21 @@ function Divider() {
 }
 
 function Price({ where }: { where?: 'review' }) {
-  const { price } = useActivity();
+  const { price } = useCard();
   const formattedPrice = new Intl.NumberFormat('ko-KR').format(Number(price));
 
   return <div className={cn('price', where)}>₩{formattedPrice}</div>;
 }
 
 function ReservationButton() {
-  const { reservationState } = useActivity();
+  const { reservationState } = useCard();
 
   const handleReservationCancelClick = () => {
-    console.log('예약 취소 버튼 클릭');
+    // 예약취소 구현
   };
 
   const handleReviewCreateClick = () => {
-    console.log('후기 작성');
+    // 후기작성 구현
   };
 
   if (reservationState === 'completed') {
@@ -201,11 +213,11 @@ function Dropdown() {
   };
 
   const handleModifyClick = () => {
-    console.log('수정하기');
+    // 수정하기 구현
   };
 
   const handleDeleteClick = () => {
-    console.log('삭제하기');
+    // 삭제하기 구현
   };
 
   useClickOutside(profileRef, closeDropdown);
