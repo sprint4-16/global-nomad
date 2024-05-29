@@ -1,0 +1,76 @@
+.itemsWrapper {
+  height: 77rem;
+
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+
+  .item {
+    border-top: 0.1rem solid $calendar-border;
+    border-left: 0.1rem solid $calendar-border;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    position: relative;
+
+    padding: 1.2rem;
+
+    @include Inter-21-500;
+    color: $calendar-color;
+
+    .dayWrapper {
+      position: relative;
+    }
+
+    .alertIcon {
+      position: absolute;
+      top: 0;
+      right: -1rem;
+    }
+
+    .chips {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: stretch;
+      gap: 0.05rem;
+
+      position: absolute;
+      bottom: 0.2rem;
+      left: 0.2rem;
+      right: 0.2rem;
+    }
+
+    &:nth-child(29) {
+      border-bottom-left-radius: 0.8rem;
+    }
+
+    &:nth-child(22):nth-last-child(7) {
+      border-bottom-left-radius: 0.8rem;
+    }
+
+    &:last-child,
+    &:nth-child(28) {
+      border-bottom-right-radius: 0.8rem;
+    }
+
+    &:nth-child(7n) {
+      border-right: 0.1rem solid $calendar-border;
+    }
+
+    &:nth-child(n + 22):nth-child(-n + 28) {
+      border-bottom: 0.1rem solid $calendar-border;
+    }
+
+    &:nth-child(n + 29) {
+      border-top: none;
+      border-bottom: 0.1rem solid $calendar-border;
+    }
+
+    &:last-child {
+      border-right: 0.1rem solid $calendar-border;
+    }
+  }
+}

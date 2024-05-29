@@ -20,6 +20,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Inter';
+  src: url('https://fonts.googleapis.com/css2?family=Inter:wght@100..400&display=swap') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
 @mixin pretendard-32-700 {
   font-family: Pretendard;
   font-size: 3.2rem;
@@ -129,4 +136,19 @@
   font-size: 1.4rem;
   font-weight: 700;
   line-height: 1.9rem;
+}
+
+@mixin Inter-21-500 {
+  font-family: Inter;
+  font-size: 2.1rem;
+  font-weight: 500;
+  line-height: 2.54rem;
+  text-align: left;
+}
+
+@mixin Inter-16-500 {
+  font-family: Inter;
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 1.94rem;
 }

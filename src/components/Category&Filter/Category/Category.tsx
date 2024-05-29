@@ -1,13 +1,14 @@
 import { useState } from 'react';
+
 import classNames from 'classnames/bind';
 import styles from './Category.module.scss';
 
 const cn = classNames.bind(styles);
 
-interface categoryProps {
+interface CategoryProps {
   list: string[];
 }
-export default function Category({ list }: categoryProps) {
+export default function Category({ list }: CategoryProps) {
   const [clicked, setClicked] = useState<string | ''>('');
 
   const handleCategoryClick = (item: string) => {

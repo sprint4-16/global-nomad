@@ -21,13 +21,22 @@ export const ROUTE = {
   // 내 체험 수정 페이지
   ACTIVITIY_EDIT: '/user/activity-edit',
 
-  // 예약 현환 페이지
+  // 예약 현황 페이지
   RESERVATION_CALENDAR: '/user/reservation-calendar',
 } as const;
 
 export const GNB_REQUIRES: string[] = [
   ROUTE.HOME,
   ROUTE.ACTIVITY_DETAIL,
+  ROUTE.USER,
+  ROUTE.RESERVATIONS,
+  ROUTE.USER_ACTIVITIES,
+  ROUTE.ACTIVITIY_POST,
+  ROUTE.ACTIVITIY_EDIT,
+  ROUTE.RESERVATION_CALENDAR,
+] as const;
+
+export const SIDE_NAV_MENU_REQUIRES: string[] = [
   ROUTE.USER,
   ROUTE.RESERVATIONS,
   ROUTE.USER_ACTIVITIES,
