@@ -21,7 +21,7 @@ export const ROUTE = {
   // 내 체험 수정 페이지
   ACTIVITIY_EDIT: '/user/activity-edit',
 
-  // 예약 현환 페이지
+  // 예약 현황 페이지
   RESERVATION_CALENDAR: '/user/reservation-calendar',
 } as const;
 
@@ -52,3 +52,19 @@ export const END_POINT = {
 } as const;
 
 export const COOKIE_NAMES = ['accessToken', 'refreshToken', 'nickname', 'profileImageUrl'] as const;
+
+export const SIDE_NAV_MENU_REQUIRES: string[] = [
+  ROUTE.USER,
+  ROUTE.RESERVATIONS,
+  ROUTE.USER_ACTIVITIES,
+  ROUTE.ACTIVITIY_POST,
+  ROUTE.ACTIVITIY_EDIT,
+  ROUTE.RESERVATION_CALENDAR,
+] as const;
+
+export const RESERVATION_STATE_LABEL_MAP = {
+  completed: '예약 완료',
+  canceled: '예약 취소',
+  rejected: '예약 거절',
+  finished: '체험 완료',
+} as const;
