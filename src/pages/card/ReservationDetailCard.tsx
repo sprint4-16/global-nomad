@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
-import Button from '../Button/Button';
-import { Chips } from '../Chips/Chips';
+import Button from '../../components/Button/Button';
+import { Chips } from '../../components/Chips/Chips';
 import styles from './ReservationDetailCard.module.scss';
 
 type ReservationState = 'notReserved' | 'confirmed' | 'rejected';
