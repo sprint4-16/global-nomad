@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 
 import { MeatballIcon, StarIcon } from '@/images/icon';
 import { RESERVATION_STATE_LABEL_MAP } from '@/constants';
-import useClickOutside from '@/hooks/useClickOutside';
+import useOutsideClick from '@/hooks/useOutsideClick';
 import Button from '../../Button/Button';
 import styles from '../Card.module.scss';
 
@@ -116,7 +116,7 @@ export function CardDropdown() {
     // 삭제하기 구현
   };
 
-  useClickOutside(profileRef, closeDropdown);
+  useOutsideClick({ ref: profileRef, onClick: closeDropdown });
 
   return (
     <div className={cn('dropdownContainer')} ref={profileRef}>
