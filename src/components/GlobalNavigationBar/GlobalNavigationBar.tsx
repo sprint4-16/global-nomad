@@ -1,9 +1,9 @@
+import Link from 'next/link';
 import classNames from 'classnames/bind';
 import styles from './GlobalNavigationBar.module.scss';
-import Logo from '@/images/logo/logo_small.svg';
-import Link from 'next/link';
 
 import { ROUTE } from '@/constants';
+import Logo from '@/images/logo/logo_small.svg';
 import NavItems from './NavItems/Navitems';
 
 const cn = classNames.bind(styles);

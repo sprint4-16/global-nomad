@@ -1,9 +1,9 @@
-import { MouseEvent, useRef } from 'react';
-
+import { useRef } from 'react';
 import classNames from 'classnames/bind';
 import styles from './ConfirmationModal.module.scss';
 
 import CheckIcon from '@/images/icon/icon_check.svg';
+import Button from '@/components/Button/Button';
 import useOutsideClick from '@/hooks/useOutsideClick';
 
 const cn = classNames.bind(styles);
@@ -21,9 +21,9 @@ export default function ConfirmationModal({
   onCancel,
   handleModalOpen,
 }: ConfirmationProps) {
-  const handleCancel = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const handleCancel = () => {
     onCancel();
+    handleModalOpen();
   };
 
   const modalRef = useRef<HTMLDivElement>(null);
@@ -37,12 +37,12 @@ export default function ConfirmationModal({
         </div>
         <div className={cn('text')}>{confirmMessage}</div>
         <div className={cn('buttonContainer')}>
-          <button className={cn('button')} onClick={handleModalOpen}>
+          <Button className={cn('button')} onClick={handleModalOpen} type="secondary" size="small">
             아니오
-          </button>
-          <button className={cn('button')} onClick={handleCancel}>
+          </Button>
+          <Button className={cn('button')} onClick={handleCancel} type="primary" size="small">
             취소하기
-          </button>
+          </Button>
         </div>
       </div>
     </div>
