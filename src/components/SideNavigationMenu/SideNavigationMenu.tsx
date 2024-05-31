@@ -1,3 +1,4 @@
+import { useState, useRef } from 'react';
 import classNames from 'classnames/bind';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -22,21 +23,56 @@ const navItems = [
 
 export default function SideNavigationMenu({ className }: { className: string }) {
   const router = useRouter();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [imageSrc, setImageSrc] = useState(ProfileImg);
+  const [isCustomImage, setIsCustomImage] = useState(false);
 
   const handleNavClick = (state: string) => {
     router.push(`/${state}`);
+  };
+
+  const handlePenClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          setImageSrc(e.target.result as string);
+          setIsCustomImage(true);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  };
+
+  const customLoader = ({ src }) => {
+    return src;
   };
 
   return (
     <div className={cn('sideNavigationMenu', className)}>
       <div className={cn('profileImgWrapper')}>
         <div className={cn('profileImgContainer')}>
-          <Image src={ProfileImg} alt="프로필 이미지" />
-          <div className={cn('penWrapper')}>
+          <Image
+            src={imageSrc}
+            alt="프로필 이미지"
+            layout="fill"
+            objectFit="cover"
+            loader={isCustomImage ? customLoader : undefined}
+            className={cn('profileImg')}
+          />
+          <div className={cn('penWrapper')} onClick={handlePenClick}>
             <Pen />
           </div>
         </div>
       </div>
+      <input type="file" ref={fileInputRef} style={{ display: 'none' }} accept="image/*" onChange={handleFileChange} />
       <div className={cn('navMenuList')}>
         {navItems.map((item) => (
           <div
