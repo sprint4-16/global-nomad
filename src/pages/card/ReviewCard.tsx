@@ -1,6 +1,7 @@
 import Card from '../../components/Card/Card';
 
 interface CardProps {
+  className: string;
   cardData: {
     activity: {
       title: string;
@@ -14,9 +15,9 @@ interface CardProps {
   };
 }
 
-export default function ReviewCard({ cardData }: CardProps) {
+export default function ReviewCard({ className, cardData }: CardProps) {
   return (
-    <Card where="review">
+    <Card className={className} where="review">
       <Card.Thumbnail bannerImageUrl={cardData.activity.bannerImageUrl} where="review" />
       <Card.Description where="review">
         <Card.Title where="review">{cardData.activity.title}</Card.Title>

@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import styles from './ReviewModal.module.scss';
 
 import CloseIcon from '@/images/btn/btn_X.svg';
+import ReviewCard from '@/pages/card/ReviewCard';
 import RaitingComponent from './RaitingComponent/RaitingComponent';
 import Textarea from '@/components/Textarea/Textarea';
 import Button from '@/components/Button/Button';
@@ -15,9 +16,20 @@ interface ReviewModalProps {
   className?: string;
   onConfirm: () => void;
   handleModalOpen: () => void;
+  cardData: {
+    activity: {
+      title: string;
+      bannerImageUrl: string;
+    };
+    totalPrice: number;
+    headCount: number;
+    date: string;
+    startTime: string;
+    endTime: string;
+  };
 }
 
-export default function ReviewModal({ className, onConfirm, handleModalOpen }: ReviewModalProps) {
+export default function ReviewModal({ className, onConfirm, handleModalOpen, cardData }: ReviewModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const [bodyData, setBodydata] = useState({
@@ -49,7 +61,7 @@ export default function ReviewModal({ className, onConfirm, handleModalOpen }: R
           <CloseIcon width="4rem" height="4rem" onClick={handleModalOpen} />
         </div>
         <form className={cn('form')} onSubmit={onSubmit}>
-          <div className={cn('card')} />
+          <ReviewCard cardData={cardData} className={cn('card')} />
           <RaitingComponent onRatingChange={onRatingChange} />
           <Textarea onChange={onChange} />
           <Button className={cn('button')} type="primary" size="large">
