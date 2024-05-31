@@ -213,3 +213,67 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.reservationButton {
+  width: 14.4rem;
+  padding: 0.8rem 0;
+  line-height: 162.5%;
+
+  @include tablet {
+    width: 11.2rem;
+  }
+
+  @include mobile {
+    width: 8rem;
+    padding: 0.6rem 0;
+    font-size: 1.4rem;
+    line-height: 142.857%;
+  }
+}
+
+.dropdownContainer {
+  position: relative;
+}
+
+.meatball {
+  width: 4rem;
+  height: 4rem;
+  cursor: pointer;
+
+  @include mobile {
+    width: 3.2rem;
+    height: 3.2rem;
+  }
+}
+
+.dropdown {
+  width: 16rem;
+  position: absolute;
+  right: 0;
+  box-shadow: 0rem 0.4rem 1.6rem 0rem rgba(17, 34, 17, 0.05);
+  border-radius: 0.6rem;
+  overflow: hidden;
+
+  &:hover {
+    box-shadow:
+      0 1.4rem 2.8rem rgba(0, 0, 0, 0.25),
+      0 1rem 1rem rgba(0, 0, 0, 0.22);
+  }
+}
+
+.dropdownItem {
+  padding: 1.8rem 4.6rem;
+  border: 0.1rem solid $gray-300;
+  background: $white;
+  color: $gray-800;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 122.222%;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $blue-f1e;
+    color: $blue-900;
+  }
+}
