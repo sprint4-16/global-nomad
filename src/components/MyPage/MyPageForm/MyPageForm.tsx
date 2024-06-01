@@ -28,19 +28,10 @@ export default function MyPageForm() {
     nickname: yup.string().max(10, '열 자 이하로 작성해 주세요.'),
     password: yup
       .string()
+      .required('8자 이상 입력해 주세요.')
       .min(8, '8자 이상 입력해 주세요.')
-      .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/, '비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.')
-      .nullable()
-      .transform((value) => (value === '' ? null : value)),
-    newPassword: yup
-      .string()
-      .oneOf([yup.ref('password')], '비밀번호가 일치하지 않습니다.')
-      .nullable()
-      .when('password', {
-        is: (password: string | null) => password !== null,
-        then: (schema) => schema.required('비밀번호 확인을 입력해 주세요.'),
-        otherwise: (schema) => schema.notRequired(),
-      }),
+      .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/, '비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.'),
+    newPassword: yup.string().oneOf([yup.ref('password')], '비밀번호가 일치하지 않습니다.'),
   });
 
   const {
@@ -60,18 +51,7 @@ export default function MyPageForm() {
       profileImageUrl: '',
     };
 
-    if (data.nickname && data.nickname !== initialValues.nickname) {
-      bodyData.nickname = data.nickname;
-    }
-
-    if (data.password) {
-      bodyData.newPassword = data.password;
-    }
-
-    // If there's a profile image URL to handle, add logic here
-    bodyData.profileImageUrl = '';
-
-    console.log('Submitting data:', bodyData); // 콘솔에 출력하여 데이터 확인
+    console.log('Submitting data:', bodyData);
 
     patchProfile.mutate(bodyData, {
       onSuccess: () => {
@@ -103,7 +83,13 @@ export default function MyPageForm() {
           {errors.nickname && <div className={cn('error')}>{errors.nickname.message as string}</div>}
         </div>
         <div className={cn('inputBox')}>
-          <Input label="이메일" type="email" placeholder="12345@example.com" labelClassName={cn('customLabel')} />
+          <Input
+            label="이메일"
+            type="email"
+            placeholder="12345@example.com"
+            readOnly={true}
+            labelClassName={cn('customLabel')}
+          />
         </div>
         <div className={cn('inputBox')}>
           <Input

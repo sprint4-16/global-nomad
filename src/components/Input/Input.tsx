@@ -17,10 +17,11 @@ interface InputProps {
   labelClassName?: string;
   onClick?: () => void;
   register?: UseFormRegisterReturn;
+  readOnly?: boolean;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, type, placeholder, color, sx, onClick, className, labelClassName, register, ...props }, ref) => {
+  ({ label, type, placeholder, color, sx, onClick, className, labelClassName, readOnly, register, ...props }, ref) => {
     return (
       <div className={cn('inputContainer', className)}>
         <label htmlFor={type} className={cn('label', labelClassName)}>
@@ -35,6 +36,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               className={cn('input', color)}
               style={sx}
               ref={ref}
+              readOnly={readOnly}
               {...register}
             />
             <EyeOff className={cn('eyeImg')} onClick={onClick} />
@@ -46,6 +48,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             placeholder={placeholder}
             className={cn('input', color)}
             ref={ref}
+            readOnly={readOnly}
             {...register}
           />
         )}
