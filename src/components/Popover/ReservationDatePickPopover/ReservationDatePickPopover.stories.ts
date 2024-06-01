@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import ReservationDatePickPopover from './ReservationDatePickPopover';
+import 'react-datepicker/dist/react-datepicker.css';
+import '@/styles/datepicker_custom.scss';
 import '@/styles/reset.scss';
 
 const meta = {
