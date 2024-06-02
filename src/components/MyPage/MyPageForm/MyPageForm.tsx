@@ -5,7 +5,7 @@ import { Input } from '@/components/Input/Input';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useGetProfile, usePatchProfile, usePatchProfileProps } from '@/apis/apiHooks/\bMyProfile';
+import { useGetProfile, usePatchProfile, usePatchProfileProps } from '@/apis/apiHooks/MyProfile';
 import { useEffect, useState } from 'react';
 
 const cn = classNames.bind(styles);

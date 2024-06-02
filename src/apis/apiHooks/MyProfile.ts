@@ -20,15 +20,12 @@ export function useGetProfile() {
   });
 }
 
-interface UseUploadProfileImageProps {
-  file: File;
-}
-
+// 유저 프로필 이미지 저장
 export function useUploadProfileImage() {
   const { getCookie } = useGetCookie();
 
   return useMutation({
-    mutationFn: async ({ file }: UseUploadProfileImageProps) => {
+    mutationFn: async (file: File) => {
       const accessToken = getCookie('accessToken');
 
       if (!accessToken) throw new Error('Access token is not available');
@@ -39,11 +36,6 @@ export function useUploadProfileImage() {
       const { data } = await axiosInstanceToken(accessToken).post(
         `${END_POINT.MY_RESERVATIONS}/users/me/image`,
         formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        },
       );
 
       return data.profileImageUrl;
@@ -51,13 +43,13 @@ export function useUploadProfileImage() {
   });
 }
 
+// 유저의 프로필 정보를 수정하는 API
 export interface usePatchProfileProps {
-  nickname: string;
-  newPassword: string;
-  profileImageUrl: string;
+  nickname?: string;
+  newPassword?: string;
+  profileImageUrl?: string;
 }
 
-// 유저의 프로필 정보를 수정하는 API
 export function usePatchProfile() {
   const { getCookie } = useGetCookie();
 
