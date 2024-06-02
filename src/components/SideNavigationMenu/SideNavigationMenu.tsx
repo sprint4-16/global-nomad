@@ -21,14 +21,24 @@ const navItems = [
   { id: 4, icon: <Setting />, title: '예약 현황', state: `${ROUTE.RESERVATION_CALENDAR}` },
 ];
 
-export default function SideNavigationMenu({ className }: { className: string }) {
+export default function SideNavigationMenu({
+  className,
+  onMenuClick,
+}: {
+  className: string;
+  onMenuClick?: (state: string) => void;
+}) {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [imageSrc, setImageSrc] = useState(ProfileImg);
   const [isCustomImage, setIsCustomImage] = useState(false);
 
   const handleNavClick = (state: string) => {
-    router.push(`/${state}`);
+    if (onMenuClick) {
+      onMenuClick(state);
+    } else {
+      router.push(`/${state}`);
+    }
   };
 
   const handlePenClick = () => {

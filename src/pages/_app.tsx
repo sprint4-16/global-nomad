@@ -1,5 +1,5 @@
 import '@/styles/reset.scss';
-// import 'react-datepicker/dist/react-datepicker.css';
+import 'react-datepicker/dist/react-datepicker.css';
 import '@/styles/datepicker_custom.scss';
 import type { AppProps } from 'next/app';
 import { useState } from 'react';
@@ -11,11 +11,14 @@ import { GNB_REQUIRES, SIDE_NAV_MENU_REQUIRES } from '@/constants/index';
 import GlobalNavigationBar from '@/components/GlobalNavigationBar/GlobalNavigationBar';
 import Footer from '@/components/Footer/Footer';
 import SideNavigationMenuLayout from '@/pageLayouts/commonLayouts/SideNavigationMenuLayout/SideNavigationMenuLayout';
+import { useMediaQuery } from 'react-responsive';
+import SideNavigationMenu from '@/components/SideNavigationMenu/SideNavigationMenu';
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const checkRouteInGNB = GNB_REQUIRES.includes(router.pathname);
   const checkRouteInSideNavMenu = SIDE_NAV_MENU_REQUIRES.includes(router.pathname);
+  const isMobile = useMediaQuery({ query: '(max-width: 375px)' });
 
   const [queryClient] = useState(
     () =>
@@ -36,6 +39,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <div id="modal-root" />
         {checkRouteInGNB && <GlobalNavigationBar />}
         <div id="contentWrapper" style={contentStyle}>
+          {checkRouteInSideNavMenu && router.pathname === '/user' && isMobile && (
+            <SideNavigationMenu onMenuClick={(state: string) => router.push(`/my-page`)} className={''} />
+          )}
           {checkRouteInSideNavMenu ? (
             <SideNavigationMenuLayout>
               <Component {...pageProps} />
