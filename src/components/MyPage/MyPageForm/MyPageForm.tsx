@@ -64,6 +64,11 @@ export default function MyPageForm() {
     patchProfile.mutate(bodyData, {
       onSuccess: () => {
         console.log('프로필 업데이트 성공!');
+        // 비밀번호 입력 필드 초기화
+        passwordForm.reset({
+          password: '',
+          newPassword: '',
+        });
       },
       onError: (error: any) => {
         console.error('프로필 업데이트 에러!', error);
