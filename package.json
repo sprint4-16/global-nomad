@@ -21,7 +21,8 @@
     "react": "^18",
     "react-datepicker": "^6.9.0",
     "react-dom": "^18",
-    "react-hook-form": "^7.51.4"
+    "react-hook-form": "^7.51.4",
+    "react-kakao-maps-sdk": "^1.1.26"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.4.0",

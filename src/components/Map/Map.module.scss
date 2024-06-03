@@ -1,0 +1,88 @@
+.container {
+  width: 79rem;
+  height: 47.6rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 0.8rem;
+
+  .mapContent {
+    border-radius: 1.6rem;
+
+    width: 100%;
+    height: 45rem;
+
+    position: relative;
+
+    overflow: hidden;
+    z-index: $zindex-main-content;
+
+    .dragToggleButton {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: stretch;
+      gap: 0.2rem;
+
+      position: absolute;
+      bottom: 0.4rem;
+      right: 0.4rem;
+
+      z-index: $zindex-main-content-ui;
+
+      .button {
+        width: 8rem;
+        height: 3.2rem;
+
+        white-space: nowrap;
+      }
+    }
+    .zoomController {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0.2rem;
+
+      position: absolute;
+      top: 0.2rem;
+      right: 0.4rem;
+
+      z-index: $zindex-main-content-ui;
+    }
+  }
+
+  .address {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.2rem;
+  }
+}
+
+@include tablet {
+  .container {
+    width: 42.9rem;
+    height: 30.2rem;
+
+    .mapContent {
+      width: 100%;
+      height: 27.6rem;
+    }
+  }
+}
+
+@include mobile {
+  .container {
+    width: 32.7rem;
+    height: 47.6rem;
+
+    .mapContent {
+      width: 100%;
+      height: 45rem;
+    }
+  }
+}
