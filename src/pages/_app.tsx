@@ -39,15 +39,20 @@ export default function App({ Component, pageProps }: AppProps) {
         <div id="modal-root" />
         {checkRouteInGNB && <GlobalNavigationBar />}
         <div id="contentWrapper" style={contentStyle}>
-          {checkRouteInSideNavMenu && router.pathname === '/user' && isMobile && (
-            <SideNavigationMenu onMenuClick={(state: string) => router.push(`/my-page`)} className={''} />
-          )}
-          {checkRouteInSideNavMenu ? (
-            <SideNavigationMenuLayout>
-              <Component {...pageProps} />
-            </SideNavigationMenuLayout>
+          {checkRouteInSideNavMenu && router.pathname === '/user' && isMobile ? (
+            <>
+              <SideNavigationMenu onMenuClick={(state: string) => router.push(`/my-page`)} className={''} />
+            </>
           ) : (
-            <Component {...pageProps} />
+            <>
+              {checkRouteInSideNavMenu && !isMobile ? (
+                <SideNavigationMenuLayout>
+                  <Component {...pageProps} />
+                </SideNavigationMenuLayout>
+              ) : (
+                <Component {...pageProps} />
+              )}
+            </>
           )}
         </div>
         {checkRouteInGNB && <Footer />}

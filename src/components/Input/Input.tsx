@@ -14,13 +14,17 @@ interface InputProps {
   sx?: CSSProperties;
   className?: string;
   labelClassName?: string;
+  value?: string;
   onClick?: () => void;
   register?: UseFormRegisterReturn;
   readOnly?: boolean;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, type, placeholder, color, sx, onClick, className, labelClassName, readOnly, register, ...props }, ref) => {
+  (
+    { label, type, placeholder, color, sx, onClick, className, labelClassName, value, readOnly, register, ...props },
+    ref,
+  ) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const buttonStyle: CSSProperties = {
       padding: '1.4rem 2rem',
@@ -43,6 +47,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             placeholder={placeholder}
             className={cn('input', color)}
             style={sx}
+            value={value}
             ref={ref}
             readOnly={readOnly}
             {...register}

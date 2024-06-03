@@ -11,18 +11,9 @@ import { useEffect, useState } from 'react';
 const cn = classNames.bind(styles);
 
 export default function MyPageForm() {
-  const { data: profileData } = useGetProfile();
   const patchProfile = usePatchProfile();
-  const [initialValues, setInitialValues] = useState({ nickname: '', email: '' });
-
-  useEffect(() => {
-    if (profileData) {
-      setInitialValues({
-        nickname: profileData.nickname,
-        email: profileData.email,
-      });
-    }
-  }, [profileData]);
+  const { data: profileData } = useGetProfile();
+  const [email, setEmail] = useState('');
 
   const formSchema = yup.object({
     nickname: yup.string().max(10, '열 자 이하로 작성해 주세요.'),
@@ -37,21 +28,25 @@ export default function MyPageForm() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isValid },
   } = useForm({
     mode: 'onBlur',
-    //@ts-ignore
-    resolver: yupResolver(formSchema) as Resolver,
+    resolver: yupResolver(formSchema),
   });
+
+  useEffect(() => {
+    if (profileData) {
+      setValue('nickname', profileData.nickname);
+      setEmail(profileData.email);
+    }
+  }, [profileData, setValue]);
 
   const onSubmit = (data: any) => {
     const bodyData: usePatchProfileProps = {
       nickname: data.nickname,
       newPassword: data.newPassword,
-      profileImageUrl: '',
     };
-
-    console.log('Submitting data:', bodyData);
 
     patchProfile.mutate(bodyData, {
       onSuccess: () => {
@@ -76,7 +71,7 @@ export default function MyPageForm() {
           <Input
             label="닉네임"
             type="text"
-            placeholder="정만철"
+            placeholder={profileData ? profileData.nickname : '정만철'}
             labelClassName={cn('customLabel')}
             register={register('nickname')}
           />
@@ -86,7 +81,8 @@ export default function MyPageForm() {
           <Input
             label="이메일"
             type="email"
-            placeholder="12345@example.com"
+            value={email}
+            placeholder={profileData ? profileData.email : '12345@example.com'}
             readOnly={true}
             labelClassName={cn('customLabel')}
           />
