@@ -1,9 +1,9 @@
-import ReservationDatePickPopover from '@/components/Popover/ReservationDatePickPopover/ReservationDatePickPopover';
+import ReservationInfoPopover from '@/components/Popover/ReservationInfoPopover/ReservationInfoPopover';
 
 export default function Home() {
   return (
     <>
-      <ReservationDatePickPopover onClose={() => {}} />
+      <ReservationInfoPopover onClose={() => {}} />
     </>
   );
 }

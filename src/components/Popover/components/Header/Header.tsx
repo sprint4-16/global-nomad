@@ -13,7 +13,7 @@ export default function Header({ title, onClose }: HeaderProps) {
   return (
     <div className={cn('container')}>
       <h2 className={cn('title')}>{title}</h2>
-      <CloseBtn onClick={onClose} />
+      <CloseBtn onClick={onClose} size={30} />
     </div>
   );
 }
