@@ -18,11 +18,17 @@
     top: 0.5rem;
     bottom: 0.5rem;
   }
+
+  .nickname {
+    width: 3.7rem;
+    height: 1.7rem;
+  }
 }
 
 .profileImg {
   border-radius: 4rem;
   border-color: $gray-300;
+  object-fit: cover;
 }
 
 .dropdown {

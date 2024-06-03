@@ -14,70 +14,58 @@
   top: 0;
 
   z-index: $zindex-modal;
-}
 
-.container {
-  border-radius: 1.2rem;
-  background-color: $white;
-  box-shadow: 0 0.4rem 1.6rem 0 rgba($nomad-black, 0.05);
+  .container {
+    border-radius: 1.2rem;
+    background-color: $white;
+    box-shadow: 0 0.4rem 1.6rem 0 rgba($nomad-black, 0.05);
 
-  max-width: calc(100vw - 4.8rem);
-  width: 29.8rem;
-  height: 18.4rem;
+    max-width: calc(100vw - 4.8rem);
+    width: 29.8rem;
+    height: 18.4rem;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 
-  padding: 2.4rem;
-  margin: 0 auto;
-}
+    padding: 2.4rem;
+    margin: 0 auto;
 
-.IconContainer {
-  border-radius: 6rem;
-  background-color: $nomad-black;
+    .IconContainer {
+      border-radius: 6rem;
+      background-color: $nomad-black;
 
-  width: 2.4rem;
-  height: 2.4rem;
+      width: 2.4rem;
+      height: 2.4rem;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
 
-.text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    .text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
 
-  @include Spoqa-16-400;
-  color: $nomad-black;
-}
+      @include Spoqa-16-400;
+      color: $nomad-black;
+    }
 
-.buttonContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 0.8rem;
-}
+    .buttonContainer {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 0.8rem;
 
-.button {
-  border: 0.1rem solid $nomad-black;
-  border-radius: 1rem;
-
-  width: 8rem;
-  height: 3.8rem;
-
-  @include Spoqa-14-700;
-  color: $nomad-black;
-
-  &:hover {
-    background-color: $nomad-black;
-
-    color: $white;
+      .button {
+        width: 8rem;
+        height: 3.8rem;
+      }
+    }
   }
 }
