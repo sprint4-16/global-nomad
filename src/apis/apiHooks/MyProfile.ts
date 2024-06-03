@@ -7,7 +7,7 @@ import useGetCookie from '@/hooks/useCookies';
 export function useGetProfile() {
   const { getCookie } = useGetCookie();
   const accessToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzM1LCJ0ZWFtSWQiOiI0LTE2IiwiaWF0IjoxNzE3NDE0MTM1LCJleHAiOjE3MTc0MTU5MzUsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.H-8_Fx5ToIVXh0RqIN0fnYeZS8U-j6t7Xz9ZKooHvGM';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzM2LCJ0ZWFtSWQiOiI0LTE2IiwiaWF0IjoxNzE3NDMxODQ0LCJleHAiOjE3MTc0MzM2NDQsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.gK2jGg3ltrcCR35boHJzMk4LyoTrx_8rsDDuOx66CBA';
 
   return useQuery({
     queryKey: ['profile'],
@@ -26,7 +26,7 @@ export function useUploadProfileImage() {
   return useMutation({
     mutationFn: async (file: File) => {
       const accessToken =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzM1LCJ0ZWFtSWQiOiI0LTE2IiwiaWF0IjoxNzE3Mzg5MTA1LCJleHAiOjE3MTczOTA5MDUsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.YH3I_rRlLusmI-epw0SYgMnKyuz2YhNaETIAp-r8xfc';
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzM2LCJ0ZWFtSWQiOiI0LTE2IiwiaWF0IjoxNzE3NDMxODQ0LCJleHAiOjE3MTc0MzM2NDQsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.gK2jGg3ltrcCR35boHJzMk4LyoTrx_8rsDDuOx66CBA';
 
       if (!accessToken) throw new Error('Access token is not available');
 
@@ -53,7 +53,7 @@ export function usePatchProfile() {
   return useMutation({
     mutationFn: async (bodyData: usePatchProfileProps) => {
       const accessToken =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzM1LCJ0ZWFtSWQiOiI0LTE2IiwiaWF0IjoxNzE3NDE0MTM1LCJleHAiOjE3MTc0MTU5MzUsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.H-8_Fx5ToIVXh0RqIN0fnYeZS8U-j6t7Xz9ZKooHvGM';
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzM2LCJ0ZWFtSWQiOiI0LTE2IiwiaWF0IjoxNzE3NDMxODQ0LCJleHAiOjE3MTc0MzM2NDQsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.gK2jGg3ltrcCR35boHJzMk4LyoTrx_8rsDDuOx66CBA';
 
       if (!accessToken) throw new Error('Access token is not available');
       const { data } = await axiosInstanceToken(accessToken).patch(`${END_POINT.USERS}/me`, bodyData);
