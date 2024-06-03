@@ -88,16 +88,16 @@
     color: $orange-200;
   }
 
-  &.completed {
+  &.confirmed {
     color: $blue-200;
   }
 
-  &.rejected {
+  &.declined {
     color: $red-200;
   }
 
   &.canceled,
-  &.finished {
+  &.completed {
     color: $gray-700;
   }
 
