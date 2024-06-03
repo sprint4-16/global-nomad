@@ -13,10 +13,10 @@ import useKakaoAPI from '@/hooks/useKakaoAPI';
 const cn = classNames.bind(styles);
 
 interface MapProps {
-  address?: string;
+  address: string;
 }
 
-export default function Map({ address = '홍대 cgv' }: MapProps) {
+export default function Map({ address }: MapProps) {
   const mapRef = useRef<kakao.maps.Map | null>(null);
 
   const { loading, error, location, draggable, setDraggable } = useKakaoAPI(address);
@@ -43,7 +43,7 @@ export default function Map({ address = '홍대 cgv' }: MapProps) {
     <div className={cn('container')}>
       <div className={cn('mapContent')}>
         {!!location && <KakaoMap location={location} draggable={draggable} mapRef={mapRef} />}
-        <div className={cn('dragToggleButton')}>
+        <div className={cn('buttons')}>
           <Button className={cn('button')} type="primary" size="small" onClick={handleReset}>
             위치 초기화
           </Button>
@@ -62,7 +62,7 @@ export default function Map({ address = '홍대 cgv' }: MapProps) {
         </div>
       </div>
       <div className={cn('address')}>
-        <LocationIcon />
+        <LocationIcon width="1.8rem" height="1.8rem" viewBox="-3 -1 18 18" />
         {address}
       </div>
     </div>
