@@ -3,6 +3,7 @@ import Card from '../../components/Card/Card';
 type ReservationState = 'completed' | 'canceled' | 'rejected' | 'finished';
 
 interface CardProps {
+  className: string;
   cardData: {
     activity: {
       title: string;
@@ -17,9 +18,9 @@ interface CardProps {
   };
 }
 
-export default function ReservationCard({ cardData }: CardProps) {
+export default function ReservationCard({ className, cardData }: CardProps) {
   return (
-    <Card>
+    <Card className={className}>
       <Card.Thumbnail bannerImageUrl={cardData.activity.bannerImageUrl} />
       <Card.Description>
         <div>

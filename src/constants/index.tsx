@@ -63,6 +63,7 @@ export const SIDE_NAV_MENU_REQUIRES: string[] = [
 ] as const;
 
 export const RESERVATION_STATE_LABEL_MAP = {
+  pending: '예약 승인',
   completed: '예약 완료',
   canceled: '예약 취소',
   rejected: '예약 거절',

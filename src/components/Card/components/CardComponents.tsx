@@ -8,7 +8,7 @@ import useOutsideClick from '@/hooks/useOutsideClick';
 import Button from '../../Button/Button';
 import styles from '../Card.module.scss';
 
-type ReservationState = 'completed' | 'canceled' | 'rejected' | 'finished';
+type ReservationState = 'pending' | 'completed' | 'canceled' | 'rejected' | 'finished';
 
 interface ReservationButtonProps {
   status: ReservationState;
