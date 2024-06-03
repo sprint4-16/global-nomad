@@ -1,6 +1,6 @@
 import Card from '../../components/Card/Card';
 
-type ReservationState = 'completed' | 'canceled' | 'rejected' | 'finished';
+type ReservationState = 'pending' | 'confirmed' | 'canceled' | 'declined' | 'completed';
 
 interface CardProps {
   className: string;

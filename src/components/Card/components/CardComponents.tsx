@@ -8,7 +8,7 @@ import useOutsideClick from '@/hooks/useOutsideClick';
 import Button from '../../Button/Button';
 import styles from '../Card.module.scss';
 
-type ReservationState = 'pending' | 'completed' | 'canceled' | 'rejected' | 'finished';
+type ReservationState = 'pending' | 'confirmed' | 'canceled' | 'declined' | 'completed';
 
 interface ReservationButtonProps {
   status: ReservationState;
@@ -145,7 +145,7 @@ export function ReservationButton({ status }: ReservationButtonProps) {
     // 후기작성 구현
   };
 
-  if (status === 'completed') {
+  if (status === 'confirmed') {
     return (
       <Button className={cn('reservationButton')} type="secondary" size="medium" onClick={handleReservationCancelClick}>
         예약 취소
@@ -153,7 +153,7 @@ export function ReservationButton({ status }: ReservationButtonProps) {
     );
   }
 
-  if (status === 'finished') {
+  if (status === 'completed') {
     return (
       <Button className={cn('reservationButton')} type="primary" size="medium" onClick={handleReviewCreateClick}>
         후기 작성
