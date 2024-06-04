@@ -1,90 +1,12 @@
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import classNames from 'classnames/bind';
+
+import { axiosInstanceToken } from '@/apis/axiosInstance';
 import ExperienceCard from '@/pages/card/ExperienceCard';
 import Button from '@/components/Button/Button';
 import styles from './ActivityLayout.module.scss';
-
-// 임시 데이터
-const data = {
-  activities: [
-    {
-      id: 989,
-      userId: 341,
-      title: '함께 배우면 즐거운 스트릿댄스',
-      description: '둠칫 둠칫 두둠칫',
-      category: '투어',
-      price: 10000,
-      address: '서울특별시 강남구 테헤란로 427',
-      bannerImageUrl:
-        'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/globalnomad/activity_registration_image/4-16_341_1717458560103.png',
-      rating: 0,
-      reviewCount: 0,
-      createdAt: '2024-06-04T08:17:47.820Z',
-      updatedAt: '2024-06-04T08:17:47.820Z',
-    },
-    {
-      id: 988,
-      userId: 341,
-      title: '함께 배우면 즐거운 스트릿댄스',
-      description: '둠칫 둠칫 두둠칫',
-      category: '투어',
-      price: 10000,
-      address: '서울특별시 강남구 테헤란로 427',
-      bannerImageUrl:
-        'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/globalnomad/activity_registration_image/4-16_341_1717458560103.png',
-      rating: 0,
-      reviewCount: 0,
-      createdAt: '2024-06-04T08:15:14.993Z',
-      updatedAt: '2024-06-04T08:15:14.993Z',
-    },
-    {
-      id: 987,
-      userId: 341,
-      title: '함께 배우면 즐거운 스트릿댄스',
-      description: '둠칫 둠칫 두둠칫',
-      category: '투어',
-      price: 10000,
-      address: '서울특별시 강남구 테헤란로 427',
-      bannerImageUrl:
-        'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/globalnomad/activity_registration_image/4-16_341_1717458560103.png',
-      rating: 0,
-      reviewCount: 0,
-      createdAt: '2024-06-04T07:59:23.416Z',
-      updatedAt: '2024-06-04T07:59:23.416Z',
-    },
-    {
-      id: 986,
-      userId: 341,
-      title: '함께 배우면 즐거운 스트릿댄스',
-      description: '둠칫 둠칫 두둠칫',
-      category: '투어',
-      price: 10000,
-      address: '서울특별시 강남구 테헤란로 427',
-      bannerImageUrl:
-        'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/globalnomad/activity_registration_image/4-16_341_1717458560103.png',
-      rating: 0,
-      reviewCount: 0,
-      createdAt: '2024-06-04T07:59:22.429Z',
-      updatedAt: '2024-06-04T07:59:22.429Z',
-    },
-    {
-      id: 985,
-      userId: 341,
-      title: '함께 배우면 즐거운 스트릿댄스',
-      description: '둠칫 둠칫 두둠칫',
-      category: '투어',
-      price: 10000,
-      address: '서울특별시 강남구 테헤란로 427',
-      bannerImageUrl:
-        'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/globalnomad/activity_registration_image/4-16_341_1717458560103.png',
-      rating: 0,
-      reviewCount: 0,
-      createdAt: '2024-06-04T07:59:17.706Z',
-      updatedAt: '2024-06-04T07:59:17.706Z',
-    },
-  ],
-  totalCount: 5,
-  cursorId: null,
-};
+import { ROUTE } from '@/constants';
 
 interface CardProps {
   id: number;
@@ -96,18 +18,39 @@ interface CardProps {
 }
 
 export default function ActivityLayout() {
+  const router = useRouter();
   const cn = classNames.bind(styles);
+  const [activities, setActivities] = useState<CardProps[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const accessToken =
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzQxLCJ0ZWFtSWQiOiI0LTE2IiwiaWF0IjoxNzE3NDcxNzc4LCJleHAiOjE3MTc0NzM1NzgsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.XmGLc4d-9J0NuIG0c3mG-59tA7qZxgMC2CmQBkS9XY8';
+        const { data } = await axiosInstanceToken(accessToken).get(`my-activities?size=20`);
+        setActivities(data.activities);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleClickAddActivity = () => {
+    // 체험 등록하기
+    router.push(`/${ROUTE.ACTIVITY_POST}`);
+  };
 
   return (
     <div className={cn('activityLayout')}>
       <div className={cn('header')}>
         <h1 className={cn('title')}>내 체험 관리</h1>
-        <Button className={cn('button')} type="primary" size="medium">
+        <Button className={cn('button')} type="primary" size="medium" onClick={handleClickAddActivity}>
           체험 등록하기
         </Button>
       </div>
       <div className={cn('cardList')}>
-        {data.activities.map((item: CardProps) => {
+        {activities.map((item: CardProps) => {
           return <ExperienceCard key={item.id} cardData={item} />;
         })}
       </div>
