@@ -52,3 +52,36 @@
 .point {
   color: #2eb4ff;
 }
+
+.dropdown {
+  color: $nomad-black;
+}
+
+.contents {
+  padding: 3rem 0;
+}
+
+.sectionTitle {
+  @include pretendard-16-600;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.sectionLabel {
+  @include pretendard-16-400;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.section + .section {
+  margin-top: 3rem;
+}
+
+.cardList {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
