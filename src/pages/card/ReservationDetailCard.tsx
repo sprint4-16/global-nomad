@@ -3,7 +3,7 @@ import Button from '../../components/Button/Button';
 import { Chips } from '../../components/Chips/Chips';
 import styles from './ReservationDetailCard.module.scss';
 
-type ReservationState = 'notReserved' | 'confirmed' | 'rejected';
+type ReservationState = 'pending' | 'confirmed' | 'declined';
 
 interface Props {
   nickname: string;
@@ -33,7 +33,7 @@ export default function ReservationDetailCard({ nickname, people, reservationSta
         </div>
       </div>
       <div className={cn('footer')}>
-        {reservationState == 'notReserved' && (
+        {reservationState == 'pending' && (
           <>
             <Button className={cn('button')} type="primary" size="small" onClick={handleConfirmClick}>
               확정하기
@@ -48,8 +48,8 @@ export default function ReservationDetailCard({ nickname, people, reservationSta
             예약확정
           </Chips>
         )}
-        {reservationState == 'rejected' && (
-          <Chips className={cn('chips', 'rejected')} type="confirmed">
+        {reservationState == 'declined' && (
+          <Chips className={cn('chips', 'declined')} type="confirmed">
             예약거절
           </Chips>
         )}
