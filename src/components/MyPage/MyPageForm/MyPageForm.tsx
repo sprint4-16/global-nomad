@@ -14,7 +14,7 @@ export default function MyPageForm() {
   const patchProfile = usePatchProfile();
   const { data: profileData } = useGetProfile();
   const [email, setEmail] = useState('');
-  const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null); // 프로필 이미지 URL 상태 추가
+  const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null);
 
   const nicknameSchema = yup.object({
     nickname: yup.string().max(10, '열 자 이하로 작성해 주세요.').required('닉네임을 입력해 주세요.'),
@@ -91,7 +91,6 @@ export default function MyPageForm() {
     <form onSubmit={nicknameForm.handleSubmit(onSubmit)}>
       <div className={cn('titleBox')}>
         <h1>내 정보</h1>
-        {/* 프로필 이미지가 변경되었거나 닉네임 또는 비밀번호 폼 중 하나라도 유효하지 않을 때 버튼을 비활성화 */}
         <Button
           type="primary"
           size="medium"

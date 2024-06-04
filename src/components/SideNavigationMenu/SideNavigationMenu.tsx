@@ -12,7 +12,7 @@ import TextBoxCheck from '@/images/icon/icon_text_box_check.svg';
 import CalendarCheck from '@/images/icon/icon_calendar_check.svg';
 import Setting from '@/images/icon/icon_setting.svg';
 
-import { useGetProfile, useUploadProfileImage } from '@/apis/apiHooks/MyProfile'; // Importing the profile API
+import { useGetProfile, useUploadProfileImage } from '@/apis/apiHooks/MyProfile';
 
 const cn = classNames.bind(styles);
 
