@@ -20,7 +20,7 @@ export default function Card({
   where,
 }: {
   children: React.ReactNode;
-  className: string;
+  className?: string;
   where?: 'review';
 }) {
   const cn = classNames.bind(styles);
