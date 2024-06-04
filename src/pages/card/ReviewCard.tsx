@@ -1,7 +1,7 @@
 import Card from '../../components/Card/Card';
 
 interface CardProps {
-  className: string;
+  className?: string;
   cardData: {
     activity: {
       title: string;
