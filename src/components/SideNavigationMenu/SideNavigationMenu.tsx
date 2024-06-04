@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, ChangeEventHandler } from 'react';
 import classNames from 'classnames/bind';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -11,6 +11,8 @@ import AccountCheck from '@/images/icon/icon_account_check.svg';
 import TextBoxCheck from '@/images/icon/icon_text_box_check.svg';
 import CalendarCheck from '@/images/icon/icon_calendar_check.svg';
 import Setting from '@/images/icon/icon_setting.svg';
+
+import { useUploadProfileImage } from '@/apis/apiHooks/MyProfile'; // Importing the profile API
 
 const cn = classNames.bind(styles);
 
@@ -29,15 +31,15 @@ export default function SideNavigationMenu({
   onMenuClick?: (state: string) => void;
 }) {
   const router = useRouter();
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [imageSrc, setImageSrc] = useState(ProfileImg);
-  const [isCustomImage, setIsCustomImage] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { mutate: uploadProfileImage } = useUploadProfileImage();
 
-  const handleNavClick = (state: string) => {
-    if (onMenuClick) {
-      onMenuClick(state);
-    } else {
-      router.push(`/${state}`);
+  const handleFileInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setSelectedFile(file);
+      uploadProfileImage(file);
     }
   };
 
@@ -47,42 +49,37 @@ export default function SideNavigationMenu({
     }
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          setImageSrc(e.target.result as string);
-          setIsCustomImage(true);
-        };
-        reader.readAsDataURL(file);
-      }
+  const handleNavClick = (state: string) => {
+    if (onMenuClick) {
+      onMenuClick(state);
+    } else {
+      router.push(`${state}`);
     }
-  };
-
-  const customLoader = ({ src }) => {
-    return src;
   };
 
   return (
     <div className={cn('sideNavigationMenu', className)}>
-      <div className={cn('profileImgWrapper')}>
+      <div className={cn('profileImgWrapper')} onClick={handlePenClick}>
         <div className={cn('profileImgContainer')}>
           <Image
-            src={imageSrc}
+            src={selectedFile ? URL.createObjectURL(selectedFile) : ProfileImg}
             alt="프로필 이미지"
             layout="fill"
             objectFit="cover"
-            loader={isCustomImage ? customLoader : undefined}
             className={cn('profileImg')}
           />
-          <div className={cn('penWrapper')} onClick={handlePenClick}>
+          <div className={cn('penWrapper')}>
             <Pen />
           </div>
         </div>
       </div>
-      <input type="file" ref={fileInputRef} style={{ display: 'none' }} accept="image/*" onChange={handleFileChange} />
+      <input
+        ref={fileInputRef}
+        type="file"
+        style={{ display: 'none' }}
+        accept="image/*"
+        onChange={handleFileInputChange}
+      />
       <div className={cn('navMenuList')}>
         {navItems.map((item) => (
           <div
