@@ -5,7 +5,7 @@ import Image from 'next/image';
 import styles from './SideNavigationMenu.module.scss';
 
 import { ROUTE } from '@/constants/index';
-import ProfileImg from '@/images/img/img_resource_profile_img_sample.png';
+import ProfileImg from '@/images/img/img_resource_default_profile.png';
 import Pen from '@/images/icon/icon_pen.svg';
 import AccountCheck from '@/images/icon/icon_account_check.svg';
 import TextBoxCheck from '@/images/icon/icon_text_box_check.svg';
@@ -33,8 +33,8 @@ export default function SideNavigationMenu({
   const router = useRouter();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null);
-  const { data: profileData, isLoading, isError } = useGetProfile();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { data: profileData, isLoading } = useGetProfile();
   const { mutate: uploadProfileImage } = useUploadProfileImage();
 
   useEffect(() => {

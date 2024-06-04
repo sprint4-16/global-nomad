@@ -14,6 +14,7 @@ export default function MyPageForm() {
   const patchProfile = usePatchProfile();
   const { data: profileData } = useGetProfile();
   const [email, setEmail] = useState('');
+  const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null); // 프로필 이미지 URL 상태 추가
 
   const nicknameSchema = yup.object({
     nickname: yup.string().max(10, '열 자 이하로 작성해 주세요.').required('닉네임을 입력해 주세요.'),
@@ -45,6 +46,7 @@ export default function MyPageForm() {
     if (profileData) {
       nicknameForm.setValue('nickname', profileData.nickname);
       setEmail(profileData.email);
+      setProfileImageUrl(profileData.profileImageUrl);
     }
   }, [profileData, nicknameForm.setValue]);
 
@@ -66,6 +68,9 @@ export default function MyPageForm() {
       bodyData.profileImageUrl = profileImageUrl;
     }
 
+    console.log(profileImageUrl);
+    console.log(profileData?.profileImageUrl);
+
     patchProfile.mutate(bodyData, {
       onSuccess: () => {
         console.log('프로필 업데이트 성공!');
@@ -73,6 +78,7 @@ export default function MyPageForm() {
           password: '',
           newPassword: '',
         });
+        localStorage.removeItem('profileImageUrl');
         alert('프로필이 저장되었습니다!');
       },
       onError: (error: any) => {
@@ -85,7 +91,16 @@ export default function MyPageForm() {
     <form onSubmit={nicknameForm.handleSubmit(onSubmit)}>
       <div className={cn('titleBox')}>
         <h1>내 정보</h1>
-        <Button type="primary" size="medium" htmlType="submit">
+        {/* 프로필 이미지가 변경되었거나 닉네임 또는 비밀번호 폼 중 하나라도 유효하지 않을 때 버튼을 비활성화 */}
+        <Button
+          type="primary"
+          size="medium"
+          htmlType="submit"
+          disabled={
+            (!nicknameForm.formState.isValid || !passwordForm.formState.isValid) &&
+            profileImageUrl !== profileData?.profileImageUrl
+          }
+        >
           저장하기
         </Button>
       </div>

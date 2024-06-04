@@ -40,9 +40,7 @@ export default function App({ Component, pageProps }: AppProps) {
         {checkRouteInGNB && <GlobalNavigationBar />}
         <div id="contentWrapper" style={contentStyle}>
           {checkRouteInSideNavMenu && router.pathname === '/user' && isMobile ? (
-            <>
-              <SideNavigationMenu onMenuClick={(state: string) => router.push(`/my-page`)} className={''} />
-            </>
+            <SideNavigationMenu onMenuClick={(state: string) => router.push(`/my-page`)} className={''} />
           ) : (
             <>
               {checkRouteInSideNavMenu && !isMobile ? (

@@ -6,8 +6,7 @@ import useGetCookie from '@/hooks/useCookies';
 // 로그인한 유저의 프로필 정보 가져오는 API
 export function useGetProfile() {
   const { getCookie } = useGetCookie();
-  const accessToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzM2LCJ0ZWFtSWQiOiI0LTE2IiwiaWF0IjoxNzE3NTAwNjUwLCJleHAiOjE3MTc1MDI0NTAsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.bHbi3fcELRUAqyBLYznQiGIeRcG2SLbboXBYdLed2lQ';
+  const accessToken = getCookie('accessToken');
 
   return useQuery({
     queryKey: ['profile'],
@@ -24,10 +23,9 @@ export function useUploadProfileImage() {
   const { getCookie } = useGetCookie();
 
   return useMutation({
-    mutationKey: ['uploadProfileImage'], // Adding mutation key
+    mutationKey: ['uploadProfileImage'],
     mutationFn: async (file: File) => {
-      const accessToken =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzM2LCJ0ZWFtSWQiOiI0LTE2IiwiaWF0IjoxNzE3NTAwNjUwLCJleHAiOjE3MTc1MDI0NTAsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.bHbi3fcELRUAqyBLYznQiGIeRcG2SLbboXBYdLed2lQ';
+      const accessToken = getCookie('accessToken');
 
       if (!accessToken) throw new Error('Access token is not available');
 
@@ -59,8 +57,7 @@ export function usePatchProfile() {
 
   return useMutation({
     mutationFn: async (bodyData: usePatchProfileProps) => {
-      const accessToken =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzM2LCJ0ZWFtSWQiOiI0LTE2IiwiaWF0IjoxNzE3NTAwNjUwLCJleHAiOjE3MTc1MDI0NTAsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.bHbi3fcELRUAqyBLYznQiGIeRcG2SLbboXBYdLed2lQ';
+      const accessToken = getCookie('accessToken');
 
       if (!accessToken) throw new Error('Access token is not available');
       const { data } = await axiosInstanceToken(accessToken).patch(`${END_POINT.USERS}/me`, bodyData);
