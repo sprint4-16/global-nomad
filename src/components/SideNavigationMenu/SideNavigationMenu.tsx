@@ -1,4 +1,4 @@
-import { useState, useRef, ChangeEventHandler } from 'react';
+import { useState, useRef, ChangeEventHandler, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -12,7 +12,7 @@ import TextBoxCheck from '@/images/icon/icon_text_box_check.svg';
 import CalendarCheck from '@/images/icon/icon_calendar_check.svg';
 import Setting from '@/images/icon/icon_setting.svg';
 
-import { useUploadProfileImage } from '@/apis/apiHooks/MyProfile'; // Importing the profile API
+import { useGetProfile, useUploadProfileImage } from '@/apis/apiHooks/MyProfile'; // Importing the profile API
 
 const cn = classNames.bind(styles);
 
@@ -32,8 +32,16 @@ export default function SideNavigationMenu({
 }) {
   const router = useRouter();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null);
+  const { data: profileData, isLoading, isError } = useGetProfile();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { mutate: uploadProfileImage } = useUploadProfileImage();
+
+  useEffect(() => {
+    if (profileData) {
+      setProfileImageUrl(profileData.profileImageUrl);
+    }
+  }, [profileData]);
 
   const handleFileInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -61,13 +69,17 @@ export default function SideNavigationMenu({
     <div className={cn('sideNavigationMenu', className)}>
       <div className={cn('profileImgWrapper')} onClick={handlePenClick}>
         <div className={cn('profileImgContainer')}>
-          <Image
-            src={selectedFile ? URL.createObjectURL(selectedFile) : ProfileImg}
-            alt="프로필 이미지"
-            layout="fill"
-            objectFit="cover"
-            className={cn('profileImg')}
-          />
+          {isLoading ? (
+            <div>Loading...</div>
+          ) : (
+            <Image
+              src={selectedFile ? URL.createObjectURL(selectedFile) : profileImageUrl || ProfileImg}
+              alt="프로필 이미지"
+              layout="fill"
+              objectFit="cover"
+              className={cn('profileImg')}
+            />
+          )}
           <div className={cn('penWrapper')}>
             <Pen />
           </div>

@@ -25,19 +25,20 @@ export default function VisibilityBtn({
   sx,
 }: VisibilityBtnProps) {
   const [toggleType, setToggleType] = useState<'on' | 'off'>(type);
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    if (toggleType === 'on') {
+      setToggleType('off');
+      onClickOpenedEye && onClickOpenedEye();
+    } else {
+      setToggleType('on');
+      onClickClosedEye && onClickClosedEye();
+    }
+  };
+
   return (
-    <button
-      onClick={() => {
-        if (toggleType === 'on') {
-          setToggleType('off');
-          onClickOpenedEye && onClickOpenedEye();
-        } else {
-          setToggleType('on');
-          onClickClosedEye && onClickClosedEye();
-        }
-      }}
-      style={sx}
-    >
+    <button onClick={handleClick} style={sx}>
       {render(toggleType, size)}
     </button>
   );

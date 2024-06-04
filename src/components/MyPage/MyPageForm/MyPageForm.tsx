@@ -61,10 +61,15 @@ export default function MyPageForm() {
       bodyData.newPassword = passwordData.newPassword;
     }
 
+    const profileImageUrl = localStorage.getItem('profileImageUrl');
+    if (profileImageUrl) {
+      bodyData.profileImageUrl = profileImageUrl;
+    }
+    console.log(profileImageUrl);
+
     patchProfile.mutate(bodyData, {
       onSuccess: () => {
         console.log('프로필 업데이트 성공!');
-        // 비밀번호 입력 필드 초기화
         passwordForm.reset({
           password: '',
           newPassword: '',

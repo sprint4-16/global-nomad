@@ -7,7 +7,7 @@ import useGetCookie from '@/hooks/useCookies';
 export function useGetProfile() {
   const { getCookie } = useGetCookie();
   const accessToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzM2LCJ0ZWFtSWQiOiI0LTE2IiwiaWF0IjoxNzE3NDgzNDU0LCJleHAiOjE3MTc0ODUyNTQsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.6GAYkncdXFJr7lFye-u7nvY_trAHokJigHOISxRa_xI';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzM2LCJ0ZWFtSWQiOiI0LTE2IiwiaWF0IjoxNzE3NTAwNjUwLCJleHAiOjE3MTc1MDI0NTAsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.bHbi3fcELRUAqyBLYznQiGIeRcG2SLbboXBYdLed2lQ';
 
   return useQuery({
     queryKey: ['profile'],
@@ -24,10 +24,10 @@ export function useUploadProfileImage() {
   const { getCookie } = useGetCookie();
 
   return useMutation({
-    mutationKey: ['profileImageUrl'],
+    mutationKey: ['uploadProfileImage'], // Adding mutation key
     mutationFn: async (file: File) => {
       const accessToken =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzM2LCJ0ZWFtSWQiOiI0LTE2IiwiaWF0IjoxNzE3NDgzNDU0LCJleHAiOjE3MTc0ODUyNTQsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.6GAYkncdXFJr7lFye-u7nvY_trAHokJigHOISxRa_xI';
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzM2LCJ0ZWFtSWQiOiI0LTE2IiwiaWF0IjoxNzE3NTAwNjUwLCJleHAiOjE3MTc1MDI0NTAsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.bHbi3fcELRUAqyBLYznQiGIeRcG2SLbboXBYdLed2lQ';
 
       if (!accessToken) throw new Error('Access token is not available');
 
@@ -39,6 +39,8 @@ export function useUploadProfileImage() {
           'Content-Type': 'multipart/form-data',
         },
       });
+
+      localStorage.setItem('profileImageUrl', data.profileImageUrl);
 
       return data.profileImageUrl;
     },
@@ -58,7 +60,7 @@ export function usePatchProfile() {
   return useMutation({
     mutationFn: async (bodyData: usePatchProfileProps) => {
       const accessToken =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzM2LCJ0ZWFtSWQiOiI0LTE2IiwiaWF0IjoxNzE3NDgzNDU0LCJleHAiOjE3MTc0ODUyNTQsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.6GAYkncdXFJr7lFye-u7nvY_trAHokJigHOISxRa_xI';
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzM2LCJ0ZWFtSWQiOiI0LTE2IiwiaWF0IjoxNzE3NTAwNjUwLCJleHAiOjE3MTc1MDI0NTAsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.bHbi3fcELRUAqyBLYznQiGIeRcG2SLbboXBYdLed2lQ';
 
       if (!accessToken) throw new Error('Access token is not available');
       const { data } = await axiosInstanceToken(accessToken).patch(`${END_POINT.USERS}/me`, bodyData);
