@@ -65,7 +65,6 @@ export default function MyPageForm() {
     if (profileImageUrl) {
       bodyData.profileImageUrl = profileImageUrl;
     }
-    console.log(profileImageUrl);
 
     patchProfile.mutate(bodyData, {
       onSuccess: () => {
@@ -74,6 +73,7 @@ export default function MyPageForm() {
           password: '',
           newPassword: '',
         });
+        alert('프로필이 저장되었습니다!');
       },
       onError: (error: any) => {
         console.error('프로필 업데이트 에러!', error);
