@@ -7,11 +7,24 @@ import { RESERVATION_STATE_LABEL_MAP } from '@/constants';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import Button from '../../Button/Button';
 import styles from '../Card.module.scss';
+import CreateReviewModal from '@/components/Popup/CreateReviewModal';
 
 type ReservationState = 'pending' | 'confirmed' | 'canceled' | 'declined' | 'completed';
 
 interface ReservationButtonProps {
   status: ReservationState;
+  cardData: {
+    activity: {
+      title: string;
+      bannerImageUrl: string;
+    };
+    status: ReservationState;
+    totalPrice: number;
+    headCount: number;
+    date: string;
+    startTime: string;
+    endTime: string;
+  };
 }
 
 export function Thumbnail({ bannerImageUrl, where }: { bannerImageUrl: string; where?: 'review' }) {
@@ -135,14 +148,16 @@ export function CardDropdown() {
   );
 }
 
-export function ReservationButton({ status }: ReservationButtonProps) {
+export function ReservationButton({ status, cardData }: ReservationButtonProps) {
   const cn = classNames.bind(styles);
+  const [modalOpen, setModalOpen] = useState(false);
   const handleReservationCancelClick = () => {
     // 예약취소 구현
   };
 
   const handleReviewCreateClick = () => {
     // 후기작성 구현
+    setModalOpen(!modalOpen);
   };
 
   if (status === 'confirmed') {
@@ -155,9 +170,19 @@ export function ReservationButton({ status }: ReservationButtonProps) {
 
   if (status === 'completed') {
     return (
-      <Button className={cn('reservationButton')} type="primary" size="medium" onClick={handleReviewCreateClick}>
-        후기 작성
-      </Button>
+      <>
+        <Button className={cn('reservationButton')} type="primary" size="medium" onClick={handleReviewCreateClick}>
+          후기 작성
+        </Button>
+        {modalOpen && (
+          <CreateReviewModal
+            onConfirm={() => {}}
+            isModalOpen={modalOpen}
+            handleModalOpen={handleReviewCreateClick}
+            cardData={cardData}
+          />
+        )}
+      </>
     );
   }
 

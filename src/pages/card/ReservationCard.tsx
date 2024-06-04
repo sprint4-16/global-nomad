@@ -35,7 +35,7 @@ export default function ReservationCard({ className, cardData }: CardProps) {
         </div>
         <Card.Footer>
           <Card.Price price={cardData.totalPrice} />
-          <Card.ReservationButton status={cardData.status} />
+          <Card.ReservationButton cardData={cardData} status={cardData.status} />
         </Card.Footer>
       </Card.Description>
     </Card>

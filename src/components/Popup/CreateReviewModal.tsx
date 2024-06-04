@@ -8,9 +8,26 @@ interface ReviewModalProps {
   onConfirm: () => void;
   isModalOpen: boolean;
   handleModalOpen: () => void;
+  cardData: {
+    activity: {
+      title: string;
+      bannerImageUrl: string;
+    };
+    totalPrice: number;
+    headCount: number;
+    date: string;
+    startTime: string;
+    endTime: string;
+  };
 }
 
-export default function CreateReviewModal({ className, onConfirm, isModalOpen, handleModalOpen }: ReviewModalProps) {
+export default function CreateReviewModal({
+  className,
+  onConfirm,
+  isModalOpen,
+  handleModalOpen,
+  cardData,
+}: ReviewModalProps) {
   const [modalRoot, setModalRoot] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -18,7 +35,9 @@ export default function CreateReviewModal({ className, onConfirm, isModalOpen, h
   }, []);
 
   const RenderModal = () => {
-    return <ReviewModal className={className} onConfirm={onConfirm} handleModalOpen={handleModalOpen} />;
+    return (
+      <ReviewModal cardData={cardData} className={className} onConfirm={onConfirm} handleModalOpen={handleModalOpen} />
+    );
   };
 
   return <>{isModalOpen && modalRoot && createPortal(RenderModal(), modalRoot)}</>;
