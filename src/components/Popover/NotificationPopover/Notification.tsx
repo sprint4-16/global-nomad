@@ -11,7 +11,7 @@ interface NotificationProps {
   content: string;
   createdAt: string;
   updatedAt: string | null;
-  type: 'accepted' | 'rejected';
+  type?: 'accepted' | 'rejected';
 }
 
 dayjs.extend(relativeTime);
@@ -43,7 +43,7 @@ function getElapsedTime(createdAt: string, updatedAt: string | null) {
   return `${dayjs(updatedAt).fromNow()}`;
 }
 
-export default function Notification({ content, createdAt, updatedAt, type }: NotificationProps) {
+export default function Notification({ content, createdAt, updatedAt, type = 'accepted' }: NotificationProps) {
   return (
     <div className={cn('notification')}>
       <div className={cn('header')}>

@@ -31,16 +31,11 @@ const SAMPLE_DATA = {
 export default function NotificationPopover({ sx, className, onClose }: NotificationPopoverProps) {
   return (
     <div style={sx} className={cn('container', className)}>
-      <Header title="알림 5개" onClose={onClose} isNotificationHeader />
+      <Header title={`알림 ${SAMPLE_DATA.notifications.length}개`} onClose={onClose} isNotificationHeader />
       <ul className={cn('notificationList')}>
         {SAMPLE_DATA.notifications.map((notification) => (
           <li key={notification.id}>
-            <Notification
-              content={notification.content}
-              createdAt={notification.createdAt}
-              updatedAt={notification.updatedAt}
-              type="accepted"
-            />
+            <Notification content={notification.content} createdAt={notification.createdAt} updatedAt={null} />
           </li>
         ))}
       </ul>
