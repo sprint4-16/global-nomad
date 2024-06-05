@@ -1,9 +1,9 @@
-import ReservationInfoPopover from '@/components/Popover/ReservationInfoPopover/ReservationInfoPopover';
+import NotificationPopover from '@/components/Popover/NotificationPopover/NotificationPopover';
 
 export default function Home() {
   return (
     <>
-      <ReservationInfoPopover onClose={() => {}} />
+      <NotificationPopover onClose={() => console.log()} />
     </>
   );
 }
