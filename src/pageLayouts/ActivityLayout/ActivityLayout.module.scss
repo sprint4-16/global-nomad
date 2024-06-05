@@ -29,3 +29,19 @@
   flex-direction: column;
   gap: 2.4rem;
 }
+
+.empty {
+  width: 100%;
+  padding-top: 5.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.description {
+  color: $gray-700;
+  font-family: Pretendard;
+  @include pretendard-24-500;
+}

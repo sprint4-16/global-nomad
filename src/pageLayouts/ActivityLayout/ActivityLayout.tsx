@@ -5,6 +5,7 @@ import { ROUTE } from '@/constants';
 import { useGetMyActivities } from '@/apis/apiHooks/MyReservations';
 import ExperienceCard from '@/pages/card/ExperienceCard';
 import Button from '@/components/Button/Button';
+import EmptyIcon from '@/images/icon/icon_empty.svg';
 import styles from './ActivityLayout.module.scss';
 
 interface CardProps {
@@ -36,6 +37,11 @@ export default function ActivityLayout() {
       <div className={cn('cardList')}>
         {isLoading ? (
           <div>로딩중</div>
+        ) : data.totalCount == 0 ? (
+          <div className={cn('empty')}>
+            <EmptyIcon width="24rem" height="24rem" viewBox="0 0 240 240" />
+            <div className={cn('description')}>아직 등록한 체험이 없어요</div>
+          </div>
         ) : (
           data.activities.map((item: CardProps) => <ExperienceCard key={item.id} cardData={item} />)
         )}
