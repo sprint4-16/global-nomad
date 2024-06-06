@@ -10,7 +10,13 @@
   @include pretendard-16-400;
 }
 
+.inputWrapper {
+  display: flex;
+  align-items: center;
+}
+
 .input {
+  flex-grow: 1;
   padding: 1.6rem 2rem;
   border-radius: 0.6rem;
   border: 0.1rem solid $gray-600;
@@ -21,17 +27,4 @@
 .input:focus {
   border: 0.1rem solid $gray-700;
   outline: none;
-}
-
-.passwordContainer {
-  width: 100%;
-}
-
-.eyeImg {
-  position: absolute;
-  width: 2.4rem;
-  height: 2.4rem;
-  bottom: 1.8rem;
-  right: 1.8rem;
-  cursor: pointer;
 }

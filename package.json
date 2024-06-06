@@ -11,6 +11,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.4.2",
     "@plaiceholder/next": "^3.0.0",
     "@svgr/webpack": "^8.1.0",
     "@tanstack/react-query": "^5.36.2",
@@ -23,6 +24,9 @@
     "react": "^18",
     "react-datepicker": "^6.9.0",
     "react-dom": "^18",
+    "react-hook-form": "^7.51.5",
+    "react-responsive": "^10.0.0",
+    "yup": "^1.4.0",
     "react-hook-form": "^7.51.4",
     "react-kakao-maps-sdk": "^1.1.26",
     "sharp": "^0.33.4"
