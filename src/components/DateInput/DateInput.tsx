@@ -14,7 +14,7 @@ interface DateInputProps {
 
 export function DateInput({ dateText, className }: DateInputProps) {
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [displayDateText, setDisplayDateText] = useState<string>(dateText || '');
 
   const handleCalendarClick = () => {
@@ -36,7 +36,7 @@ export function DateInput({ dateText, className }: DateInputProps) {
       </div>
       {showDatePicker && (
         <div className={cn('calendarContainer')}>
-          <CustomedDatePicker selected={selectedDate} onChange={handleDateChange} />
+          <CustomedDatePicker selected={selectedDate || new Date()} onChange={handleDateChange} />
         </div>
       )}
     </div>

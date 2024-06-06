@@ -16,5 +16,11 @@ const render = (type: 'plus' | 'minus', size: number) => {
 };
 
 export default function ControlTimeBtn({ type, size = 56, onClick }: ArrowBtnProps) {
-  return <button onClick={onClick}>{render(type, size)}</button>;
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault();
+    if (onClick) {
+      onClick();
+    }
+  };
+  return <button onClick={handleClick}>{render(type, size)}</button>;
 }
