@@ -1,0 +1,72 @@
+.titleBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.4rem;
+
+  h1 {
+    @include pretendard-32-700;
+  }
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.label {
+  @include pretendard-24-700;
+}
+
+.reservationTimeWrapper {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  justify-content: space-between;
+}
+
+.reservationTimeContainer {
+  display: flex;
+  align-items: center;
+  width: 32rem;
+  gap: 1.2rem;
+}
+
+.reservationDateBox {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 35.8rem;
+}
+
+.reservationTimeBox {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.dropdown {
+  width: 14rem;
+}
+
+.smallLabel {
+  @include pretendard-20-500;
+}
+
+.wave {
+  margin-top: 4rem;
+  @include pretendard-20-700;
+}
+
+.controlTimeBtnContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+}

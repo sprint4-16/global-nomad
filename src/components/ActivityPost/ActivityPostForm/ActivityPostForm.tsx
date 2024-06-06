@@ -1,6 +1,6 @@
 import Button from '@/components/Button/Button';
 import styles from './ActivityPostForm.module.scss';
-import classNames from 'classnames';
+import classNames from 'classnames/bind';
 import { Input } from '@/components/Input/Input';
 import { Dropdown } from '@/components/Dropdown/Dropdown';
 import Textarea from '@/components/Textarea/Textarea';
@@ -41,10 +41,10 @@ export default function ActivityPostForm() {
       <div className={cn('titleBox')}>
         <h1>내 정보</h1>
         <Button type="primary" size="medium" htmlType="submit">
-          저장하기
+          등록하기
         </Button>
       </div>
-      <div>
+      <div className={cn('formContainer')}>
         <Input type="text" placeholder="제목" />
         <Dropdown isLabelVisible={false} />
         <Textarea placeholder="설명" />
@@ -58,19 +58,24 @@ export default function ActivityPostForm() {
         </div>
         <label className={cn('label')}>예약 가능한 시간대</label>
         <div className={cn('reservationTimeWrapper')}>
-          <div className={cn('reservationTimeContainer')}>
+          <div className={cn('reservationDateBox')}>
             <label className={cn('smallLabel')}>날짜</label>
             <DateInput dateText="YY/MM/DD" />
           </div>
           <div className={cn('reservationTimeContainer')}>
-            <label className={cn('smallLabel')}>시작 시간</label>
-            <Dropdown isLabelVisible={false} menuItems={menuItems} />
+            <div className={cn('reservationTimeBox')}>
+              <label className={cn('smallLabel')}>시작 시간</label>
+              <Dropdown className={cn('dropdown')} isLabelVisible={false} menuItems={menuItems} />
+            </div>
+            <p className={cn('wave')}>~</p>
+            <div className={cn('reservationTimeBox')}>
+              <label className={cn('smallLabel')}>종료 시간</label>
+              <Dropdown className={cn('dropdown')} isLabelVisible={false} menuItems={menuItems} />
+            </div>
           </div>
-          <div className={cn('reservationTimeContainer')}>
-            <label className={cn('smallLabel')}>종료 시간</label>
-            <Dropdown isLabelVisible={false} menuItems={menuItems} />
+          <div className={cn('controlTimeBtnContainer')}>
+            <ControlTimeBtn type={'plus'} />
           </div>
-          <ControlTimeBtn type={'plus'} />
         </div>
         <label className={cn('label')}>배너 이미지</label>
         <div className={cn('imageContainer')}>
