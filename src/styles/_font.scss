@@ -42,6 +42,19 @@
   font-weight: 700;
   line-height: 2.6rem;
 }
+@mixin pretendard-32-700 {
+  font-family: Pretendard;
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: normal;
+}
+
+@mixin pretendard-24-500 {
+  font-family: Pretendard;
+  font-size: 2.4rem;
+  font-weight: 500;
+  line-height: normal;
+}
 
 @mixin pretendard-24-700 {
   font-family: Pretendard;
