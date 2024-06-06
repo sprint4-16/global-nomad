@@ -9,7 +9,24 @@ import CreateCalendar from '../CreateCalendar/CreateCalendar';
 
 const cn = classNames.bind(styles);
 
-export default function Calendar() {
+interface CalendarData {
+  activity: {
+    id: number;
+    title: string;
+  };
+  date: string;
+  endTime: string;
+  headCount: number;
+  id: number;
+  reviewSubmitted: false;
+  scheduleId: number;
+  startTime: string;
+  status: 'declined' | 'confirmed' | 'pending';
+  totalPrice: number;
+  userId: number;
+}
+
+export default function Calendar({ data }: { data: CalendarData[] | null }) {
   const [currentMonth, setCurrentMonth] = useState(dayjs());
 
   const handlePreviousMonth = () => {
@@ -40,7 +57,7 @@ export default function Calendar() {
             </div>
           ))}
         </div>
-        <CreateCalendar currentMonth={currentMonth} startOfMonth={startOfMonth} endOfMonth={endOfMonth} />
+        <CreateCalendar currentMonth={currentMonth} startOfMonth={startOfMonth} endOfMonth={endOfMonth} data={data} />
       </div>
     </div>
   );
