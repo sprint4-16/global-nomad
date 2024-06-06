@@ -1,8 +1,11 @@
 .inputContainer {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
   position: relative;
+
+  &.withLabel {
+    gap: 0.8rem;
+  }
 }
 
 .label {
