@@ -24,6 +24,7 @@
     "react-datepicker": "^6.9.0",
     "react-dom": "^18",
     "react-hook-form": "^7.51.4",
+    "react-kakao-maps-sdk": "^1.1.26",
     "sharp": "^0.33.4"
   },
   "devDependencies": {
