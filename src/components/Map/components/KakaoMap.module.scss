@@ -1,0 +1,43 @@
+.marker {
+  background-color: $white;
+  border-radius: 4rem;
+  border: 0.1rem solid $blue-300;
+
+  width: 8rem;
+  height: 4rem;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0.4rem;
+
+  @include pretendard-12-500;
+  color: $black;
+
+  box-shadow: 0 0.4rem 1.6rem 0 rgba($nomad-black, 0.25);
+
+  .iconBox {
+    background-color: $blue-300;
+    border-radius: 4rem;
+
+    width: 3rem;
+    height: 3rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .text {
+    width: 4rem;
+    height: 2rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
