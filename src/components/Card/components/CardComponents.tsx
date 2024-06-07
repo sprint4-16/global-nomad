@@ -2,22 +2,27 @@ import { useRef, useState } from 'react';
 import Image from 'next/image';
 import classNames from 'classnames/bind';
 
+import useGetCookie from '@/hooks/useCookies';
+import { usePatchReservationCancel } from '@/apis/apiHooks/MyReservations';
+
 import { MeatballIcon, StarIcon } from '@/images/icon';
 import { RESERVATION_STATE_LABEL_MAP } from '@/constants';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import Button from '../../Button/Button';
 import styles from '../Card.module.scss';
 import CreateReviewModal from '@/components/Popup/CreateReviewModal';
+import CreatePopupModal from '@/components/Popup/CreatePopupModal';
 
 type ReservationState = 'pending' | 'confirmed' | 'canceled' | 'declined' | 'completed';
 
 interface ReservationButtonProps {
-  status: ReservationState;
   cardData: {
     activity: {
       title: string;
       bannerImageUrl: string;
     };
+    id: number;
+    reviewSubmitted: boolean;
     status: ReservationState;
     totalPrice: number;
     headCount: number;
@@ -148,40 +153,57 @@ export function CardDropdown() {
   );
 }
 
-export function ReservationButton({ status, cardData }: ReservationButtonProps) {
+export function ReservationButton({ cardData }: ReservationButtonProps) {
   const cn = classNames.bind(styles);
   const [modalOpen, setModalOpen] = useState(false);
-  const handleReservationCancelClick = () => {
-    // 예약취소 구현
-  };
 
-  const handleReviewCreateClick = () => {
-    // 후기작성 구현
+  const { updateCookie } = useGetCookie();
+  updateCookie('reservationId', cardData.id);
+
+  const { mutate: patchCancelData } = usePatchReservationCancel();
+
+  const handleModalCreateClick = () => {
     setModalOpen(!modalOpen);
   };
 
-  if (status === 'confirmed') {
+  const handleCancelClick = () => {
+    patchCancelData();
+    setModalOpen(!modalOpen);
+  };
+  if (cardData.status === 'pending') {
     return (
-      <Button className={cn('reservationButton')} type="secondary" size="medium" onClick={handleReservationCancelClick}>
-        예약 취소
-      </Button>
+      <>
+        <Button className={cn('reservationButton')} type="secondary" size="medium" onClick={handleModalCreateClick}>
+          예약 취소
+        </Button>
+
+        <CreatePopupModal
+          modalType="confirm"
+          alertMessage="예약을 취소하시겠어요?"
+          onConfirm={handleCancelClick}
+          isModalOpen={modalOpen}
+          handleModalOpen={handleModalCreateClick}
+        />
+      </>
     );
   }
 
-  if (status === 'completed') {
+  const handleReviewConfirmClick = () => {
+    setModalOpen(!modalOpen);
+  };
+  if (cardData.status === 'completed' && cardData.reviewSubmitted === false) {
     return (
       <>
-        <Button className={cn('reservationButton')} type="primary" size="medium" onClick={handleReviewCreateClick}>
+        <Button className={cn('reservationButton')} type="primary" size="medium" onClick={handleModalCreateClick}>
           후기 작성
         </Button>
-        {modalOpen && (
-          <CreateReviewModal
-            onConfirm={() => {}}
-            isModalOpen={modalOpen}
-            handleModalOpen={handleReviewCreateClick}
-            cardData={cardData}
-          />
-        )}
+
+        <CreateReviewModal
+          onConfirm={handleReviewConfirmClick}
+          isModalOpen={modalOpen}
+          handleModalOpen={handleModalCreateClick}
+          cardData={cardData}
+        />
       </>
     );
   }
