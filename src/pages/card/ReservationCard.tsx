@@ -9,6 +9,8 @@ interface CardProps {
       title: string;
       bannerImageUrl: string;
     };
+    id: number;
+    reviewSubmitted: boolean;
     status: ReservationState;
     totalPrice: number;
     headCount: number;
@@ -35,7 +37,7 @@ export default function ReservationCard({ className, cardData }: CardProps) {
         </div>
         <Card.Footer>
           <Card.Price price={cardData.totalPrice} />
-          <Card.ReservationButton cardData={cardData} status={cardData.status} />
+          <Card.ReservationButton cardData={cardData} />
         </Card.Footer>
       </Card.Description>
     </Card>
