@@ -1,6 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import classNames from 'classnames/bind';
 import ArrowDown from '@/images/btn/btn_arrow_down.svg';
+
+import useOutsideClick from '@/hooks/useOutsideClick';
 
 import FilterList from './FilterList';
 import styles from './Filter.module.scss';
@@ -20,17 +22,7 @@ export default function Filter({ filterType, setFilterStatus }: FilterProps) {
     setIsOpen(!isOpen);
   };
 
-  useEffect(() => {
-    const handleOutsideClick = (event: MouseEvent) => {
-      if (filterRef.current && !filterRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleOutsideClick);
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-    };
-  }, [setIsOpen]);
+  useOutsideClick({ ref: filterRef, onClick: toggleDropdown });
 
   return (
     <div ref={filterRef} className={cn('container')}>
