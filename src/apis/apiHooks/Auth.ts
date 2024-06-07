@@ -21,7 +21,7 @@ export default function useLogin() {
       updateCookie('accessToken', data.accessToken);
       updateCookie('refreshToken', data.refreshToken);
       updateCookie('nickname', data.user.nickname);
-      updateCookie('profileImageUrl', data.user.profileImageUrl);
+      if (data.user.profileImageUrl !== null) updateCookie('profileImageUrl', data.user.profileImageUrl);
     },
   });
 }

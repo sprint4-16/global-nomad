@@ -26,7 +26,7 @@ export default function ButtonProfile({ nickname = '프로필', profileImageUrl,
 
   return (
     <div className={cn('profileContainer')}>
-      {profileImageUrl !== 'null' ? (
+      {profileImageUrl ? (
         <Image className={cn('profileImg')} src={profileImageUrl} alt="프로필 이미지" width={32} height={32} />
       ) : (
         <ProfileImg className={cn('profileImg')} />
