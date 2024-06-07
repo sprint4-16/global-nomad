@@ -55,7 +55,10 @@ export default function App({ Component, pageProps }: AppProps) {
         </div>
         {checkRouteInGNB && <Footer />}
       </div>
-      <ReactQueryDevtools />
+      {/* 삭제 예정 Devtools 이 너무 작게 보여서 잠시 적용 해두겠습니다 */}
+      <div style={{ fontSize: '16px' }}>
+        <ReactQueryDevtools />
+      </div>
     </QueryClientProvider>
   );
 }
