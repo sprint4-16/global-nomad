@@ -30,7 +30,7 @@
 .dropdown {
   position: absolute;
   top: 6.4rem;
-  z-index: 2;
+  z-index: $zindex-dropdown;
   width: 100%;
   box-shadow: 0rem 0.4rem 1.6rem 0rem rgba(17, 34, 17, 0.05);
   border-radius: 0.6rem;
