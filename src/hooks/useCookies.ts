@@ -6,8 +6,8 @@ export default function useCookies() {
     return Cookies.get(cookieName);
   };
 
-  const updateCookie = (cookieName: string, value: string) => {
-    Cookies.set(cookieName, value);
+  const updateCookie = (cookieName: string, value: string | number) => {
+    Cookies.set(cookieName, value.toString());
   };
 
   const deleteCookie = (cookieName: string) => {
