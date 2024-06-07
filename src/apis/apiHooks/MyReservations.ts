@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { axiosInstanceToken } from '../axiosInstance';
 import { END_POINT } from '@/constants/';
 import useGetCookie from '@/hooks/useCookies';
@@ -16,6 +16,33 @@ export function useGetReservation(status?: string) {
         params: { status },
       });
       return data;
+    },
+  });
+}
+// 2. 내 예약 수정 (취소)
+export function usePatchReservationCancel(status?: string) {
+  const { getCookie } = useGetCookie();
+  const accessToken = getCookie('accessToken');
+  const reservationId = getCookie('reservationId');
+  const bodyData = {
+    status: 'canceled',
+  };
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async () => {
+      if (!accessToken) throw new Error('Access token is not available');
+      if (!reservationId) throw new Error('reservationId is not available');
+      const { data } = await axiosInstanceToken(accessToken).patch(
+        `${END_POINT.MY_RESERVATIONS}/${reservationId}`,
+        bodyData,
+      );
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['reservation', status],
+      });
     },
   });
 }
