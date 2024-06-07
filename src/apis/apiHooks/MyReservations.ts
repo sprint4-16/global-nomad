@@ -69,3 +69,18 @@ export function usePostReservationReview() {
     },
   });
 }
+
+// 4. 내 체험 불러오기
+export function useGetMyActivities() {
+  const { getCookie } = useGetCookie();
+  const accessToken = getCookie('accessToken');
+
+  return useQuery({
+    queryKey: ['myActivities'],
+    queryFn: async () => {
+      if (!accessToken) throw new Error('Access token is not available');
+      const { data } = await axiosInstanceToken(accessToken).get(`my-activities?size=20`);
+      return data;
+    },
+  });
+}

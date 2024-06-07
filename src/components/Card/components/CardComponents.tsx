@@ -34,15 +34,20 @@ interface ReservationButtonProps {
 
 export function Thumbnail({ bannerImageUrl, where }: { bannerImageUrl: string; where?: 'review' }) {
   const cn = classNames.bind(styles);
+
+  // 임시 Blur 데이터 (추후 수정 예정)
+  const BLUR_DATA_URL =
+    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP0rQcAAR8AzpZX2ywAAAAASUVORK5CYII=';
+
   return (
     <Image
       className={cn('thumbnail', where)}
       src={bannerImageUrl}
       alt="card thumbnail"
-      width={100}
-      height={100}
-      unoptimized
-      priority
+      width={450}
+      height={450}
+      placeholder="blur"
+      blurDataURL={BLUR_DATA_URL}
     />
   );
 }

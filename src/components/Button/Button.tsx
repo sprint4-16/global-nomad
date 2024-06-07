@@ -10,13 +10,29 @@ interface ButtonProps {
   size: 'large' | 'medium' | 'small' | 'full';
   sx?: CSSProperties;
   onClick?: () => void;
+  htmlType?: 'button' | 'submit' | 'reset';
 }
 
 const cn = classNames.bind(styles);
 
-export default function Button({ className, children, type, disabled = false, size, sx, onClick }: ButtonProps) {
+export default function Button({
+  className,
+  children,
+  type,
+  htmlType,
+  disabled = false,
+  size,
+  sx,
+  onClick,
+}: ButtonProps) {
   return (
-    <button disabled={disabled} onClick={onClick} style={sx} className={cn('btn', className, type, size, { disabled })}>
+    <button
+      type={htmlType}
+      disabled={disabled}
+      onClick={onClick}
+      style={sx}
+      className={cn('btn', className, type, size, { disabled })}
+    >
       {children}
     </button>
   );

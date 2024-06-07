@@ -24,13 +24,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 5rem;
+    gap: 2rem;
 
     padding-top: 8rem;
   }
 
   .description {
-    @include pretendard-24-400;
+    @include pretendard-24-500;
     font-weight: 500;
     color: $gray-700;
   }
