@@ -13,7 +13,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <div className={cn('container')}>
       <div className={cn('logoContainer')}></div>
-      {children}
+      <div className={cn('contents')}>{children}</div>
       <div className={cn('footer')}>
         {pathname === '/auth/signup' ? (
           <>

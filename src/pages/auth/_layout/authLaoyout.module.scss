@@ -4,7 +4,12 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  gap: 1.5rem;
+  gap: 2rem;
+  margin: 1rem 0;
+
+  @include mobile {
+    margin: 5rem 0;
+  }
 }
 
 .logoContainer {
@@ -12,11 +17,17 @@
   height: 19.2rem;
   background-size: cover;
   background-image: url('/logo/logo.svg');
-
+  flex-shrink: 0;
   @include mobile {
     width: 27rem;
     height: 15.4rem;
   }
+}
+
+.contents {
+  width: 100%;
+  padding: 0 2rem;
+  max-width: 64rem;
 }
 
 .footer {

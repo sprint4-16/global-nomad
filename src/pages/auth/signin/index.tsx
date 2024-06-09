@@ -1,4 +1,4 @@
-import Layout from '../layout';
+import Layout from '../_layout';
 
 export default function Signin() {
   return (

@@ -1,0 +1,11 @@
+.input {
+  width: 100%;
+
+  input {
+    padding: 1.5rem 2rem;
+  }
+}
+
+.input + .input {
+  margin-top: 2rem;
+}
