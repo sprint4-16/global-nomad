@@ -105,3 +105,30 @@
 .timeInputBox {
   width: 14rem;
 }
+
+.imageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.bannerImagePreview {
+  display: flex;
+}
+
+.imagePreview {
+  width: 18rem;
+  height: 18rem;
+  border-radius: 2.4rem;
+}
+
+.bannerImagePreviewContainer {
+  display: flex;
+  gap: 2rem;
+}
+
+.introImagePreviewContainer {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
