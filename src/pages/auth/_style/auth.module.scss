@@ -6,6 +6,11 @@
   }
 }
 
-.input + .input {
+.error {
+  color: $red-200;
+  @include pretendard-14-400;
+}
+
+.inputContainer + .inputContainer {
   margin-top: 2rem;
 }
