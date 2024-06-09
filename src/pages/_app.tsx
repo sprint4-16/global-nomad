@@ -5,20 +5,17 @@ import type { AppProps } from 'next/app';
 import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 
-import { GNB_REQUIRES, SIDE_NAV_MENU_REQUIRES } from '@/constants/index';
-import GlobalNavigationBar from '@/components/GlobalNavigationBar/GlobalNavigationBar';
-import Footer from '@/components/Footer/Footer';
-import SideNavigationMenuLayout from '@/pageLayouts/commonLayouts/SideNavigationMenuLayout/SideNavigationMenuLayout';
-import { useMediaQuery } from 'react-responsive';
-import SideNavigationMenu from '@/components/SideNavigationMenu/SideNavigationMenu';
+// import { GNB_REQUIRES, SIDE_NAV_MENU_REQUIRES } from '@/constants/index';
+// import GlobalNavigationBar from '@/components/GlobalNavigationBar/GlobalNavigationBar';
+// import Footer from '@/components/Footer/Footer';
+// import SideNavigationMenuLayout from '@/pageLayouts/commonLayouts/SideNavigationMenuLayout/SideNavigationMenuLayout';
 
 export default function App({ Component, pageProps }: AppProps) {
-  const router = useRouter();
-  const checkRouteInGNB = GNB_REQUIRES.includes(router.pathname);
-  const checkRouteInSideNavMenu = SIDE_NAV_MENU_REQUIRES.includes(router.pathname);
-  const isMobile = useMediaQuery({ query: '(max-width: 375px)' });
+  // const router = useRouter();
+  // const checkRouteInGNB = GNB_REQUIRES.includes(router.pathname);
+  // const checkRouteInSideNavMenu = SIDE_NAV_MENU_REQUIRES.includes(router.pathname);
 
   const [queryClient] = useState(
     () =>
@@ -31,34 +28,25 @@ export default function App({ Component, pageProps }: AppProps) {
       }),
   );
 
-  const contentStyle = checkRouteInGNB ? { marginTop: '7rem' } : {};
+  // const contentStyle = checkRouteInGNB ? { marginTop: '7rem' } : {};
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div id="wrapper">
-        <div id="modal-root" />
-        {checkRouteInGNB && <GlobalNavigationBar />}
-        <div id="contentWrapper" style={contentStyle}>
-          {checkRouteInSideNavMenu && router.pathname === '/user' && isMobile ? (
-            <SideNavigationMenu onMenuClick={(state: string) => router.push(`/my-page`)} className={''} />
-          ) : (
-            <>
-              {checkRouteInSideNavMenu && !isMobile ? (
-                <SideNavigationMenuLayout>
-                  <Component {...pageProps} />
-                </SideNavigationMenuLayout>
-              ) : (
-                <Component {...pageProps} />
-              )}
-            </>
-          )}
-        </div>
-        {checkRouteInGNB && <Footer />}
-      </div>
-      {/* 삭제 예정 Devtools 이 너무 작게 보여서 잠시 적용 해두겠습니다 */}
-      <div style={{ fontSize: '16px' }}>
-        <ReactQueryDevtools />
-      </div>
+      {/* <div id="wrapper"> */}
+      <div id="modal-root" />
+      {/* {checkRouteInGNB && <GlobalNavigationBar />} */}
+      {/* <div id="contentWrapper" style={contentStyle}> */}
+      {/* {checkRouteInSideNavMenu ? ( */}
+      {/* <SideNavigationMenuLayout> */}
+      {/* <Component {...pageProps} /> */}
+      {/* </SideNavigationMenuLayout> */}
+      {/* ) : ( */}
+      <Component {...pageProps} />
+      {/* )} */}
+      {/* </div> */}
+      {/* {checkRouteInGNB && <Footer />} */}
+      {/* </div> */}
+      <ReactQueryDevtools />
     </QueryClientProvider>
   );
 }

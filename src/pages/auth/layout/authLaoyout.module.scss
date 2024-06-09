@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 1.5rem;
+}
+
+.logoContainer {
+  width: 34rem;
+  height: 19.2rem;
+  background-size: cover;
+  background-image: url('/logo/logo.svg');
+
+  @include mobile {
+    width: 27rem;
+    height: 15.4rem;
+  }
+}
+
+.footer {
+  @include pretendard-16-400;
+}
+
+.footerLink {
+  color: $green-200;
+  text-decoration: underline;
+}
