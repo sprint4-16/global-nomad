@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './CreateCalendar.module.scss';
 import dayjs from 'dayjs';
@@ -11,7 +12,7 @@ const cn = classNames.bind(styles);
 interface dashboardDataProps {
   date: string;
   reservations: {
-    completed: number;
+    declined: number;
     confirmed: number;
     pending: number;
   };
@@ -23,15 +24,19 @@ interface CreateCalendarProps {
 }
 
 export default function CreateCalendar({ currentMonth, dashboardData = [] }: CreateCalendarProps) {
+  const [completedCount, setCompletedCount] = useState(0);
   const startOfMonth = currentMonth.startOf('month');
   const endOfMonth = currentMonth.endOf('month');
+  console.log(dashboardData);
 
   const days = [...Array(endOfMonth.diff(startOfMonth, 'day') + 1)].map((_, i) => {
     const day = startOfMonth.add(i, 'day');
 
     const dashboardDataForThisDate = dashboardData?.find((d) => d.date === day.format('YYYY-MM-DD'));
 
-    const completedCount = dashboardDataForThisDate?.reservations.completed;
+    if (dashboardDataForThisDate?.reservations.confirmed && day.isBefore(day)) {
+      setCompletedCount(dashboardDataForThisDate?.reservations.confirmed);
+    }
     const pendingCount = dashboardDataForThisDate?.reservations.pending;
     const confirmedCount = dashboardDataForThisDate?.reservations.confirmed;
 
@@ -39,22 +44,23 @@ export default function CreateCalendar({ currentMonth, dashboardData = [] }: Cre
       <div key={day.format('YYYY-MM-DD')} className={cn('item')}>
         <div className={cn('dayWrapper')}>
           {day.format('D')}
-          {completedCount ? <ElipseIconGray className={cn('alertIcon')} /> : null}
-          {pendingCount || confirmedCount ? <ElipseIconBlue className={cn('alertIcon')} /> : null}
+          {completedCount ? (
+            <ElipseIconGray className={cn('alertIcon')} />
+          ) : pendingCount || confirmedCount ? (
+            <ElipseIconBlue className={cn('alertIcon')} />
+          ) : null}
         </div>
         <div className={cn('chips')}>
           {completedCount ? (
-            <Chips className={cn('chip')} type="confirmed">
+            <Chips className={cn('chip')} type="complete">
               완료 {completedCount}
             </Chips>
-          ) : null}
-          {pendingCount ? (
+          ) : pendingCount ? (
             <Chips className={cn('chip')} type="reservation">
               예약 {pendingCount}
             </Chips>
-          ) : null}
-          {confirmedCount ? (
-            <Chips className={cn('chip')} type="complete">
+          ) : confirmedCount ? (
+            <Chips className={cn('chip')} type="confirmed">
               승인 {confirmedCount}
             </Chips>
           ) : null}
