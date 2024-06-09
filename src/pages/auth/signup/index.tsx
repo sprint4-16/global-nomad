@@ -17,7 +17,7 @@ export default function Signup() {
           <Input className={cn('input')} label="비밀번호 확인" type="password" />
 
           <Button type="primary" disabled size="full" sx={{ marginTop: '3rem' }}>
-            회원가입하기
+            회원 가입하기
           </Button>
         </form>
       </Layout>
