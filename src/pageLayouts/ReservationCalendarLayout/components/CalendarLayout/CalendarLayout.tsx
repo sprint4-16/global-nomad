@@ -10,13 +10,7 @@ import { UseGetDashboard } from '@/apis/apiHooks/MyActivities';
 
 const cn = classNames.bind(styles);
 
-interface CalendarData {
-  id: number;
-  userId: number;
-  title: string;
-}
-
-export default function Calendar({ selectedActivity }: { selectedActivity: CalendarData[] | null }) {
+export default function Calendar({ selectedActivity }: { selectedActivity: number | null }) {
   const [currentMonth, setCurrentMonth] = useState(dayjs());
 
   const handlePreviousMonth = () => {
@@ -27,7 +21,7 @@ export default function Calendar({ selectedActivity }: { selectedActivity: Calen
     setCurrentMonth((nextMonth) => nextMonth.add(1, 'month'));
   };
 
-  const activityId = selectedActivity?.[0]?.id || 0;
+  const activityId = selectedActivity || 0;
   const { data: dashboardData } = UseGetDashboard({
     activityId,
     year: currentMonth.format('YYYY'),
