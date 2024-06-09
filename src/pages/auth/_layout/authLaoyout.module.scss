@@ -1,15 +1,11 @@
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  // justify-content: center;
   align-items: center;
   height: 100vh;
   gap: 2rem;
-  margin: 1rem 0;
-
-  @include mobile {
-    margin: 5rem 0;
-  }
+  margin: 3rem 0;
 }
 
 .logoContainer {

@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const signupSchema = yup.object().shape({
+export const authValidationSchema = yup.object().shape({
   email: yup
     .string()
     .required('이메일을 입력해주세요.')
