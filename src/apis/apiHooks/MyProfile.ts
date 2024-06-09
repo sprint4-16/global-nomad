@@ -7,7 +7,7 @@ import useGetCookie from '@/hooks/useCookies';
 export function useGetProfile() {
   const { getCookie } = useGetCookie();
   const accessToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzM3LCJ0ZWFtSWQiOiI0LTE2IiwiaWF0IjoxNzE3NjU2NzcwLCJleHAiOjE3MTc2NTg1NzAsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.38_SKiJnzn0m2d_MdPPLZ1RAlodRrv6KqsVVFwr4rCY';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzM3LCJ0ZWFtSWQiOiI0LTE2IiwiaWF0IjoxNzE3OTQyMjU4LCJleHAiOjE3MTc5NDQwNTgsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0._ltG2NWvAjQCX5AxL9AR2odGOSLT9cdDEe91PtJs_t8';
 
   return useQuery({
     queryKey: ['profile'],
