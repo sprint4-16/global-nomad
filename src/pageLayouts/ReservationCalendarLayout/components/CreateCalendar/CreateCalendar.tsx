@@ -8,86 +8,60 @@ import ElipseIconBlue from '@/images/icon/icon_ellipse_blue.svg';
 
 const cn = classNames.bind(styles);
 
-interface CalendarData {
-  activity: {
-    id: number;
-    title: string;
-  };
+interface dashboardDataProps {
   date: string;
-  endTime: string;
-  headCount: number;
-  id: number;
-  reviewSubmitted: false;
-  scheduleId: number;
-  startTime: string;
-  status: 'declined' | 'confirmed' | 'pending';
-  totalPrice: number;
-  userId: number;
+  reservations: {
+    completed: number;
+    confirmed: number;
+    pending: number;
+  };
 }
 
 interface CreateCalendarProps {
   currentMonth: dayjs.Dayjs;
-  endOfMonth: dayjs.Dayjs;
-  startOfMonth: dayjs.Dayjs;
-  data: CalendarData[] | null;
+  dashboardData: dashboardDataProps[];
 }
 
-export default function CreateCalendar({ currentMonth, endOfMonth, startOfMonth, data }: CreateCalendarProps) {
-  console.log(data);
+export default function CreateCalendar({ currentMonth, dashboardData = [] }: CreateCalendarProps) {
+  const startOfMonth = currentMonth.startOf('month');
+  const endOfMonth = currentMonth.endOf('month');
 
-  return (
-    <div className={cn('itemsWrapper')}>
-      {[...Array(endOfMonth.diff(startOfMonth, 'day') + 1)].map((_, i) => {
-        const day = startOfMonth.add(i, 'day');
-        if (day.month() === currentMonth.month()) {
-          const dayCompleteCount = data?.filter(
-            (item) => item.status === 'confirmed' && dayjs(item.date).isSame(day, 'day'),
-          ).length;
-          const dayReservationCount = data?.filter(
-            (item) => item.status === 'pending' && dayjs(item.date).isSame(day, 'day'),
-          ).length;
-          const dayConfirmCount = data?.filter(
-            (item) => item.status === 'confirmed' && dayjs(item.date).isSame(day, 'day'),
-          ).length;
+  const days = [...Array(endOfMonth.diff(startOfMonth, 'day') + 1)].map((_, i) => {
+    const day = startOfMonth.add(i, 'day');
 
-          const RenderAlertIcon = () => {
-            if (dayReservationCount || dayConfirmCount || dayCompleteCount) {
-              return dayReservationCount || dayConfirmCount ? (
-                <ElipseIconBlue className={cn('alertIcon')} />
-              ) : (
-                <ElipseIconGray className={cn('alertIcon')} />
-              );
-            }
-            return null;
-          };
+    const dashboardDataForThisDate = dashboardData?.find((d) => d.date === day.format('YYYY-MM-DD'));
 
-          return (
-            <div key={day.format('YYYY-MM-DD')} className={cn('item')}>
-              <div className={cn('dayWrapper')}>
-                {day.format('D')}
-                {RenderAlertIcon()}
-              </div>
-              <div className={cn('chips')}>
-                {dayCompleteCount ? (
-                  <Chips className={cn('chip')} type="confirmed">
-                    완료 {dayCompleteCount}
-                  </Chips>
-                ) : null}
-                {dayReservationCount ? (
-                  <Chips className={cn('chip')} type="reservation">
-                    예약 {dayReservationCount}
-                  </Chips>
-                ) : null}
-                {dayConfirmCount ? (
-                  <Chips className={cn('chip')} type="complete">
-                    승인 {dayConfirmCount}
-                  </Chips>
-                ) : null}
-              </div>
-            </div>
-          );
-        }
-      })}
-    </div>
-  );
+    const completedCount = dashboardDataForThisDate?.reservations.completed;
+    const pendingCount = dashboardDataForThisDate?.reservations.pending;
+    const confirmedCount = dashboardDataForThisDate?.reservations.confirmed;
+
+    return (
+      <div key={day.format('YYYY-MM-DD')} className={cn('item')}>
+        <div className={cn('dayWrapper')}>
+          {day.format('D')}
+          {completedCount ? <ElipseIconGray className={cn('alertIcon')} /> : null}
+          {pendingCount || confirmedCount ? <ElipseIconBlue className={cn('alertIcon')} /> : null}
+        </div>
+        <div className={cn('chips')}>
+          {completedCount ? (
+            <Chips className={cn('chip')} type="confirmed">
+              완료 {completedCount}
+            </Chips>
+          ) : null}
+          {pendingCount ? (
+            <Chips className={cn('chip')} type="reservation">
+              예약 {pendingCount}
+            </Chips>
+          ) : null}
+          {confirmedCount ? (
+            <Chips className={cn('chip')} type="complete">
+              승인 {confirmedCount}
+            </Chips>
+          ) : null}
+        </div>
+      </div>
+    );
+  });
+
+  return <div className={cn('itemsWrapper')}>{days}</div>;
 }

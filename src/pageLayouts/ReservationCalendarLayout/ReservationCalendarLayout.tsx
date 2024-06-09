@@ -8,64 +8,51 @@ import EmptyIcon from '@/images/icon/icon_empty.svg';
 
 const cn = classNames.bind(styles);
 
-interface Reservation {
-  activity: {
-    id: number;
-    title: string;
-  };
-  date: string;
-  endTime: string;
-  headCount: number;
+interface Activity {
   id: number;
-  reviewSubmitted: false;
-  scheduleId: number;
-  startTime: string;
-  status: 'declined' | 'confirmed' | 'pending';
-  totalPrice: number;
   userId: number;
+  title: string;
 }
 
-interface DataProps {
-  data?: {
-    reservations: Reservation[];
+interface ActivityListProps {
+  activityList?: {
+    activities: Activity[];
   };
 }
 
-export default function ReservationCalendarLayout(data: DataProps) {
-  const [reservationTitleList, setReservationTitleList] = useState<[string, number][] | null>(null);
-  const [reservationDataList, setReservationDataList] = useState<Reservation[] | null>(null);
-  const [selectedItemData, setSelectedItemData] = useState<Reservation[] | null>(null);
+export default function ReservationCalendarLayout(activityList: ActivityListProps) {
+  const [activityListData, setActivityListData] = useState<Activity[] | null>(null);
+  const [dropdownTitleList, setDropdownTitleList] = useState<[string, number][] | null>(null);
+  const [selectedActivity, setSelectedActivity] = useState<Activity[] | null>(null);
 
   useEffect(() => {
-    if (data.data?.reservations) {
-      const { reservations } = data.data;
+    if (activityList.activityList?.activities) {
+      const { activities } = activityList.activityList;
 
-      const unDuplicateTitles: [string, number][] = reservations
-        .filter(
-          (reservation, index, self) => index === self.findIndex((t) => t.activity.id === reservation.activity.id),
-        )
-        .map((reservation) => [reservation.activity.title, reservation.activity.id]);
+      const unDuplicateTitles: [string, number][] = activities
+        .filter((activity, index, self) => index === self.findIndex((title) => title.id === activity.id))
+        .map((activity) => [activity.title, activity.id]);
 
-      setReservationTitleList(unDuplicateTitles);
-      setReservationDataList(reservations);
+      setDropdownTitleList(unDuplicateTitles);
+      setActivityListData(activities);
 
       if (unDuplicateTitles.length > 0) {
         const initialSelectedId = unDuplicateTitles[0][1];
-        const initialSelectedItems = reservations.filter((item) => item.activity.id === initialSelectedId);
-        setSelectedItemData(initialSelectedItems);
+        const initialSelectedItems = activities.filter((item) => item.id === initialSelectedId);
+        setSelectedActivity(initialSelectedItems);
       }
     }
-  }, [data]);
+  }, [activityList]);
 
   const onDropdownSelect = (index: number) => {
-    if (reservationTitleList && reservationDataList) {
-      const selectedId = reservationTitleList?.[index][1];
-      const selectedItems = reservationDataList?.filter((item) => item.activity.id === selectedId);
-      setSelectedItemData(selectedItems);
+    if (dropdownTitleList && activityListData) {
+      const selectedId = dropdownTitleList?.[index][1];
+      const selectedItems = activityListData?.filter((item) => item.id === selectedId);
+      setSelectedActivity(selectedItems);
     }
   };
 
-  if (!reservationTitleList || !reservationDataList) {
+  if (!dropdownTitleList || !activityListData) {
     return (
       <div className={cn('wrapper')}>
         <div className={cn('header')}>
@@ -85,11 +72,11 @@ export default function ReservationCalendarLayout(data: DataProps) {
         <div className={cn('text')}>예약 현황</div>
         <Dropdown
           isLabelVisible={true}
-          menuItems={reservationTitleList.map((item) => item[0])}
+          menuItems={dropdownTitleList.map((item) => item[0])}
           onSelect={onDropdownSelect}
         />
       </div>
-      <CalendarLayout data={selectedItemData} />
+      <CalendarLayout selectedActivity={selectedActivity} />
     </div>
   );
 }

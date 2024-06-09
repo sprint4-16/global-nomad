@@ -6,27 +6,17 @@ import dayjs from 'dayjs';
 import PrevArrow from '@/images/btn/btn_prev_arrow.svg';
 import NextArrow from '@/images/btn/btn_next_arrow.svg';
 import CreateCalendar from '../CreateCalendar/CreateCalendar';
+import { UseGetDashboard } from '@/apis/apiHooks/MyActivities';
 
 const cn = classNames.bind(styles);
 
 interface CalendarData {
-  activity: {
-    id: number;
-    title: string;
-  };
-  date: string;
-  endTime: string;
-  headCount: number;
   id: number;
-  reviewSubmitted: false;
-  scheduleId: number;
-  startTime: string;
-  status: 'declined' | 'confirmed' | 'pending';
-  totalPrice: number;
   userId: number;
+  title: string;
 }
 
-export default function Calendar({ data }: { data: CalendarData[] | null }) {
+export default function Calendar({ selectedActivity }: { selectedActivity: CalendarData[] | null }) {
   const [currentMonth, setCurrentMonth] = useState(dayjs());
 
   const handlePreviousMonth = () => {
@@ -37,8 +27,12 @@ export default function Calendar({ data }: { data: CalendarData[] | null }) {
     setCurrentMonth((nextMonth) => nextMonth.add(1, 'month'));
   };
 
-  const startOfMonth = currentMonth.startOf('month');
-  const endOfMonth = currentMonth.endOf('month');
+  const activityId = selectedActivity?.[0]?.id || 0;
+  const { data: dashboardData } = UseGetDashboard({
+    activityId,
+    year: currentMonth.format('YYYY'),
+    month: currentMonth.format('MM'),
+  });
 
   const dayLabels = ['SUN', 'MON', 'TUE', 'WED', 'THUR', 'FRI', 'SAT'];
 
@@ -57,7 +51,7 @@ export default function Calendar({ data }: { data: CalendarData[] | null }) {
             </div>
           ))}
         </div>
-        <CreateCalendar currentMonth={currentMonth} startOfMonth={startOfMonth} endOfMonth={endOfMonth} data={data} />
+        <CreateCalendar currentMonth={currentMonth} dashboardData={dashboardData} />
       </div>
     </div>
   );
