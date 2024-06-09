@@ -54,9 +54,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           />
           {type === 'password' && (
             <VisibilityBtn
-              type={isPasswordVisible ? 'off' : 'on'}
-              onClickOpenedEye={() => setIsPasswordVisible(true)}
-              onClickClosedEye={() => setIsPasswordVisible(false)}
+              type={isPasswordVisible ? 'on' : 'off'}
+              onClickOpenedEye={() => setIsPasswordVisible(false)}
+              onClickClosedEye={() => setIsPasswordVisible(true)}
               sx={buttonStyle}
             />
           )}
