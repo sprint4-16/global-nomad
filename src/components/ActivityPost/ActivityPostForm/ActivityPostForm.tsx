@@ -47,10 +47,21 @@ export default function ActivityPostForm() {
   const [startTime, setStartTime] = useState<string | null>(null);
   const [endTime, setEndTime] = useState<string | null>(null);
   const [selectedItems, setSelectedItems] = useState<Array<{ date: Date; startTime: string; endTime: string }>>([]);
+  const [bannerImageUrl, setBannerImageUrl] = useState<string | null>(null);
+  const [introImageUrls, setIntroImageUrls] = useState<string[]>([]); // Intro 이미지 URL들을 저장하는 배열
 
   const dateInputRef = useRef<DateInputRef>(null);
   const startTimeDropdownRef = useRef<DropdownRef>(null);
   const endTimeDropdownRef = useRef<DropdownRef>(null);
+
+  const handleBannerImageSelect = (imageUrl: string) => {
+    setBannerImageUrl(imageUrl);
+  };
+
+  const handleIntroImageSelect = (imageUrl: string) => {
+    // 선택한 이미지를 배열에 추가
+    setIntroImageUrls([...introImageUrls, imageUrl]);
+  };
 
   const handleControlTimeClick = () => {
     if (selectedDate && startTime && endTime) {
@@ -128,7 +139,7 @@ export default function ActivityPostForm() {
         {selectedItems.length > 0 && (
           <>
             <div className={cn('selectedItems')}>
-              <Stroke width="793px" />
+              <Stroke />
               {selectedItems.map((item, index) => (
                 <div key={index} className={cn('selectedItem')}>
                   <Input
@@ -165,13 +176,26 @@ export default function ActivityPostForm() {
             </div>
           </>
         )}
-        <label className={cn('label')}>배너 이미지</label>
         <div className={cn('imageContainer')}>
-          <AddImageBtn />
+          <label className={cn('label')}>배너 이미지</label>
+          <div className={cn('bannerImagePreviewContainer')}>
+            <AddImageBtn onImageSelect={handleBannerImageSelect} />
+            {bannerImageUrl && <img className={cn('imagePreview')} src={bannerImageUrl} alt="배너 이미지 미리보기" />}
+          </div>
         </div>
-        <label className={cn('label')}>소개 이미지</label>
         <div className={cn('imageContainer')}>
-          <AddImageBtn />
+          <label className={cn('label')}>소개 이미지</label>
+          <div className={cn('introImagePreviewContainer')}>
+            <AddImageBtn onImageSelect={handleIntroImageSelect} />
+            {introImageUrls.map((imageUrl, index) => (
+              <img
+                key={index}
+                className={cn('imagePreview')}
+                src={imageUrl}
+                alt={`소개 이미지 ${index + 1} 미리보기`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </form>
