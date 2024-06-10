@@ -49,6 +49,7 @@ export function UseGetDashboard({ activityId, year, month }: UseGetDashboardPara
       );
       return data;
     },
+    enabled: !!activityId,
   });
 }
 

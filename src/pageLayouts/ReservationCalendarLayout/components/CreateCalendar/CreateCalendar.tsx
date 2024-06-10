@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './CreateCalendar.module.scss';
 import dayjs from 'dayjs';
@@ -12,7 +11,7 @@ const cn = classNames.bind(styles);
 interface dashboardDataProps {
   date: string;
   reservations: {
-    declined: number;
+    completed: number;
     confirmed: number;
     pending: number;
   };
@@ -20,23 +19,19 @@ interface dashboardDataProps {
 
 interface CreateCalendarProps {
   currentMonth: dayjs.Dayjs;
-  dashboardData: dashboardDataProps[];
+  dashboardData: dashboardDataProps[] | undefined;
 }
 
-export default function CreateCalendar({ currentMonth, dashboardData = [] }: CreateCalendarProps) {
-  const [completedCount, setCompletedCount] = useState(0);
+export default function CreateCalendar({ currentMonth, dashboardData }: CreateCalendarProps) {
   const startOfMonth = currentMonth.startOf('month');
   const endOfMonth = currentMonth.endOf('month');
-  console.log(dashboardData);
 
   const days = [...Array(endOfMonth.diff(startOfMonth, 'day') + 1)].map((_, i) => {
     const day = startOfMonth.add(i, 'day');
 
     const dashboardDataForThisDate = dashboardData?.find((d) => d.date === day.format('YYYY-MM-DD'));
 
-    if (dashboardDataForThisDate?.reservations.confirmed && day.isBefore(day)) {
-      setCompletedCount(dashboardDataForThisDate?.reservations.confirmed);
-    }
+    const completedCount = dashboardDataForThisDate?.reservations.completed;
     const pendingCount = dashboardDataForThisDate?.reservations.pending;
     const confirmedCount = dashboardDataForThisDate?.reservations.confirmed;
 
