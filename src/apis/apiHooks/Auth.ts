@@ -10,7 +10,7 @@ export interface useLoginParams {
   password: string;
 }
 
-export default function useLogin() {
+export function useLogin() {
   const { updateCookie } = useGetCookie();
   return useMutation({
     mutationFn: async (bodyData: useLoginParams) => {
@@ -22,6 +22,20 @@ export default function useLogin() {
       updateCookie('refreshToken', data.refreshToken);
       updateCookie('nickname', data.user.nickname);
       if (data.user.profileImageUrl !== null) updateCookie('profileImageUrl', data.user.profileImageUrl);
+    },
+  });
+}
+
+// 2. 회원가입
+export interface useSignupParams extends useLoginParams {
+  nickname: string;
+}
+
+export function useSignup() {
+  return useMutation({
+    mutationFn: async (bodyData: useSignupParams) => {
+      const { data } = await axiosInstance.post(END_POINT.USERS, bodyData);
+      return data;
     },
   });
 }
