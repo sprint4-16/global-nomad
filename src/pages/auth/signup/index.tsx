@@ -5,14 +5,14 @@ import classNames from 'classnames/bind';
 import Button from '@/components/Button/Button';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { authValidationSchema } from '../_shema';
+import { schema_for_signup } from '../_shema';
 
 const cn = classNames.bind(styles);
 
 export default function Signup() {
   const signupForm = useForm({
     mode: 'onBlur',
-    resolver: yupResolver(authValidationSchema),
+    resolver: yupResolver(schema_for_signup),
   });
 
   const onSubmit = () => {

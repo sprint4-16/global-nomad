@@ -4,16 +4,16 @@ import styles from '../_style/auth.module.scss';
 import classNames from 'classnames/bind';
 import Button from '@/components/Button/Button';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { authValidationSchema } from '../_shema';
+import { schema_for_signin } from '../_shema';
 import { useForm } from 'react-hook-form';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const cn = classNames.bind(styles);
 
 export default function Signin() {
   const signinForm = useForm({
     mode: 'onBlur',
-    resolver: yupResolver(authValidationSchema),
+    resolver: yupResolver(schema_for_signin),
   });
 
   const onSubmit = () => {
