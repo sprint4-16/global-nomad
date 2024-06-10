@@ -21,7 +21,7 @@ const AddImageBtn = ({ onImageSelect, size = 180 }: AddImageBtnProps) => {
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        const imageUrl = e.target.result as string;
+        const imageUrl = (e.target as FileReader).result as string;
         if (onImageSelect) {
           onImageSelect(imageUrl);
         }
