@@ -4,18 +4,23 @@ import { END_POINT } from '@/constants/';
 import useGetCookie from '@/hooks/useCookies';
 
 // 1. 내 예약 리스트 조회
-export function useGetReservation(status?: string) {
-  const { getCookie } = useGetCookie();
+export function useGetReservation() {
+  const { getCookie, updateCookie } = useGetCookie();
   const accessToken = getCookie('accessToken');
+  const reservationId = getCookie('reservationId');
 
   return useQuery({
-    queryKey: ['reservation', status],
+    queryKey: ['reservation', reservationId],
     queryFn: async () => {
       if (!accessToken) throw new Error('Access token is not available');
-      const { data } = await axiosInstanceToken(accessToken).get(`${END_POINT.MY_RESERVATIONS}`, {
-        params: { status },
-      });
+      if (!reservationId) throw new Error('reservationId is not available');
+      const { data } = await axiosInstanceToken(accessToken).get(
+        `${END_POINT.MY_RESERVATIONS}/${reservationId}/reviews`,
+      );
       return data;
+    },
+    select: (data) => {
+      updateCookie('reservationId', data.reservations[0].id);
     },
   });
 }
