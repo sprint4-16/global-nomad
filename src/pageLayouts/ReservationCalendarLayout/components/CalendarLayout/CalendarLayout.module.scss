@@ -8,7 +8,9 @@
   align-items: stretch;
   gap: 2.4rem;
 
-  padding-top: 3rem;
+  .category {
+    padding: 1rem 0 2rem;
+  }
 
   .header {
     width: 34.2rem;
