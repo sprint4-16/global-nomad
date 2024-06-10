@@ -1,11 +1,11 @@
 .container {
   display: flex;
   flex-direction: column;
-  // justify-content: center;
   align-items: center;
   height: 100vh;
   gap: 2rem;
-  margin: 3rem 0;
+  margin: 5vw 0 0;
+  padding-bottom: 2rem;
 }
 
 .logoContainer {
