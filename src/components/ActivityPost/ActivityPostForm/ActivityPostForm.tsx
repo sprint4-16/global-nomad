@@ -9,6 +9,7 @@ import AddImageBtn from '@/components/btns/AddImageBtn/AddImageBtn';
 import ControlTimeBtn from '@/components/btns/ControlTimeBtn/ControlTimeBtn';
 import Stroke from '@/images/icon/icon_stroke_long.svg';
 import { useState, useRef, CSSProperties } from 'react';
+import DeleteBtn from '@/components/btns/DeleteBtn/DeleteBtn';
 
 export default function ActivityPostForm() {
   const cn = classNames.bind(styles);
@@ -43,12 +44,19 @@ export default function ActivityPostForm() {
     color: '#1b1b1b',
   };
 
+  const deleteBtnStyle: CSSProperties = {
+    position: 'absolute',
+    top: '-1rem',
+    right: '-1rem',
+    zIndex: 1,
+  };
+
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [startTime, setStartTime] = useState<string | null>(null);
   const [endTime, setEndTime] = useState<string | null>(null);
   const [selectedItems, setSelectedItems] = useState<Array<{ date: Date; startTime: string; endTime: string }>>([]);
   const [bannerImageUrl, setBannerImageUrl] = useState<string | null>(null);
-  const [introImageUrls, setIntroImageUrls] = useState<string[]>([]); // Intro 이미지 URL들을 저장하는 배열
+  const [introImageUrls, setIntroImageUrls] = useState<string[]>([]);
 
   const dateInputRef = useRef<DateInputRef>(null);
   const startTimeDropdownRef = useRef<DropdownRef>(null);
@@ -59,8 +67,9 @@ export default function ActivityPostForm() {
   };
 
   const handleIntroImageSelect = (imageUrl: string) => {
-    // 선택한 이미지를 배열에 추가
-    setIntroImageUrls([...introImageUrls, imageUrl]);
+    if (introImageUrls.length < 4) {
+      setIntroImageUrls([...introImageUrls, imageUrl]);
+    }
   };
 
   const handleControlTimeClick = () => {
@@ -74,6 +83,16 @@ export default function ActivityPostForm() {
 
   const handleDeleteItemClick = (index: number) => {
     setSelectedItems(selectedItems.filter((_, i) => i !== index));
+  };
+
+  const handleDeleteBannerImageClick = (event: React.MouseEvent) => {
+    event.preventDefault();
+    setBannerImageUrl(null);
+  };
+
+  const handleDeleteIntroImageClick = (event: React.MouseEvent, index: number) => {
+    event.preventDefault();
+    setIntroImageUrls(introImageUrls.filter((_, i) => i !== index));
   };
 
   const formatDate = (date: Date) => {
@@ -180,7 +199,12 @@ export default function ActivityPostForm() {
           <label className={cn('label')}>배너 이미지</label>
           <div className={cn('bannerImagePreviewContainer')}>
             <AddImageBtn onImageSelect={handleBannerImageSelect} />
-            {bannerImageUrl && <img className={cn('imagePreview')} src={bannerImageUrl} alt="배너 이미지 미리보기" />}
+            {bannerImageUrl && (
+              <div className={cn('imagePreviewBox')}>
+                <DeleteBtn sx={deleteBtnStyle} onClick={() => handleDeleteBannerImageClick} />
+                <img className={cn('imagePreview')} src={bannerImageUrl} alt="배너 이미지 미리보기" />
+              </div>
+            )}
           </div>
         </div>
         <div className={cn('imageContainer')}>
@@ -188,14 +212,18 @@ export default function ActivityPostForm() {
           <div className={cn('introImagePreviewContainer')}>
             <AddImageBtn onImageSelect={handleIntroImageSelect} />
             {introImageUrls.map((imageUrl, index) => (
-              <img
-                key={index}
-                className={cn('imagePreview')}
-                src={imageUrl}
-                alt={`소개 이미지 ${index + 1} 미리보기`}
-              />
+              <div className={cn('imagePreviewBox')}>
+                <DeleteBtn sx={deleteBtnStyle} onClick={(event) => handleDeleteIntroImageClick(event, index)} />
+                <img
+                  key={index}
+                  className={cn('imagePreview')}
+                  src={imageUrl}
+                  alt={`소개 이미지 ${index + 1} 미리보기`}
+                />
+              </div>
             ))}
           </div>
+          <p className={cn('description')}>*이미지를 최소 4개 이상 제출해주세요.</p>
         </div>
       </div>
     </form>

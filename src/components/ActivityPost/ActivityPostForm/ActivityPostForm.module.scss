@@ -120,6 +120,7 @@
   width: 18rem;
   height: 18rem;
   border-radius: 2.4rem;
+  object-fit: cover;
 }
 
 .bannerImagePreviewContainer {
@@ -131,4 +132,16 @@
   display: flex;
   gap: 2rem;
   flex-wrap: wrap;
+}
+
+.imagePreviewBox {
+  width: 18rem;
+  height: 18rem;
+  border-radius: 2.4rem;
+  position: relative;
+}
+
+.description {
+  color: $gray-800;
+  @include pretendard-14-400;
 }
