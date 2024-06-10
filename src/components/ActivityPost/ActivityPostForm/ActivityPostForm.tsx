@@ -74,10 +74,20 @@ export default function ActivityPostForm() {
 
   const handleControlTimeClick = () => {
     if (selectedDate && startTime && endTime) {
-      setSelectedItems([...selectedItems, { date: selectedDate, startTime, endTime }]);
-      if (dateInputRef.current) dateInputRef.current.reset();
-      if (startTimeDropdownRef.current) startTimeDropdownRef.current.reset();
-      if (endTimeDropdownRef.current) endTimeDropdownRef.current.reset();
+      const isDuplicate = selectedItems.some((item) => {
+        return (
+          formatDate(item.date) === formatDate(selectedDate) && item.startTime === startTime && item.endTime === endTime
+        );
+      });
+
+      if (!isDuplicate) {
+        setSelectedItems([...selectedItems, { date: selectedDate, startTime, endTime }]);
+        if (dateInputRef.current) dateInputRef.current.reset();
+        if (startTimeDropdownRef.current) startTimeDropdownRef.current.reset();
+        if (endTimeDropdownRef.current) endTimeDropdownRef.current.reset();
+      } else {
+        alert('이미 선택된 시간대입니다.');
+      }
     }
   };
 
@@ -201,7 +211,7 @@ export default function ActivityPostForm() {
             <AddImageBtn onImageSelect={handleBannerImageSelect} />
             {bannerImageUrl && (
               <div className={cn('imagePreviewBox')}>
-                <DeleteBtn sx={deleteBtnStyle} onClick={() => handleDeleteBannerImageClick} />
+                <DeleteBtn sx={deleteBtnStyle} onClick={(event) => handleDeleteBannerImageClick(event)} />
                 <img className={cn('imagePreview')} src={bannerImageUrl} alt="배너 이미지 미리보기" />
               </div>
             )}
