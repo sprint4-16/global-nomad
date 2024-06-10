@@ -7,9 +7,11 @@ import Textarea from '@/components/Textarea/Textarea';
 import { DateInput, DateInputRef } from '@/components/DateInput/DateInput';
 import AddImageBtn from '@/components/btns/AddImageBtn/AddImageBtn';
 import ControlTimeBtn from '@/components/btns/ControlTimeBtn/ControlTimeBtn';
-import Stroke from '@/images/icon/icon_stroke_long.svg';
+import LongStroke from '@/images/icon/icon_stroke_long.svg';
+import Stroke from '@/images/icon/icon_stroke.svg';
 import { useState, useRef, CSSProperties } from 'react';
 import DeleteBtn from '@/components/btns/DeleteBtn/DeleteBtn';
+import { useMediaQuery } from 'react-responsive';
 
 export default function ActivityPostForm() {
   const cn = classNames.bind(styles);
@@ -50,6 +52,8 @@ export default function ActivityPostForm() {
     right: '-1rem',
     zIndex: 1,
   };
+
+  const isPc = useMediaQuery({ query: '(min-width: 767px' });
 
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [startTime, setStartTime] = useState<string | null>(null);
@@ -115,7 +119,7 @@ export default function ActivityPostForm() {
   return (
     <form>
       <div className={cn('titleBox')}>
-        <h1>내 정보</h1>
+        <h1>내 체험 등록</h1>
         <Button type="primary" size="medium" htmlType="button">
           등록하기
         </Button>
@@ -134,7 +138,7 @@ export default function ActivityPostForm() {
         </div>
         <label className={cn('label')}>예약 가능한 시간대</label>
         <div className={cn('reservationTimeWrapper')}>
-          <div className={cn('reservationDateBox')}>
+          <div className={cn('reservationDateBox', 'commonWidth')}>
             <label className={cn('smallLabel')}>날짜</label>
             <DateInput dateText="YY/MM/DD" onChange={(date: Date) => setSelectedDate(date)} ref={dateInputRef} />
           </div>
@@ -149,7 +153,7 @@ export default function ActivityPostForm() {
                 ref={startTimeDropdownRef}
               />
             </div>
-            <p className={cn('wave')}>~</p>
+            {isPc && <p className={cn('wave')}>~</p>}
             <div className={cn('reservationTimeBox')}>
               <label className={cn('smallLabel')}>종료 시간</label>
               <Dropdown
@@ -168,16 +172,18 @@ export default function ActivityPostForm() {
         {selectedItems.length > 0 && (
           <>
             <div className={cn('selectedItems')}>
-              <Stroke />
+              {isPc ? <LongStroke /> : <Stroke />}
               {selectedItems.map((item, index) => (
                 <div key={index} className={cn('selectedItem')}>
-                  <Input
-                    className={cn('dateInputBox')}
-                    type="text"
-                    readOnly={true}
-                    placeholder={formatDate(item.date)}
-                    sx={inputStyle}
-                  />
+                  <div className={cn('reservationDateBox')}>
+                    <Input
+                      className={cn('dateInputBox', 'commonWidth')}
+                      type="text"
+                      readOnly={true}
+                      placeholder={formatDate(item.date)}
+                      sx={inputStyle}
+                    />
+                  </div>
                   <div className={cn('reservationTimeContainer')}>
                     <div className={cn('reservationTimeBox')}>
                       <Input
@@ -188,7 +194,7 @@ export default function ActivityPostForm() {
                         sx={inputStyle}
                       />
                     </div>
-                    <p>~</p>
+                    {isPc && <p>~</p>}
                     <div className={cn('reservationTimeBox')}>
                       <Input
                         className={cn('timeInputBox')}
