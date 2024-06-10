@@ -59,7 +59,7 @@ export default function Signup() {
             )}
           </div>
 
-          <Button type="primary" size="full" sx={{ marginTop: '3rem' }}>
+          <Button disabled={!signupForm.formState.isValid} type="primary" size="full" sx={{ marginTop: '3rem' }}>
             회원 가입하기
           </Button>
         </form>

@@ -6,18 +6,27 @@ import Button from '@/components/Button/Button';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { authValidationSchema } from '../_shema';
 import { useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
 
 const cn = classNames.bind(styles);
 
 export default function Signin() {
+  const [isDisabled, setIsDisabled] = useState(true);
+
   const signinForm = useForm({
     mode: 'onBlur',
     resolver: yupResolver(authValidationSchema),
   });
 
   const onSubmit = () => {
-    console.log(signinForm.getValues());
+    console.log('zy');
+    // console.log(signinForm.getValues());
   };
+
+  useEffect(() => {
+    // const signinValues = signinForm.getValues();
+    console.log('check');
+  }, []);
 
   return (
     <div>
@@ -41,7 +50,7 @@ export default function Signin() {
             )}
           </div>
 
-          <Button type="primary" disabled size="full" sx={{ marginTop: '3rem' }}>
+          <Button type="primary" disabled={!signinForm.formState.isValid} size="full" sx={{ marginTop: '3rem' }}>
             로그인 하기
           </Button>
         </form>
