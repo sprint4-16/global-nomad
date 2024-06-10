@@ -34,8 +34,7 @@ export interface useSignupParams extends useLoginParams {
 export function useSignup() {
   return useMutation({
     mutationFn: async (bodyData: useSignupParams) => {
-      const { data } = await axiosInstance.post(END_POINT.USERS, bodyData);
-      return data;
+      return axiosInstance.post(END_POINT.USERS, bodyData);
     },
   });
 }

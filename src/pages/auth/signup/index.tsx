@@ -6,6 +6,8 @@ import Button from '@/components/Button/Button';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema_for_signup } from '../_shema';
+import { useSignup } from '@/apis/apiHooks/Auth';
+import { AxiosError } from 'axios';
 
 const cn = classNames.bind(styles);
 
@@ -15,8 +17,16 @@ export default function Signup() {
     resolver: yupResolver(schema_for_signup),
   });
 
+  const { mutate, error } = useSignup();
+
   const onSubmit = () => {
-    console.log(signupForm.getValues());
+    const signupFormValues = signupForm.getValues();
+
+    mutate({
+      nickname: signupFormValues.nickname,
+      email: signupFormValues.email,
+      password: signupFormValues.password,
+    });
   };
 
   return (
@@ -28,6 +38,7 @@ export default function Signup() {
             {signupForm.formState.errors.email && (
               <div className={cn('error')}>{signupForm.formState.errors.email?.message}</div>
             )}
+            {error && error instanceof AxiosError && <div className={cn('error')}>{error.response?.data.message}</div>}
           </div>
 
           <div className={cn('inputContainer')}>
