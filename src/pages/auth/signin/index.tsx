@@ -11,8 +11,6 @@ import { useEffect, useState } from 'react';
 const cn = classNames.bind(styles);
 
 export default function Signin() {
-  const [isDisabled, setIsDisabled] = useState(true);
-
   const signinForm = useForm({
     mode: 'onBlur',
     resolver: yupResolver(authValidationSchema),
