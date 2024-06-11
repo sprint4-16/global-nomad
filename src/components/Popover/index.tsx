@@ -32,5 +32,5 @@ export default function Popover({ isOpen, onClose, type, date }: PopoverProps) {
   if (!isOpen) {
     return <></>;
   }
-  return <div className={cn(type)}>{renderPopover(type, onClose, date)}</div>;
+  return <div className={cn('container', type)}>{renderPopover(type, onClose, date)}</div>;
 }
