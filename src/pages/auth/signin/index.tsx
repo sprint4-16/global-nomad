@@ -9,6 +9,8 @@ import { useForm } from 'react-hook-form';
 import { useLogin } from '@/apis/apiHooks/Auth';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
+// import useCookies from '@/hooks/useCookies';
+// import { useEffect } from 'react';
 
 const cn = classNames.bind(styles);
 
@@ -32,6 +34,13 @@ export default function Signin() {
 
     router.push('/');
   };
+
+  // const { getCookie } = useCookies();
+  // useEffect(() => {
+  //   if (getCookie('accessToken')) {
+  //     router.back();
+  //   }
+  // }, []);
 
   return (
     <div>
