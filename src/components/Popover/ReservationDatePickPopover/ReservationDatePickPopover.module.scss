@@ -1,0 +1,35 @@
+.container {
+  // width: 48rem;
+  width: 100%;
+  // border-radius: 2.4rem;
+  padding: 2rem;
+}
+
+.sectionTitle {
+  @include pretendard-20-700;
+  font-size: 1.8rem;
+  margin: 2rem 0 1rem;
+}
+
+.tagList {
+  margin: 2rem 0 0;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+}
+
+.tagListItem {
+  list-style-type: none;
+}
+
+.tag {
+  @include pretendard-16-500;
+  border: 1px solid;
+  border-radius: 0.8rem;
+  padding: 1rem 1.2rem;
+}
+
+.active {
+  color: $white;
+  background-color: $nomad-black;
+}

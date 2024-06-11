@@ -51,7 +51,7 @@
   text-align: center;
   @include Spoqa-14-700;
 
-  &.rejected {
+  &.declined {
     color: $red-200;
   }
 }
