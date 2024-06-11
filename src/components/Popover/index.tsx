@@ -10,16 +10,17 @@ interface PopoverProps {
   isOpen: boolean;
   onClose: () => void;
   type: PopoverType;
+  date?: string;
 }
 
-function renderPopover(type: PopoverType, onClose: () => void) {
+function renderPopover(type: PopoverType, onClose: () => void, date?: string) {
   switch (type) {
     case 'notification':
       return <NotificationPopover onClose={onClose} />;
     case 'reservationDatePick':
       return <ReservationDatePickPopover onClose={onClose} />;
     case 'reservationInfo':
-      return <ReservationInfoPopover onClose={onClose} />;
+      return <ReservationInfoPopover onClose={onClose} date={date ? date : ''} />;
     default:
       return <></>;
   }
@@ -27,9 +28,9 @@ function renderPopover(type: PopoverType, onClose: () => void) {
 
 const cn = classNames.bind(styles);
 
-export default function Popover({ isOpen, onClose, type }: PopoverProps) {
+export default function Popover({ isOpen, onClose, type, date }: PopoverProps) {
   if (!isOpen) {
     return <></>;
   }
-  return <div className={cn(type)}>{renderPopover(type, onClose)}</div>;
+  return <div className={cn(type)}>{renderPopover(type, onClose, date)}</div>;
 }

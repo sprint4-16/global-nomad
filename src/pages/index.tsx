@@ -6,7 +6,7 @@ export default function Home() {
 
   return (
     <>
-      <Popover isOpen={isOpen} onClose={() => setIsOpen(false)} type="notification" />
+      <Popover isOpen={isOpen} onClose={() => setIsOpen(false)} type="reservationInfo" date="2024-6-11" />
       <button onClick={() => setIsOpen(true)}>Popover 키기</button>
     </>
   );

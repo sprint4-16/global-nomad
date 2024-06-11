@@ -9,6 +9,7 @@ interface ReservationInfoPopoverProps {
   onClose: () => void;
   className?: string;
   sx?: CSSProperties;
+  date: string;
 }
 
 type ReservationState = 'pending' | 'confirmed' | 'declined';
@@ -62,7 +63,7 @@ const SAMPLE_DATAS = {
   },
 } as const;
 
-export default function ReservationInfoPopover({ sx, className, onClose }: ReservationInfoPopoverProps) {
+export default function ReservationInfoPopover({ sx, className, onClose, date }: ReservationInfoPopoverProps) {
   const [selectedNavListItem, setSelectedNavListItem] = useState<ReservationState>('pending');
 
   const handleNavListItemClick = (e: MouseEvent) => {
@@ -93,7 +94,10 @@ export default function ReservationInfoPopover({ sx, className, onClose }: Reser
       <div className={cn('contents')}>
         <section className={cn('section')}>
           <h2 className={cn('sectionTitle')}>예약 날짜</h2>
-          <p className={cn('sectionLabel')}>2024년 5월 29일</p>
+          {/* 이 부분 props로*/}
+          <p
+            className={cn('sectionLabel')}
+          >{`${date.split('-')[0]}년 ${date.split('-')[1]}월 ${date.split('-')[2]}일`}</p>
           <Dropdown isLabelVisible={false} menuItems={['14:00 ~ 15:00']} className={styles.dropdown} />
         </section>
 
