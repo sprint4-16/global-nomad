@@ -55,6 +55,8 @@
     list-style-type: none;
     border-radius: 0.6rem;
     box-shadow: 0px 1rem 3rem 0.3rem rgba($box-shadow, 0.15);
+    max-height: 22.4rem;
+    overflow-y: auto;
 
     .item {
       padding: 0.8rem 3.6rem;
