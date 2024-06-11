@@ -8,66 +8,61 @@ import ElipseIconBlue from '@/images/icon/icon_ellipse_blue.svg';
 
 const cn = classNames.bind(styles);
 
-interface CreateCalendarProps {
-  currentMonth: dayjs.Dayjs;
-  endOfMonth: dayjs.Dayjs;
-  startOfMonth: dayjs.Dayjs;
-  completeCount?: number;
-  reservationCount?: number;
-  confirmedCount?: number;
+interface dashboardDataProps {
+  date: string;
+  reservations: {
+    completed: number;
+    confirmed: number;
+    pending: number;
+  };
 }
 
-export default function CreateCalendar({
-  currentMonth,
-  endOfMonth,
-  startOfMonth,
-  completeCount = 0,
-  reservationCount = 0,
-  confirmedCount = 0,
-}: CreateCalendarProps) {
-  const RenderAlertIcon = () => {
-    if (reservationCount || confirmedCount || completeCount) {
-      return reservationCount || confirmedCount ? (
-        <ElipseIconBlue className={cn('alertIcon')} />
-      ) : (
-        <ElipseIconGray className={cn('alertIcon')} />
-      );
-    }
-    return null;
-  };
+interface CreateCalendarProps {
+  currentMonth: dayjs.Dayjs;
+  dashboardData: dashboardDataProps[] | undefined;
+}
 
-  return (
-    <div className={cn('itemsWrapper')}>
-      {[...Array(endOfMonth.diff(startOfMonth, 'day') + 1)].map((_, i) => {
-        const day = startOfMonth.add(i, 'day');
-        if (day.month() === currentMonth.month()) {
-          return (
-            <div key={day.format('YYYY-MM-DD')} className={cn('item')}>
-              <div className={cn('dayWrapper')}>
-                {day.format('D')}
-                {RenderAlertIcon()}
-              </div>
-              <div className={cn('chips')}>
-                {completeCount ? (
-                  <Chips className={cn('chip')} type="confirmed">
-                    완료 {completeCount}
-                  </Chips>
-                ) : null}
-                {reservationCount ? (
-                  <Chips className={cn('chip')} type="reservation">
-                    예약 {reservationCount}
-                  </Chips>
-                ) : null}
-                {confirmedCount ? (
-                  <Chips className={cn('chip')} type="complete">
-                    승인 {confirmedCount}
-                  </Chips>
-                ) : null}
-              </div>
-            </div>
-          );
-        }
-      })}
-    </div>
-  );
+export default function CreateCalendar({ currentMonth, dashboardData }: CreateCalendarProps) {
+  const startOfMonth = currentMonth.startOf('month');
+  const endOfMonth = currentMonth.endOf('month');
+
+  const days = [...Array(endOfMonth.diff(startOfMonth, 'day') + 1)].map((_, i) => {
+    const day = startOfMonth.add(i, 'day');
+
+    const dashboardDataForThisDate = dashboardData?.find((d) => d.date === day.format('YYYY-MM-DD'));
+
+    const completedCount = dashboardDataForThisDate?.reservations.completed;
+    const pendingCount = dashboardDataForThisDate?.reservations.pending;
+    const confirmedCount = dashboardDataForThisDate?.reservations.confirmed;
+
+    return (
+      <div key={day.format('YYYY-MM-DD')} className={cn('item')}>
+        <div className={cn('dayWrapper')}>
+          {day.format('D')}
+          {completedCount ? (
+            <ElipseIconGray className={cn('alertIcon')} />
+          ) : pendingCount || confirmedCount ? (
+            <ElipseIconBlue className={cn('alertIcon')} />
+          ) : null}
+        </div>
+        <div className={cn('chips')}>
+          {completedCount ? (
+            <Chips className={cn('chip')} type="complete">
+              완료 {completedCount}
+            </Chips>
+          ) : pendingCount ? (
+            <Chips className={cn('chip')} type="reservation">
+              예약 {pendingCount}
+            </Chips>
+          ) : confirmedCount ? (
+            <Chips className={cn('chip')} type="confirmed">
+              승인 {confirmedCount}
+            </Chips>
+          ) : null}
+        </div>
+      </div>
+    );
+  });
+
+  return <div className={cn('itemsWrapper')}>{days}</div>;
 }

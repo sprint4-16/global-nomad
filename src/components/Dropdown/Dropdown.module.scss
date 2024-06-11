@@ -49,14 +49,18 @@
   }
 
   .menuItems {
+    background-color: $white;
     width: 100%;
     padding: 0.8rem;
     margin-top: 0.8rem;
     list-style-type: none;
     border-radius: 0.6rem;
+    position: absolute;
     box-shadow: 0px 1rem 3rem 0.3rem rgba($box-shadow, 0.15);
     position: absolute;
     background-color: $white;
+    z-index: $zindex-modal;
+
 
     .item {
       padding: 0.8rem 3.6rem;
