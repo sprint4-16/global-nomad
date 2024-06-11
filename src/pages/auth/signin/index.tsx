@@ -6,25 +6,32 @@ import Button from '@/components/Button/Button';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema_for_signin } from '../_shema';
 import { useForm } from 'react-hook-form';
-import { useEffect } from 'react';
+import { useLogin } from '@/apis/apiHooks/Auth';
+import { AxiosError } from 'axios';
+import { useRouter } from 'next/router';
 
 const cn = classNames.bind(styles);
 
 export default function Signin() {
+  const router = useRouter();
+
   const signinForm = useForm({
     mode: 'onBlur',
     resolver: yupResolver(schema_for_signin),
   });
 
-  const onSubmit = () => {
-    console.log('zy');
-    // console.log(signinForm.getValues());
-  };
+  const { mutate, error } = useLogin();
 
-  useEffect(() => {
-    // const signinValues = signinForm.getValues();
-    console.log('check');
-  }, []);
+  const onSubmit = () => {
+    const signinFormValues = signinForm.getValues();
+
+    mutate({
+      email: signinFormValues.email,
+      password: signinFormValues.password,
+    });
+
+    router.push('/');
+  };
 
   return (
     <div>
@@ -46,6 +53,7 @@ export default function Signin() {
             {signinForm.formState.errors.email && (
               <div className={cn('error')}>{signinForm.formState.errors.password?.message}</div>
             )}
+            {error && error instanceof AxiosError && <div className={cn('error')}>{error.response?.data.message}</div>}
           </div>
 
           <Button type="primary" disabled={!signinForm.formState.isValid} size="full" sx={{ marginTop: '3rem' }}>

@@ -8,10 +8,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { schema_for_signup } from '../_shema';
 import { useSignup } from '@/apis/apiHooks/Auth';
 import { AxiosError } from 'axios';
+import { useRouter } from 'next/router';
 
 const cn = classNames.bind(styles);
 
 export default function Signup() {
+  const router = useRouter();
   const signupForm = useForm({
     mode: 'onBlur',
     resolver: yupResolver(schema_for_signup),
@@ -27,6 +29,8 @@ export default function Signup() {
       email: signupFormValues.email,
       password: signupFormValues.password,
     });
+
+    router.push('/signin');
   };
 
   return (
