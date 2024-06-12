@@ -68,7 +68,7 @@ export const Dropdown = forwardRef<DropdownRef, DropdownProps>(
                     setSelectedItem(item);
                     setIsDropdownOpen(false);
                     if (onSelect) {
-                      onSelect(item);
+                      onSelect(index);
                     }
                     if (onChange) {
                       onChange(item);

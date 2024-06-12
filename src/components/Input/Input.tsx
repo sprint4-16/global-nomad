@@ -1,4 +1,4 @@
-import { CSSProperties, ReactNode, forwardRef, useState } from 'react';
+import { CSSProperties, ChangeEvent, ReactNode, forwardRef, useState } from 'react';
 import VisibilityBtn from '@/components/btns/VisibilityBtn/VisibilityBtn';
 import styles from './Input.module.scss';
 import classNames from 'classnames/bind';
@@ -16,13 +16,28 @@ interface InputProps {
   labelClassName?: string;
   value?: string;
   onClick?: () => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   register?: UseFormRegisterReturn;
   readOnly?: boolean;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
-    { label, type, placeholder, color, sx, onClick, className, labelClassName, value, readOnly, register, ...props },
+    {
+      label,
+      type,
+      placeholder,
+      color,
+      sx,
+      onClick,
+      onChange,
+      className,
+      labelClassName,
+      value,
+      readOnly,
+      register,
+      ...props
+    },
     ref,
   ) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -50,6 +65,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             value={value}
             ref={ref}
             readOnly={readOnly}
+            onChange={onChange}
             {...register}
           />
           {type === 'password' && (
