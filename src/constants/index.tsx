@@ -4,7 +4,8 @@ export const ROUTE = {
   SIGNUP: '/signup',
 
   // 체험 상세 페이지
-  ACTIVITY_DETAIL: '/activity-detail',
+  ACTIVITY_DETAIL: '/activities',
+  // [activityId]
 
   // 내 정보 페이지
   USER: '/user',
