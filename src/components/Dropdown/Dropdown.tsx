@@ -9,7 +9,7 @@ const cn = classNames.bind(styles);
 
 interface DropdownProps {
   menuItems?: string[];
-  onSelect?: (selectedItem: string) => void;
+  onSelect?: (index: number) => void;
   className?: string;
   isLabelVisible: boolean;
   onChange?: (value: string) => void;
@@ -68,7 +68,7 @@ export const Dropdown = forwardRef<DropdownRef, DropdownProps>(
                     setSelectedItem(item);
                     setIsDropdownOpen(false);
                     if (onSelect) {
-                      onSelect(item);
+                      onSelect(index);
                     }
                     if (onChange) {
                       onChange(item);

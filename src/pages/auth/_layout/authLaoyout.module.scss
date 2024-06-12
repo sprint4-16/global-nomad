@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  gap: 2rem;
+  margin: 5vw 0 0;
+  padding-bottom: 2rem;
+}
+
+.logoContainer {
+  width: 34rem;
+  height: 19.2rem;
+  background-size: cover;
+  background-image: url('/logo/logo.svg');
+  flex-shrink: 0;
+  @include mobile {
+    width: 27rem;
+    height: 15.4rem;
+  }
+}
+
+.contents {
+  width: 100%;
+  padding: 0 2rem;
+  max-width: 64rem;
+}
+
+.footer {
+  @include pretendard-16-400;
+}
+
+.footerLink {
+  color: $green-200;
+  text-decoration: underline;
+}
