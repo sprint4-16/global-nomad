@@ -14,20 +14,19 @@ export default function Activity() {
   !isLoading && console.log(data);
   return (
     <>
-      <header>
+      <header className={cn('header')}>
         <div className={cn('header-contents')}>
-          <div className={cn('header')}>문화-예술</div>
-          <h2 className={cn('title')}>함께 배우면 즐거운 스트릿 댄스</h2>
+          <div className={cn('header')}>{data?.category}</div>
+          <h2 className={cn('title')}>{data?.title}</h2>
           <div className={cn('footer')}>
             <span>
-              <StarIcon width={20} height={40} /> (293)
+              <StarIcon width={20} height={40} /> ({data?.reviewCount})
             </span>
-            <span>서울 중구 청계천로 100 10F</span>
+            <span>{data?.address}</span>
           </div>
         </div>
-        <KebabBtn />
+        <KebabBtn size={30} />
       </header>
-      <div>hihi</div>
     </>
   );
 }
