@@ -34,3 +34,26 @@
   gap: 0.5rem;
   align-items: center;
 }
+
+.control {
+  position: relative;
+}
+
+.popover {
+  position: absolute;
+  background-color: $white;
+  right: 1rem;
+  border-radius: 0.6rem;
+
+  border: 0.1rem solid $gray-300;
+
+  button {
+    @include pretendard-18-500;
+    padding: 1.6rem 4rem;
+    font-size: 1.4rem;
+    font-weight: 400;
+    &:last-child {
+      border-top: 0.1rem solid $gray-300;
+    }
+  }
+}
