@@ -39,7 +39,12 @@ export default function Activity() {
             </div>
           </div>
           <div className={cn('control')}>
-            <KebabBtn size={28} onClick={() => setIsPopoverOpened((toggle) => !toggle)} />
+            <KebabBtn
+              size={28}
+              onClick={() => {
+                setIsPopoverOpened((toggle) => !toggle);
+              }}
+            />
             {isPopoverOpened && (
               <div ref={popoverRef} className={cn('popover')}>
                 <button>수정하기</button>
