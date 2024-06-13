@@ -20,9 +20,10 @@ interface dashboardDataProps {
 interface CreateCalendarProps {
   currentMonth: dayjs.Dayjs;
   dashboardData: dashboardDataProps[] | undefined;
+  activityId: number;
 }
 
-export default function CreateCalendar({ currentMonth, dashboardData }: CreateCalendarProps) {
+export default function CreateCalendar({ currentMonth, dashboardData, activityId }: CreateCalendarProps) {
   const startOfMonth = currentMonth.startOf('month');
   const endOfMonth = currentMonth.endOf('month');
 
@@ -51,11 +52,16 @@ export default function CreateCalendar({ currentMonth, dashboardData }: CreateCa
               완료 {completedCount}
             </Chips>
           ) : pendingCount ? (
-            <Chips className={cn('chip')} type="reservation">
+            <Chips
+              className={cn('chip')}
+              type="reservation"
+              activityId={activityId}
+              date={dashboardDataForThisDate.date}
+            >
               예약 {pendingCount}
             </Chips>
           ) : confirmedCount ? (
-            <Chips className={cn('chip')} type="confirmed">
+            <Chips className={cn('chip')} type="confirmed" activityId={activityId} date={dashboardDataForThisDate.date}>
               승인 {confirmedCount}
             </Chips>
           ) : null}

@@ -61,7 +61,6 @@
     background-color: $white;
     z-index: $zindex-modal;
 
-
     .item {
       padding: 0.8rem 3.6rem;
       border-radius: 0.6rem;
@@ -73,6 +72,12 @@
         color: $white;
         cursor: pointer;
       }
+    }
+
+    .selected {
+      background-color: $nomad-black;
+      color: $white;
+      cursor: pointer;
     }
 
     .checkMarkImg {
