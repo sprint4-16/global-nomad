@@ -10,9 +10,8 @@ const cn = classNames.bind(styles);
 
 export default function Activity() {
   const router = useRouter();
-  const { data, isLoading } = useGetActivity({ activityId: router.query.activityId?.toString() ?? '' });
+  const { data } = useGetActivity({ activityId: router.query.activityId?.toString() ?? '' });
 
-  !isLoading && console.log(data);
   return (
     <>
       <header className={cn('header')}>
