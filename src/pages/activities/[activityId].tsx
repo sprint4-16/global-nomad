@@ -6,7 +6,8 @@ import KebabBtn from '@/components/btns/KebabBtn/KebabBtn';
 import StarIcon from '@/images/icon/icon_star_on.svg';
 import LocationIcon from '@/images/icon/icon_location.svg';
 import Header from './_skeleton-ui/skeleton-header';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import useOutsideClick from '@/hooks/useOutsideClick';
 
 const cn = classNames.bind(styles);
 
@@ -14,6 +15,9 @@ export default function Activity() {
   const router = useRouter();
   const { data, isLoading } = useGetActivity({ activityId: router.query.activityId?.toString() ?? '' });
   const [isPopoverOpened, setIsPopoverOpened] = useState(false);
+  const popoverRef = useRef(null);
+
+  useOutsideClick({ ref: popoverRef, onClick: () => setIsPopoverOpened(false) });
 
   return (
     <>
@@ -37,7 +41,7 @@ export default function Activity() {
           <div className={cn('control')}>
             <KebabBtn size={28} onClick={() => setIsPopoverOpened((toggle) => !toggle)} />
             {isPopoverOpened && (
-              <div className={cn('popover')}>
+              <div ref={popoverRef} className={cn('popover')}>
                 <button>수정하기</button>
                 <button>삭제하기</button>
               </div>
