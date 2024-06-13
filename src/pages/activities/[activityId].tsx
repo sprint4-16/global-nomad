@@ -40,6 +40,7 @@ export default function Activity() {
           </div>
           <div className={cn('control')}>
             <KebabBtn
+              id="kebab-btn"
               size={28}
               onClick={() => {
                 setIsPopoverOpened((toggle) => !toggle);
