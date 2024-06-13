@@ -6,3 +6,31 @@
   display: flex;
   justify-content: space-between;
 }
+
+.tag {
+  @include pretendard-14-400;
+  color: $nomad-black;
+}
+
+.title {
+  @include pretendard-20-700;
+  font-size: 3.2rem;
+  margin: 1.5rem 0;
+}
+
+.footer {
+  @include pretendard-14-400;
+  display: flex;
+  gap: 1rem;
+}
+
+.rating {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.address {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
