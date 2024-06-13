@@ -15,8 +15,9 @@ export default function Activity() {
 
   return (
     <>
-      {isLoading && <Header />}
-      {!isLoading && (
+      {isLoading ? (
+        <Header />
+      ) : (
         <header className={cn('header')}>
           <div className={cn('header-contents')}>
             <div className={cn('category')}>{data?.category}</div>
