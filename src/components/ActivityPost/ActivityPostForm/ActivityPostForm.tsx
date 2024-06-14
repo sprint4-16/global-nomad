@@ -182,6 +182,7 @@ export default function ActivityPostForm() {
       <div className={cn('formContainer')}>
         <Input
           type="text"
+          id="title"
           placeholder="제목"
           sx={inputStyle}
           onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange('title', e.target.value)}
@@ -199,6 +200,7 @@ export default function ActivityPostForm() {
           <label className={cn('label')}>가격</label>
           <Input
             type="text"
+            id="price"
             placeholder="가격"
             sx={inputStyle}
             onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange('price', e.target.value)}
@@ -208,6 +210,7 @@ export default function ActivityPostForm() {
           <label className={cn('label')}>주소</label>
           <Input
             type="text"
+            id="address"
             placeholder="주소"
             sx={inputStyle}
             onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange('address', e.target.value)}
@@ -256,6 +259,7 @@ export default function ActivityPostForm() {
                     <Input
                       className={cn('dateInputBox', 'commonWidth')}
                       type="text"
+                      id="date"
                       readOnly={true}
                       placeholder={formatDate(item.date)}
                       sx={inputStyle}
@@ -266,6 +270,7 @@ export default function ActivityPostForm() {
                       <Input
                         className={cn('timeInputBox')}
                         type="text"
+                        id="startTime"
                         readOnly={true}
                         placeholder={item.startTime}
                         sx={inputStyle}
@@ -276,6 +281,7 @@ export default function ActivityPostForm() {
                       <Input
                         className={cn('timeInputBox')}
                         type="text"
+                        id="endTime"
                         readOnly={true}
                         placeholder={item.endTime}
                         sx={inputStyle}

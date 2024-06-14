@@ -9,6 +9,7 @@ const cn = classNames.bind(styles);
 interface InputProps {
   label?: ReactNode;
   type: React.HTMLInputTypeAttribute;
+  id?: string;
   placeholder?: string;
   color?: string;
   sx?: CSSProperties;
@@ -26,6 +27,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     {
       label,
       type,
+      id,
       placeholder,
       color,
       sx,
@@ -58,7 +60,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <div className={cn('inputWrapper')}>
           <input
             type={type === 'password' && isPasswordVisible ? 'text' : type}
-            id={type}
+            id={id}
             placeholder={placeholder}
             className={cn('input', color)}
             style={sx}
