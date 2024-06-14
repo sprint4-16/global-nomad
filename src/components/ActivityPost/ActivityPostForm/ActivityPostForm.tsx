@@ -12,6 +12,7 @@ import DeleteBtn from '@/components/btns/DeleteBtn/DeleteBtn';
 import LongStroke from '@/images/icon/icon_stroke_long.svg';
 import Stroke from '@/images/icon/icon_stroke.svg';
 import styles from './ActivityPostForm.module.scss';
+import { usePostActivity } from '@/apis/apiHooks/PostActivities';
 
 interface Schedule {
   date: Date;
@@ -49,6 +50,7 @@ export default function ActivityPostForm() {
   };
 
   const [formData, setFormData] = useState<FormData>(initialState);
+  const { mutate: postActivity } = usePostActivity();
 
   const dateInputRef = useRef<DateInputRef>(null);
   const startTimeDropdownRef = useRef<DropdownRef>(null);
@@ -86,9 +88,7 @@ export default function ActivityPostForm() {
     if (selectedDate && startTime && endTime) {
       const isDuplicate = schedules.some(
         (item) =>
-          formatDate(item.date) === formatDate(selectedDate) &&
-          item.startTime === startTime &&
-          item.endTime === endTime,
+          item.date.getTime() === selectedDate.getTime() && item.startTime === startTime && item.endTime === endTime,
       );
 
       if (!isDuplicate) {
@@ -111,10 +111,10 @@ export default function ActivityPostForm() {
   };
 
   const formatDate = (date: Date): string => {
-    const year = date.getFullYear().toString().slice(2);
+    const year = date.getFullYear().toString();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
-    return `${year}/${month}/${day}`;
+    return `${year}-${month}-${day}`;
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -123,12 +123,14 @@ export default function ActivityPostForm() {
       ...formData,
       price: parseInt(formData.price, 10),
       schedules: formData.schedules.map((schedule) => ({
-        date: formatDate(schedule.date),
+        date: schedule.date.toISOString().split('T')[0],
         startTime: schedule.startTime,
         endTime: schedule.endTime,
       })),
     };
-    console.log(submitData);
+    postActivity(submitData);
+    localStorage.removeItem('bannerImageUrl');
+    localStorage.removeItem('subImageUrl');
   };
 
   const inputStyle: CSSProperties = {
@@ -291,7 +293,7 @@ export default function ActivityPostForm() {
         <div className={cn('imageContainer')}>
           <label className={cn('label')}>배너 이미지</label>
           <div className={cn('bannerImagePreviewContainer')}>
-            <AddImageBtn onImageSelect={handleBannerImageSelect} />
+            <AddImageBtn onImageSelect={handleBannerImageSelect} imageType="banner" />
             {formData.bannerImageUrl && (
               <div className={cn('imagePreviewBox')}>
                 <DeleteBtn sx={deleteBtnStyle} onClick={handleDeleteBannerImageClick} />
@@ -303,7 +305,7 @@ export default function ActivityPostForm() {
         <div className={cn('imageContainer')}>
           <label className={cn('label')}>소개 이미지</label>
           <div className={cn('introImagePreviewContainer')}>
-            <AddImageBtn onImageSelect={handleIntroImageSelect} />
+            <AddImageBtn onImageSelect={handleIntroImageSelect} imageType="intro" />
             {formData.subImageUrls.map((imageUrl, index) => (
               <div key={index} className={cn('imagePreviewBox')}>
                 <DeleteBtn
