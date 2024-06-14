@@ -1,0 +1,58 @@
+.container {
+  //   width: 36.8rem;
+  width: 100%;
+  background-color: $green-100;
+  padding: 2.4rem 2rem;
+  // border-radius: 1rem;
+  // box-shadow: 0 0.2rem 0.8rem 0 #78748640;
+}
+
+.notificationList {
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/*
+    notification.tsx
+*/
+.notification {
+  background-color: $white;
+  padding: 1.6rem 1.2rem;
+  border-radius: 0.5rem;
+}
+
+.content {
+  @include pretendard-14-400;
+}
+
+.dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: $light-green-100;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.dot.rejected {
+  background-color: $red-200;
+}
+
+.dot.accepted {
+  background-color: $blue-300;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer {
+  color: $gray-600;
+  @include Spoqa-16-400;
+  font-size: 1.2rem;
+}

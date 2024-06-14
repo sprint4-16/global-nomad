@@ -1,5 +1,9 @@
 import ReservationCalendarLayout from '@/pageLayouts/ReservationCalendarLayout/ReservationCalendarLayout';
 
+import { UseGetMyReservationList } from '@/apis/apiHooks/MyActivities';
+
 export default function ReservationCalendarPage() {
-  return <ReservationCalendarLayout />;
+  const { data: activityList } = UseGetMyReservationList();
+
+  return <ReservationCalendarLayout activityList={activityList} />;
 }
