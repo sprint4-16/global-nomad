@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { axiosInstanceToken } from '../axiosInstance';
+import { axiosInstance, axiosInstanceToken } from '../axiosInstance';
 import { END_POINT } from '@/constants/';
 import useGetCookie from '@/hooks/useCookies';
 
@@ -80,6 +80,17 @@ export function useGetMyActivities() {
     queryFn: async () => {
       if (!accessToken) throw new Error('Access token is not available');
       const { data } = await axiosInstanceToken(accessToken).get(`my-activities?size=20`);
+      return data;
+    },
+  });
+}
+
+// 5. 체험 인기순 불러오기
+export function useGetPopularActivities() {
+  return useQuery({
+    queryKey: ['popularActivities'],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get('activities?method=offset&sort=most_reviewed&page=1&size=20');
       return data;
     },
   });
