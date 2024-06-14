@@ -15,13 +15,14 @@ export default function FilterList({ filterType, setIsOpen, setSelectedItem, set
   const filter =
     filterType === 'activity'
       ? [
+          { element: '기본 순', name: '기본', status: undefined },
           { element: '많은 리뷰 순', name: '리뷰', status: 'most_reviewed' },
           { element: '낮은 가격 순', name: '가격', status: 'price_asc' },
           { element: '높은 가격 순', name: '가격', status: 'price_desc' },
           { element: '최신 순', name: '최신', status: 'latest' },
         ]
       : [
-          { element: '모두 보기', name: '필터', status: undefined },
+          { element: '모두 보기', name: '모두', status: undefined },
           { element: '예약 신청', name: '신청', status: 'pending' },
           { element: '예약 취소', name: '취소', status: 'canceled' },
           { element: '예약 승인', name: '승인', status: 'confirmed' },
