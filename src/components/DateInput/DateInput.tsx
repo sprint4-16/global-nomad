@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import styles from './DateInput.module.scss';
 import classNames from 'classnames/bind';
 import Calendar from '@/images/icon/icon_calendar.svg';
@@ -10,12 +10,24 @@ interface DateInputProps {
   dateText?: string;
   className?: string;
   onClick?: () => void;
+  onChange?: (date: Date) => void;
 }
 
-export function DateInput({ dateText, className }: DateInputProps) {
+export interface DateInputRef {
+  reset: () => void;
+}
+
+export const DateInput = forwardRef<DateInputRef, DateInputProps>(({ dateText, className, onChange }, ref) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [displayDateText, setDisplayDateText] = useState<string>(dateText || '');
+
+  useImperativeHandle(ref, () => ({
+    reset() {
+      setSelectedDate(null);
+      setDisplayDateText(dateText || '');
+    },
+  }));
 
   const handleCalendarClick = () => {
     setShowDatePicker(!showDatePicker);
@@ -26,6 +38,9 @@ export function DateInput({ dateText, className }: DateInputProps) {
     const formattedDate = `${date.getFullYear().toString().slice(-2)}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}`;
     setDisplayDateText(formattedDate);
     setShowDatePicker(false);
+    if (onChange) {
+      onChange(date);
+    }
   };
 
   return (
@@ -41,4 +56,4 @@ export function DateInput({ dateText, className }: DateInputProps) {
       )}
     </div>
   );
-}
+});
