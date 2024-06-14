@@ -1,21 +1,23 @@
 import { useState, useEffect } from 'react';
 
-const useWindowWidth = () => {
-  const [windowWidth, setWindowWidth] = useState(0);
+const useResizeHook = (breakpoint: number) => {
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      setWindowWidth(window.innerWidth);
+      setIsMobile(window.innerWidth < breakpoint);
     };
 
-    window.addEventListener('resize', handleResize);
+    if (typeof window !== 'undefined') {
+      setIsMobile(window.innerWidth < breakpoint);
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }
+  }, [breakpoint]);
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  return windowWidth;
+  return isMobile;
 };
 
-export default useWindowWidth;
+export default useResizeHook;
