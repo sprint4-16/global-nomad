@@ -1,33 +1,64 @@
 .container {
-  display: flex;
-  gap: 2.4rem;
   @include tablet {
     gap: 1.4rem;
   }
+
   @include mobile {
     gap: 0.8rem;
   }
-}
-.wrapper {
-  display: flex;
-  width: 12.7rem;
-  padding: 1.6rem 3rem;
-  justify-content: center;
-  align-items: center;
-  border-radius: 1.5rem;
-  border: 0.1rem solid $green-200;
-  background: $white;
-  color: $green-200;
-  text-align: center;
-  white-space: nowrap;
-  @include pretendard-18-500;
-  @include mobile {
-    @include pretendard-14-400;
-    width: 10rem;
-    padding: 1.6rem 2rem;
+
+  .scroll-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2.4rem;
+    overflow-x: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .wrapper {
+      background: $white;
+      border-radius: 1.5rem;
+      border: 0.1rem solid $green-200;
+
+      min-width: 12.7rem;
+      height: 5.3rem;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      padding: 1.6rem 3rem;
+
+      @include pretendard-18-500;
+      color: $green-200;
+      text-align: center;
+      white-space: nowrap;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      @include tablet {
+        min-width: 12rem;
+      }
+
+      @include mobile {
+        min-width: 8rem;
+        height: 4.1rem;
+
+        padding: 1.2rem 2rem;
+
+        @include pretendard-14-400;
+      }
+    }
+
+    .clickedItem {
+      background: $nomad-black;
+
+      color: $white;
+    }
   }
-}
-.clickedItem {
-  background: $nomad-black;
-  color: $white;
 }

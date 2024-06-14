@@ -3,22 +3,36 @@ import styles from './Button.module.scss';
 import classNames from 'classnames/bind';
 
 interface ButtonProps {
+  className?: string;
   children: ReactNode;
-  type: Type;
-  size: Size;
+  type: 'primary' | 'secondary';
+  disabled?: boolean;
+  size: 'large' | 'medium' | 'small' | 'full';
   sx?: CSSProperties;
   onClick?: () => void;
-  className?: string;
+  htmlType?: 'button' | 'submit' | 'reset';
 }
-
-type Type = 'primary' | 'secondary' | 'disabled';
-type Size = 'large' | 'medium' | 'small' | 'full';
 
 const cn = classNames.bind(styles);
 
-export default function Button({ type, size, sx, onClick, className, children }: ButtonProps) {
+export default function Button({
+  className,
+  children,
+  type,
+  htmlType,
+  disabled = false,
+  size,
+  sx,
+  onClick,
+}: ButtonProps) {
   return (
-    <button onClick={onClick} style={sx} className={cn('btn', type, size, className)}>
+    <button
+      type={htmlType}
+      disabled={disabled}
+      onClick={onClick}
+      style={sx}
+      className={cn('btn', className, type, size, { disabled })}
+    >
       {children}
     </button>
   );

@@ -1,6 +1,6 @@
+import Link from 'next/link';
 import classNames from 'classnames/bind';
 import styles from './Footer.module.scss';
-import Link from 'next/link';
 
 import Facebook from '@/images/icon/icon_facebook.svg';
 import Twitter from '@/images/icon/icon_twitter.svg';

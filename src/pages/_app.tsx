@@ -32,20 +32,25 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div id="wrapper">
-        <div id="modal-root" />
-        {checkRouteInGNB && <GlobalNavigationBar />}
-        <div id="contentWrapper" style={contentStyle}>
-          {checkRouteInSideNavMenu ? (
-            <SideNavigationMenuLayout>
+      {checkRouteInGNB ? (
+        <div id="wrapper">
+          <div id="modal-root" />
+          <GlobalNavigationBar />
+          <div id="contentWrapper" style={contentStyle}>
+            {checkRouteInSideNavMenu ? (
+              <SideNavigationMenuLayout>
+                <Component {...pageProps} />
+              </SideNavigationMenuLayout>
+            ) : (
               <Component {...pageProps} />
-            </SideNavigationMenuLayout>
-          ) : (
-            <Component {...pageProps} />
-          )}
+            )}
+          </div>
+          <Footer />
         </div>
-        {checkRouteInGNB && <Footer />}
-      </div>
+      ) : (
+        <Component {...pageProps} />
+      )}
+
       <ReactQueryDevtools />
     </QueryClientProvider>
   );

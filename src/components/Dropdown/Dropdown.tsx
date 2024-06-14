@@ -9,7 +9,7 @@ const cn = classNames.bind(styles);
 
 interface DropdownProps {
   menuItems?: string[];
-  onSelect?: (selectedItem: string) => void;
+  onSelect?: (index: number) => void;
   className?: string;
   isLabelVisible: boolean;
 }
@@ -48,7 +48,7 @@ export function Dropdown({
                 setSelectedItem(item);
                 setIsDropdownOpen(false);
                 if (onSelect) {
-                  onSelect(item);
+                  onSelect(index);
                 }
               }}
             >

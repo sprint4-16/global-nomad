@@ -1,0 +1,26 @@
+.titleBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.4rem;
+
+  h1 {
+    @include pretendard-32-700;
+  }
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.customLabel {
+  @include pretendard-24-700;
+}
+
+.error {
+  margin-top: 0.8rem;
+  color: $red-200;
+  @include pretendard-14-400;
+}
