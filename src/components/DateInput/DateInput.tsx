@@ -15,7 +15,7 @@ export function DateInput({ dateText, onClick, className }: DateInputProps) {
     <div className={cn('dateInputWrapper', className)}>
       <div className={cn('dateInputBox')}>
         {dateText}
-        <Calendar className={cn('calendarImg')} />
+        <Calendar className={cn('calendarImg')} onClick={onClick} />
       </div>
     </div>
   );
