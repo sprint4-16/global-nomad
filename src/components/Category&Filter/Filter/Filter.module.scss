@@ -20,6 +20,9 @@
   border-radius: 1.5rem;
   border: 0.1rem solid $green-200;
   background: #fff;
+  @include mobile {
+    padding: 1rem 1.2rem;
+  }
   .text {
     color: $green-200;
     @include pretendard-18-500;
@@ -37,6 +40,9 @@
   border-radius: 0.6rem;
   border: 0.1rem solid $gray-300;
   background-color: $white;
+  @include mobile {
+    top: 5.2rem;
+  }
   .item {
     display: flex;
     justify-content: center;
