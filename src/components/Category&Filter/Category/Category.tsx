@@ -13,7 +13,8 @@ export default function Category({ className, list, onSelected }: CategoryProps)
   const [clicked, setClicked] = useState<string | ''>('');
 
   const handleCategoryClick = (item: string) => {
-    setClicked(item);
+    if (clicked === item) setClicked('');
+    else setClicked(item);
   };
 
   return (

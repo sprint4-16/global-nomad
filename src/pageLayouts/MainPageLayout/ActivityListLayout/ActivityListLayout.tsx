@@ -19,7 +19,8 @@ export default function ActivityListLayout() {
   const categoryList = ['문화 · 예술', '식음료', '스포츠', '투어', '관광', '웰빙'];
   const handleCategorySelect = (index: number) => {
     setNowPage(1);
-    setCategory(categoryList[index]);
+    if (category === categoryList[index]) setCategory(undefined);
+    else setCategory(categoryList[index]);
   };
   const isMobile = useMediaQuery({ maxWidth: 375 });
   const isTablet = useMediaQuery({ minWidth: 745, maxWidth: 1239 });
