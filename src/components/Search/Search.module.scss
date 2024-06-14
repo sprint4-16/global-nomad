@@ -10,10 +10,21 @@
   border-radius: 1.6rem;
   box-shadow: 0rem 0.4rem 1.6rem 0rem rgba(17, 34, 17, 0.05);
   gap: 3.2rem;
+
+  @include mobile {
+    padding: 1.6rem 2.4rem;
+    gap: 1.5rem;
+  }
 }
 
 .searchLabel {
+  white-space: nowrap;
+  overflow: hidden;
   @include pretendard-20-700;
+
+  @include mobile {
+    @include pretendard-16-700;
+  }
 }
 
 .searchBox {
@@ -59,6 +70,8 @@
   color: $gray-600;
   pointer-events: none;
   transition: all 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
   @include pretendard-16-400;
 }
 
