@@ -31,6 +31,7 @@ export default function FilterList({ filterType, setIsOpen, setSelectedItem, set
         ];
   const handleActivityItemClick = (index: number) => {
     setSelectedItem(filter[index].name);
+    setFilterStatus(filter[index].status);
     setIsOpen(false);
   };
   const handleReservationItemClick = (index: number) => {
