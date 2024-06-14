@@ -9,11 +9,12 @@ const PAGE_UNIT = 5;
 
 interface PaginationProps {
   total: number;
+  nowPage: number;
+  setNowPage: React.Dispatch<React.SetStateAction<number>>;
 }
-export default function Pagination({ total }: PaginationProps) {
+export default function Pagination({ total, nowPage, setNowPage }: PaginationProps) {
   const [endPoint, setEndPoint] = useState<number>(1);
   const [currentPoint, setCurrentPoint] = useState<number>(1);
-  const [clicked, setClicked] = useState<number>(1);
 
   const getPages = () => {
     const pages: number[] = [];
@@ -30,26 +31,30 @@ export default function Pagination({ total }: PaginationProps) {
     else setCurrentPoint(currentPoint + 1);
   };
   const handlePageNumberClick = (item: number) => {
-    setClicked(item);
+    setNowPage(item);
   };
 
   useEffect(() => {
     setEndPoint(Math.ceil(total / PAGE_UNIT));
-  }, []);
+  }, [total]);
 
   return (
     <div className={cn('container')}>
       <PageBtn direction={'left'} onClick={() => handlePageBtnClick('left')} disabled={currentPoint === 1} />
       {getPages().map((item, index) => (
         <button
-          className={cn('page', { clickedPage: clicked === item })}
+          className={cn('page', { clickedPage: nowPage === item })}
           key={`${item} ${index}`}
           onClick={() => handlePageNumberClick(item)}
         >
           {item}
         </button>
       ))}
-      <PageBtn direction={'right'} onClick={() => handlePageBtnClick('right')} disabled={currentPoint === endPoint} />
+      <PageBtn
+        direction={'right'}
+        onClick={() => handlePageBtnClick('right')}
+        disabled={currentPoint === endPoint || endPoint === 0}
+      />
     </div>
   );
 }
