@@ -1,3 +1,4 @@
+import React from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import PrevIcon from '@/images/icon/icon_calendar_prev.svg';
@@ -9,6 +10,16 @@ interface CustomDatePickerProps {
 }
 
 export default function CustomedDatePicker({ selected, onChange }: CustomDatePickerProps) {
+  const handleDecreaseMonth = (decreaseMonth: () => void, event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault();
+    decreaseMonth();
+  };
+
+  const handleIncreaseMonth = (increaseMonth: () => void, event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault();
+    increaseMonth();
+  };
+
   return (
     <DatePicker
       selected={selected}
@@ -18,7 +29,7 @@ export default function CustomedDatePicker({ selected, onChange }: CustomDatePic
           <button
             aria-label="Previous Month"
             className={'react-datepicker__navigation react-datepicker__navigation--previous'}
-            onClick={decreaseMonth}
+            onClick={(e) => handleDecreaseMonth(decreaseMonth, e)}
           >
             <span className={'react-datepicker__navigation-icon react-datepicker__navigation-icon--previous'}>
               <PrevIcon style={{ position: 'absolute', left: 0 }} />
@@ -33,7 +44,7 @@ export default function CustomedDatePicker({ selected, onChange }: CustomDatePic
           <button
             aria-label="Next Month"
             className={'react-datepicker__navigation react-datepicker__navigation--next'}
-            onClick={increaseMonth}
+            onClick={(e) => handleIncreaseMonth(increaseMonth, e)}
           >
             <span className={'react-datepicker__navigation-icon react-datepicker__navigation-icon--next'}>
               <NextIcon style={{ position: 'absolute', left: 0 }} />

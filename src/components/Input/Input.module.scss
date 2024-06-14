@@ -1,8 +1,11 @@
 .inputContainer {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
   position: relative;
+
+  &.withLabel {
+    gap: 0.8rem;
+  }
 }
 
 .label {
@@ -16,8 +19,9 @@
 }
 
 .input {
+  width: 100%;
   flex-grow: 1;
-  padding: 1.6rem 2rem;
+  padding: 1.4rem 2rem;
   border-radius: 0.6rem;
   border: 0.1rem solid $gray-600;
   align-content: center;
