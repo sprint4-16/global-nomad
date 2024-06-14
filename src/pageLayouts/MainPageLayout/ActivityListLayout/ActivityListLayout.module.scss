@@ -43,11 +43,9 @@
       row-gap: 4rem;
       padding-bottom: 7.2rem;
       @include tablet {
-        gap: 1.6rem;
         row-gap: 3.2rem;
       }
       @include mobile {
-        gap: 1rem;
         row-gap: 2rem;
         padding-bottom: 6.2rem;
       }
@@ -57,10 +55,10 @@
       flex-direction: column;
       width: 28.3rem;
       @include pc {
-        width: calc(33% - 12px);
+        width: calc(33% - 1.6rem);
       }
       @include mobile {
-        width: calc(50% - 12px);
+        width: calc(50% - 1rem);
       }
     }
     .cardImg {
