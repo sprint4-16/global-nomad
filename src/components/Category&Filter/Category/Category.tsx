@@ -7,9 +7,9 @@ const cn = classNames.bind(styles);
 interface CategoryProps {
   className?: string;
   list: string[];
-  onSelect: (index: number) => void;
+  onSelected: (index: number) => void;
 }
-export default function Category({ className, list, onSelect }: CategoryProps) {
+export default function Category({ className, list, onSelected }: CategoryProps) {
   const [clicked, setClicked] = useState<string | ''>('');
 
   const handleCategoryClick = (item: string) => {
@@ -24,9 +24,7 @@ export default function Category({ className, list, onSelect }: CategoryProps) {
             className={cn('wrapper', { clickedItem: clicked === item })}
             onClick={() => {
               handleCategoryClick(item);
-              if (onSelect) {
-                onSelect(index);
-              }
+              onSelected(index);
             }}
             key={`${index} ${item}`}
           >
