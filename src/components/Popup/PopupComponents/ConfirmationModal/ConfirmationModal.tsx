@@ -5,6 +5,7 @@ import styles from './ConfirmationModal.module.scss';
 import CheckIcon from '@/images/icon/icon_check.svg';
 import Button from '@/components/Button/Button';
 import useOutsideClick from '@/hooks/useOutsideClick';
+import useBlockScroll from '@/hooks/useBlockScroll';
 
 const cn = classNames.bind(styles);
 
@@ -28,6 +29,7 @@ export default function ConfirmationModal({
 
   const modalRef = useRef<HTMLDivElement>(null);
   useOutsideClick({ ref: modalRef, onClick: handleModalOpen });
+  useBlockScroll();
 
   return (
     <div className={cn('background')}>
