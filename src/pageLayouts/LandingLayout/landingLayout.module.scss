@@ -23,7 +23,7 @@
       right: 0;
       width: 100%;
       object-fit: cover;
-      z-index: -1;
+      z-index: $zindex-banner-img;
 
       @include mobile {
         height: 24rem;
@@ -90,7 +90,7 @@
       margin-top: 10rem;
       border-radius: 1.6rem;
       background-color: white;
-      z-index: 3;
+      overflow: hidden;
 
       @include mobile {
         margin-top: 1.4rem;
