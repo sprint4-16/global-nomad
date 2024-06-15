@@ -50,7 +50,7 @@
       .title {
         width: 100%;
         padding-right: 25%;
-        color: var(--white-white_FFFFFF, #fff);
+        color: $white;
         font-size: clamp(5.4rem, 5vw, 6.8rem);
         font-weight: 700;
         text-overflow: ellipsis;
@@ -70,7 +70,7 @@
       }
 
       .description {
-        color: var(--white-white_FFFFFF, #fff);
+        color: $white;
         font-size: 2.4rem;
         font-weight: 700;
 
@@ -89,7 +89,7 @@
       width: 100%;
       margin-top: 10rem;
       border-radius: 1.6rem;
-      background-color: white;
+      background-color: $white;
       overflow: hidden;
 
       @include mobile {
