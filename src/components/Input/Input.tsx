@@ -52,13 +52,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       right: '2.6rem',
     };
 
-    // value prop이 변경될 때마다 초기화
-    useEffect(() => {
-      if (value === undefined || value === null || value === '') {
-        setIsPasswordVisible(false); // 패스워드 가시성 초기화
-      }
-    }, [value]);
-
     return (
       <div className={cn('inputContainer', className)}>
         <label htmlFor={id} className={cn('label', labelClassName)}>
