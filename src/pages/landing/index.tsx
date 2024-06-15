@@ -42,63 +42,89 @@ export default function Landing() {
     }
   }, [isLoading]);
 
+  // 이전 버튼
   const handlePrevClick = () => {
     setCurrentIndex(Math.max(currentIndex - 3, 0));
   };
 
+  // 다음 버튼
   const handleNextClick = () => {
     setCurrentIndex(Math.min(currentIndex + 3, maxIndex - 3));
   };
 
   // 2. 슬라이드 드래그
-  // 마우스를 누를때
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (scrollContainerRef.current) {
-      setIsDown(true);
-      setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
-      setScrollLeft(scrollContainerRef.current.scrollLeft);
-      e.preventDefault();
+  const getPageX = (e: MouseEvent | TouchEvent) => {
+    if (e instanceof MouseEvent) {
+        return e.pageX;
+    } else {
+        return e.touches[0].pageX;
     }
   };
 
-  // 마우스를 땔때
-  const handleMouseUp = () => {
+  // 눌렀을 때
+  const handleStart = (e: MouseEvent | TouchEvent) => {
+      if (scrollContainerRef.current) {
+          setIsDown(true);
+          setStartX(getPageX(e) - scrollContainerRef.current.offsetLeft);
+          setScrollLeft(scrollContainerRef.current.scrollLeft);
+          e.preventDefault();
+      }
+  };
+
+  // 누르고 땔 때
+  const handleEnd = () => {
     setIsDown(false);
     setTimeout(() => {
-      setDragged(false);
+        setDragged(false);
     }, 0);
   };
 
-  // 마우스가 밖으로 나갈때
-  const handleMouseLeave = () => {
-    setIsDown(false);
-    setDragged(false);
-  };
-
-  // 마우스가 안에서 움직였을때
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isDown) return;
+  // 누르고 움직였을 때
+  const handleMove = (e: MouseEvent | TouchEvent) => {
+    if (!isSlideMode || !isDown) return
     e.preventDefault();
     if (scrollContainerRef.current) {
-      const x = e.pageX - scrollContainerRef.current.offsetLeft;
-      const walk = x - startX;
-      if (Math.abs(walk) > 5) {
-        setDragged(true);
-      }
-      scrollContainerRef.current.scrollLeft = scrollLeft - walk;
+        const x = getPageX(e) - scrollContainerRef.current.offsetLeft;
+        const walk = x - startX;
+        if (Math.abs(walk) > 5) {
+            setDragged(true);
+        }
+        scrollContainerRef.current.scrollLeft = scrollLeft - walk;
     }
   };
 
   // 카드 클릭시
-  const handleCardClick = (e: React.MouseEvent<HTMLDivElement>, id: number) => {
+  const handleCardClick = (e: React.MouseEvent<HTMLDivElement>| React.TouchEvent<HTMLDivElement>, id: number) => {
     if (dragged) {
       e.preventDefault();
       e.stopPropagation();
     } else {
       // 카드 클릭시 작동 되는곳
-      console.log(id + '클릭');
     }
   };
+
+  useEffect(() => {
+    const element = scrollContainerRef.current;
+    if (element) {
+        element.addEventListener('mousedown', handleStart);
+        element.addEventListener('mouseup', handleEnd);
+        element.addEventListener('mouseleave', handleEnd);
+        element.addEventListener('mousemove', handleMove);
+        element.addEventListener('touchstart', handleStart, { passive: false });
+        element.addEventListener('touchend', handleEnd, { passive: false });
+        element.addEventListener('touchmove', handleMove, { passive: false });
+
+        return () => {
+            element.removeEventListener('mousedown', handleStart);
+            element.removeEventListener('mouseup', handleEnd);
+            element.removeEventListener('mouseleave', handleEnd);
+            element.removeEventListener('mousemove', handleMove);
+            element.removeEventListener('touchstart', handleStart);
+            element.removeEventListener('touchend', handleEnd);
+            element.removeEventListener('touchmove', handleMove);
+        };
+    }
+  }, [isDown, startX, scrollLeft, dragged]);
 
   return (
     <div className={cn('landing')}>
@@ -131,18 +157,13 @@ export default function Landing() {
               <ArrowButtonRight className={cn('buttonArrow')} width={40} height={40} onClick={handleNextClick} />
             </div>
           </div>
-          <div
-            className={cn('scroll')}
+          <div            className={cn('scroll')}
             ref={scrollContainerRef}
-            onMouseDown={isSlideMode ? handleMouseDown : undefined}
-            onMouseLeave={isSlideMode ? handleMouseLeave : undefined}
-            onMouseUp={isSlideMode ? handleMouseUp : undefined}
-            onMouseMove={isSlideMode ? handleMouseMove : undefined}
           >
             <div className={cn('cardContainer')} style={{ transform: `translateX(-${scrollAmount}px)` }}>
               {!isLoading &&
                 data.activities.map((activity: CardResourceProps) => (
-                  <div key={activity.id} onClick={(e) => handleCardClick(e, activity.id)}>
+                  <div key={activity.id} onClick={(e) => handleCardClick(e, activity.id)} onTouchEnd={(e) => handleCardClick(e, activity.id)}>
                     <CardResource activity={activity} />
                   </div>
                 ))}
