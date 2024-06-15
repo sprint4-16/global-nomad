@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient, useInfiniteQuery } from '@tanstack/react-query';
 import { axiosInstance, axiosInstanceToken } from '../axiosInstance';
 import { END_POINT } from '@/constants/';
 import useGetCookie from '@/hooks/useCookies';
@@ -8,17 +8,26 @@ export function useGetReservation(status?: string) {
   const { getCookie } = useGetCookie();
   const accessToken = getCookie('accessToken');
 
-  return useQuery({
+  return useInfiniteQuery({
     queryKey: ['reservation', status],
-    queryFn: async () => {
+    queryFn: async ({ pageParam }) => {
       if (!accessToken) throw new Error('Access token is not available');
       const { data } = await axiosInstanceToken(accessToken).get(`${END_POINT.MY_RESERVATIONS}`, {
-        params: { status },
+        params: { status, cursorId: pageParam },
       });
       return data;
     },
+    select: (data) => {
+      return {
+        pages: data.pages,
+        pageParams: data.pageParams,
+      };
+    },
+    getNextPageParam: (pages) => pages.cursorId,
+    initialPageParam: undefined,
   });
 }
+
 // 2. 내 예약 수정 (취소)
 export function usePatchReservationCancel(status?: string) {
   const { getCookie } = useGetCookie();

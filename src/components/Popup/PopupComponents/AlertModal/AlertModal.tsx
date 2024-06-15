@@ -4,6 +4,7 @@ import styles from './AlertModal.module.scss';
 
 import Button from '@/components/Button/Button';
 import useOutsideClick from '@/hooks/useOutsideClick';
+import useBlockScroll from '@/hooks/useBlockScroll';
 
 const cn = classNames.bind(styles);
 
@@ -27,6 +28,7 @@ export default function AlertModal({
 
   const modalRef = useRef<HTMLDivElement>(null);
   useOutsideClick({ ref: modalRef, onClick: handleModalOpen });
+  useBlockScroll();
 
   return (
     <div className={cn('background')}>

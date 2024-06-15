@@ -18,15 +18,18 @@ export default function Filter({ filterType, setFilterStatus }: FilterProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState('필터');
 
-  const toggleDropdown = () => {
+  const handleFilterClick = () => {
     setIsOpen(!isOpen);
   };
+  const handleOutsideCilck = () => {
+    if (isOpen === true) setIsOpen(false);
+  };
 
-  useOutsideClick({ ref: filterRef, onClick: toggleDropdown });
+  useOutsideClick({ ref: filterRef, onClick: handleOutsideCilck });
 
   return (
     <div ref={filterRef} className={cn('container')}>
-      <div className={cn('wrapper')} onClick={toggleDropdown}>
+      <div className={cn('wrapper')} onClick={handleFilterClick}>
         <span className={cn('text')}>{selectedItem}</span>
         <ArrowDown fill={'#0B3B2D'} />
       </div>

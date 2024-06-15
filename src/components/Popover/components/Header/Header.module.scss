@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  @include pretendard-28-700;
+}
+
+.notificationTitle {
+  font-size: 2rem;
+}
