@@ -14,6 +14,7 @@ import Stroke from '@/images/icon/icon_stroke.svg';
 import styles from './ActivityPostForm.module.scss';
 import { usePostActivity } from '@/apis/apiHooks/PostActivities';
 import AddressInput from '@/components/AddressInput/AddressInput';
+import AlertModal from '@/components/Popup/PopupComponents/AlertModal/AlertModal';
 
 interface Schedule {
   date: Date;
@@ -51,6 +52,8 @@ export default function ActivityPostForm() {
   };
 
   const [formData, setFormData] = useState<FormData>(initialState);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
   const { mutate: postActivity } = usePostActivity();
 
   const dateInputRef = useRef<DateInputRef>(null);
@@ -133,6 +136,8 @@ export default function ActivityPostForm() {
     localStorage.removeItem('bannerImageUrl');
     localStorage.removeItem('subImageUrl');
     setFormData(initialState);
+    setModalMessage('체험 등록이 완료되었습니다.');
+    setIsModalOpen(true);
   };
 
   const inputStyle: CSSProperties = {
@@ -316,6 +321,13 @@ export default function ActivityPostForm() {
           <p className={cn('description')}>*이미지를 최소 4개 이상 제출해주세요.</p>
         </div>
       </div>
+      {isModalOpen && (
+        <AlertModal
+          alertMessage={modalMessage}
+          onConfirm={() => setIsModalOpen(false)}
+          handleModalOpen={() => setIsModalOpen(false)}
+        />
+      )}
     </form>
   );
 }
