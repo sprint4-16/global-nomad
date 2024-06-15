@@ -25,15 +25,16 @@
 
     .buttonArrowContainer {
       display: flex;
-      display: none;
       gap: 1.2rem;
-
-      @media screen and (min-width: 124.8rem) {
-        display: inline;
-      }
 
       .buttonArrow {
         cursor: pointer;
+      }
+    }
+
+    .buttonArrowContainer.hide {
+      @media screen and (max-width: 124.8rem) {
+        display: none;
       }
     }
   }
@@ -54,10 +55,6 @@
       display: flex;
       justify-content: space-around;
       transition: transform 0.3s ease;
-
-      @include tablet {
-        // gap: 3.2rem;
-      }
 
       @include mobile {
         gap: 1.6rem;

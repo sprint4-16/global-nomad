@@ -36,7 +36,6 @@ export default function PopulationExperiences() {
     return <div>Loading...</div>;
   }
 
-
   if (error) {
     return <div>Error: {error.message}</div>;
   }
@@ -134,7 +133,7 @@ export default function PopulationExperiences() {
     <div className={cn('popularExperiences')}>
       <div className={cn('header')}>
         <div className={cn('title')}>🔥 인기 체험</div>
-        <div className={cn('buttonArrowContainer')}>
+        <div className={cn('buttonArrowContainer', { 'hide': isSlideMode })}>
           <ArrowButtonLeft className={cn('buttonArrow')} width={40} height={40} onClick={handlePrevClick} />
           <ArrowButtonRight className={cn('buttonArrow')} width={40} height={40} onClick={handleNextClick} />
         </div>
