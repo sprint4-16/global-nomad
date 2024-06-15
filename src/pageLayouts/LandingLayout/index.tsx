@@ -20,7 +20,7 @@ interface CardResourceProps {
   reviewCount: number;
 }
 
-export default function Landing() {
+export default function LandingLayout() {
   const { data, isLoading } = useGetPopularActivities();
   const month = new Date().getMonth() + 1;
   const isSlideMode = useResizeHook(1248);
@@ -157,7 +157,7 @@ export default function Landing() {
               <ArrowButtonRight className={cn('buttonArrow')} width={40} height={40} onClick={handleNextClick} />
             </div>
           </div>
-          <div            className={cn('scroll')}
+          <div className={cn('scroll')}
             ref={scrollContainerRef}
           >
             <div className={cn('cardContainer')} style={{ transform: `translateX(-${scrollAmount}px)` }}>

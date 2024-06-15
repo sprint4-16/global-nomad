@@ -1,9 +1,9 @@
-import Landing from './landing';
+import LandingLayout from '@/pageLayouts/LandingLayout';
 
 export default function Home() {
   return (
     <>
-      <Landing />
+      <LandingLayout />
     </>
   );
 }
