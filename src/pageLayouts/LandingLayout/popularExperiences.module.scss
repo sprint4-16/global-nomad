@@ -1,0 +1,67 @@
+.popularExperiences {
+  width: 100%;
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+
+  @include mobile {
+    gap: 1.6rem;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+
+    .title {
+      color: var(--black-black_1B1B1B, #1b1b1b);
+      font-size: 3.6rem;
+      font-weight: 700;
+
+      @include mobile {
+        font-size: 1.8rem;
+      }
+    }
+
+    .buttonArrowContainer {
+      display: flex;
+      display: none;
+      gap: 1.2rem;
+
+      @media screen and (min-width: 124.8rem) {
+        display: inline;
+      }
+
+      .buttonArrow {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .scroll {
+    width: 100%;
+    overflow: hidden;
+
+    // 드래그 방지
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    .cardContainer {
+      width: 100%;
+      gap: 2.4rem;
+      display: flex;
+      justify-content: space-around;
+      transition: transform 0.3s ease;
+
+      @include tablet {
+        // gap: 3.2rem;
+      }
+
+      @include mobile {
+        gap: 1.6rem;
+      }
+    }
+  }
+}
