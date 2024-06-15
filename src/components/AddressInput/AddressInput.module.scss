@@ -1,0 +1,34 @@
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  &.withLabel {
+    gap: 0.8rem;
+  }
+}
+
+.label {
+  color: $black;
+  @include pretendard-16-400;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  flex-grow: 1;
+  padding: 1.4rem 2rem;
+  border-radius: 0.6rem;
+  border: 0.1rem solid $gray-600;
+  align-content: center;
+  @include pretendard-16-400;
+}
+
+.input:focus {
+  border: 0.1rem solid $gray-700;
+  outline: none;
+}

@@ -13,6 +13,7 @@ import LongStroke from '@/images/icon/icon_stroke_long.svg';
 import Stroke from '@/images/icon/icon_stroke.svg';
 import styles from './ActivityPostForm.module.scss';
 import { usePostActivity } from '@/apis/apiHooks/PostActivities';
+import AddressInput from '@/components/AddressInput/AddressInput';
 
 interface Schedule {
   date: Date;
@@ -111,10 +112,10 @@ export default function ActivityPostForm() {
   };
 
   const formatDate = (date: Date): string => {
-    const year = date.getFullYear().toString();
+    const year = date.getFullYear().toString().slice(-2); // Get the last two digits of the year
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
+    return `${year}/${month}/${day}`;
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -131,6 +132,7 @@ export default function ActivityPostForm() {
     postActivity(submitData);
     localStorage.removeItem('bannerImageUrl');
     localStorage.removeItem('subImageUrl');
+    setFormData(initialState);
   };
 
   const inputStyle: CSSProperties = {
@@ -208,12 +210,7 @@ export default function ActivityPostForm() {
         </div>
         <div className={cn('inputContainer')}>
           <label className={cn('label')}>주소</label>
-          <Input
-            type="text"
-            placeholder="주소"
-            sx={inputStyle}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange('address', e.target.value)}
-          />
+          <AddressInput onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange('address', e.target.value)} />
         </div>
         <label className={cn('label')}>예약 가능한 시간대</label>
         <div className={cn('reservationTimeWrapper')}>
