@@ -1,11 +1,11 @@
+import { useState } from 'react';
+import type { AppProps } from 'next/app';
+import { useRouter } from 'next/router';
 import '@/styles/reset.scss';
 import 'react-datepicker/dist/react-datepicker.css';
 import '@/styles/datepicker_custom.scss';
-import type { AppProps } from 'next/app';
-import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { useRouter } from 'next/router';
 
 import { GNB_REQUIRES, SIDE_NAV_MENU_REQUIRES } from '@/constants/index';
 import GlobalNavigationBar from '@/components/GlobalNavigationBar/GlobalNavigationBar';
@@ -32,24 +32,26 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div id="wrapper">
-        <div id="modal-root" />
-        {checkRouteInGNB && <GlobalNavigationBar />}
-        <div id="contentWrapper" style={contentStyle}>
-          {checkRouteInSideNavMenu ? (
-            <SideNavigationMenuLayout>
+      {checkRouteInGNB ? (
+        <div id="wrapper">
+          <div id="modal-root" />
+          <GlobalNavigationBar />
+          <div id="contentWrapper" style={contentStyle}>
+            {checkRouteInSideNavMenu ? (
+              <SideNavigationMenuLayout>
+                <Component {...pageProps} />
+              </SideNavigationMenuLayout>
+            ) : (
               <Component {...pageProps} />
-            </SideNavigationMenuLayout>
-          ) : (
-            <Component {...pageProps} />
-          )}
+            )}
+          </div>
+          <Footer />
         </div>
-        {checkRouteInGNB && <Footer />}
-      </div>
-      {/* 삭제 예정 Devtools 이 너무 작게 보여서 잠시 적용 해두겠습니다 */}
-      <div style={{ fontSize: '16px' }}>
-        <ReactQueryDevtools />
-      </div>
+      ) : (
+        <Component {...pageProps} />
+      )}
+
+      <ReactQueryDevtools />
     </QueryClientProvider>
   );
 }

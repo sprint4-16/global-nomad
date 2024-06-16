@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, forwardRef, useRef, useImperativeHandle } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Dropdown.module.scss';
 
@@ -12,13 +12,15 @@ const cn = classNames.bind(styles);
 interface DropdownProps {
   className?: string;
   menuItems: string[];
-  onSelect: (index: number) => void;
+  onSelect?: (index: number) => void;
   isLabelVisible?: boolean;
+  onChange?: (value: string) => void;
 }
 
-export function Dropdown({ className, menuItems, onSelect, isLabelVisible = false }: DropdownProps) {
+export function Dropdown({ className, menuItems, onSelect, isLabelVisible = false, onChange, ref }: DropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedItemIndex, SetSelectedItemIndex] = useState(0);
+  const [selectedItemIndex, setSelectedItemIndex] = useState(0);
+  const [selectedItem, setSelectedItem] = useState(menuItems[0]);
 
   const handleDropdownOpen = () => {
     setIsDropdownOpen((prev) => !prev);
@@ -26,6 +28,13 @@ export function Dropdown({ className, menuItems, onSelect, isLabelVisible = fals
 
   const modalRef = useRef<HTMLDivElement>(null);
   useOutsideClick({ ref: modalRef, onClick: handleDropdownOpen });
+
+  useImperativeHandle(ref, () => ({
+    reset() {
+      setSelectedItem(menuItems[0]);
+      setSelectedItemIndex(0);
+    },
+  }));
 
   return (
     <div className={cn('container', className)}>
@@ -37,17 +46,20 @@ export function Dropdown({ className, menuItems, onSelect, isLabelVisible = fals
         {isDropdownOpen ? <ArrowUp className={cn('arrowImg')} /> : <ArrowDown className={cn('arrowImg')} />}
       </div>
       {isDropdownOpen && (
-        <div className={cn('menuItems')} ref={modalRef}>
+        <ul className={cn('menuItems')}>
           {menuItems?.map((item, index) => (
             <li
               key={`item-${index}`}
               className={cn('item', [index === selectedItemIndex && 'selected'])}
-              onMouseEnter={() => SetSelectedItemIndex(index)}
+              onMouseEnter={() => setSelectedItemIndex(index)}
               onClick={() => {
-                SetSelectedItemIndex(index);
+                setSelectedItem(item);
                 handleDropdownOpen();
                 if (onSelect) {
                   onSelect(index);
+                }
+                if (onChange) {
+                  onChange(item);
                 }
               }}
             >
@@ -55,7 +67,7 @@ export function Dropdown({ className, menuItems, onSelect, isLabelVisible = fals
               {item}
             </li>
           ))}
-        </div>
+        </ul>
       )}
     </div>
   );

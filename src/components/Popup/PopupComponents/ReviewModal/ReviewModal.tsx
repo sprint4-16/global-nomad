@@ -7,6 +7,7 @@ import ReviewCard from '@/pages/card/ReviewCard';
 import RaitingComponent from './RaitingComponent/RaitingComponent';
 import Textarea from '@/components/Textarea/Textarea';
 import Button from '@/components/Button/Button';
+import useBlockScroll from '@/hooks/useBlockScroll';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import { usePostReservationReview } from '@/apis/apiHooks/MyReservations';
 
@@ -52,6 +53,7 @@ export default function ReviewModal({ className, onConfirm, handleModalOpen, car
     onConfirm();
   };
   useOutsideClick({ ref: modalRef, onClick: handleModalOpen });
+  useBlockScroll();
 
   return (
     <div className={cn('background')}>

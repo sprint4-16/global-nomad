@@ -1,9 +1,13 @@
+.dateInputWrapper {
+  position: relative;
+}
+
 .dateInputBox {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.8rem 1.6rem;
+  padding: 1.1rem 1.6rem;
   border: 0.1rem solid $gray-700;
   border-radius: 0.4rem;
   color: $gray-600;
@@ -12,4 +16,16 @@
 
 .calendarImg {
   cursor: pointer;
+}
+
+.calendarContainer {
+  position: absolute;
+  padding: 1.6rem;
+  top: 3rem;
+  left: 3.5rem;
+  z-index: 1;
+}
+
+.dateSelected {
+  color: $black;
 }

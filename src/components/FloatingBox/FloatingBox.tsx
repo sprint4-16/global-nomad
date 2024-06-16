@@ -15,7 +15,7 @@ interface FloatingBoxProps {
   price: number;
 }
 export default function FloatingBox({ price }: FloatingBoxProps) {
-  const [count, setCount] = useState<number>(1);
+  const [count, setCount] = useState(1);
   return (
     <div className={cn('container')}>
       <div className={cn('price')}>
