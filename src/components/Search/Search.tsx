@@ -45,13 +45,13 @@ export function Search({ titleText, inputText, sx, className, data = [], onChang
               className={cn('input')}
               type="text"
               id="searchInput"
-              placeholder=" "
+              placeholder={inputText}
               value={searchTerm}
               onChange={handleInputChange}
             />
-            <label className={cn('placeholder')} htmlFor="searchInput">
+            {/* <label className={cn('placeholder')} htmlFor="searchInput">
               {inputText}
-            </label>
+            </label> */}
           </div>
           <Button
             type="primary"

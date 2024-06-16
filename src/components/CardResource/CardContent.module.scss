@@ -1,15 +1,17 @@
 .cardContainer {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 
   &.large {
-    width: 100%;
+    width: 38.4rem;
+    height: 21.4rem;
     padding: 3rem 2rem;
-    gap: 2rem;
 
     @include mobile {
+      width: 18.6rem;
+      height: 11.5rem;
       padding: 1.2rem 2rem;
-      gap: 0.6rem;
     }
   }
 
@@ -73,10 +75,16 @@
 
 .cardDescription {
   &.large {
-    width: 23rem;
+    width: 100%;
     color: $white;
     font-size: 3rem;
     font-weight: 700;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 
     @include mobile {
       width: 14.6rem;
