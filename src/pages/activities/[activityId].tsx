@@ -10,6 +10,7 @@ import { useRef, useState } from 'react';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import Image from 'next/image';
 import Map from '@/components/Map/Map';
+import FloatingBox from '@/components/FloatingBox/FloatingBox';
 
 const cn = classNames.bind(styles);
 
@@ -105,7 +106,7 @@ export default function Activity() {
               </div>
               <div className={cn('mapContainer')}>{data && <Map address={data?.address} />}</div>
             </div>
-            <div className={cn('sidebar')}>...</div>
+            <div className={cn('sidebar')}>{data && <FloatingBox price={data?.price} />}</div>
           </div>
         </>
       )}
