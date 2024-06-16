@@ -11,6 +11,7 @@ import useOutsideClick from '@/hooks/useOutsideClick';
 import Image from 'next/image';
 import Map from '@/components/Map/Map';
 import FloatingBox from '@/components/FloatingBox/FloatingBox';
+import Pagination from '@/components/Pagination/Pagination';
 
 const cn = classNames.bind(styles);
 
@@ -112,9 +113,62 @@ export default function Activity() {
                   <div>
                     <div className={cn('satisfaction')}>매우 만족</div>
                     <div className={cn('reviewCount')}>
-                      <StarIcon width={15} height={22} /> <span>1개의 후기</span>
+                      <StarIcon width={15} height={15} /> <span>1개의 후기</span>
                     </div>
                   </div>
+                </div>
+                <ul className={cn('reviews')}>
+                  <li className={cn('review')}>
+                    <div className={cn('profile')}></div>
+                    <div className={cn('reviewContents')}>
+                      <div className={cn('header')}>
+                        <div className={cn('reviewer')}>김태야</div>
+                        <div className={cn('date')}>2024-05-29</div>
+                      </div>
+                      <p className={cn('reviewDescription')}>
+                        저는 저희 스트릿 댄서 체험에 참가하게 된 지 얼마 안됐지만, 정말 즐거운 시간을 보냈습니다. 새로운
+                        스타일과 춤추기를 좋아하는 나에게 정말 적합한 체험이었고, 전문가가 직접 강사로 참여하기 때문에
+                        어떤 수준의 춤추는 사람도 쉽게 이해할 수 있었습니다. 강사님께서 정말 친절하게 설명해주셔서 정말
+                        좋았고, 이번 체험을 거쳐 새로운 스타일과 춤추기에 대한 열정이 더욱 생겼습니다. 저는 이 체험을
+                        적극 추천합니다!
+                      </p>
+                    </div>
+                  </li>
+                  <li className={cn('review')}>
+                    <div className={cn('profile')}></div>
+                    <div className={cn('reviewContents')}>
+                      <div className={cn('header')}>
+                        <div className={cn('reviewer')}>김태야</div>
+                        <div className={cn('date')}>2024-05-29</div>
+                      </div>
+                      <p className={cn('reviewDescription')}>
+                        저는 저희 스트릿 댄서 체험에 참가하게 된 지 얼마 안됐지만, 정말 즐거운 시간을 보냈습니다. 새로운
+                        스타일과 춤추기를 좋아하는 나에게 정말 적합한 체험이었고, 전문가가 직접 강사로 참여하기 때문에
+                        어떤 수준의 춤추는 사람도 쉽게 이해할 수 있었습니다. 강사님께서 정말 친절하게 설명해주셔서 정말
+                        좋았고, 이번 체험을 거쳐 새로운 스타일과 춤추기에 대한 열정이 더욱 생겼습니다. 저는 이 체험을
+                        적극 추천합니다!
+                      </p>
+                    </div>
+                  </li>
+                  <li className={cn('review')}>
+                    <div className={cn('profile')}></div>
+                    <div className={cn('reviewContents')}>
+                      <div className={cn('header')}>
+                        <div className={cn('reviewer')}>김태야</div>
+                        <div className={cn('date')}>2024-05-29</div>
+                      </div>
+                      <p className={cn('reviewDescription')}>
+                        저는 저희 스트릿 댄서 체험에 참가하게 된 지 얼마 안됐지만, 정말 즐거운 시간을 보냈습니다. 새로운
+                        스타일과 춤추기를 좋아하는 나에게 정말 적합한 체험이었고, 전문가가 직접 강사로 참여하기 때문에
+                        어떤 수준의 춤추는 사람도 쉽게 이해할 수 있었습니다. 강사님께서 정말 친절하게 설명해주셔서 정말
+                        좋았고, 이번 체험을 거쳐 새로운 스타일과 춤추기에 대한 열정이 더욱 생겼습니다. 저는 이 체험을
+                        적극 추천합니다!
+                      </p>
+                    </div>
+                  </li>
+                </ul>
+                <div className={cn('paginationContainer')}>
+                  <Pagination total={20} />
                 </div>
               </div>
             </div>
