@@ -27,19 +27,21 @@ export default function CreateCalendar({ currentMonth, dashboardData, activityId
   const startOfMonth = currentMonth.startOf('month');
   const endOfMonth = currentMonth.endOf('month');
 
-  const days = [...Array(endOfMonth.diff(startOfMonth, 'day') + 1)].map((_, i) => {
-    const day = startOfMonth.add(i, 'day');
+  const startDay = startOfMonth.day();
 
-    const dashboardDataForThisDate = dashboardData?.find((d) => d.date === day.format('YYYY-MM-DD'));
+  const days = [...Array(startDay).fill(''), ...Array(endOfMonth.diff(startOfMonth, 'day') + 1)].map((_, i) => {
+    const day = i >= startDay ? startOfMonth.add(i - startDay, 'day') : null;
+
+    const dashboardDataForThisDate = day ? dashboardData?.find((d) => d.date === day.format('YYYY-MM-DD')) : undefined;
 
     const completedCount = dashboardDataForThisDate?.reservations.completed;
     const pendingCount = dashboardDataForThisDate?.reservations.pending;
     const confirmedCount = dashboardDataForThisDate?.reservations.confirmed;
 
     return (
-      <div key={day.format('YYYY-MM-DD')} className={cn('item')}>
+      <div key={day ? day.format('YYYY-MM-DD') : `empty-${i}`} className={cn('item', { none: !day })}>
         <div className={cn('dayWrapper')}>
-          {day.format('D')}
+          {day ? day.format('D') : ''}
           {completedCount ? (
             <ElipseIconGray className={cn('alertIcon')} />
           ) : pendingCount || confirmedCount ? (
@@ -56,12 +58,17 @@ export default function CreateCalendar({ currentMonth, dashboardData, activityId
               className={cn('chip')}
               type="reservation"
               activityId={activityId}
-              date={dashboardDataForThisDate.date}
+              date={dashboardDataForThisDate?.date}
             >
               예약 {pendingCount}
             </Chips>
           ) : confirmedCount ? (
-            <Chips className={cn('chip')} type="confirmed" activityId={activityId} date={dashboardDataForThisDate.date}>
+            <Chips
+              className={cn('chip')}
+              type="confirmed"
+              activityId={activityId}
+              date={dashboardDataForThisDate?.date}
+            >
               승인 {confirmedCount}
             </Chips>
           ) : null}
