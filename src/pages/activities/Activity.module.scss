@@ -95,3 +95,24 @@
   position: relative;
   background-color: #eee;
 }
+
+/*
+  container 레이아웃
+*/
+
+.container {
+  display: flex;
+  gap: 2rem;
+  padding: 0 0 20rem;
+}
+
+.contents {
+  flex-grow: 1;
+  box-shadow: inset 0 0 0.5rem blue;
+}
+
+.sidebar {
+  width: 38.4rem;
+  flex-shrink: 0;
+  box-shadow: inset 0 0 0.5rem red;
+}
