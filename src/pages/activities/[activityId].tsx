@@ -65,41 +65,31 @@ export default function Activity() {
               )}
             </div>
           </header>
-          <div
-            style={{
-              aspectRatio: '18/6',
-              display: 'flex',
-              gap: '0.5rem',
-              marginTop: '3rem',
-              borderRadius: '1.2rem',
-              overflow: 'hidden',
-              marginBottom: '6rem',
-            }}
-          >
-            <div style={{ width: '50%', position: 'relative' }}>
+          <div className={cn('gallery')}>
+            <div className={cn('cover')}>
               <Image fill src={data?.bannerImageUrl as string} alt="배너이미지" />
             </div>
-            <div style={{ width: '50%', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              <div style={{ width: '100%', display: 'flex', height: '50%', gap: '0.5rem' }}>
-                <div style={{ width: '50%', position: 'relative', backgroundColor: '#eee' }}>
+            <div className={cn('subCovers')}>
+              <div className={cn('subCovers-section')}>
+                <div className={cn('subCover')}>
                   {data?.subImageUrls && data.subImageUrls[0] && (
                     <Image fill src={data?.bannerImageUrl as string} alt="배너이미지" />
                   )}
                 </div>
-                <div style={{ width: '50%', position: 'relative', backgroundColor: '#eee' }}>
-                  {data?.subImageUrls && data.subImageUrls[0] && (
+                <div className={cn('subCover')}>
+                  {data?.subImageUrls && data.subImageUrls[1] && (
                     <Image fill src={data?.bannerImageUrl as string} alt="배너이미지" />
                   )}
                 </div>
               </div>
-              <div style={{ width: '100%', display: 'flex', height: '50%', gap: '0.5rem' }}>
-                <div style={{ width: '50%', position: 'relative', backgroundColor: '#eee' }}>
-                  {data?.subImageUrls && data.subImageUrls[0] && (
+              <div className={cn('subCovers-section')}>
+                <div className={cn('subCover')}>
+                  {data?.subImageUrls && data.subImageUrls[2] && (
                     <Image fill src={data?.bannerImageUrl as string} alt="배너이미지" />
                   )}
                 </div>
-                <div style={{ width: '50%', position: 'relative', backgroundColor: '#eee' }}>
-                  {data?.subImageUrls && data.subImageUrls[0] && (
+                <div className={cn('subCover')}>
+                  {data?.subImageUrls && data.subImageUrls[3] && (
                     <Image fill src={data?.bannerImageUrl as string} alt="배너이미지" />
                   )}
                 </div>

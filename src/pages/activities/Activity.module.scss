@@ -58,3 +58,40 @@
     }
   }
 }
+
+/*
+  사진 부분
+*/
+.gallery {
+  aspect-ratio: 18/6;
+  display: flex;
+  gap: 0.5rem;
+  margin: 3rem 0 6rem;
+  border-radius: 1.2rem;
+  overflow: hidden;
+}
+
+.cover {
+  width: 50%;
+  position: relative;
+}
+
+.subCovers {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.subCovers-section {
+  width: 100%;
+  display: flex;
+  height: 50%;
+  gap: 0.5rem;
+}
+
+.subCover {
+  width: 50%;
+  position: relative;
+  background-color: #eee;
+}
