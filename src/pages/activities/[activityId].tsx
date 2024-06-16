@@ -9,6 +9,7 @@ import Header from './_skeleton-ui/skeleton-header';
 import { useRef, useState } from 'react';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import Image from 'next/image';
+import Map from '@/components/Map/Map';
 
 const cn = classNames.bind(styles);
 
@@ -102,6 +103,7 @@ export default function Activity() {
                 <h3 className={cn('activityTitle')}>체험 설명</h3>
                 <p className={cn('activityDescription')}>{data?.description}</p>
               </div>
+              <div className={cn('mapContainer')}>{data && <Map address={data?.address} />}</div>
             </div>
             <div className={cn('sidebar')}>...</div>
           </div>
