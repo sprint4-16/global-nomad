@@ -41,7 +41,9 @@ export default function CardList({ activityId, data }: CardListProps) {
             </li>
           ))
         ) : (
-          <div>요청이 없습니다.</div>
+          <>
+            <div>예약 요청이 없습니다.</div>
+          </>
         )}
       </ul>
     </section>

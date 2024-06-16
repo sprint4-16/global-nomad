@@ -3,12 +3,22 @@ import styles from './Footer.module.scss';
 
 const cn = classNames.bind(styles);
 
-export default function Footer({ totalCount }: { totalCount: number }) {
+interface FooterProps {
+  selectedStatus: 'pending' | 'confirmed' | 'declined';
+  reservations: {
+    status: 'pending' | 'confirmed' | 'declined';
+  }[];
+}
+
+export default function Footer({ selectedStatus, reservations }: FooterProps) {
+  const confirmedCount = reservations?.filter((reservation) => reservation.status === 'confirmed').length;
+  const declinedCount = reservations?.filter((reservation) => reservation.status === 'declined').length;
   return (
     <div className={cn('footer')}>
-      <span className={cn('footerTitle')}>예약현황</span>
+      <span className={cn('footerTitle')}>예약 현황</span>
       <span className={cn('footerTag')}>
-        <span className={cn('point')}>0</span>/{totalCount}
+        {selectedStatus === 'confirmed' && `${confirmedCount}명`}
+        {selectedStatus === 'declined' && `${declinedCount}명`}
       </span>
     </div>
   );

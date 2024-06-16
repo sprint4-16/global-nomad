@@ -10,7 +10,7 @@ interface CreateModalProps {
   onClose: () => void;
 }
 
-export default function CreateModal({ activityId, date, isOpen, onClose }: CreateModalProps) {
+export default function CreateReservationModal({ activityId, date, isOpen, onClose }: CreateModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   useOutsideClick({ ref: modalRef, onClick: onClose });
 

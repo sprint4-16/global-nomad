@@ -23,7 +23,7 @@ export default function ReservationCardSection({ activityId, status, scheduleId 
   return (
     <div className={cn('container')}>
       <CreateCardList activityId={activityId} data={scheduleHistoryData} />
-      <Footer totalCount={scheduleHistoryData?.totalCount || 0} />
+      <Footer selectedStatus={status} reservations={scheduleHistoryData?.reservations} />
     </div>
   );
 }

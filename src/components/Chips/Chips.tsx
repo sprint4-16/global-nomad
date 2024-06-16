@@ -1,7 +1,7 @@
 import { ReactNode, useState } from 'react';
 import style from './Chips.module.scss';
 import classNames from 'classnames/bind';
-import CreateModal from '../Popover/ReservationInfoPopover/CreateModal';
+import CreateReservationModal from '../Popover/ReservationInfoPopover/CreateReservationModal';
 
 const cn = classNames.bind(style);
 
@@ -26,7 +26,7 @@ export function Chips({ children, className, type, activityId, date }: ChipsProp
         {children}
       </div>
       {activityId && date && (
-        <CreateModal activityId={activityId} date={date} isOpen={isModalOpen} onClose={handleModalOpen} />
+        <CreateReservationModal activityId={activityId} date={date} isOpen={isModalOpen} onClose={handleModalOpen} />
       )}
     </>
   );
