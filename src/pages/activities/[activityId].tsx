@@ -99,8 +99,8 @@ export default function Activity() {
           <div className={cn('container')}>
             <div className={cn('contents')}>
               <div className={cn('descriptionContainer')}>
-                <h3>체험 설명</h3>
-                <p>{data?.description}</p>
+                <h3 className={cn('activityTitle')}>체험 설명</h3>
+                <p className={cn('activityDescription')}>{data?.description}</p>
               </div>
             </div>
             <div className={cn('sidebar')}>...</div>
