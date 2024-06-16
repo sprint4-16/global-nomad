@@ -48,13 +48,12 @@ export default function Calendar({ selectedActivity }: { selectedActivity: numbe
 
   return (
     <div className={cn('container')}>
-      <Category className={cn('category')} list={categoryList} onSelect={onSelect} />
+      <Category className={cn('category')} list={categoryList} onSelected={onSelect} />
       <div className={cn('header')}>
         <PrevArrow width="2.4rem" height="2.4rem" onClick={handlePreviousMonth} />
         <div>{currentMonth.format('YYYY년 M월')}</div>
         <NextArrow width="2.4rem" height="2.4rem" onClick={handleNextMonth} />
       </div>
-
       <div className={cn('content')}>
         <div className={cn('labelWrapper')}>
           {dayLabels.map((label, index) => (
@@ -63,7 +62,7 @@ export default function Calendar({ selectedActivity }: { selectedActivity: numbe
             </div>
           ))}
         </div>
-        <CreateCalendar currentMonth={currentMonth} dashboardData={dashboardData} />
+        <CreateCalendar currentMonth={currentMonth} dashboardData={dashboardData} activityId={activityId} />
       </div>
     </div>
   );

@@ -1,12 +1,4 @@
 .container {
-  @include tablet {
-    gap: 1.4rem;
-  }
-
-  @include mobile {
-    gap: 0.8rem;
-  }
-
   .scroll-wrapper {
     display: flex;
     flex-direction: row;
@@ -16,6 +8,13 @@
     overflow-x: auto;
     &::-webkit-scrollbar {
       display: none;
+    }
+    @include tablet {
+      gap: 1.4rem;
+    }
+
+    @include mobile {
+      gap: 0.8rem;
     }
 
     .wrapper {

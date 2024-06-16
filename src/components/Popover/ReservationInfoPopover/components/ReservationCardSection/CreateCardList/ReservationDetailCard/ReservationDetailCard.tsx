@@ -1,25 +1,47 @@
+import { useState } from 'react';
 import classNames from 'classnames/bind';
-import Button from '../../components/Button/Button';
-import { Chips } from '../../components/Chips/Chips';
 import styles from './ReservationDetailCard.module.scss';
 
-type ReservationState = 'pending' | 'confirmed' | 'declined';
+import Button from '../../../../../../Button/Button';
+import { Chips } from '../../../../../../Chips/Chips';
+import CreatePopupModal from '@/components/Popup/CreatePopupModal';
+import { UsePatchScheduleStatus } from '@/apis/apiHooks/MyActivities';
+
+const cn = classNames.bind(styles);
 
 interface Props {
+  activityId: number;
+  reservationId: number;
   nickname: string;
   people: number;
-  reservationState: ReservationState;
+  reservationState: 'pending' | 'confirmed' | 'declined';
 }
 
-export default function ReservationDetailCard({ nickname, people, reservationState }: Props) {
-  const cn = classNames.bind(styles);
+export default function ReservationDetailCard({
+  activityId,
+  reservationId,
+  nickname,
+  people,
+  reservationState,
+}: Props) {
+  const { mutate: patchSchedule } = UsePatchScheduleStatus({ activityId, reservationId });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleConfirmClick = () => {
-    console.log('확정하기');
+    handleModalOpen();
+    patchSchedule({ status: 'confirmed' });
   };
 
   const handleRejectedClick = () => {
-    console.log('거절하기');
+    patchSchedule({ status: 'declined' });
+  };
+
+  const onConfirm = () => {
+    window.location.reload();
+  };
+
+  const handleModalOpen = () => {
+    setIsModalOpen((prev) => !prev);
   };
 
   return (
@@ -54,6 +76,15 @@ export default function ReservationDetailCard({ nickname, people, reservationSta
           </Chips>
         )}
       </div>
+      {isModalOpen && (
+        <CreatePopupModal
+          modalType="alert"
+          alertMessage="test"
+          onConfirm={onConfirm}
+          isModalOpen={isModalOpen}
+          handleModalOpen={handleModalOpen}
+        />
+      )}
     </div>
   );
 }

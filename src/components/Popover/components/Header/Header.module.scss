@@ -2,12 +2,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
 
-.title {
-  @include pretendard-28-700;
-}
+  .title {
+    @include pretendard-28-700;
+    color: $black;
+  }
 
-.notificationTitle {
-  font-size: 2rem;
+  .notificationTitle {
+    font-size: 2rem;
+  }
 }

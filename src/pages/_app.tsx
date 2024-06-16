@@ -1,11 +1,11 @@
+import { useState } from 'react';
+import type { AppProps } from 'next/app';
+import { useRouter } from 'next/router';
 import '@/styles/reset.scss';
 import 'react-datepicker/dist/react-datepicker.css';
 import '@/styles/datepicker_custom.scss';
-import type { AppProps } from 'next/app';
-import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { useRouter } from 'next/router';
 
 import { GNB_REQUIRES, SIDE_NAV_MENU_REQUIRES } from '@/constants/index';
 import GlobalNavigationBar from '@/components/GlobalNavigationBar/GlobalNavigationBar';
