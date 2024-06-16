@@ -81,22 +81,34 @@ export default function Activity() {
             </div>
             <div style={{ width: '50%', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               <div style={{ width: '100%', display: 'flex', height: '50%', gap: '0.5rem' }}>
-                <div style={{ width: '50%', position: 'relative' }}>
-                  <Image fill src={data?.bannerImageUrl as string} alt="배너이미지" />
+                <div style={{ width: '50%', position: 'relative', backgroundColor: '#eee' }}>
+                  {data?.subImageUrls && data.subImageUrls[0] && (
+                    <Image fill src={data?.bannerImageUrl as string} alt="배너이미지" />
+                  )}
                 </div>
-                <div style={{ width: '50%', position: 'relative' }}>
-                  <Image fill src={data?.bannerImageUrl as string} alt="배너이미지" />
+                <div style={{ width: '50%', position: 'relative', backgroundColor: '#eee' }}>
+                  {data?.subImageUrls && data.subImageUrls[0] && (
+                    <Image fill src={data?.bannerImageUrl as string} alt="배너이미지" />
+                  )}
                 </div>
               </div>
               <div style={{ width: '100%', display: 'flex', height: '50%', gap: '0.5rem' }}>
-                <div style={{ width: '50%', position: 'relative' }}>
-                  <Image fill src={data?.bannerImageUrl as string} alt="배너이미지" />
+                <div style={{ width: '50%', position: 'relative', backgroundColor: '#eee' }}>
+                  {data?.subImageUrls && data.subImageUrls[0] && (
+                    <Image fill src={data?.bannerImageUrl as string} alt="배너이미지" />
+                  )}
                 </div>
-                <div style={{ width: '50%', position: 'relative' }}>
-                  <Image fill src={data?.bannerImageUrl as string} alt="배너이미지" />
+                <div style={{ width: '50%', position: 'relative', backgroundColor: '#eee' }}>
+                  {data?.subImageUrls && data.subImageUrls[0] && (
+                    <Image fill src={data?.bannerImageUrl as string} alt="배너이미지" />
+                  )}
                 </div>
               </div>
             </div>
+          </div>
+          <div>
+            <h3>체험 설명</h3>
+            <p>{data?.description}</p>
           </div>
         </>
       )}

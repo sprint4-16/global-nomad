@@ -47,7 +47,7 @@
   border-radius: 0.6rem;
 
   border: 0.1rem solid $gray-300;
-
+  z-index: 9999;
   button {
     @include pretendard-18-500;
     padding: 1.6rem 4rem;
