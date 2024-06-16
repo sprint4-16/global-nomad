@@ -49,7 +49,7 @@ export default function DateInfo() {
           <div className={cn('btnClicked')}>15:00~16:00</div>
         </div>
       </div>
-      <Stroke width={336} className={cn('stroke')} />
+      <Stroke width="100%" className={cn('stroke')} />
     </div>
   );
 }

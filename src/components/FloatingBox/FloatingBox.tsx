@@ -22,13 +22,13 @@ export default function FloatingBox({ price }: FloatingBoxProps) {
         {priceDataForm(price, 1)}
         <span className={cn('per')}>/ 인</span>
       </div>
-      <Stroke width={336} className={cn('stroke')} />
+      <Stroke width="100%" className={cn('stroke')} />
       <DateInfo />
       <HeadCountInfo count={count} setCount={setCount} />
       <Button type="primary" size="large" className={cn('reservationBtn')}>
         예약하기
       </Button>
-      <Stroke width={336} className={cn('stroke')} />
+      <Stroke width="100%" className={cn('stroke')} />
       <PriceInfo price={price} count={count} />
     </div>
   );
