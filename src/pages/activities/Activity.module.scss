@@ -110,30 +110,61 @@
 .contents {
   flex-grow: 1;
   border-top: 0.1rem solid $gray-400;
-  border-bottom: 0.1rem solid $gray-400;
-  padding: 3.5rem 0;
+  padding-top: 3.5rem;
+  margin-bottom: 3.5rem;
 }
 
 .descriptionContainer {
   padding-bottom: 3.5rem;
-  margin-bottom: 3.5rem;
   border-bottom: 0.1rem solid $gray-400;
 }
 
 .sidebar {
-  width: 35.4rem;
+  width: 30.4rem;
   flex-shrink: 0;
+}
+
+.mapContainer {
+  border-bottom: 0.1rem solid $gray-400;
+  padding: 3.5rem 0;
+  margin-bottom: 3.5rem;
 }
 
 /*
   description container
 */
 
-.activityTitle {
+.subTitle {
   @include pretendard-20-700;
   margin-bottom: 2rem;
 }
 
 .activityDescription {
   @include pretendard-16-400;
+}
+
+.reviewContaienr {
+  .header {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .rating {
+    @include pretendard-16-600;
+    font-size: 5rem;
+  }
+
+  .satisfaction {
+    @include pretendard-16-400;
+    font-size: 1.8rem;
+  }
+
+  .reviewCount {
+    display: flex;
+    align-items: center;
+    @include pretendard-16-400;
+    font-size: 1.4rem;
+    gap: 0.4rem;
+  }
 }

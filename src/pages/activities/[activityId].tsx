@@ -101,10 +101,22 @@ export default function Activity() {
           <div className={cn('container')}>
             <div className={cn('contents')}>
               <div className={cn('descriptionContainer')}>
-                <h3 className={cn('activityTitle')}>체험 설명</h3>
+                <h3 className={cn('subTitle')}>체험 설명</h3>
                 <p className={cn('activityDescription')}>{data?.description}</p>
               </div>
               <div className={cn('mapContainer')}>{data && <Map address={data?.address} />}</div>
+              <div className={cn('reviewContaienr')}>
+                <h3 className={cn('subTitle')}>후기</h3>
+                <div className={cn('header')}>
+                  <div className={cn('rating')}>{data?.rating}</div>
+                  <div>
+                    <div className={cn('satisfaction')}>매우 만족</div>
+                    <div className={cn('reviewCount')}>
+                      <StarIcon width={15} height={22} /> <span>1개의 후기</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className={cn('sidebar')}>{data && <FloatingBox price={data?.price} />}</div>
           </div>
