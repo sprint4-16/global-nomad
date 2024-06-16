@@ -37,7 +37,7 @@ export function Dropdown({ className, menuItems, onSelect, isLabelVisible = fals
         {isDropdownOpen ? <ArrowUp className={cn('arrowImg')} /> : <ArrowDown className={cn('arrowImg')} />}
       </div>
       {isDropdownOpen && (
-        <ul className={cn('menuItems')}>
+        <div className={cn('menuItems')} ref={modalRef}>
           {menuItems?.map((item, index) => (
             <li
               key={`item-${index}`}
@@ -55,7 +55,7 @@ export function Dropdown({ className, menuItems, onSelect, isLabelVisible = fals
               {item}
             </li>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
