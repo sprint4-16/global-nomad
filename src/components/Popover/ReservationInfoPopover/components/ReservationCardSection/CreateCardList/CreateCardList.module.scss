@@ -1,0 +1,27 @@
+.section {
+  margin-top: 3rem;
+  .sectionTitle {
+    @include pretendard-16-600;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+
+  .cardList {
+    height: 24.6rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+
+    margin: 0;
+    padding: 0;
+
+    list-style-type: none;
+
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}

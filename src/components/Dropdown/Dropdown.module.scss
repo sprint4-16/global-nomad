@@ -78,6 +78,12 @@
       }
     }
 
+    .selected {
+      background-color: $nomad-black;
+      color: $white;
+      cursor: pointer;
+    }
+
     .checkMarkImg {
       position: absolute;
       left: 0.8rem;

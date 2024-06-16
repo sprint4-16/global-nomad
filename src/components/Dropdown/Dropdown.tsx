@@ -1,88 +1,62 @@
-import React, { useState, forwardRef, useImperativeHandle } from 'react';
-import styles from './Dropdown.module.scss';
+import { useState, useRef } from 'react';
 import classNames from 'classnames/bind';
+import styles from './Dropdown.module.scss';
+
 import ArrowDown from '@/images/btn/btn_chevron_down.svg';
 import ArrowUp from '@/images/btn/btn_chevron_up.svg';
 import CheckMark from '@/images/icon/icon_checkmark.svg';
+import useOutsideClick from '@/hooks/useOutsideClick';
 
 const cn = classNames.bind(styles);
 
 interface DropdownProps {
-  menuItems?: string[];
-  onSelect?: (index: number) => void;
   className?: string;
-  isLabelVisible: boolean;
-  onChange?: (value: string) => void;
+  menuItems: string[];
+  onSelect?: (index: number) => void;
+  isLabelVisible?: boolean;
 }
 
-export interface DropdownRef {
-  reset: () => void;
-}
+export function Dropdown({ className, menuItems, onSelect, isLabelVisible = false }: DropdownProps) {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedItemIndex, setSelectedItemIndex] = useState(0);
 
-export const Dropdown = forwardRef<DropdownRef, DropdownProps>(
-  (
-    {
-      menuItems = ['문화 예술', '식음료', '스포츠', '투어', '관광', '웰빙'],
-      onSelect,
-      className,
-      isLabelVisible,
-      onChange,
-    },
-    ref,
-  ) => {
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(null);
-    const [selectedItem, setSelectedItem] = useState(menuItems[0]);
+  const handleDropdownOpen = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
 
-    useImperativeHandle(ref, () => ({
-      reset() {
-        setSelectedItem(menuItems[0]);
-        setSelectedItemIndex(null);
-      },
-    }));
+  const modalRef = useRef<HTMLDivElement>(null);
+  useOutsideClick({ ref: modalRef, onClick: handleDropdownOpen });
 
-    return (
-      <div className={cn('container', className)}>
-        {isLabelVisible && <div className={cn('label')}>체험명</div>}
-        <div
-          className={cn('textfield')}
-          onClick={() => {
-            setIsDropdownOpen((prev) => !prev);
-          }}
-        >
-          <button type="button" className={cn('button', { selected: selectedItemIndex !== null })}>
-            {selectedItem}
-          </button>
-          {isDropdownOpen ? <ArrowUp className={cn('arrowImg')} /> : <ArrowDown className={cn('arrowImg')} />}
-        </div>
-        {isDropdownOpen && (
-          <div className={cn('menuItemsWrapper')}>
-            <ul className={cn('menuItems')}>
-              {menuItems?.map((item, index) => (
-                <li
-                  key={`item-${index}`}
-                  className={cn('item')}
-                  onMouseEnter={() => setSelectedItemIndex(index)}
-                  onMouseLeave={() => setSelectedItemIndex(null)}
-                  onClick={() => {
-                    setSelectedItem(item);
-                    setIsDropdownOpen(false);
-                    if (onSelect) {
-                      onSelect(index);
-                    }
-                    if (onChange) {
-                      onChange(item);
-                    }
-                  }}
-                >
-                  {selectedItemIndex === index && <CheckMark className={cn('checkMarkImg')} />}
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+  return (
+    <div className={cn('container', className)}>
+      {isLabelVisible && <div className={cn('label')}>체험명</div>}
+      <div className={cn('textfield')} onClick={handleDropdownOpen}>
+        <button className={cn('button', { selected: selectedItemIndex !== null })}>
+          {menuItems[selectedItemIndex]}
+        </button>
+        {isDropdownOpen ? <ArrowUp className={cn('arrowImg')} /> : <ArrowDown className={cn('arrowImg')} />}
       </div>
-    );
-  },
-);
+      {isDropdownOpen && (
+        <div className={cn('menuItems')} ref={modalRef}>
+          {menuItems?.map((item, index) => (
+            <li
+              key={`item-${index}`}
+              className={cn('item', [index === selectedItemIndex && 'selected'])}
+              onMouseEnter={() => setSelectedItemIndex(index)}
+              onClick={() => {
+                setSelectedItemIndex(index);
+                handleDropdownOpen();
+                if (onSelect) {
+                  onSelect(index);
+                }
+              }}
+            >
+              {selectedItemIndex === index && <CheckMark className={cn('checkMarkImg')} />}
+              {item}
+            </li>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}

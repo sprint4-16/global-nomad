@@ -81,8 +81,8 @@ export function UseGetSchedule({ activityId, date }: UseGetScheduleParams) {
 // 4. 내 체험 예약 시간대별 예약 내역 조회
 interface UseGetScheduleHistoryParams {
   activityId: number;
-  status: 'pending' | 'confirmed' | 'completed';
-  scheduleId: number;
+  status: 'pending' | 'confirmed' | 'declined';
+  scheduleId: number | undefined;
 }
 
 export function UseGetScheduleHistory({ activityId, status, scheduleId }: UseGetScheduleHistoryParams) {
@@ -101,6 +101,7 @@ export function UseGetScheduleHistory({ activityId, status, scheduleId }: UseGet
       );
       return data;
     },
+    enabled: !!activityId && !!scheduleId,
   });
 }
 
@@ -110,18 +111,20 @@ interface UsePatchScheduleStatusParams {
   reservationId: number;
 }
 
+interface BodyParams {
+  status: 'pending' | 'confirmed' | 'declined';
+}
+
 export function UsePatchScheduleStatus({ activityId, reservationId }: UsePatchScheduleStatusParams) {
   const { getCookie } = useGetCookie();
   const accessToken = getCookie('accessToken');
 
   return useMutation({
-    mutationFn: async () => {
+    mutationFn: async (body: BodyParams) => {
       if (!accessToken) throw new Error('Access token is not available');
-      const { data } = await axiosInstanceToken(accessToken).get(
+      const { data } = await axiosInstanceToken(accessToken).patch(
         `${END_POINT.MY_ACTIVITIES}/${activityId}/reservations/${reservationId}`,
-        {
-          params: { reservationId },
-        },
+        { status: body.status },
       );
       return data;
     },
@@ -140,7 +143,7 @@ export function UseDeleteSchedule({ activityId }: UseDeleteScheduleParams) {
   return useMutation({
     mutationFn: async () => {
       if (!accessToken) throw new Error('Access token is not available');
-      const { data } = await axiosInstanceToken(accessToken).get(`${END_POINT.MY_ACTIVITIES}/${activityId}`);
+      const { data } = await axiosInstanceToken(accessToken).delete(`${END_POINT.MY_ACTIVITIES}/${activityId}`);
       return data;
     },
   });
@@ -158,7 +161,7 @@ export function UseUpdateSchedule({ activityId }: UseUpdateScheduleParams) {
   return useMutation({
     mutationFn: async () => {
       if (!accessToken) throw new Error('Access token is not available');
-      const { data } = await axiosInstanceToken(accessToken).get(`${END_POINT.MY_ACTIVITIES}/${activityId}`);
+      const { data } = await axiosInstanceToken(accessToken).patch(`${END_POINT.MY_ACTIVITIES}/${activityId}`);
       return data;
     },
   });

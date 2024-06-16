@@ -1,4 +1,4 @@
-import { useState, useRef, ChangeEventHandler, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -27,7 +27,7 @@ export default function SideNavigationMenu({
   className,
   onMenuClick,
 }: {
-  className: string;
+  className?: string;
   onMenuClick?: (state: string) => void;
 }) {
   const router = useRouter();

@@ -1,0 +1,11 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @include pretendard-24-400;
+  font-weight: 600;
+
+  .point {
+    color: #2eb4ff;
+  }
+}
