@@ -14,7 +14,8 @@ import SideNavigationMenuLayout from '@/pageLayouts/commonLayouts/SideNavigation
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const checkRouteInGNB = GNB_REQUIRES.includes(router.pathname) || router.pathname.split('/').includes('activities');
+  const isInActivityDetailPage = router.pathname.split('/').includes('activities');
+  const checkRouteInGNB = GNB_REQUIRES.includes(router.pathname) || isInActivityDetailPage;
   const checkRouteInSideNavMenu = SIDE_NAV_MENU_REQUIRES.includes(router.pathname);
 
   const [queryClient] = useState(
@@ -33,7 +34,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       {checkRouteInGNB ? (
-        <div id="wrapper">
+        <div style={isInActivityDetailPage ? { backgroundColor: '#fafafa' } : {}} id="wrapper">
           <div id="modal-root" />
           <GlobalNavigationBar />
           <div id="contentWrapper" style={contentStyle}>
