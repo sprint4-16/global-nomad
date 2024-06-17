@@ -8,7 +8,11 @@ import styles from './landingLayout.module.scss';
 
 const cn = classNames.bind(styles);
 
-export default function LandingLayout() {
+interface LandingProps {
+  searched: string | undefined;
+  setSearched: React.Dispatch<React.SetStateAction<string | undefined>>;
+}
+export default function LandingLayout({ searched, setSearched }: LandingProps) {
   const { data, isLoading, error } = useGetPopularActivities();
   const month = new Date().getMonth() + 1;
 
@@ -19,7 +23,6 @@ export default function LandingLayout() {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-
   return (
     <div className={cn('landing')}>
       <div className={cn('inner')}>
@@ -38,10 +41,16 @@ export default function LandingLayout() {
         </div>
 
         <div className={cn('searchWrapper')}>
-          <Search titleText="무엇을 체험하고 싶으신가요?" inputText="내가 원하는 체험은" />
+          <Search
+            titleText="무엇을 체험하고 싶으신가요?"
+            inputText="내가 원하는 체험은"
+            onClick={(item: string | undefined) => {
+              setSearched(item);
+            }}
+          />
         </div>
 
-        <PopulationExperiences />
+        {searched ? <></> : <PopulationExperiences />}
       </div>
     </div>
   );
