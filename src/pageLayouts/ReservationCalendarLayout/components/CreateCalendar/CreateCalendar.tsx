@@ -62,7 +62,8 @@ export default function CreateCalendar({ currentMonth, dashboardData, activityId
             >
               예약 {pendingCount}
             </Chips>
-          ) : confirmedCount ? (
+          ) : null}
+          {confirmedCount ? (
             <Chips
               className={cn('chip')}
               type="confirmed"
