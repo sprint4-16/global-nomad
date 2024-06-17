@@ -8,15 +8,16 @@ interface CardContentProps {
   activity: {
     id: number;
     title: string;
-    price: string;
+    price: number;
     rating: number;
     reviewCount: number;
   };
-  size: cardSize;
+  size?: cardSize;
 }
 
 export default function CardContent({ activity, size = 'small' }: CardContentProps) {
   const cn = classNames.bind(styles);
+  const formattedPrice = new Intl.NumberFormat('ko-KR').format(activity.price);
 
   return (
     <div className={cn('cardContainer', size)}>
@@ -27,7 +28,7 @@ export default function CardContent({ activity, size = 'small' }: CardContentPro
       </div>
       <h1 className={cn('cardDescription', size)}>{activity.title}</h1>
       <div className={cn('priceContainer', size)}>
-        ₩ {activity.price}
+        ₩{formattedPrice}
         <span className={cn('perPerson', size)}>/ 인</span>
       </div>
     </div>
