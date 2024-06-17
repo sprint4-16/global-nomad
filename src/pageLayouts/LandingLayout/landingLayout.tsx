@@ -32,7 +32,6 @@ export default function LandingLayout() {
           alt="배너"
           width={1920}
           height={550}
-          style={{ width: 1920, height: 550 }}
           priority
           unoptimized
         />
