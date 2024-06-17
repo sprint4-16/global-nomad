@@ -5,6 +5,7 @@
   grid-template-columns: repeat(7, 1fr);
 
   .item {
+    min-width: 0;
     border-top: 0.1rem solid $calendar-border;
     border-left: 0.1rem solid $calendar-border;
 

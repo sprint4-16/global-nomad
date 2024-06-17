@@ -8,21 +8,17 @@
   align-items: stretch;
   gap: 2.4rem;
 
-  .category {
-    padding: 1rem 0 2rem;
-  }
-
   .header {
-    width: 34.2rem;
+    width: 100%;
+    max-width: 34.2rem;
     height: 3.6rem;
 
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    gap: 9.6rem;
 
-    margin: 0 auto;
+    margin: 3rem auto 0;
 
     @include pretendard-20-700;
     color: $nomad-black;
@@ -43,6 +39,7 @@
     grid-template-columns: repeat(7, 1fr);
 
     .label {
+      min-width: 0;
       border-top: 0.1rem solid $calendar-border;
       border-left: 0.1rem solid $calendar-border;
 
