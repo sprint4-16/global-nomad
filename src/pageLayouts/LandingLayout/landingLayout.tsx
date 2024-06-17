@@ -3,17 +3,17 @@ import classNames from 'classnames/bind';
 
 import { Search } from '@/components/Search/Search';
 import PopulationExperiences from './popularExperiences';
+import ActivityListLayout from './ActivityListLayout';
 import { useGetPopularActivities } from '@/apis/apiHooks/MyReservations';
 import styles from './landingLayout.module.scss';
+import { useState } from 'react';
+import SearchedListLayout from './SearchedListLayout';
 
 const cn = classNames.bind(styles);
 
-interface LandingProps {
-  searched: string | undefined;
-  setSearched: React.Dispatch<React.SetStateAction<string | undefined>>;
-}
-export default function LandingLayout({ searched, setSearched }: LandingProps) {
+export default function LandingLayout() {
   const { data, isLoading, error } = useGetPopularActivities();
+  const [keyword, setKeyword] = useState<undefined | string>('');
   const month = new Date().getMonth() + 1;
 
   if (isLoading) {
@@ -33,8 +33,8 @@ export default function LandingLayout({ searched, setSearched }: LandingProps) {
           width={1920}
           height={550}
           priority
+          unoptimized
         />
-
         <div className={cn('mainTitle')}>
           <div className={cn('title')}>{data.activities[0].title}</div>
           <div className={cn('description')}>{month}월의 인기 체험 BEST 🔥</div>
@@ -45,12 +45,18 @@ export default function LandingLayout({ searched, setSearched }: LandingProps) {
             titleText="무엇을 체험하고 싶으신가요?"
             inputText="내가 원하는 체험은"
             onClick={(item: string | undefined) => {
-              setSearched(item);
+              setKeyword(item);
             }}
           />
         </div>
-
-        {searched ? <></> : <PopulationExperiences />}
+        {keyword ? (
+          <SearchedListLayout searched={keyword} />
+        ) : (
+          <>
+            <PopulationExperiences />
+            <ActivityListLayout />
+          </>
+        )}
       </div>
     </div>
   );
