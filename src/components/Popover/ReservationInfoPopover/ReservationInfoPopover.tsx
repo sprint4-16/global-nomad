@@ -11,6 +11,7 @@ import { UseGetSchedule } from '@/apis/apiHooks/MyActivities';
 const cn = classNames.bind(styles);
 
 interface ReservationInfoPopoverProps {
+  className: string;
   activityId: number;
   date: string;
   onClose: () => void;
@@ -27,7 +28,7 @@ interface ScheduleData {
   };
 }
 
-export default function ReservationInfoPopover({ activityId, date, onClose }: ReservationInfoPopoverProps) {
+export default function ReservationInfoPopover({ className, activityId, date, onClose }: ReservationInfoPopoverProps) {
   const [selectedNavListItem, setSelectedNavListItem] = useState<'pending' | 'confirmed' | 'declined'>('pending');
   const [dropdownIndex, setDropdownIndex] = useState(0);
 
@@ -45,7 +46,7 @@ export default function ReservationInfoPopover({ activityId, date, onClose }: Re
   };
 
   return (
-    <div className={cn('container')}>
+    <div className={cn('container', className)}>
       <Header title="예약 정보" onClose={onClose} />
       <NavList
         pendingCount={pendingCount}
