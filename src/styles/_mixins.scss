@@ -1,3 +1,9 @@
+@mixin pc {
+  @media (max-width: 1240px) {
+    @content;
+  }
+}
+
 @mixin tablet {
   @media (max-width: 744px) {
     @content;

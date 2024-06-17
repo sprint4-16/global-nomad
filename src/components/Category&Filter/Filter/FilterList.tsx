@@ -21,7 +21,7 @@ export default function FilterList({ filterType, setIsOpen, setSelectedItem, set
           { element: '최신 순', name: '최신', status: 'latest' },
         ]
       : [
-          { element: '모두 보기', name: '필터', status: undefined },
+          { element: '모두 보기', name: '모두', status: undefined },
           { element: '예약 신청', name: '신청', status: 'pending' },
           { element: '예약 취소', name: '취소', status: 'canceled' },
           { element: '예약 승인', name: '승인', status: 'confirmed' },
@@ -30,6 +30,7 @@ export default function FilterList({ filterType, setIsOpen, setSelectedItem, set
         ];
   const handleActivityItemClick = (index: number) => {
     setSelectedItem(filter[index].name);
+    setFilterStatus(filter[index].status);
     setIsOpen(false);
   };
   const handleReservationItemClick = (index: number) => {
