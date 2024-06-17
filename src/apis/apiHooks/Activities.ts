@@ -6,16 +6,17 @@ import { END_POINT } from '@/constants/';
 interface getActivitiesProps {
   method: 'offset' | 'cursor';
   category?: string;
+  keyword?: string;
   sort?: string;
   page?: number;
   size?: number;
 }
-export function UseGetActivities({ method, category, sort, page, size }: getActivitiesProps) {
+export function UseGetActivities({ method, category, keyword, sort, page, size }: getActivitiesProps) {
   return useQuery({
-    queryKey: ['Activities', { method, category, sort, page, size }],
+    queryKey: ['Activities', { method, category, keyword, sort, page, size }],
     queryFn: async () => {
       const { data } = await axiosInstance.get(`${END_POINT.ACTIVITIES}`, {
-        params: { method, category, sort, page, size },
+        params: { method, category, keyword, sort, page, size },
       });
       return data;
     },

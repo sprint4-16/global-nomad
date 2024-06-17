@@ -2,11 +2,10 @@ import styles from './Search.module.scss';
 import classNames from 'classnames/bind';
 import Icon from '@/images/icon/icon_bed.svg';
 import Button from '../Button/Button';
-import { CSSProperties, useState } from 'react';
+import React, { CSSProperties, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 const cn = classNames.bind(styles);
-
 interface SearchProps {
   titleText?: string;
   inputText?: string;
@@ -14,7 +13,7 @@ interface SearchProps {
   className?: string;
   data?: any[]; // 어떤 타입이 올지 몰라서 일단 any로 뒀습니다!
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  onClick?: (filteredResults: any[]) => void;
+  onClick?: (filteredResults: string | undefined) => void;
 }
 
 export function Search({ titleText, inputText, sx, className, data = [], onChange, onClick }: SearchProps) {
@@ -22,6 +21,7 @@ export function Search({ titleText, inputText, sx, className, data = [], onChang
     padding: '1.4rem 2rem',
   };
   const [searchTerm, setSearchTerm] = useState('');
+
   const isMobile = useMediaQuery({ query: '(max-width: 375px)' });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,16 +29,16 @@ export function Search({ titleText, inputText, sx, className, data = [], onChang
     if (onChange) onChange(e);
   };
 
-  const handleSearchClick = () => {
-    const results = data.filter((item) => item.toLowerCase().includes(searchTerm.toLowerCase()));
-    if (onClick) onClick(results);
+  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (searchTerm === '') return;
+    if (onClick) onClick(searchTerm);
   };
-
   return (
     <div className={cn('wrapper')}>
       <div className={cn('container', className)} style={sx}>
         <div className={cn('searchLabel')}>{titleText}</div>
-        <div className={cn('searchBox')}>
+        <form className={cn('searchBox')} onSubmit={handleSearchSubmit}>
           <Icon className={cn('bedImg')} />
           <div className={cn('inputContainer')}>
             <input
@@ -49,20 +49,17 @@ export function Search({ titleText, inputText, sx, className, data = [], onChang
               value={searchTerm}
               onChange={handleInputChange}
             />
-            {/* <label className={cn('placeholder')} htmlFor="searchInput">
-              {inputText}
-            </label> */}
           </div>
           <Button
             type="primary"
+            htmlType="submit"
             size={isMobile ? 'small' : 'medium'}
             sx={isMobile ? buttonStyle : undefined}
             className={cn('searchButton')}
-            onClick={handleSearchClick}
           >
             검색하기
           </Button>
-        </div>
+        </form>
       </div>
     </div>
   );

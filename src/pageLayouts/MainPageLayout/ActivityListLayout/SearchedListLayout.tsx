@@ -1,8 +1,5 @@
 import { useEffect, useState } from 'react';
 
-import Category from '@/components/Category&Filter/Category/Category';
-import Filter from '@/components/Category&Filter/Filter/Filter';
-
 import classNames from 'classnames/bind';
 import styles from './ActivityListLayout.module.scss';
 import { UseGetActivities } from '@/apis/apiHooks/Activities';
@@ -13,44 +10,51 @@ import Pagination from '@/components/Pagination/Pagination';
 
 const cn = classNames.bind(styles);
 
-export default function ActivityListLayout() {
-  const [sort, setSort] = useState<string | undefined>();
-  const [category, setCategory] = useState<string | undefined>();
-  const categoryList = ['문화 · 예술', '식음료', '스포츠', '투어', '관광', '웰빙'];
-  const handleCategorySelect = (index: number) => {
-    setNowPage(1);
-    if (category === categoryList[index]) setCategory(undefined);
-    else setCategory(categoryList[index]);
-  };
+interface SearchedListProps {
+  searched: string | undefined;
+}
+export default function SearchedListLayout({ searched }: SearchedListProps) {
   const isMobile = useMediaQuery({ maxWidth: 375 });
   const isTablet = useMediaQuery({ minWidth: 745, maxWidth: 1239 });
   const isPC = useMediaQuery({ minWidth: 1240 });
 
   const [nowPage, setNowPage] = useState(1);
-  const [size, setSize] = useState<4 | 8 | 9>(8);
+  const [size, setSize] = useState<8 | 9 | 16>(16);
 
   useEffect(() => {
     if (isPC) {
-      setSize(8);
+      setSize(16);
     } else if (isTablet) {
       setSize(9);
     } else if (isMobile) {
-      setSize(4);
+      setSize(8);
     }
   }, [isPC, isTablet, isMobile]);
 
-  const { data } = UseGetActivities({ method: 'offset', category: category, sort: sort, page: nowPage, size: size });
+  console.log(searched);
+  const { data, error } = UseGetActivities({
+    method: 'offset',
+    keyword: searched,
+    page: nowPage,
+    size: size,
+  });
   const activities = data?.activities ?? [];
+  const totalCount = data?.totalCount ?? 0;
   const totalpage = Math.ceil(data?.totalCount / size);
-
   return (
     <div className={cn('container')}>
-      <div className={cn('header')}>
-        <Category className={cn('header_category')} list={categoryList} onSelected={handleCategorySelect} />
-        <Filter filterType="activity" setFilterStatus={setSort} />
-      </div>
+      <div className={cn('header')}></div>
       <div className={cn('content')}>
-        <div className={cn('content_text')}>{category ? category : '모든 체험'}</div>
+        {error ? (
+          <div className={cn('content_text')}>Error: {error.message}</div>
+        ) : (
+          <div className={cn('content_text')}>
+            {searched}
+            <span>으로 검색한 결과입니다.</span>
+            <div className={cn('content_result')}>총 {totalCount}개의 결과</div>
+          </div>
+        )}
+
         <div className={cn('content_cards')}>
           {activities.map((item, index: number) => {
             return (
@@ -73,6 +77,7 @@ export default function ActivityListLayout() {
           })}
         </div>
       </div>
+
       <Pagination total={totalpage} nowPage={nowPage} setNowPage={setNowPage} />
     </div>
   );
