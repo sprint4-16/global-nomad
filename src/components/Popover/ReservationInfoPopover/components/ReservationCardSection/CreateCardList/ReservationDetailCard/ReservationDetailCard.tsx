@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import classNames from 'classnames/bind';
 import styles from './ReservationDetailCard.module.scss';
-import { useRouter } from 'next/router';
+import { useQueryClient } from '@tanstack/react-query';
 
 import Button from '../../../../../../Button/Button';
 import { Chips } from '../../../../../../Chips/Chips';
@@ -29,24 +29,37 @@ export default function ReservationDetailCard({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
 
-  const handleConfirmClick = () => {
+  const queryClient = useQueryClient();
+
+  const handleConfirmClick = useCallback(() => {
     handleModalOpen();
-    patchSchedule({ status: 'confirmed' });
+    patchSchedule(
+      { status: 'confirmed' },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['reservation'] });
+          console.log('ssss');
+        },
+      },
+    );
     setAlertMessage('예약이 확정되었습니다.');
-  };
+  }, [patchSchedule, queryClient]);
 
   const handleRejectedClick = () => {
     handleModalOpen();
-    patchSchedule({ status: 'declined' });
+    patchSchedule(
+      { status: 'declined' },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['reservation'] });
+          console.log('ssss');
+        },
+      },
+    );
     setAlertMessage('예약이 거절되었습니다.');
   };
 
-  const router = useRouter();
-
-  const onConfirm = () => {
-    router.replace(router.asPath);
-    console.log('ssss');
-  };
+  const onConfirm = () => {};
 
   const handleModalOpen = () => {
     setIsModalOpen((prev) => !prev);

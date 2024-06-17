@@ -15,7 +15,9 @@ export default function Footer({ selectedStatus, reservations }: FooterProps) {
   const declinedCount = reservations?.filter((reservation) => reservation.status === 'declined').length;
   return (
     <div className={cn('footer')}>
-      <span className={cn('footerTitle')}>예약 현황</span>
+      <span className={cn('footerTitle')}>
+        {selectedStatus === 'confirmed' || selectedStatus === 'declined' ? '예약 현황' : ''}
+      </span>
       <span className={cn('footerTag')}>
         {selectedStatus === 'confirmed' && `${confirmedCount}명`}
         {selectedStatus === 'declined' && `${declinedCount}명`}
