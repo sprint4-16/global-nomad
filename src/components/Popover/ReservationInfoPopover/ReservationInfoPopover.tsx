@@ -69,7 +69,7 @@ export default function ReservationInfoPopover({
         {scheduleId && (
           <ReservationCardSection
             activityId={activityId}
-            status={selectedNavListItem}
+            selectedStatus={selectedNavListItem}
             scheduleId={scheduleId}
             disableOutsideClick={disableOutsideClick}
           />

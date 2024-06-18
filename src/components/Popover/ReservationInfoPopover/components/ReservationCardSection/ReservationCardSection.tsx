@@ -9,27 +9,27 @@ const cn = classNames.bind(styles);
 
 interface ReservationCardSectionProps {
   activityId: number;
-  status: 'pending' | 'confirmed' | 'declined';
+  selectedStatus: 'pending' | 'confirmed' | 'declined';
   scheduleId: number;
   disableOutsideClick: () => void;
 }
 
 export default function ReservationCardSection({
   activityId,
-  status,
+  selectedStatus,
   scheduleId,
   disableOutsideClick,
 }: ReservationCardSectionProps) {
   const { data: scheduleHistoryData } = UseGetScheduleHistory({
     activityId,
-    status,
+    status: selectedStatus,
     scheduleId,
   });
 
   return (
     <div className={cn('container')}>
-      <CreateCardList activityId={activityId} data={scheduleHistoryData} disableOutsideClick={disableOutsideClick} />
-      <Footer selectedStatus={status} reservations={scheduleHistoryData?.reservations} />
+      <CreateCardList scheduleHistoryData={scheduleHistoryData} disableOutsideClick={disableOutsideClick} />
+      <Footer selectedStatus={selectedStatus} reservations={scheduleHistoryData?.reservations} />
     </div>
   );
 }

@@ -13,6 +13,7 @@ interface FooterProps {
 export default function Footer({ selectedStatus, reservations }: FooterProps) {
   const confirmedCount = reservations?.filter((reservation) => reservation.status === 'confirmed').length;
   const declinedCount = reservations?.filter((reservation) => reservation.status === 'declined').length;
+
   return (
     <div className={cn('footer')}>
       <span className={cn('footerTitle')}>

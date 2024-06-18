@@ -17,6 +17,7 @@ const cn = classNames.bind(styles);
 
 export default function CreateReservationModal({ activityId, date, isOpen, onClose, modalPosition }: CreateModalProps) {
   const [disabled, setDisabled] = useState(false);
+
   const modalRef = useRef<HTMLDivElement>(null);
   useOutsideClick({ ref: modalRef, onClick: onClose, disabled });
 

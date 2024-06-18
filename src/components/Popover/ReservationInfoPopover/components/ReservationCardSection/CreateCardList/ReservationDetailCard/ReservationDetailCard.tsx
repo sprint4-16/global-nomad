@@ -14,7 +14,7 @@ interface Props {
   activityId: number;
   reservationId: number;
   nickname: string;
-  people: number;
+  headCount: number;
   reservationState: 'pending' | 'confirmed' | 'declined';
   disableOutsideClick: () => void;
 }
@@ -23,7 +23,7 @@ export default function ReservationDetailCard({
   activityId,
   reservationId,
   nickname,
-  people,
+  headCount,
   reservationState,
   disableOutsideClick,
 }: Props) {
@@ -63,7 +63,7 @@ export default function ReservationDetailCard({
             닉네임 <p className={cn('bold')}>{nickname}</p>
           </div>
           <div className={cn('info')}>
-            인원 <p className={cn('bold')}>{people}명</p>
+            인원 <p className={cn('bold')}>{headCount}명</p>
           </div>
         </div>
         <div className={cn('footer')}>
