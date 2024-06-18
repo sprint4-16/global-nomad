@@ -33,7 +33,6 @@ export default function LandingLayout() {
           width={1920}
           height={550}
           priority
-          unoptimized
         />
         <div className={cn('mainTitle')}>
           <div className={cn('title')}>{data.activities[0].title}</div>
