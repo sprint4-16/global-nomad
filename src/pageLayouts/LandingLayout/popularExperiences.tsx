@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import Router from 'next/router';
 import classNames from 'classnames/bind';
 
 import useResizeHook from '@/hooks/useResizeHook';
@@ -119,8 +120,7 @@ export default function PopulationExperiences() {
       e.preventDefault();
       e.stopPropagation();
     } else {
-      // 카드 클릭시 작동 되는곳
-      console.log(id);
+      Router.push(`/activities/${id}`);
     }
   };
 

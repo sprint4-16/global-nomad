@@ -1,5 +1,6 @@
 import { useMediaQuery } from 'react-responsive';
 import { useEffect, useState } from 'react';
+import Router from 'next/router';
 import classNames from 'classnames/bind';
 
 import Category from '@/components/Category&Filter/Category/Category';
@@ -57,6 +58,10 @@ export default function ActivityListLayout() {
     else setCategory(categoryList[index]);
   };
 
+  const handleCardClick = (e: React.MouseEvent<HTMLDivElement>, id: number) => {
+    Router.push(`/activities/${id}`);
+  };
+
   return (
     <div className={cn('container')}>
       <div className={cn('header')}>
@@ -69,7 +74,7 @@ export default function ActivityListLayout() {
           {!isLoading &&
             data.activities.map((activity: CardResourceProps) => {
               return (
-                <div className={cn('card')} key={`${activity.id}`}>
+                <div className={cn('card')} key={`${activity.id}`} onClick={(e) => handleCardClick(e, activity.id)}>
                   <CardResourceSmall activity={activity} />
                 </div>
               );
