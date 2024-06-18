@@ -27,7 +27,7 @@ export default function AlertModal({
   };
 
   const modalRef = useRef<HTMLDivElement>(null);
-  useOutsideClick({ ref: modalRef, onClick: handleModalOpen });
+  useOutsideClick({ ref: modalRef, onClick: handleConfirm });
   useBlockScroll();
 
   return (

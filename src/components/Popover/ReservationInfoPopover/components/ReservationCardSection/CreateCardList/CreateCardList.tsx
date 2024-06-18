@@ -21,9 +21,10 @@ interface CardListProps {
     totalCount: number;
     cursorId: null;
   };
+  disableOutsideClick: () => void;
 }
 
-export default function CardList({ activityId, data }: CardListProps) {
+export default function CardList({ activityId, data, disableOutsideClick }: CardListProps) {
   return (
     <section className={cn('section')}>
       <h2 className={cn('sectionTitle')}>예약 내역</h2>
@@ -37,6 +38,7 @@ export default function CardList({ activityId, data }: CardListProps) {
                 nickname={reservation.nickname}
                 people={reservation.headCount}
                 reservationState={reservation.status}
+                disableOutsideClick={disableOutsideClick}
               />
             </li>
           ))

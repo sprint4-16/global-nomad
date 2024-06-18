@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './ReservationDetailCard.module.scss';
 import { useQueryClient } from '@tanstack/react-query';
@@ -16,6 +16,7 @@ interface Props {
   nickname: string;
   people: number;
   reservationState: 'pending' | 'confirmed' | 'declined';
+  disableOutsideClick: () => void;
 }
 
 export default function ReservationDetailCard({
@@ -24,6 +25,7 @@ export default function ReservationDetailCard({
   nickname,
   people,
   reservationState,
+  disableOutsideClick,
 }: Props) {
   const { mutate: patchSchedule } = UsePatchScheduleStatus({ activityId, reservationId });
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,38 +33,26 @@ export default function ReservationDetailCard({
 
   const queryClient = useQueryClient();
 
-  const handleConfirmClick = useCallback(() => {
-    handleModalOpen();
-    patchSchedule(
-      { status: 'confirmed' },
-      {
-        onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['reservation'] });
-          console.log('ssss');
-        },
-      },
-    );
-    setAlertMessage('예약이 확정되었습니다.');
-  }, [patchSchedule, queryClient]);
+  const handleModalOpen = () => {
+    setIsModalOpen((prev) => !prev);
+  };
 
-  const handleRejectedClick = () => {
+  const handleConfirmClick = () => {
+    disableOutsideClick();
     handleModalOpen();
-    patchSchedule(
-      { status: 'declined' },
-      {
-        onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['reservation'] });
-          console.log('ssss');
-        },
-      },
-    );
+    patchSchedule({ status: 'confirmed' });
+    setAlertMessage('예약이 확정되었습니다.');
+  };
+
+  const handleDeclinedClick = () => {
+    disableOutsideClick();
+    handleModalOpen();
+    patchSchedule({ status: 'declined' });
     setAlertMessage('예약이 거절되었습니다.');
   };
 
-  const onConfirm = () => {};
-
-  const handleModalOpen = () => {
-    setIsModalOpen((prev) => !prev);
+  const onConfirm = () => {
+    queryClient.invalidateQueries({ queryKey: ['reservation'] });
   };
 
   return (
@@ -82,7 +72,7 @@ export default function ReservationDetailCard({
               <Button className={cn('button')} type="primary" size="small" onClick={handleConfirmClick}>
                 확정하기
               </Button>
-              <Button className={cn('button')} type="secondary" size="small" onClick={handleRejectedClick}>
+              <Button className={cn('button')} type="secondary" size="small" onClick={handleDeclinedClick}>
                 거절하기
               </Button>
             </>

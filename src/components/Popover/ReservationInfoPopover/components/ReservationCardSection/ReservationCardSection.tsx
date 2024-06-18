@@ -11,9 +11,15 @@ interface ReservationCardSectionProps {
   activityId: number;
   status: 'pending' | 'confirmed' | 'declined';
   scheduleId: number;
+  disableOutsideClick: () => void;
 }
 
-export default function ReservationCardSection({ activityId, status, scheduleId }: ReservationCardSectionProps) {
+export default function ReservationCardSection({
+  activityId,
+  status,
+  scheduleId,
+  disableOutsideClick,
+}: ReservationCardSectionProps) {
   const { data: scheduleHistoryData } = UseGetScheduleHistory({
     activityId,
     status,
@@ -22,7 +28,7 @@ export default function ReservationCardSection({ activityId, status, scheduleId 
 
   return (
     <div className={cn('container')}>
-      <CreateCardList activityId={activityId} data={scheduleHistoryData} />
+      <CreateCardList activityId={activityId} data={scheduleHistoryData} disableOutsideClick={disableOutsideClick} />
       <Footer selectedStatus={status} reservations={scheduleHistoryData?.reservations} />
     </div>
   );

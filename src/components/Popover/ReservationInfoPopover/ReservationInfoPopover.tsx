@@ -15,6 +15,7 @@ interface ReservationInfoPopoverProps {
   activityId: number;
   date: string;
   onClose: () => void;
+  disableOutsideClick: () => void;
 }
 
 interface ScheduleData {
@@ -28,7 +29,13 @@ interface ScheduleData {
   };
 }
 
-export default function ReservationInfoPopover({ className, activityId, date, onClose }: ReservationInfoPopoverProps) {
+export default function ReservationInfoPopover({
+  className,
+  activityId,
+  date,
+  onClose,
+  disableOutsideClick,
+}: ReservationInfoPopoverProps) {
   const [selectedNavListItem, setSelectedNavListItem] = useState<'pending' | 'confirmed' | 'declined'>('pending');
   const [dropdownIndex, setDropdownIndex] = useState(0);
 
@@ -60,7 +67,12 @@ export default function ReservationInfoPopover({ className, activityId, date, on
           <ScheduleDropdown date={date} dropdownMenuItems={dropdownMenuItems} onSelect={onSelect} />
         )}
         {scheduleId && (
-          <ReservationCardSection activityId={activityId} status={selectedNavListItem} scheduleId={scheduleId} />
+          <ReservationCardSection
+            activityId={activityId}
+            status={selectedNavListItem}
+            scheduleId={scheduleId}
+            disableOutsideClick={disableOutsideClick}
+          />
         )}
       </div>
     </div>
