@@ -19,3 +19,14 @@ export type ActivityType = {
   createdAt: string;
   updatedAt: string;
 };
+
+type Time = {
+  endTime: string;
+  startTime: string;
+  id: number;
+};
+
+export type AvailableScheduleType = {
+  date: 'string';
+  times: Time[];
+}[];

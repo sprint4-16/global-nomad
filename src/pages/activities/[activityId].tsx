@@ -165,7 +165,9 @@ export default function Activity() {
                 </div>
               </div>
             </div>
-            <div className={cn('sidebar')}>{data && <FloatingBox price={data?.price} />}</div>
+            <div className={cn('sidebar')}>
+              {data && <FloatingBox price={data?.price} activityId={activityId?.toString() as string} />}
+            </div>
           </div>
         </>
       )}

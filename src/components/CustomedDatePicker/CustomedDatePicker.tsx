@@ -7,9 +7,10 @@ import NextIcon from '@/images/icon/icon_calendar_next.svg';
 interface CustomDatePickerProps {
   selected: Date;
   onChange: (date: Date) => void;
+  onMonthChange: (date: Date) => void;
 }
 
-export default function CustomedDatePicker({ selected, onChange }: CustomDatePickerProps) {
+export default function CustomedDatePicker({ selected, onChange, onMonthChange }: CustomDatePickerProps) {
   const handleDecreaseMonth = (decreaseMonth: () => void, event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
     decreaseMonth();
@@ -24,6 +25,7 @@ export default function CustomedDatePicker({ selected, onChange }: CustomDatePic
     <DatePicker
       selected={selected}
       onChange={onChange}
+      onMonthChange={onMonthChange}
       renderCustomHeader={({ monthDate, decreaseMonth, increaseMonth }) => (
         <div>
           <button

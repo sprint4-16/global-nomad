@@ -7,12 +7,16 @@ import { useMediaQuery } from 'react-responsive';
 
 const cn = classNames.bind(styles);
 
-export default function DateInfo() {
+interface DateInfoProps {
+  datepick: Date;
+  onChangeDatepick: (date: Date) => void;
+}
+
+export default function DateInfo({ datepick, onChangeDatepick }: DateInfoProps) {
   const isTalbet = useMediaQuery({ query: '(max-width: 745px)' });
   const [tabletSize, setTabletSize] = useState(false);
 
   const [selectedDate, setSelectedDate] = useState('날짜 선택하기');
-  const [datepick, setDatepick] = useState(new Date());
 
   const handleTempClick = () => {
     setSelectedDate(datepick.toLocaleDateString() + ' 15:00 ~ 16:00');
@@ -30,7 +34,10 @@ export default function DateInfo() {
           <CustomedDatePicker
             selected={datepick}
             onChange={(date) => {
-              setDatepick(date);
+              onChangeDatepick(date);
+            }}
+            onMonthChange={(date) => {
+              onChangeDatepick(date);
             }}
           />
         </div>
