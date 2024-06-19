@@ -5,7 +5,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import Button from '../../../../../../Button/Button';
 import { Chips } from '../../../../../../Chips/Chips';
-import CreatePopupModal from '@/components/Popup/CreatePopupModal';
+import AlertModal from '@/components/Popup/AlertModal/AlertModal';
 import { UsePatchScheduleStatus } from '@/apis/apiHooks/MyActivities';
 
 const cn = classNames.bind(styles);
@@ -53,6 +53,7 @@ export default function ReservationDetailCard({
 
   const onConfirm = () => {
     queryClient.invalidateQueries({ queryKey: ['reservation'] });
+    disableOutsideClick();
   };
 
   return (
@@ -90,8 +91,7 @@ export default function ReservationDetailCard({
         </div>
       </div>
       {isModalOpen && (
-        <CreatePopupModal
-          modalType="alert"
+        <AlertModal
           alertMessage={alertMessage}
           onConfirm={onConfirm}
           isModalOpen={isModalOpen}
