@@ -8,9 +8,15 @@ interface CustomDatePickerProps {
   selected: Date;
   onChange: (date: Date) => void;
   onMonthChange: (date: Date) => void;
+  availableDates: string[];
 }
 
-export default function CustomedDatePicker({ selected, onChange, onMonthChange }: CustomDatePickerProps) {
+export default function CustomedDatePicker({
+  selected,
+  onChange,
+  onMonthChange,
+  availableDates,
+}: CustomDatePickerProps) {
   const handleDecreaseMonth = (decreaseMonth: () => void, event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
     decreaseMonth();
@@ -20,6 +26,8 @@ export default function CustomedDatePicker({ selected, onChange, onMonthChange }
     event.preventDefault();
     increaseMonth();
   };
+
+  console.log(availableDates);
 
   return (
     <DatePicker

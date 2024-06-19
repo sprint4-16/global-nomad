@@ -4,15 +4,27 @@ import Stroke from '@/images/icon/icon_stroke.svg';
 import CustomedDatePicker from '@/components/CustomedDatePicker/CustomedDatePicker';
 import styles from './FloatingBox.module.scss';
 import { useMediaQuery } from 'react-responsive';
+import { Time } from '@/types/activities.types';
 
 const cn = classNames.bind(styles);
 
 interface DateInfoProps {
   datepick: Date;
   onChangeDatepick: (date: Date) => void;
+  availableDates: string[];
+  obj_mapped_date_times: { [key: string]: Time[] };
+  onChangeScheduleId: (scheduleId: number) => void;
+  scheduleId: number;
 }
 
-export default function DateInfo({ datepick, onChangeDatepick }: DateInfoProps) {
+export default function DateInfo({
+  datepick,
+  onChangeDatepick,
+  availableDates,
+  obj_mapped_date_times,
+  onChangeScheduleId,
+  scheduleId,
+}: DateInfoProps) {
   const isTalbet = useMediaQuery({ query: '(max-width: 745px)' });
   const [tabletSize, setTabletSize] = useState(false);
 
@@ -25,6 +37,13 @@ export default function DateInfo({ datepick, onChangeDatepick }: DateInfoProps) 
   useEffect(() => {
     setTabletSize(isTalbet);
   }, [isTalbet]);
+
+  console.log(obj_mapped_date_times);
+  console.log(
+    'datepick:',
+    `${datepick.getFullYear()}-${(datepick.getMonth() + 1).toString().padStart(2, '0')}-${datepick.getDate().toString().padStart(2, '0')}`,
+  );
+  console.log(scheduleId);
 
   return (
     <div className={cn('dateInfo')}>
@@ -39,6 +58,7 @@ export default function DateInfo({ datepick, onChangeDatepick }: DateInfoProps) 
             onMonthChange={(date) => {
               onChangeDatepick(date);
             }}
+            availableDates={availableDates}
           />
         </div>
       ) : (
@@ -52,8 +72,21 @@ export default function DateInfo({ datepick, onChangeDatepick }: DateInfoProps) 
       <div className={cn('reservationTime')}>
         <div className={cn('mainText')}>예약 가능한 시간</div>
         <div className={cn('timeBtns')}>
-          <div className={cn('btn')}>14:00~15:00</div>
-          <div className={cn('btnClicked')}>15:00~16:00</div>
+          {obj_mapped_date_times &&
+            `${datepick.getFullYear()}-${(datepick.getMonth() + 1).toString().padStart(2, '0')}-${datepick.getDate().toString().padStart(2, '0')}` in
+              obj_mapped_date_times &&
+            obj_mapped_date_times[
+              `${datepick.getFullYear()}-${(datepick.getMonth() + 1).toString().padStart(2, '0')}-${datepick.getDate().toString().padStart(2, '0')}`
+            ]?.map((time) => (
+              <div
+                key={time.id}
+                className={cn('btn', { btnClicked: time.id === scheduleId })}
+                onClick={() => onChangeScheduleId(time.id)}
+              >
+                {time.startTime}~{time.endTime}
+              </div>
+            ))}
+          {/* <div className={cn('btnClicked')}>15:00~16:00</div> */}
         </div>
       </div>
       <Stroke width="100%" className={cn('stroke')} />

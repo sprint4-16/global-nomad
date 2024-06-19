@@ -20,7 +20,7 @@ export type ActivityType = {
   updatedAt: string;
 };
 
-type Time = {
+export type Time = {
   endTime: string;
   startTime: string;
   id: number;
