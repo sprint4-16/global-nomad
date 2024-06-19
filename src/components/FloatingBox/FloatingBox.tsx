@@ -8,7 +8,7 @@ import HeadCountInfo from './HeadCountInfo';
 import PriceInfo from './PriceInfo';
 import { priceDataForm } from './priceDataForm';
 import styles from './FloatingBox.module.scss';
-import { useGetAvailableSchedule } from '@/apis/apiHooks/temporary';
+import { useBookReservations, useGetAvailableSchedule } from '@/apis/apiHooks/temporary';
 import { AvailableScheduleType, Time } from '@/types/activities.types';
 
 const cn = classNames.bind(styles);
@@ -35,6 +35,7 @@ export default function FloatingBox({ price, activityId }: FloatingBoxProps) {
 
   const [datepick, setDatepick] = useState(new Date());
   const [scheduleId, setScheduleId] = useState(-1);
+  const { mutate: reservationMutateFn } = useBookReservations({ activityId });
   const { data } = useGetAvailableSchedule({
     activityId,
     year: String(datepick.getFullYear()),
@@ -42,6 +43,10 @@ export default function FloatingBox({ price, activityId }: FloatingBoxProps) {
   });
 
   const obj_mapped_date_times = (data && getObjMappedDateAndTimes(data)) as { [key: string]: Time[] };
+
+  const handleReservationClick = async ({ scheduleId, headCount }: { scheduleId: number; headCount: number }) => {
+    await reservationMutateFn({ scheduleId, headCount });
+  };
 
   return (
     <div className={cn('container')}>
@@ -61,7 +66,12 @@ export default function FloatingBox({ price, activityId }: FloatingBoxProps) {
         scheduleId={scheduleId}
       />
       <HeadCountInfo count={count} setCount={setCount} />
-      <Button type="primary" size="large" className={cn('reservationBtn')}>
+      <Button
+        type="primary"
+        size="large"
+        className={cn('reservationBtn')}
+        onClick={() => handleReservationClick({ scheduleId, headCount: count })}
+      >
         예약하기
       </Button>
       <Stroke width="100%" className={cn('stroke')} />

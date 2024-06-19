@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { axiosInstance } from '../axiosInstance';
 import { END_POINT } from '@/constants';
 import { ActivityType, AvailableScheduleType } from '@/types/activities.types';
@@ -23,8 +23,6 @@ export function useGetAvailableSchedule({
   year: string;
   month: string;
 }) {
-  console.log('rerun');
-  console.log(month);
   return useQuery<AvailableScheduleType>({
     queryKey: ['available-schedule', year, month],
     queryFn: async () => {
@@ -32,6 +30,14 @@ export function useGetAvailableSchedule({
         `${END_POINT.ACTIVITIES}/${activityId}/available-schedule?year=${year}&month=${month}`,
       );
       return data;
+    },
+  });
+}
+
+export function useBookReservations({ activityId }: { activityId: string }) {
+  return useMutation({
+    mutationFn: async (bodyData: { scheduleId: number; headCount: number }) => {
+      return axiosInstance.post(`${END_POINT.ACTIVITIES}/${activityId}/reservations`, bodyData);
     },
   });
 }
