@@ -3,8 +3,8 @@ import classNames from 'classnames/bind';
 import styles from './ReservationDetailCard.module.scss';
 import { useQueryClient } from '@tanstack/react-query';
 
-import Button from '../../../../../../Button/Button';
-import { Chips } from '../../../../../../Chips/Chips';
+import Button from '../../../../../Button/Button';
+import { Chips } from '../../../../../Chips/Chips';
 import AlertModal from '@/components/Popup/AlertModal/AlertModal';
 import { UsePatchScheduleStatus } from '@/apis/apiHooks/MyActivities';
 

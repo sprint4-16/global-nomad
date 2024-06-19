@@ -1,7 +1,8 @@
 import { ReactNode, useState, MouseEvent } from 'react';
-import style from './Chips.module.scss';
 import classNames from 'classnames/bind';
-import CreateReservationModal from '../Popover/ReservationInfoPopover/CreateReservationModal';
+import style from './Chips.module.scss';
+
+import ReservationInfoPopover from '../Popover/ReservationInfoPopover/ReservationInfoPopover';
 
 const cn = classNames.bind(style);
 
@@ -32,6 +33,7 @@ export function Chips({ children, className, type, activityId, date }: ChipsProp
       <div
         className={cn('chips', className, type)}
         onClick={(e) => {
+          if (type === 'complete') return;
           handleModalOpen();
           handleModalPosition(e);
         }}
@@ -39,7 +41,7 @@ export function Chips({ children, className, type, activityId, date }: ChipsProp
         {children}
       </div>
       {activityId && date && (
-        <CreateReservationModal
+        <ReservationInfoPopover
           activityId={activityId}
           date={date}
           isOpen={isModalOpen}

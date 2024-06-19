@@ -1,14 +1,14 @@
 .section {
   .sectionTitle {
     @include pretendard-16-600;
-    margin-bottom: 1rem;
+    padding-bottom: 1.4rem;
     font-size: 2rem;
   }
 
   .sectionLabel {
     @include pretendard-16-400;
     font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
   }
 
   .dropdown {
