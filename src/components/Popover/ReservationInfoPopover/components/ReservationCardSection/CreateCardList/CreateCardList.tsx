@@ -6,8 +6,7 @@ import ReservationDetailCard from './ReservationDetailCard/ReservationDetailCard
 const cn = classNames.bind(styles);
 
 interface CardListProps {
-  activityId: number;
-  data: {
+  scheduleHistoryData: {
     reservations: {
       id: number;
       status: 'pending' | 'confirmed' | 'declined';
@@ -15,34 +14,35 @@ interface CardListProps {
       headCount: number;
       nickname: string;
       activityId: number;
-      scheduleId: number;
-      reviewSubmitted: false;
     }[];
-    totalCount: number;
-    cursorId: null;
   };
+  disableOutsideClick: () => void;
 }
 
-export default function CardList({ activityId, data }: CardListProps) {
+export default function CreateCardList({ scheduleHistoryData, disableOutsideClick }: CardListProps) {
+  const CardRender = () => {
+    if (!scheduleHistoryData || !scheduleHistoryData.reservations.length) {
+      return <div>예약 요청이 없습니다.</div>;
+    }
+    return scheduleHistoryData.reservations.map((reservation) => (
+      <li key={reservation.id} className={cn('cardListItem')}>
+        <ReservationDetailCard
+          activityId={reservation.activityId}
+          reservationId={reservation.id}
+          nickname={reservation.nickname}
+          headCount={reservation.headCount}
+          reservationState={reservation.status}
+          disableOutsideClick={disableOutsideClick}
+        />
+      </li>
+    ));
+  };
+
   return (
     <section className={cn('section')}>
       <h2 className={cn('sectionTitle')}>예약 내역</h2>
       <ul className={cn('cardList')}>
-        {data && data.reservations.length ? (
-          data.reservations.map((reservation) => (
-            <li key={reservation.id} className={cn('cardListItem')}>
-              <ReservationDetailCard
-                activityId={activityId}
-                reservationId={reservation.id}
-                nickname={reservation.nickname}
-                people={reservation.headCount}
-                reservationState={reservation.status}
-              />
-            </li>
-          ))
-        ) : (
-          <div>요청이 없습니다.</div>
-        )}
+        <CardRender />
       </ul>
     </section>
   );

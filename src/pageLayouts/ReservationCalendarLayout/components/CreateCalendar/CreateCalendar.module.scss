@@ -5,6 +5,7 @@
   grid-template-columns: repeat(7, 1fr);
 
   .item {
+    min-width: 0;
     border-top: 0.1rem solid $calendar-border;
     border-left: 0.1rem solid $calendar-border;
 
@@ -43,19 +44,6 @@
       right: 0.2rem;
     }
 
-    &:nth-child(29) {
-      border-bottom-left-radius: 0.8rem;
-    }
-
-    &:nth-child(22):nth-last-child(7) {
-      border-bottom-left-radius: 0.8rem;
-    }
-
-    &:last-child,
-    &:nth-child(28) {
-      border-bottom-right-radius: 0.8rem;
-    }
-
     &:nth-child(7n) {
       border-right: 0.1rem solid $calendar-border;
     }
@@ -71,6 +59,31 @@
 
     &:last-child {
       border-right: 0.1rem solid $calendar-border;
+      border-bottom-right-radius: 0.8rem;
+
+      &:nth-child(36) {
+        border-bottom-left-radius: 0.8rem;
+      }
     }
+
+    &:nth-child(29):nth-last-child(n + 2):nth-last-child(-n + 7) {
+      border-bottom-left-radius: 0.8rem;
+    }
+
+    &:nth-child(36):nth-last-child(2) {
+      border-bottom-left-radius: 0.8rem;
+    }
+
+    &:nth-child(28):nth-last-child(n + 3):nth-last-child(-n + 7) {
+      border-bottom-right-radius: 0.8rem;
+    }
+
+    &:nth-child(35):nth-last-child(n + 2):nth-last-child(-n + 3) {
+      border-bottom-right-radius: 0.8rem;
+    }
+  }
+
+  .none {
+    background-color: $gray-200;
   }
 }
