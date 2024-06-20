@@ -178,20 +178,22 @@
     .timeBtns {
       display: flex;
       gap: 1.2rem;
+
+      .btn {
+        cursor: pointer;
+        padding: 1rem 1.2rem;
+        border-radius: 0.8rem;
+        border: 0.1rem solid $nomad-black;
+        background: $white;
+        color: $nomad-black;
+        @include pretendard-16-500;
+      }
       .btnClicked {
         padding: 1rem 1.2rem;
         border-radius: 0.8rem;
         border: 0.1rem solid $nomad-black;
         background: $nomad-black;
         color: $white;
-        @include pretendard-16-500;
-      }
-      .btn {
-        padding: 1rem 1.2rem;
-        border-radius: 0.8rem;
-        border: 0.1rem solid $nomad-black;
-        background: $white;
-        color: $nomad-black;
         @include pretendard-16-500;
       }
     }

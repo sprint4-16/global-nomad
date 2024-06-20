@@ -1,13 +1,16 @@
 import MeatBallBtnIcon from '@/images/btn/btn_meatball.svg';
+import { MouseEvent } from 'react';
 
 interface KebabBtnProps {
-  onClick?: () => void;
+  id?: string;
+  onClick?: (e?: MouseEvent) => void;
+  onMouseDown?: (e?: MouseEvent) => void;
   size?: number;
 }
 
-export default function KebabBtn({ onClick, size = 40 }: KebabBtnProps) {
+export default function KebabBtn({ id, onClick, onMouseDown, size = 40 }: KebabBtnProps) {
   return (
-    <button onClick={onClick}>
+    <button id={id} onClick={(e) => onClick?.(e)} onMouseDown={(e) => onMouseDown?.(e)}>
       <MeatBallBtnIcon width={size} height={size} />
     </button>
   );
