@@ -1,10 +1,10 @@
-import classNames from 'classnames/bind';
-
+import { useGetPopularActivities } from '@/apis/apiHooks/MyReservations';
 import { Search } from '@/components/Search/Search';
 import PopulationExperiences from './popularExperiences';
-import { useGetPopularActivities } from '@/apis/apiHooks/MyReservations';
-import styles from './landingLayout.module.scss';
 import Carousel from './Carousel';
+
+import classNames from 'classnames/bind';
+import styles from './landingLayout.module.scss';
 
 const cn = classNames.bind(styles);
 
@@ -24,7 +24,7 @@ export default function LandingLayout({ searched, setSearched }: LandingProps) {
   }
   return (
     <div className={cn('landing')}>
-      <Carousel data={data.activities} />
+      <Carousel data={data.activities.slice(0, 3)} />
       <div className={cn('inner')}>
         <div className={cn('searchWrapper')}>
           <Search
