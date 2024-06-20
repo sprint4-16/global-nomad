@@ -4,17 +4,14 @@
   border-radius: 2.4rem;
 
   width: 42.9rem;
+  height: 69.7rem;
 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
 
-  position: absolute;
-  top: -30rem;
-  left: 14rem;
-
-  padding: 3rem;
+  padding: 2.4rem 2.4rem 3.2rem;
 
   box-shadow: 0 0.4rem 1.6rem 0 rgba($nomad-black, 0.05);
 
@@ -37,6 +34,26 @@
 }
 
 .contents {
-  padding: 3rem 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+
+  padding-top: 2.5rem;
   color: $black;
+}
+
+.notOverflowed {
+  position: absolute;
+  top: -30rem;
+  left: 14rem;
+}
+
+.overflowed {
+  position: absolute;
+  top: -30rem;
+  left: -30rem;
 }

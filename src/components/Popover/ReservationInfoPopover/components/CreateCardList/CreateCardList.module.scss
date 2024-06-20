@@ -1,5 +1,6 @@
 .section {
-  margin-top: 3rem;
+  height: 28.6rem;
+
   .sectionTitle {
     @include pretendard-16-600;
     margin-bottom: 1rem;
@@ -8,7 +9,6 @@
 
   .cardList {
     height: 24.6rem;
-
     display: flex;
     flex-direction: column;
     gap: 1.4rem;

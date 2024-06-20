@@ -20,13 +20,13 @@ interface ActivityListProps {
   };
 }
 
-export default function ReservationCalendarLayout(activityList: ActivityListProps) {
+export default function ReservationCalendarLayout({ activityList }: ActivityListProps) {
   const [activityListData, setActivityListData] = useState<Activity[] | null>(null);
   const [selectedActivity, setSelectedActivity] = useState<number | null>(null);
 
   useEffect(() => {
-    if (activityList.activityList?.activities) {
-      const { activities } = activityList.activityList;
+    if (activityList?.activities) {
+      const { activities } = activityList;
       setActivityListData(activities);
 
       setSelectedActivity(activities[0].id);
@@ -39,7 +39,7 @@ export default function ReservationCalendarLayout(activityList: ActivityListProp
     }
   };
 
-  if (!activityListData) {
+  if (!activityListData || activityListData.length === 0) {
     return (
       <div className={cn('wrapper')}>
         <div className={cn('header')}>
