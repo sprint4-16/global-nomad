@@ -128,7 +128,7 @@ export default function Activity() {
                 <h3 className={cn('subTitle')}>체험 설명</h3>
                 <p className={cn('activityDescription')}>{data?.description}</p>
               </div>
-              {/* <div className={cn('mapContainer')}>{data && <Map address={data?.address} />}</div> */}
+              <div className={cn('mapContainer')}>{data && <Map address={data?.address} />}</div>
               <div className={cn('reviewContaienr')}>
                 <h3 className={cn('subTitle')}>후기</h3>
                 <div className={cn('header')}>
