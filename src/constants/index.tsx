@@ -1,7 +1,7 @@
 export const ROUTE = {
   HOME: '/',
-  LOGIN: '/signin',
-  SIGNUP: '/signup',
+  LOGIN: '/auth/signin',
+  SIGNUP: '/auth/signup',
 
   // 체험 상세 페이지
   ACTIVITY_DETAIL: '/activities',
