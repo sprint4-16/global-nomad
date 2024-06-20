@@ -60,7 +60,7 @@ export default function Activity() {
       {isLoading ? (
         <Header />
       ) : (
-        <>
+        <div className={cn('page-layout')}>
           <header className={cn('header')}>
             <div className={cn('header-contents')}>
               <div className={cn('category')}>{data?.category}</div>
@@ -128,7 +128,7 @@ export default function Activity() {
                 <h3 className={cn('subTitle')}>체험 설명</h3>
                 <p className={cn('activityDescription')}>{data?.description}</p>
               </div>
-              <div className={cn('mapContainer')}>{data && <Map address={data?.address} />}</div>
+              {/* <div className={cn('mapContainer')}>{data && <Map address={data?.address} />}</div> */}
               <div className={cn('reviewContaienr')}>
                 <h3 className={cn('subTitle')}>후기</h3>
                 <div className={cn('header')}>
@@ -169,7 +169,7 @@ export default function Activity() {
               {data && <FloatingBox price={data?.price} activityId={activityId?.toString() as string} />}
             </div>
           </div>
-        </>
+        </div>
       )}
     </>
   );
