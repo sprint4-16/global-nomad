@@ -18,8 +18,8 @@ export default function Pagination({ total, nowPage, setNowPage }: PaginationPro
 
   const getPages = () => {
     const pages: number[] = [];
-    const firstPage = 1 + (currentPoint - 1) * PAGE_UNIT;
-    const lastPage = firstPage + Math.min(PAGE_UNIT, total - (currentPoint - 1) * PAGE_UNIT) - 1;
+    const firstPage = 1 + (page - 1) * PAGE_UNIT;
+    const lastPage = firstPage + Math.min(PAGE_UNIT, total - (page - 1) * PAGE_UNIT) - 1;
 
     for (let i = firstPage; i <= lastPage; i++) pages.push(i);
 
@@ -27,8 +27,8 @@ export default function Pagination({ total, nowPage, setNowPage }: PaginationPro
   };
 
   const handlePageBtnClick = (direction: 'left' | 'right') => {
-    if (direction === 'left') setCurrentPoint(currentPoint - 1);
-    else setCurrentPoint(currentPoint + 1);
+    if (direction === 'left') onChangePage(page - 1);
+    else onChangePage(page + 1);
   };
   const handlePageNumberClick = (item: number) => {
     setNowPage(item);
@@ -40,7 +40,7 @@ export default function Pagination({ total, nowPage, setNowPage }: PaginationPro
 
   return (
     <div className={cn('container')}>
-      <PageBtn direction={'left'} onClick={() => handlePageBtnClick('left')} disabled={currentPoint === 1} />
+      <PageBtn direction={'left'} onClick={() => handlePageBtnClick('left')} disabled={page === 1} />
       {getPages().map((item, index) => (
         <button
           className={cn('page', { clickedPage: nowPage === item })}

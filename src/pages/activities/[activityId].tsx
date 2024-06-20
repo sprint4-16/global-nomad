@@ -12,12 +12,35 @@ import Image from 'next/image';
 import Map from '@/components/Map/Map';
 import FloatingBox from '@/components/FloatingBox/FloatingBox';
 import Pagination from '@/components/Pagination/Pagination';
+import { useGetReviews } from '@/apis/apiHooks/Review';
 
 const cn = classNames.bind(styles);
 
+const REVIEWS_PER_PAGE = 3;
+
+function formatDate(dateString: string): string {
+  // Date 객체 생성
+  const date = new Date(dateString);
+
+  // 년, 월, 일을 추출
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1; // getMonth()는 0부터 시작하므로 +1 필요
+  const day = date.getDate();
+
+  // 원하는 형식으로 반환
+  return `${year}. ${month}. ${day}`;
+}
+
 export default function Activity() {
   const router = useRouter();
+  const [page, setPage] = useState(1);
   const { data, isLoading } = useGetActivity({ activityId: router.query.activityId?.toString() ?? '' });
+  const { activityId } = router.query;
+  const { data: reviewsData } = useGetReviews({
+    activityId: String(activityId),
+    page,
+    size: REVIEWS_PER_PAGE,
+  });
   const [isPopoverOpened, setIsPopoverOpened] = useState(false);
   const popoverRef = useRef(null);
 
@@ -113,62 +136,32 @@ export default function Activity() {
                   <div>
                     <div className={cn('satisfaction')}>매우 만족</div>
                     <div className={cn('reviewCount')}>
-                      <StarIcon width={15} height={15} /> <span>1개의 후기</span>
+                      <StarIcon width={15} height={15} /> <span>{reviewsData?.totalCount}개의 후기</span>
                     </div>
                   </div>
                 </div>
                 <ul className={cn('reviews')}>
-                  <li className={cn('review')}>
-                    <div className={cn('profile')}></div>
-                    <div className={cn('reviewContents')}>
-                      <div className={cn('header')}>
-                        <div className={cn('reviewer')}>김태야</div>
-                        <div className={cn('date')}>2024-05-29</div>
+                  {reviewsData?.reviews.map((review) => (
+                    <li key={review.id} className={cn('review')}>
+                      <div className={cn('profile')}>
+                        <Image fill src={review.user.profileImageUrl || ''} alt="프로필 이미지를 찾을 수 없습니다" />
                       </div>
-                      <p className={cn('reviewDescription')}>
-                        저는 저희 스트릿 댄서 체험에 참가하게 된 지 얼마 안됐지만, 정말 즐거운 시간을 보냈습니다. 새로운
-                        스타일과 춤추기를 좋아하는 나에게 정말 적합한 체험이었고, 전문가가 직접 강사로 참여하기 때문에
-                        어떤 수준의 춤추는 사람도 쉽게 이해할 수 있었습니다. 강사님께서 정말 친절하게 설명해주셔서 정말
-                        좋았고, 이번 체험을 거쳐 새로운 스타일과 춤추기에 대한 열정이 더욱 생겼습니다. 저는 이 체험을
-                        적극 추천합니다!
-                      </p>
-                    </div>
-                  </li>
-                  <li className={cn('review')}>
-                    <div className={cn('profile')}></div>
-                    <div className={cn('reviewContents')}>
-                      <div className={cn('header')}>
-                        <div className={cn('reviewer')}>김태야</div>
-                        <div className={cn('date')}>2024-05-29</div>
+                      <div className={cn('reviewContents')}>
+                        <div className={cn('header')}>
+                          <div className={cn('reviewer')}>{review.user.nickname}</div>
+                          <div className={cn('date')}>{formatDate(review.createdAt)}</div>
+                        </div>
+                        <p className={cn('reviewDescription')}>{review.content}</p>
                       </div>
-                      <p className={cn('reviewDescription')}>
-                        저는 저희 스트릿 댄서 체험에 참가하게 된 지 얼마 안됐지만, 정말 즐거운 시간을 보냈습니다. 새로운
-                        스타일과 춤추기를 좋아하는 나에게 정말 적합한 체험이었고, 전문가가 직접 강사로 참여하기 때문에
-                        어떤 수준의 춤추는 사람도 쉽게 이해할 수 있었습니다. 강사님께서 정말 친절하게 설명해주셔서 정말
-                        좋았고, 이번 체험을 거쳐 새로운 스타일과 춤추기에 대한 열정이 더욱 생겼습니다. 저는 이 체험을
-                        적극 추천합니다!
-                      </p>
-                    </div>
-                  </li>
-                  <li className={cn('review')}>
-                    <div className={cn('profile')}></div>
-                    <div className={cn('reviewContents')}>
-                      <div className={cn('header')}>
-                        <div className={cn('reviewer')}>김태야</div>
-                        <div className={cn('date')}>2024-05-29</div>
-                      </div>
-                      <p className={cn('reviewDescription')}>
-                        저는 저희 스트릿 댄서 체험에 참가하게 된 지 얼마 안됐지만, 정말 즐거운 시간을 보냈습니다. 새로운
-                        스타일과 춤추기를 좋아하는 나에게 정말 적합한 체험이었고, 전문가가 직접 강사로 참여하기 때문에
-                        어떤 수준의 춤추는 사람도 쉽게 이해할 수 있었습니다. 강사님께서 정말 친절하게 설명해주셔서 정말
-                        좋았고, 이번 체험을 거쳐 새로운 스타일과 춤추기에 대한 열정이 더욱 생겼습니다. 저는 이 체험을
-                        적극 추천합니다!
-                      </p>
-                    </div>
-                  </li>
+                    </li>
+                  ))}
                 </ul>
                 <div className={cn('paginationContainer')}>
-                  <Pagination total={20} />
+                  <Pagination
+                    total={reviewsData?.totalCount as number}
+                    page={page}
+                    onChangePage={(page: number) => setPage(page)}
+                  />
                 </div>
               </div>
             </div>
