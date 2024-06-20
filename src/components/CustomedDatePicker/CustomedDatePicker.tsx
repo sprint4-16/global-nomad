@@ -27,13 +27,14 @@ export default function CustomedDatePicker({
     increaseMonth();
   };
 
-  console.log(availableDates);
+  console.log('availableDates:', availableDates);
 
   return (
     <DatePicker
       selected={selected}
       onChange={onChange}
       onMonthChange={onMonthChange}
+      dayClassName={(date) => (availableDates?.includes(String(date.getDate())) ? 'reservation' : 'nothing')}
       renderCustomHeader={({ monthDate, decreaseMonth, increaseMonth }) => (
         <div>
           <button

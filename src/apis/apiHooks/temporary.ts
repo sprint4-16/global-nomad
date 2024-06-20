@@ -1,7 +1,8 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { axiosInstance } from '../axiosInstance';
+import { axiosInstance, axiosInstanceToken } from '../axiosInstance';
 import { END_POINT } from '@/constants';
 import { ActivityType, AvailableScheduleType } from '@/types/activities.types';
+import useGetCookie from '@/hooks/useCookies';
 
 // 체험 상세 조회
 export function useGetActivity({ activityId }: { activityId: string }) {
@@ -35,9 +36,13 @@ export function useGetAvailableSchedule({
 }
 
 export function useBookReservations({ activityId }: { activityId: string }) {
+  const { getCookie } = useGetCookie();
+  const accessToken = getCookie('accessToken');
+  if (!accessToken) throw new Error('Access token is not available');
+
   return useMutation({
     mutationFn: async (bodyData: { scheduleId: number; headCount: number }) => {
-      return axiosInstance.post(`${END_POINT.ACTIVITIES}/${activityId}/reservations`, bodyData);
+      return axiosInstanceToken(accessToken).post(`${END_POINT.ACTIVITIES}/${activityId}/reservations`, bodyData);
     },
   });
 }

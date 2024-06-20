@@ -36,7 +36,7 @@ export default function FloatingBox({ price, activityId }: FloatingBoxProps) {
 
   const [datepick, setDatepick] = useState(new Date());
   const [scheduleId, setScheduleId] = useState(-1);
-  const { mutate: reservationMutateFn, error } = useBookReservations({ activityId });
+  const { mutate: reservationMutateFn, error, status } = useBookReservations({ activityId });
   const { data } = useGetAvailableSchedule({
     activityId,
     year: String(datepick.getFullYear()),
@@ -54,8 +54,13 @@ export default function FloatingBox({ price, activityId }: FloatingBoxProps) {
     await reservationMutateFn({ scheduleId, headCount });
   };
 
-  if (error) {
+  if (status === 'error') {
     if ((error as AxiosError).response?.status === 401) alert('로그인을 해주세요.');
+    if ((error as AxiosError).response?.status === 409) alert('이미 예약한 일정입니다.');
+  }
+
+  if (status === 'success') {
+    alert('신청을 완료하였습니다.');
   }
 
   return (
