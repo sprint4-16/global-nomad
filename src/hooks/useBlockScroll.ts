@@ -7,7 +7,6 @@ const blockScroll = () => {
   document.body.style.height = '100%';
   document.body.style.top = `-${currentScrollY}px`;
   document.body.style.overflowY = 'scroll';
-  console.log(currentScrollY);
   return currentScrollY;
 };
 
