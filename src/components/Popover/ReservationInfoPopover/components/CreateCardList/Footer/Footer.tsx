@@ -5,14 +5,16 @@ const cn = classNames.bind(styles);
 
 interface FooterProps {
   selectedStatus: 'pending' | 'confirmed' | 'declined';
-  reservations: {
-    status: 'pending' | 'confirmed' | 'declined';
-  }[];
+  reservations:
+    | {
+        status: 'pending' | 'confirmed' | 'declined';
+      }[]
+    | undefined;
 }
 
 export default function Footer({ selectedStatus, reservations }: FooterProps) {
-  const confirmedCount = reservations?.filter((reservation) => reservation.status === 'confirmed').length;
-  const declinedCount = reservations?.filter((reservation) => reservation.status === 'declined').length;
+  const confirmedCount = reservations?.filter((reservation) => reservation.status === 'confirmed').length || 0;
+  const declinedCount = reservations?.filter((reservation) => reservation.status === 'declined').length || 0;
 
   return (
     <div className={cn('footer')}>

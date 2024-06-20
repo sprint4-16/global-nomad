@@ -10,6 +10,8 @@ import { UseGetDashboard } from '@/apis/apiHooks/MyActivities';
 
 const cn = classNames.bind(styles);
 
+const dayLabels = ['SUN', 'MON', 'TUE', 'WED', 'THUR', 'FRI', 'SAT'];
+
 interface DashboardData {
   date: string;
   reservations: {
@@ -20,7 +22,7 @@ interface DashboardData {
 }
 
 export default function CalendarLayout({ selectedActivity }: { selectedActivity: number | null }) {
-  const [currentMonth, setCurrentMonth] = useState(dayjs());
+  const [currentMonth, setCurrentMonth] = useState(() => dayjs());
 
   const handlePreviousMonth = () => {
     setCurrentMonth((prevMonth) => prevMonth.subtract(1, 'month'));
@@ -36,8 +38,6 @@ export default function CalendarLayout({ selectedActivity }: { selectedActivity:
     year: currentMonth.format('YYYY'),
     month: currentMonth.format('MM'),
   }) as { data: DashboardData[] | undefined };
-
-  const dayLabels = ['SUN', 'MON', 'TUE', 'WED', 'THUR', 'FRI', 'SAT'];
 
   return (
     <div className={cn('container')}>

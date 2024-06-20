@@ -1,4 +1,5 @@
-import { FormEvent, useRef, useState } from 'react';
+import { useState, useEffect, useRef, FormEvent } from 'react';
+import { createPortal } from 'react-dom';
 import classNames from 'classnames/bind';
 import styles from './ReviewModal.module.scss';
 
@@ -16,6 +17,7 @@ const cn = classNames.bind(styles);
 interface ReviewModalProps {
   className?: string;
   onConfirm: () => void;
+  isModalOpen: boolean;
   handleModalOpen: () => void;
   cardData: {
     activity: {
@@ -30,9 +32,13 @@ interface ReviewModalProps {
   };
 }
 
-export default function ReviewModal({ className, onConfirm, handleModalOpen, cardData }: ReviewModalProps) {
-  const modalRef = useRef<HTMLDivElement>(null);
-
+export default function ReviewModal({
+  className,
+  onConfirm,
+  isModalOpen,
+  handleModalOpen,
+  cardData,
+}: ReviewModalProps) {
   const [bodyData, setBodydata] = useState({
     rating: 1,
     content: '',
@@ -52,10 +58,22 @@ export default function ReviewModal({ className, onConfirm, handleModalOpen, car
     postBodyData(bodyData);
     onConfirm();
   };
+
+  const [modalRoot, setModalRoot] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    setModalRoot(document.getElementById('modal-root'));
+  }, []);
+
+  const modalRef = useRef<HTMLDivElement>(null);
   useOutsideClick({ ref: modalRef, onClick: handleModalOpen });
   useBlockScroll();
 
-  return (
+  if (!isModalOpen || !modalRoot) {
+    return null;
+  }
+
+  const RenderModal = () => (
     <div className={cn('background')}>
       <div className={cn('container', className)} ref={modalRef}>
         <div className={cn('header')}>
@@ -73,4 +91,6 @@ export default function ReviewModal({ className, onConfirm, handleModalOpen, car
       </div>
     </div>
   );
+
+  return <>{createPortal(RenderModal(), modalRoot)}</>;
 }
