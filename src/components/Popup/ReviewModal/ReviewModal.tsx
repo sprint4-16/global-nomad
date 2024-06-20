@@ -67,7 +67,7 @@ export default function ReviewModal({
 
   const modalRef = useRef<HTMLDivElement>(null);
   useOutsideClick({ ref: modalRef, onClick: handleModalOpen });
-  useBlockScroll();
+  useBlockScroll(!isModalOpen);
 
   if (!isModalOpen || !modalRoot) {
     return null;

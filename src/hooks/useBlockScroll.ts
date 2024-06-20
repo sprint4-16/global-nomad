@@ -19,13 +19,15 @@ const allowScroll = (prevScrollY: number) => {
   window.scrollTo(0, prevScrollY);
 };
 
-const useBlockScroll = () => {
+const useBlockScroll = (disabled: boolean) => {
   useEffect(() => {
-    const prevScrollY = blockScroll();
-    return () => {
-      allowScroll(prevScrollY);
-    };
-  }, []);
+    if (!disabled) {
+      const prevScrollY = blockScroll();
+      return () => {
+        allowScroll(prevScrollY);
+      };
+    }
+  }, [disabled]);
 };
 
 export default useBlockScroll;

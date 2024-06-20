@@ -10,8 +10,8 @@ import { RESERVATION_STATE_LABEL_MAP } from '@/constants';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import Button from '../../Button/Button';
 import styles from '../Card.module.scss';
-import CreateReviewModal from '@/components/Popup/CreateReviewModal';
-import CreatePopupModal from '@/components/Popup/CreatePopupModal';
+import ReviewModal from '@/components/Popup/ReviewModal/ReviewModal';
+import ConfirmationModal from '@/components/Popup/ConfirmationModal/ConfirmationModal';
 
 type ReservationState = 'pending' | 'confirmed' | 'canceled' | 'declined' | 'completed';
 
@@ -182,10 +182,9 @@ export function ReservationButton({ cardData }: ReservationButtonProps) {
           예약 취소
         </Button>
 
-        <CreatePopupModal
-          modalType="confirm"
-          alertMessage="예약을 취소하시겠어요?"
-          onConfirm={handleCancelClick}
+        <ConfirmationModal
+          confirmMessage="예약을 취소하시겠어요?"
+          onCancel={handleCancelClick}
           isModalOpen={modalOpen}
           handleModalOpen={handleModalCreateClick}
         />
@@ -203,7 +202,7 @@ export function ReservationButton({ cardData }: ReservationButtonProps) {
           후기 작성
         </Button>
 
-        <CreateReviewModal
+        <ReviewModal
           onConfirm={handleReviewConfirmClick}
           isModalOpen={modalOpen}
           handleModalOpen={handleModalCreateClick}
