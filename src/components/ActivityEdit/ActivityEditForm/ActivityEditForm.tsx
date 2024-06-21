@@ -395,14 +395,12 @@ export default function ActivityEditForm() {
           <p className={cn('description')}>*이미지를 최소 4개 이상 제출해주세요.</p>
         </div>
       </div>
-      {isModalOpen && (
-        <AlertModal
-          alertMessage={modalMessage}
-          onConfirm={() => setIsModalOpen(false)}
-          handleModalOpen={() => setIsModalOpen(false)}
-          isModalOpen={false}
-        />
-      )}
+      <AlertModal
+        alertMessage={modalMessage}
+        onConfirm={() => setIsModalOpen(false)}
+        handleModalOpen={() => setIsModalOpen(false)}
+        isModalOpen={isModalOpen}
+      />
     </form>
   );
 }
