@@ -111,24 +111,11 @@ export default function ActivityEditForm() {
   };
 
   const handleIntroImageSelect = (imageUrl: string) => {
-    if (imageUrl.startsWith('data:image')) {
-      fetch(imageUrl)
-        .then((res) => res.blob())
-        .then((blob) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(blob);
-          reader.onloadend = () => {
-            const convertedImageUrl = reader.result as string;
-            if (formData.subImages.length < 4) {
-              setSubImageUrlsToAdd((prev) => [...prev, convertedImageUrl]);
-              handleChange('subImages', [...formData.subImages, { id: -1, imageUrl: convertedImageUrl }]);
-            }
-          };
-        });
-    } else {
-      if (formData.subImages.length < 4) {
+    if (formData.subImages.length < 4) {
+      handleChange('subImages', [...formData.subImages, { imageUrl }]);
+
+      if (imageUrl.startsWith('http')) {
         setSubImageUrlsToAdd((prev) => [...prev, imageUrl]);
-        handleChange('subImages', [...formData.subImages, { id: -1, imageUrl }]);
       }
     }
   };
@@ -264,7 +251,7 @@ export default function ActivityEditForm() {
       <div className={cn('titleBox')}>
         <h1>내 체험 수정</h1>
         <Button type="primary" size="medium" htmlType="submit">
-          등록하기
+          수정하기
         </Button>
       </div>
       <div className={cn('formContainer')}>
