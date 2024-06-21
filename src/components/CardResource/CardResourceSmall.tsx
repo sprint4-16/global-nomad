@@ -3,7 +3,7 @@ import Image, { StaticImageData } from 'next/image';
 import classNames from 'classnames/bind';
 import CardContent from './CardContent';
 import errorImg from '@/images/img/img_resource_error.png';
-import styles from './CardResource.module.scss';
+import styles from './CardResourceSmall.module.scss';
 
 interface CardResourceProps {
   activity: {
@@ -16,8 +16,9 @@ interface CardResourceProps {
   };
 }
 
-export default function CardResource({ activity }: CardResourceProps) {
-  const cn = classNames.bind(styles);
+const cn = classNames.bind(styles);
+
+export default function CardResourceSmall({ activity }: CardResourceProps) {
   const [src, setSrc] = useState<string | StaticImageData>(activity.bannerImageUrl);
 
   // 임시 데이터 (추후 수정 예정)
@@ -25,20 +26,21 @@ export default function CardResource({ activity }: CardResourceProps) {
     'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP0rQcAAR8AzpZX2ywAAAAASUVORK5CYII=';
 
   return (
-    <div className={cn('cardResource')}>
-      {activity.bannerImageUrl && (
+    <>
+      <div className={cn('cardImgWrapper')}>
         <Image
-          className={cn('backgroundImg')}
+          className={cn('cardImg')}
           src={src}
-          alt="배경화면"
-          width={700}
-          height={700}
+          alt="Card image"
+          width={283}
+          height={283}
           onError={() => setSrc(errorImg)}
           placeholder="blur"
           blurDataURL={BLUR_DATA_URL}
         />
-      )}
-      <CardContent size="large" activity={activity} />
-    </div>
+      </div>
+
+      <CardContent activity={activity} />
+    </>
   );
 }

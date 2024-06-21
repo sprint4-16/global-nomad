@@ -5,7 +5,14 @@
   padding-top: 17rem;
   border-radius: 2rem;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 33.33%, rgba(0, 0, 0, 0.8) 91.67%);
+  overflow: hidden;
   cursor: pointer;
+
+  &:hover {
+    .backgroundImg {
+      transform: scale(1.2);
+    }
+  }
 
   @include mobile {
     width: 18.6rem;
@@ -23,6 +30,7 @@
   top: 0;
   border-radius: 2rem;
   object-fit: cover;
+  transition: transform 0.3s ease;
 
   @include mobile {
     width: 18.6rem;
