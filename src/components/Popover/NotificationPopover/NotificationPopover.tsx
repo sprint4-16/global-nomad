@@ -13,7 +13,7 @@ interface NotificationPopoverProps {
 }
 
 interface ReservationData {
-  id: string;
+  id: number;
   activityId: number;
   customerId: number;
   schedule: string;
