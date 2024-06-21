@@ -16,9 +16,19 @@ interface AddressInputProps {
   className?: string;
   onClick?: () => void;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
 }
 
-export default function AddressInput({ label, type, id, placeholder, sx, className, onChange }: AddressInputProps) {
+export default function AddressInput({
+  label,
+  type,
+  id,
+  placeholder,
+  sx,
+  className,
+  onChange,
+  value,
+}: AddressInputProps) {
   const [address, setAddress] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement>(null);

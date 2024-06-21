@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Dropdown.module.scss';
 
@@ -12,13 +12,21 @@ const cn = classNames.bind(styles);
 interface DropdownProps {
   className?: string;
   menuItems: string[];
-  onSelect?: (index: number) => void;
+  onSelect?: (value: string) => void;
   isLabelVisible?: boolean;
+  selectedValue?: string;
 }
 
-export function Dropdown({ className, menuItems, onSelect, isLabelVisible = false }: DropdownProps) {
+export function Dropdown({ className, menuItems, onSelect, isLabelVisible = false, selectedValue }: DropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
+
+  useEffect(() => {
+    if (selectedValue) {
+      const index = menuItems.indexOf(selectedValue);
+      setSelectedItemIndex(index !== -1 ? index : 0);
+    }
+  }, [selectedValue, menuItems]);
 
   const handleDropdownOpen = () => {
     setIsDropdownOpen((prev) => !prev);
@@ -26,6 +34,18 @@ export function Dropdown({ className, menuItems, onSelect, isLabelVisible = fals
 
   const modalRef = useRef<HTMLDivElement>(null);
   useOutsideClick({ ref: modalRef, onClick: handleDropdownOpen });
+
+  const handleMenuItemClick = (event: React.MouseEvent<HTMLLIElement, MouseEvent>, index: number, item: string) => {
+    event.preventDefault(); // Prevent default click behavior
+    event.stopPropagation(); // Stop event propagation to parent elements
+
+    setSelectedItemIndex(index);
+    handleDropdownOpen();
+
+    if (onSelect) {
+      onSelect(item);
+    }
+  };
 
   return (
     <div className={cn('container', className)}>
@@ -43,13 +63,7 @@ export function Dropdown({ className, menuItems, onSelect, isLabelVisible = fals
               key={`item-${index}`}
               className={cn('item', [index === selectedItemIndex && 'selected'])}
               onMouseEnter={() => setSelectedItemIndex(index)}
-              onClick={() => {
-                setSelectedItemIndex(index);
-                handleDropdownOpen();
-                if (onSelect) {
-                  onSelect(index);
-                }
-              }}
+              onClick={(event) => handleMenuItemClick(event, index, item)}
             >
               {selectedItemIndex === index && <CheckMark className={cn('checkMarkImg')} />}
               {item}

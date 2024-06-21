@@ -22,3 +22,18 @@ export function UseGetActivities({ method, category, keyword, sort, page, size }
     },
   });
 }
+
+// 2. 체험 상세 조회
+interface getActivityProps {
+  activityId: number;
+}
+
+export function UseGetActivity({ activityId }: getActivityProps) {
+  return useQuery({
+    queryKey: ['Activity', activityId],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get(`${END_POINT.ACTIVITIES}/${activityId}`);
+      return data;
+    },
+  });
+}
