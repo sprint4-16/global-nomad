@@ -41,7 +41,7 @@ export default function Carousel({ data }: Props) {
     'GlobalNomad 단독 특가 최대 50% 할인 ❗❗',
   ];
   return (
-    <div className={cn('slide-wrapper')}>
+    <div className={cn('carousel-wrapper')}>
       <Slider {...settings}>
         {data.map((item, index: number) => {
           return (

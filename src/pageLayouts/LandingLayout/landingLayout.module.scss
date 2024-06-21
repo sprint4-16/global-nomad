@@ -18,7 +18,7 @@
       display: flex;
       width: 100%;
       position: relative;
-      z-index: 5;
+      z-index: $z-index-searchBar;
       margin-top: -5rem;
       border-radius: 1.6rem;
       background-color: $white;
@@ -26,7 +26,7 @@
     }
   }
 }
-.slide-wrapper {
+.carousel-wrapper {
   width: 100%;
   .dimmed {
     filter: brightness(50%);
@@ -55,7 +55,7 @@
     gap: 2rem;
     position: absolute;
     top: 0;
-    z-index: 5;
+    z-index: $z-index-mainTitle;
     padding-left: 2.4rem;
 
     @include tablet {
