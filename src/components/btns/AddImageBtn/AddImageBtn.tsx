@@ -1,13 +1,16 @@
 import React, { useRef } from 'react';
 import AddImageIcon from '@/images/btn/btn_add_img.svg';
+import { useUploadActivityImage } from '@/apis/apiHooks/PostActivities';
 
 interface AddImageBtnProps {
   onImageSelect?: (imageUrl: string) => void;
   size?: number;
+  imageType: 'banner' | 'intro';
 }
 
-const AddImageBtn = ({ onImageSelect, size = 180 }: AddImageBtnProps) => {
+const AddImageBtn = ({ onImageSelect, size = 180, imageType }: AddImageBtnProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { mutate: uploadActivityImage } = useUploadActivityImage();
 
   const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (fileInputRef.current) {
@@ -27,6 +30,16 @@ const AddImageBtn = ({ onImageSelect, size = 180 }: AddImageBtnProps) => {
         }
       };
       reader.readAsDataURL(file);
+      uploadActivityImage(
+        { file, type: imageType },
+        {
+          onSuccess: (imageUrl) => {
+            if (onImageSelect) {
+              onImageSelect(imageUrl);
+            }
+          },
+        },
+      );
     }
   };
 

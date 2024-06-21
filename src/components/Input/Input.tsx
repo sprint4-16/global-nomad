@@ -1,4 +1,4 @@
-import { CSSProperties, ChangeEvent, ReactNode, forwardRef, useState } from 'react';
+import React, { forwardRef, useState, useEffect } from 'react';
 import VisibilityBtn from '@/components/btns/VisibilityBtn/VisibilityBtn';
 import styles from './Input.module.scss';
 import classNames from 'classnames/bind';
@@ -7,17 +7,17 @@ import { UseFormRegisterReturn } from 'react-hook-form';
 const cn = classNames.bind(styles);
 
 interface InputProps {
-  label?: ReactNode;
+  label?: React.ReactNode;
   type: React.HTMLInputTypeAttribute;
   id?: string;
   placeholder?: string;
   color?: string;
-  sx?: CSSProperties;
+  sx?: React.CSSProperties;
   className?: string;
   labelClassName?: string;
   value?: string;
   onClick?: () => void;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   register?: UseFormRegisterReturn;
   readOnly?: boolean;
 }
@@ -43,7 +43,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     ref,
   ) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-    const buttonStyle: CSSProperties = {
+    const buttonStyle: React.CSSProperties = {
       padding: '1.4rem 2rem',
       position: 'absolute',
       width: '2.4rem',
@@ -54,7 +54,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className={cn('inputContainer', className)}>
-        <label htmlFor={type} className={cn('label', labelClassName)}>
+        <label htmlFor={id} className={cn('label', labelClassName)}>
           {label}
         </label>
         <div className={cn('inputWrapper')}>
@@ -83,5 +83,3 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     );
   },
 );
-
-Input.displayName = 'Input';
