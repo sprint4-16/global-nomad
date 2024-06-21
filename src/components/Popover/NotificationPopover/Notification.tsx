@@ -12,7 +12,7 @@ const cn = classNames.bind(styles);
 
 interface NotificationProps {
   content: {
-    id: string;
+    id: number;
     activityId: number;
     customerId: number;
     schedule: string;
@@ -53,8 +53,8 @@ function getElapsedTime(createdAt: string) {
   return `${dayjs(createdAt).fromNow()}`;
 }
 
-const handleDeleteClick = async (reservationId: string, masterId: number) => {
-  const setDelete = async (reservationId: string) => {
+const handleDeleteClick = async (reservationId: number, masterId: number) => {
+  const setDelete = async (reservationId: number) => {
     await remove(ref(database, `activity/${masterId}/${reservationId}`));
   };
 

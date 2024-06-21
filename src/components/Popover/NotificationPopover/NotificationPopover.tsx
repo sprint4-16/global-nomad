@@ -43,6 +43,7 @@ export default function NotificationPopover({ sx, className, onClose }: Notifica
   return (
     <div style={sx} className={cn('container', className)}>
       <Header title={`알림 ${notificationList.length}개`} onClose={onClose} isNotificationHeader />
+      <Header title={`알림 ${notificationList.length}개`} onClose={onClose} isNotificationHeader />
       <ul className={cn('notificationList')}>
         {notificationList.map((notification) => (
           <li key={notification.id}>
