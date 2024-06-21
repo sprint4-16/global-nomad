@@ -1,17 +1,26 @@
 import classNames from 'classnames/bind';
-import styles from './NotificationPopover.module.scss';
-import CloseBtn from '@/components/btns/CloseBtn/CloseBtn';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import updateLocale from 'dayjs/plugin/updateLocale';
+import CloseBtn from '@/components/btns/CloseBtn/CloseBtn';
+import styles from './NotificationPopover.module.scss';
+import { ref, remove } from 'firebase/database';
+import { database } from '@/firebase';
+import { useState } from 'react';
 
 const cn = classNames.bind(styles);
 
 interface NotificationProps {
-  content: string;
-  createdAt: string;
-  updatedAt: string | null;
-  type?: 'accepted' | 'rejected';
+  content: {
+    activityId: number;
+    reservationId: number;
+    masterId: number;
+    customerId: number;
+    scheduleId: number;
+    title: string;
+    status: 'pending' | 'accepted' | 'rejected';
+    createdAt: string;
+  };
 }
 
 dayjs.extend(relativeTime);
@@ -35,23 +44,54 @@ dayjs.updateLocale('en', {
   },
 });
 
-function getElapsedTime(createdAt: string, updatedAt: string | null) {
-  if (updatedAt === null) {
-    return `${dayjs(createdAt).fromNow()}`;
-  }
+const STATUS = {
+  pending: '새로',
+  accepted: '승인',
+  rejected: '거절',
+};
 
-  return `${dayjs(updatedAt).fromNow()}`;
+function getElapsedTime(createdAt: string) {
+  return `${dayjs(createdAt).fromNow()}`;
 }
 
-export default function Notification({ content, createdAt, updatedAt, type = 'accepted' }: NotificationProps) {
+const handleDeleteClick = async (reservationId: number, masterId: number) => {
+  const setDelete = async (reservationId: number) => {
+    await remove(ref(database, `activity/${masterId}/${reservationId}`));
+  };
+
+  try {
+    await setDelete(reservationId);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export default function Notification({ content }: NotificationProps) {
+  // 사용자 불러와야하는 부분
+  const [masterId] = useState(343);
+
   return (
     <div className={cn('notification')}>
       <div className={cn('header')}>
-        <span className={cn('dot', { [type]: updatedAt !== null })}></span>
-        <CloseBtn size={15} />
+        <span className={cn('dot', { [content.status]: content.status !== null })}></span>
+        <CloseBtn
+          size={15}
+          onClick={() => {
+            handleDeleteClick(content.reservationId, masterId);
+          }}
+        />
       </div>
-      <p className={cn('content')}>{content}</p>
-      <div className={cn('footer')}>{getElapsedTime(createdAt, updatedAt)}</div>
+      <span className={cn('content')}>
+        {content.title}({content.scheduleId}) 예약이
+      </span>
+
+      <span className={cn('content', { [content.status]: content.status !== null })}> {STATUS[content.status]}</span>
+      {content.status == 'pending' ? (
+        <span className={cn('content')}> 추가 되었습니다.</span>
+      ) : (
+        <span className={cn('content')}> 되었습니다.</span>
+      )}
+      <div className={cn('footer')}>{getElapsedTime(content.createdAt)}</div>
     </div>
   );
 }
