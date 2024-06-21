@@ -74,3 +74,9 @@ export const RESERVATION_STATE_LABEL_MAP = {
   declined: '예약 거절',
   completed: '체험 완료',
 } as const;
+
+export const COOKIE = {
+  ACCESS_TOKEN: 'accessToken',
+  PROFILE_IMAGE_URL: 'profileImageUrl',
+  NICKNAME: 'nickname',
+};
