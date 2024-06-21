@@ -11,10 +11,19 @@ import styles from './FloatingBox.module.scss';
 import { useBookReservations, useGetAvailableSchedule } from '@/apis/apiHooks/temporary';
 import { AvailableScheduleType, Time } from '@/types/activities.types';
 import { AxiosError } from 'axios';
+import saveActivityToFirebase from '@/firebase/saveActivityToFirebase';
 
 const cn = classNames.bind(styles);
 
+interface activityData {
+  id: number;
+  userId: number;
+  title: string;
+  createdAt: string;
+}
+
 interface FloatingBoxProps {
+  activityData: activityData;
   price: number;
   activityId: string;
 }
@@ -31,12 +40,11 @@ function getObjMappedDateAndTimes(datas: AvailableScheduleType) {
   return results;
 }
 
-export default function FloatingBox({ price, activityId }: FloatingBoxProps) {
+export default function FloatingBox({ activityData, price, activityId }: FloatingBoxProps) {
   const [count, setCount] = useState(1);
-
   const [datepick, setDatepick] = useState(new Date());
   const [scheduleId, setScheduleId] = useState(-1);
-  const { mutate: reservationMutateFn, error, status } = useBookReservations({ activityId });
+  const { mutateAsync: reservationMutateFn, error, status } = useBookReservations({ activityId });
   const { data } = useGetAvailableSchedule({
     activityId,
     year: String(datepick.getFullYear()),
@@ -51,7 +59,13 @@ export default function FloatingBox({ price, activityId }: FloatingBoxProps) {
       return;
     }
 
-    await reservationMutateFn({ scheduleId, headCount });
+    try {
+      const result = await reservationMutateFn({ scheduleId, headCount });
+      const reservationId = result.reservationId;
+      saveActivityToFirebase(activityData, obj_mapped_date_times, scheduleId, reservationId);
+    } catch (error) {
+      console.error('Error during reservation:', error);
+    }
   };
 
   if (status === 'error') {

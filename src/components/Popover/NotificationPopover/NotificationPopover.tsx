@@ -13,11 +13,10 @@ interface NotificationPopoverProps {
 }
 
 interface ReservationData {
+  id: string;
   activityId: number;
-  reservationId: number;
-  masterId: number;
   customerId: number;
-  scheduleId: number;
+  schedule: string;
   title: string;
   status: 'pending' | 'accepted' | 'rejected';
   createdAt: string;
@@ -26,7 +25,7 @@ interface ReservationData {
 const cn = classNames.bind(styles);
 
 export default function NotificationPopover({ sx, className, onClose }: NotificationPopoverProps) {
-  const [masterId] = useState(343);
+  const [masterId] = useState(341);
   const [notificationList, setDataBaseData] = useState<ReservationData[]>([]);
 
   // 실시간 대기
@@ -46,7 +45,7 @@ export default function NotificationPopover({ sx, className, onClose }: Notifica
       <Header title={`알림 ${notificationList.length}개`} onClose={onClose} isNotificationHeader />
       <ul className={cn('notificationList')}>
         {notificationList.map((notification) => (
-          <li key={notification.reservationId}>
+          <li key={notification.id}>
             <Notification content={notification} />
           </li>
         ))}

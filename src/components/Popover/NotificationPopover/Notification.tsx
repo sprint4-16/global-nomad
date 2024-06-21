@@ -12,11 +12,10 @@ const cn = classNames.bind(styles);
 
 interface NotificationProps {
   content: {
+    id: string;
     activityId: number;
-    reservationId: number;
-    masterId: number;
     customerId: number;
-    scheduleId: number;
+    schedule: string;
     title: string;
     status: 'pending' | 'accepted' | 'rejected';
     createdAt: string;
@@ -54,8 +53,8 @@ function getElapsedTime(createdAt: string) {
   return `${dayjs(createdAt).fromNow()}`;
 }
 
-const handleDeleteClick = async (reservationId: number, masterId: number) => {
-  const setDelete = async (reservationId: number) => {
+const handleDeleteClick = async (reservationId: string, masterId: number) => {
+  const setDelete = async (reservationId: string) => {
     await remove(ref(database, `activity/${masterId}/${reservationId}`));
   };
 
@@ -68,7 +67,7 @@ const handleDeleteClick = async (reservationId: number, masterId: number) => {
 
 export default function Notification({ content }: NotificationProps) {
   // 사용자 불러와야하는 부분
-  const [masterId] = useState(343);
+  const [masterId] = useState(341);
 
   return (
     <div className={cn('notification')}>
@@ -77,12 +76,12 @@ export default function Notification({ content }: NotificationProps) {
         <CloseBtn
           size={15}
           onClick={() => {
-            handleDeleteClick(content.reservationId, masterId);
+            handleDeleteClick(content.id, masterId);
           }}
         />
       </div>
       <span className={cn('content')}>
-        {content.title}({content.scheduleId}) 예약이
+        {content.title}({content.schedule}) 예약이
       </span>
 
       <span className={cn('content', { [content.status]: content.status !== null })}> {STATUS[content.status]}</span>
