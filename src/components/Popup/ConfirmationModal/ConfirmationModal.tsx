@@ -38,7 +38,7 @@ export default function ConfirmationModal({
 
   const modalRef = useRef<HTMLDivElement>(null);
   useOutsideClick({ ref: modalRef, onClick: handleModalOpen });
-  useBlockScroll();
+  useBlockScroll(!isModalOpen);
 
   if (!isModalOpen || !modalRoot) {
     return null;

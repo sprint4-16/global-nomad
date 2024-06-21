@@ -65,6 +65,7 @@ export function usePostReservationReview() {
   const { getCookie } = useGetCookie();
   const accessToken = getCookie('accessToken');
   const reservationId = getCookie('reservationId');
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (bodyData: usePostReservationReviewParams) => {
@@ -75,6 +76,11 @@ export function usePostReservationReview() {
         bodyData,
       );
       return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['reservation'],
+      });
     },
   });
 }

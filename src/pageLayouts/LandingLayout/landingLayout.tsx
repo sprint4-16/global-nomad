@@ -1,10 +1,10 @@
-import Image from 'next/image';
-import classNames from 'classnames/bind';
-
+import { useGetPopularActivities } from '@/apis/apiHooks/MyReservations';
 import { Search } from '@/components/Search/Search';
 import PopulationExperiences from './popularExperiences';
 import ActivityListLayout from './ActivityListLayout';
-import { useGetPopularActivities } from '@/apis/apiHooks/MyReservations';
+import Carousel from './Carousel';
+
+import classNames from 'classnames/bind';
 import styles from './landingLayout.module.scss';
 import { useState } from 'react';
 import SearchedListLayout from './SearchedListLayout';
@@ -14,7 +14,6 @@ const cn = classNames.bind(styles);
 export default function LandingLayout() {
   const { data, isLoading, error } = useGetPopularActivities();
   const [keyword, setKeyword] = useState<undefined | string>('');
-  const month = new Date().getMonth() + 1;
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -25,20 +24,8 @@ export default function LandingLayout() {
   }
   return (
     <div className={cn('landing')}>
+      <Carousel data={data.activities.slice(0, 3)} />
       <div className={cn('inner')}>
-        <Image
-          className={cn('bannerImg')}
-          src={data.activities[0].bannerImageUrl}
-          alt="배너"
-          width={1920}
-          height={550}
-          priority
-        />
-        <div className={cn('mainTitle')}>
-          <div className={cn('title')}>{data.activities[0].title}</div>
-          <div className={cn('description')}>{month}월의 인기 체험 BEST 🔥</div>
-        </div>
-
         <div className={cn('searchWrapper')}>
           <Search
             titleText="무엇을 체험하고 싶으신가요?"

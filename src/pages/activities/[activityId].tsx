@@ -60,7 +60,7 @@ export default function Activity() {
       {isLoading ? (
         <Header />
       ) : (
-        <>
+        <div className={cn('page-layout')}>
           <header className={cn('header')}>
             <div className={cn('header-contents')}>
               <div className={cn('category')}>{data?.category}</div>
@@ -169,7 +169,7 @@ export default function Activity() {
               {data && <FloatingBox price={data?.price} activityId={activityId?.toString() as string} />}
             </div>
           </div>
-        </>
+        </div>
       )}
     </>
   );
