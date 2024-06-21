@@ -36,8 +36,8 @@ export function Dropdown({ className, menuItems, onSelect, isLabelVisible = fals
   useOutsideClick({ ref: modalRef, onClick: handleDropdownOpen });
 
   const handleMenuItemClick = (event: React.MouseEvent<HTMLLIElement, MouseEvent>, index: number, item: string) => {
-    event.preventDefault(); // Prevent default click behavior
-    event.stopPropagation(); // Stop event propagation to parent elements
+    event.preventDefault();
+    event.stopPropagation();
 
     setSelectedItemIndex(index);
     handleDropdownOpen();
@@ -51,7 +51,7 @@ export function Dropdown({ className, menuItems, onSelect, isLabelVisible = fals
     <div className={cn('container', className)}>
       {isLabelVisible && <div className={cn('label')}>체험명</div>}
       <div className={cn('textfield')} onClick={handleDropdownOpen}>
-        <button className={cn('button', { selected: selectedItemIndex !== null })}>
+        <button type="button" className={cn('button', { selected: selectedItemIndex !== null })}>
           {menuItems[selectedItemIndex]}
         </button>
         {isDropdownOpen ? <ArrowUp className={cn('arrowImg')} /> : <ArrowDown className={cn('arrowImg')} />}
