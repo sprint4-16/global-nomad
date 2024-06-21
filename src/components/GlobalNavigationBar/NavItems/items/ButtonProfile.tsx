@@ -11,7 +11,7 @@ const cn = classNames.bind(styles);
 
 interface ButtonProfileProps {
   nickname?: string;
-  profileImageUrl: string;
+  profileImageUrl?: string;
   onLogout: () => void;
 }
 export default function ButtonProfile({ nickname = '프로필', profileImageUrl, onLogout }: ButtonProfileProps) {
@@ -38,7 +38,7 @@ export default function ButtonProfile({ nickname = '프로필', profileImageUrl,
         <div className={cn('dropdown')} ref={modalRef}>
           <div onClick={onLogout}>로그아웃</div>
           <div>
-            <Link href="/userpage">마이페이지</Link>
+            <Link href="/user">마이페이지</Link>
           </div>
         </div>
       )}
