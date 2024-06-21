@@ -20,6 +20,7 @@ export function useLogin() {
     onSuccess: (data) => {
       updateCookie('accessToken', data.accessToken);
       updateCookie('refreshToken', data.refreshToken);
+      updateCookie('userId', data.user.id);
       updateCookie('nickname', data.user.nickname);
       if (data.user.profileImageUrl !== null) updateCookie('profileImageUrl', data.user.profileImageUrl);
     },

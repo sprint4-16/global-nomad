@@ -4,6 +4,7 @@ import { CSSProperties, useEffect, useState } from 'react';
 import Notification from './Notification';
 import { onValue, ref } from 'firebase/database';
 import { database } from '@/firebase';
+import useGetCookie from '@/hooks/useCookies';
 import styles from './NotificationPopover.module.scss';
 
 interface NotificationPopoverProps {
@@ -25,12 +26,13 @@ interface ReservationData {
 const cn = classNames.bind(styles);
 
 export default function NotificationPopover({ sx, className, onClose }: NotificationPopoverProps) {
-  const [masterId] = useState(341);
+  const { getCookie } = useGetCookie();
+  const userId = getCookie('userId');
   const [notificationList, setDataBaseData] = useState<ReservationData[]>([]);
 
   // 실시간 대기
   useEffect(() => {
-    const activityRef = ref(database, `activity/${masterId}`);
+    const activityRef = ref(database, `activity/${userId}`);
     const unsubscribe = onValue(activityRef, (data) => {
       const temp = data.val();
       const reservationList = temp ? Object.values(temp) : [];
@@ -38,7 +40,7 @@ export default function NotificationPopover({ sx, className, onClose }: Notifica
     });
 
     return () => unsubscribe();
-  }, [masterId]);
+  }, [userId]);
 
   return (
     <div style={sx} className={cn('container', className)}>

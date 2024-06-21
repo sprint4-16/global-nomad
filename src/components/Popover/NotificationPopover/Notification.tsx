@@ -6,7 +6,7 @@ import CloseBtn from '@/components/btns/CloseBtn/CloseBtn';
 import styles from './NotificationPopover.module.scss';
 import { ref, remove } from 'firebase/database';
 import { database } from '@/firebase';
-import { useState } from 'react';
+import useGetCookie from '@/hooks/useCookies';
 
 const cn = classNames.bind(styles);
 
@@ -67,7 +67,8 @@ const handleDeleteClick = async (reservationId: number, masterId: number) => {
 
 export default function Notification({ content }: NotificationProps) {
   // 사용자 불러와야하는 부분
-  const [masterId] = useState(341);
+  const { getCookie } = useGetCookie();
+  const userId = getCookie('userId');
 
   return (
     <div className={cn('notification')}>
@@ -76,7 +77,7 @@ export default function Notification({ content }: NotificationProps) {
         <CloseBtn
           size={15}
           onClick={() => {
-            handleDeleteClick(content.id, masterId);
+            handleDeleteClick(content.id, Number(userId));
           }}
         />
       </div>
