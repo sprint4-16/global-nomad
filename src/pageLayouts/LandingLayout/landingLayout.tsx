@@ -1,19 +1,19 @@
 import { useGetPopularActivities } from '@/apis/apiHooks/MyReservations';
 import { Search } from '@/components/Search/Search';
 import PopulationExperiences from './popularExperiences';
+import ActivityListLayout from './ActivityListLayout';
 import Carousel from './Carousel';
 
 import classNames from 'classnames/bind';
 import styles from './landingLayout.module.scss';
+import { useState } from 'react';
+import SearchedListLayout from './SearchedListLayout';
 
 const cn = classNames.bind(styles);
 
-interface LandingProps {
-  searched: string | undefined;
-  setSearched: React.Dispatch<React.SetStateAction<string | undefined>>;
-}
-export default function LandingLayout({ searched, setSearched }: LandingProps) {
+export default function LandingLayout() {
   const { data, isLoading, error } = useGetPopularActivities();
+  const [keyword, setKeyword] = useState<undefined | string>('');
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -31,11 +31,18 @@ export default function LandingLayout({ searched, setSearched }: LandingProps) {
             titleText="무엇을 체험하고 싶으신가요?"
             inputText="내가 원하는 체험은"
             onClick={(item: string | undefined) => {
-              setSearched(item);
+              setKeyword(item);
             }}
           />
         </div>
-        {searched ? <></> : <PopulationExperiences />}
+        {keyword ? (
+          <SearchedListLayout searched={keyword} />
+        ) : (
+          <>
+            <PopulationExperiences />
+            <ActivityListLayout />
+          </>
+        )}
       </div>
     </div>
   );

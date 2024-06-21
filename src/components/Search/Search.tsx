@@ -11,12 +11,11 @@ interface SearchProps {
   inputText?: string;
   sx?: CSSProperties;
   className?: string;
-  data?: any[]; // 어떤 타입이 올지 몰라서 일단 any로 뒀습니다!
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onClick?: (filteredResults: string | undefined) => void;
 }
 
-export function Search({ titleText, inputText, sx, className, data = [], onChange, onClick }: SearchProps) {
+export function Search({ titleText, inputText, sx, className, onChange, onClick }: SearchProps) {
   const buttonStyle: CSSProperties = {
     padding: '1.4rem 2rem',
   };
