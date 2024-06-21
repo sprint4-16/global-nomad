@@ -24,6 +24,11 @@ interface Schedule {
   endTime: string;
 }
 
+interface SubImage {
+  id: number;
+  imageUrl: string;
+}
+
 interface FormData {
   title: string;
   category: string;
@@ -32,7 +37,7 @@ interface FormData {
   price: string;
   schedules: Schedule[];
   bannerImageUrl: string | null;
-  subImageUrls: string[];
+  subImages: SubImage[];
   selectedDate?: Date;
   startTime?: string;
   endTime?: string;
@@ -60,7 +65,7 @@ export default function ActivityEditForm() {
         }))
       : [],
     bannerImageUrl: activityData ? activityData.bannerImageUrl : null,
-    subImageUrls: activityData ? activityData.subImageUrls?.map((image) => image.imageUrl) || [] : [],
+    subImages: activityData ? activityData.subImages || [] : [],
     selectedDate: undefined,
     startTime: '0:00',
     endTime: '0:00',
@@ -73,7 +78,6 @@ export default function ActivityEditForm() {
   const [subImageUrlsToAdd, setSubImageUrlsToAdd] = useState<string[]>([]);
   const [scheduleIdsToRemove, setScheduleIdsToRemove] = useState<number[]>([]);
   const [schedulesToAdd, setSchedulesToAdd] = useState<Schedule[]>([]);
-
   const dateInputRef = useRef<DateInputRef>(null);
 
   useEffect(() => {
@@ -90,7 +94,7 @@ export default function ActivityEditForm() {
           endTime: schedule.endTime,
         })),
         bannerImageUrl: activityData.bannerImageUrl,
-        subImageUrls: activityData.subImageUrls?.map((image) => image.imageUrl) || [],
+        subImages: activityData.subImages || [],
         selectedDate: undefined,
         startTime: '0:00',
         endTime: '0:00',
@@ -115,16 +119,16 @@ export default function ActivityEditForm() {
           reader.readAsDataURL(blob);
           reader.onloadend = () => {
             const convertedImageUrl = reader.result as string;
-            if (formData.subImageUrls.length < 4) {
+            if (formData.subImages.length < 4) {
               setSubImageUrlsToAdd((prev) => [...prev, convertedImageUrl]);
-              handleChange('subImageUrls', [...formData.subImageUrls, convertedImageUrl]);
+              handleChange('subImages', [...formData.subImages, { id: -1, imageUrl: convertedImageUrl }]);
             }
           };
         });
     } else {
-      if (formData.subImageUrls.length < 4) {
+      if (formData.subImages.length < 4) {
         setSubImageUrlsToAdd((prev) => [...prev, imageUrl]);
-        handleChange('subImageUrls', [...formData.subImageUrls, imageUrl]);
+        handleChange('subImages', [...formData.subImages, { id: -1, imageUrl }]);
       }
     }
   };
@@ -136,12 +140,11 @@ export default function ActivityEditForm() {
 
   const handleDeleteIntroImageClick = (event: MouseEvent<HTMLButtonElement>, index: number) => {
     event.preventDefault();
-    const deletedImageUrl = formData.subImageUrls[index];
-    setSubImageIdsToRemove((prev) => [...prev, index]);
-    handleChange(
-      'subImageUrls',
-      formData.subImageUrls.filter((_, i) => i !== index),
-    );
+    const deletedSubImageId = formData.subImages[index].id;
+    setSubImageIdsToRemove((prev) => [...prev, deletedSubImageId]);
+
+    const updatedSubImages = formData.subImages.filter((_, i) => i !== index);
+    handleChange('subImages', updatedSubImages);
   };
 
   const handleControlTimeClick = () => {
@@ -169,7 +172,7 @@ export default function ActivityEditForm() {
   };
 
   const handleDeleteItemClick = (index: number) => {
-    const deletedScheduleId = activityData.schedules[index].id; // 예시: activityData에서 직접적으로 id를 추출하는 예시
+    const deletedScheduleId = activityData.schedules[index].id;
     setScheduleIdsToRemove((prev) => [...prev, deletedScheduleId]);
     handleChange(
       'schedules',
@@ -298,6 +301,7 @@ export default function ActivityEditForm() {
           <AddressInput
             value={formData.address}
             onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange('address', e.target.value)}
+            placeholder={formData.address}
           />
         </div>
         <label className={cn('label')}>예약 가능한 시간대</label>
@@ -317,7 +321,7 @@ export default function ActivityEditForm() {
                 onSelect={(value) => handleChange('startTime', value)}
               />
             </div>
-            {isPc && <p className={cn('separator')}>~</p>}
+            {isPc && <div className={cn('separator')}>~</div>}
             <div className={cn('reservationTimeBox')}>
               <label className={cn('smallLabel')}>종료 시간</label>
               <Dropdown
@@ -358,7 +362,7 @@ export default function ActivityEditForm() {
                         sx={inputStyle}
                       />
                     </div>
-                    {isPc && <p>~</p>}
+                    {isPc && <div className={cn('wave')}>~</div>}
                     <div className={cn('reservationTimeBox')}>
                       <Input
                         className={cn('timeInputBox')}
@@ -391,13 +395,13 @@ export default function ActivityEditForm() {
           <label className={cn('label')}>소개 이미지</label>
           <div className={cn('introImagePreviewContainer')}>
             <AddImageBtn onImageSelect={handleIntroImageSelect} imageType="intro" />
-            {formData.subImageUrls.map((imageUrl, index) => (
+            {formData.subImages.map((image, index) => (
               <div key={index} className={cn('imagePreviewBox')}>
                 <DeleteBtn
                   sx={deleteBtnStyle}
                   onClick={(event: MouseEvent<HTMLButtonElement>) => handleDeleteIntroImageClick(event, index)}
                 />
-                <img className={cn('imagePreview')} src={imageUrl} alt={`소개 이미지 ${index + 1} 미리보기`} />
+                <img className={cn('imagePreview')} src={image.imageUrl} alt={`소개 이미지 ${index + 1} 미리보기`} />
               </div>
             ))}
           </div>

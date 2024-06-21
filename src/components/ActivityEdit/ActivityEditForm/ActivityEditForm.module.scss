@@ -77,8 +77,12 @@
   @include pretendard-20-500;
 }
 
-.wave {
+.separator {
   margin-top: 4rem;
+  @include pretendard-20-700;
+}
+
+.wave {
   @include pretendard-20-700;
 }
 
