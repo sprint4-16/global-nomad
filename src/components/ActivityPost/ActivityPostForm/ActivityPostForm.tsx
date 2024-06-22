@@ -248,7 +248,7 @@ export default function ActivityPostForm() {
                 isLabelVisible={false}
                 menuItems={menuItems}
                 onSelect={(value) => handleChange('endTime', value)}
-                selectedValue={formData.startTime}
+                selectedValue={formData.endTime}
               />
             </div>
           </div>
