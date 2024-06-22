@@ -60,3 +60,25 @@ export function useUploadActivityImage() {
     },
   });
 }
+
+// 내 체험 수정
+interface UseEditActivityParams {
+  activityId: string;
+}
+
+export function useEditActivity({ activityId }: UseEditActivityParams) {
+  const { getCookie } = useGetCookie();
+  const accessToken = getCookie('accessToken');
+
+  return useMutation({
+    mutationFn: async (submitData: FormData) => {
+      if (!accessToken) throw new Error('Access token is not available');
+      const { data } = await axiosInstanceToken(accessToken).patch(
+        `${END_POINT.MY_ACTIVITIES}/${activityId}`,
+        submitData,
+      );
+
+      return data;
+    },
+  });
+}
