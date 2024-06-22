@@ -52,7 +52,7 @@ export const END_POINT = {
   USERS: '/users',
 } as const;
 
-export const COOKIE_NAMES = ['accessToken', 'refreshToken', 'nickname', 'profileImageUrl'] as const;
+export const COOKIE_NAMES = ['accessToken', 'reservationId', 'refreshToken', 'nickname', 'profileImageUrl'] as const;
 
 export const SIDE_NAV_MENU_REQUIRES: string[] = [
   ROUTE.USER,
