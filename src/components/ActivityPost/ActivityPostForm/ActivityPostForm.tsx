@@ -1,6 +1,11 @@
+import classNames from 'classnames/bind';
+import styles from './ActivityPostForm.module.scss';
 import { useState, useRef, CSSProperties, ChangeEvent, FormEvent, MouseEvent } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import classNames from 'classnames/bind';
+
+import LongStroke from '@/images/icon/icon_stroke_long.svg';
+import Stroke from '@/images/icon/icon_stroke.svg';
+import { categoryList } from '@/constants';
 import Button from '@/components/Button/Button';
 import { Input } from '@/components/Input/Input';
 import { Dropdown } from '@/components/Dropdown/Dropdown';
@@ -9,9 +14,6 @@ import { DateInput, DateInputRef } from '@/components/DateInput/DateInput';
 import AddImageBtn from '@/components/btns/AddImageBtn/AddImageBtn';
 import ControlTimeBtn from '@/components/btns/ControlTimeBtn/ControlTimeBtn';
 import DeleteBtn from '@/components/btns/DeleteBtn/DeleteBtn';
-import LongStroke from '@/images/icon/icon_stroke_long.svg';
-import Stroke from '@/images/icon/icon_stroke.svg';
-import styles from './ActivityPostForm.module.scss';
 import { usePostActivity } from '@/apis/apiHooks/PostActivities';
 import AddressInput from '@/components/AddressInput/AddressInput';
 import AlertModal from '@/components/Popup/AlertModal/AlertModal';
@@ -174,7 +176,7 @@ export default function ActivityPostForm() {
     '23:00',
   ];
 
-  const categoryMenuItems = ['문화 예술', '식음료', '스포츠', '투어', '관광', '웰빙'];
+  const categoryMenuItems = [...categoryList];
 
   return (
     <form onSubmit={handleSubmit}>

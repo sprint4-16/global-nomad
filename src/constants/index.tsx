@@ -10,9 +10,6 @@ export const ROUTE = {
   // 내 정보 페이지
   USER: '/user',
 
-  // 내 정보 모바일 페이지
-  USER_MOBILE: '/my-page',
-
   // 예약 내역 페이지
   RESERVATIONS: '/user/reservations',
 
@@ -33,7 +30,6 @@ export const GNB_REQUIRES: string[] = [
   ROUTE.HOME,
   ROUTE.ACTIVITY_DETAIL,
   ROUTE.USER,
-  ROUTE.USER_MOBILE,
   ROUTE.RESERVATIONS,
   ROUTE.USER_ACTIVITIES,
   ROUTE.ACTIVITY_POST,
@@ -74,3 +70,5 @@ export const RESERVATION_STATE_LABEL_MAP = {
   declined: '예약 거절',
   completed: '체험 완료',
 } as const;
+
+export const categoryList = ['문화 · 예술', '식음료', '스포츠', '투어', '관광', '웰빙'] as const;

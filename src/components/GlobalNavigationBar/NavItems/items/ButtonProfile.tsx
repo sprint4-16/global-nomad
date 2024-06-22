@@ -4,6 +4,7 @@ import Image from 'next/image';
 import classNames from 'classnames/bind';
 import styles from './ButtonProfile.module.scss';
 
+import { ROUTE } from '@/constants';
 import ProfileImg from '@/images/img/profile.svg';
 import useOutsideClick from '@/hooks/useOutsideClick';
 
@@ -11,7 +12,7 @@ const cn = classNames.bind(styles);
 
 interface ButtonProfileProps {
   nickname?: string;
-  profileImageUrl: string;
+  profileImageUrl: string | undefined;
   onLogout: () => void;
 }
 export default function ButtonProfile({ nickname = '프로필', profileImageUrl, onLogout }: ButtonProfileProps) {
@@ -38,7 +39,7 @@ export default function ButtonProfile({ nickname = '프로필', profileImageUrl,
         <div className={cn('dropdown')} ref={modalRef}>
           <div onClick={onLogout}>로그아웃</div>
           <div>
-            <Link href="/userpage">마이페이지</Link>
+            <Link href={ROUTE.USER}>마이페이지</Link>
           </div>
         </div>
       )}

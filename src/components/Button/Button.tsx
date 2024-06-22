@@ -6,11 +6,11 @@ interface ButtonProps {
   className?: string;
   children: ReactNode;
   type: 'primary' | 'secondary';
+  htmlType?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
   size: 'large' | 'medium' | 'small' | 'full';
   sx?: CSSProperties;
   onClick?: () => void;
-  htmlType?: 'button' | 'submit' | 'reset';
 }
 
 const cn = classNames.bind(styles);

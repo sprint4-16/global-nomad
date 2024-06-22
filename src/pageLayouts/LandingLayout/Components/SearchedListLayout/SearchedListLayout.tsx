@@ -5,12 +5,12 @@ import { UseGetActivities } from '@/apis/apiHooks/Activities';
 import { useMediaQuery } from 'react-responsive';
 import Pagination from '@/components/Pagination/Pagination';
 import CardResourceSmall from '@/components/CardResource/CardResourceSmall';
-import styles from './ActivityListLayout.module.scss';
+import styles from '../ActivityListLayout/ActivityListLayout.module.scss';
 
 const cn = classNames.bind(styles);
 
 interface SearchedListProps {
-  searched: string | undefined;
+  keyword: string;
 }
 
 interface CardResourceProps {
@@ -22,7 +22,7 @@ interface CardResourceProps {
   reviewCount: number;
 }
 
-export default function SearchedListLayout({ searched }: SearchedListProps) {
+export default function SearchedListLayout({ keyword }: SearchedListProps) {
   const isMobile = useMediaQuery({ maxWidth: 375 });
   const isTablet = useMediaQuery({ minWidth: 745, maxWidth: 1239 });
   const isPC = useMediaQuery({ minWidth: 1240 });
@@ -32,7 +32,7 @@ export default function SearchedListLayout({ searched }: SearchedListProps) {
 
   const { data, isLoading, error } = UseGetActivities({
     method: 'offset',
-    keyword: searched,
+    keyword,
     page: nowPage,
     size: size,
   });
@@ -57,7 +57,7 @@ export default function SearchedListLayout({ searched }: SearchedListProps) {
           <div className={cn('content_text')}>Error: {error.message}</div>
         ) : (
           <div className={cn('content_text')}>
-            {searched}
+            {keyword}
             <span>으로 검색한 결과입니다.</span>
             <div className={cn('content_result')}>총 {totalCount}개의 결과</div>
           </div>

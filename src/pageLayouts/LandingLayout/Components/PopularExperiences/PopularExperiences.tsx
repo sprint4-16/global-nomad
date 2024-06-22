@@ -6,7 +6,7 @@ import useResizeHook from '@/hooks/useResizeHook';
 import { useGetPopularActivities } from '@/apis/apiHooks/MyReservations';
 import { ArrowButtonLeft, ArrowButtonRight } from '@/images/btn';
 import CardResource from '@/components/CardResource/CardResource';
-import styles from './popularExperiences.module.scss';
+import styles from './PopularExperiences.module.scss';
 
 interface CardResourceProps {
   id: number;
