@@ -35,7 +35,7 @@ export default function ReservationCalendarLayout({ activityList }: ActivityList
 
   const onDropdownSelect = (index: number) => {
     if (activityListData) {
-      setSelectedActivity(activityListData[index].id);
+      setSelectedActivity(activityListData[index]?.id);
     }
   };
 

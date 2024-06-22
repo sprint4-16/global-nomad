@@ -12,7 +12,7 @@ const cn = classNames.bind(styles);
 interface DropdownProps {
   className?: string;
   menuItems: string[];
-  onSelect?: (value: string) => void;
+  onSelect?: (value: number) => void;
   isLabelVisible?: boolean;
   selectedValue?: string;
 }
@@ -35,7 +35,7 @@ export function Dropdown({ className, menuItems, onSelect, isLabelVisible = fals
   const modalRef = useRef<HTMLDivElement>(null);
   useOutsideClick({ ref: modalRef, onClick: handleDropdownOpen });
 
-  const handleMenuItemClick = (event: React.MouseEvent<HTMLLIElement, MouseEvent>, index: number, item: string) => {
+  const handleMenuItemClick = (event: React.MouseEvent<HTMLLIElement, MouseEvent>, index: number) => {
     event.preventDefault();
     event.stopPropagation();
 
@@ -43,7 +43,7 @@ export function Dropdown({ className, menuItems, onSelect, isLabelVisible = fals
     handleDropdownOpen();
 
     if (onSelect) {
-      onSelect(item);
+      onSelect(index);
     }
   };
 
@@ -63,7 +63,7 @@ export function Dropdown({ className, menuItems, onSelect, isLabelVisible = fals
               key={`item-${index}`}
               className={cn('item', [index === selectedItemIndex && 'selected'])}
               onMouseEnter={() => setSelectedItemIndex(index)}
-              onClick={(event) => handleMenuItemClick(event, index, item)}
+              onClick={(event) => handleMenuItemClick(event, index)}
             >
               {selectedItemIndex === index && <CheckMark className={cn('checkMarkImg')} />}
               {item}

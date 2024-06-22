@@ -1,7 +1,12 @@
+import classNames from 'classnames/bind';
+import styles from '../Card.module.scss';
 import { useRef, useState } from 'react';
 import Image from 'next/image';
-import classNames from 'classnames/bind';
+import { useRouter } from 'next/router';
+import { useQueryClient } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 
+import { ROUTE } from '@/constants';
 import useGetCookie from '@/hooks/useCookies';
 import { usePatchReservationCancel } from '@/apis/apiHooks/MyReservations';
 
@@ -9,9 +14,13 @@ import { MeatballIcon, StarIcon } from '@/images/icon';
 import { RESERVATION_STATE_LABEL_MAP } from '@/constants';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import Button from '../../Button/Button';
-import styles from '../Card.module.scss';
+
+import AlertModal from '@/components/Popup/AlertModal/AlertModal';
 import ReviewModal from '@/components/Popup/ReviewModal/ReviewModal';
 import ConfirmationModal from '@/components/Popup/ConfirmationModal/ConfirmationModal';
+import { UseDeleteSchedule } from '@/apis/apiHooks/MyActivities';
+
+const cn = classNames.bind(styles);
 
 type ReservationState = 'pending' | 'confirmed' | 'canceled' | 'declined' | 'completed';
 
@@ -33,8 +42,6 @@ interface ReservationButtonProps {
 }
 
 export function Thumbnail({ bannerImageUrl, where }: { bannerImageUrl: string; where?: 'review' }) {
-  const cn = classNames.bind(styles);
-
   // 임시 Blur 데이터 (추후 수정 예정)
   const BLUR_DATA_URL =
     'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP0rQcAAR8AzpZX2ywAAAAASUVORK5CYII=';
@@ -53,12 +60,10 @@ export function Thumbnail({ bannerImageUrl, where }: { bannerImageUrl: string; w
 }
 
 export function Description({ children, where }: { children: React.ReactNode; where?: 'review' }) {
-  const cn = classNames.bind(styles);
   return <div className={cn('description', where)}>{children}</div>;
 }
 
 export function Title({ children, where }: { children: React.ReactNode; where?: 'review' }) {
-  const cn = classNames.bind(styles);
   return <div className={cn('title', where)}>{children}</div>;
 }
 
@@ -73,8 +78,6 @@ export function Schedule({
   endTime: string;
   headCount: number;
 }) {
-  const cn = classNames.bind(styles);
-
   return (
     <div className={cn('schedule')}>
       {date} · {startTime} - {endTime} · {headCount}명
@@ -83,14 +86,10 @@ export function Schedule({
 }
 
 export function ReservationStatus({ status }: { status: ReservationState }) {
-  const cn = classNames.bind(styles);
-
   return <div className={cn('reservationState', status)}>{RESERVATION_STATE_LABEL_MAP[status]}</div>;
 }
 
 export function StarRating({ rating, reviewCount }: { rating: number; reviewCount: number }) {
-  const cn = classNames.bind(styles);
-
   return (
     <div className={cn('starRating')}>
       <StarIcon className={cn('starIcon')} viewBox="0 0 56 56" />
@@ -100,28 +99,27 @@ export function StarRating({ rating, reviewCount }: { rating: number; reviewCoun
 }
 
 export function Footer({ children }: { children: React.ReactNode }) {
-  const cn = classNames.bind(styles);
-
   return <div className={cn('footer')}>{children}</div>;
 }
 
 export function Divider() {
-  const cn = classNames.bind(styles);
-
   return <div className={cn('divider')} />;
 }
 
 export function Price({ price, where }: { price: number; where?: 'review' }) {
-  const cn = classNames.bind(styles);
   const formattedPrice = new Intl.NumberFormat('ko-KR').format(price);
 
   return <div className={cn('price', where)}>₩{formattedPrice}</div>;
 }
 
-export function CardDropdown() {
-  const cn = classNames.bind(styles);
+export function CardDropdown({ activityId }: { activityId: number }) {
   const [isOpenDropdown, setViewDropdown] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
+
+  const { mutate: deleteActivity, error } = UseDeleteSchedule({ activityId });
+  const router = useRouter();
+  const queryClient = useQueryClient();
 
   const toggleDropdown = () => {
     setViewDropdown(!isOpenDropdown);
@@ -132,14 +130,26 @@ export function CardDropdown() {
   };
 
   const handleModifyClick = () => {
-    // 수정하기 구현
+    router.push(`${ROUTE.ACTIVITY_EDIT}/${activityId}`);
   };
 
   const handleDeleteClick = () => {
-    // 삭제하기 구현
+    deleteActivity();
+    setIsModalOpen((prev) => !prev);
+  };
+
+  const onConfirm = () => {
+    queryClient.invalidateQueries({ queryKey: ['myActivities'] });
+  };
+
+  const handleModalOpen = () => {
+    setIsModalOpen((prev) => !prev);
   };
 
   useOutsideClick({ ref: profileRef, onClick: closeDropdown });
+
+  const alertMessage =
+    ((error as AxiosError)?.response?.data as { message: string })?.message || '내 체험이 성공적으로 삭제되었습니다.';
 
   return (
     <div className={cn('dropdownContainer')} ref={profileRef}>
@@ -154,12 +164,17 @@ export function CardDropdown() {
           </div>
         </div>
       )}
+      <AlertModal
+        alertMessage={alertMessage}
+        onConfirm={onConfirm}
+        isModalOpen={isModalOpen}
+        handleModalOpen={handleModalOpen}
+      />
     </div>
   );
 }
 
 export function ReservationButton({ cardData }: ReservationButtonProps) {
-  const cn = classNames.bind(styles);
   const [modalOpen, setModalOpen] = useState(false);
 
   const { updateCookie } = useGetCookie();

@@ -2,11 +2,8 @@ import classNames from 'classnames/bind';
 import styles from './LandingLayout.module.scss';
 import { useRouter } from 'next/router';
 
-import Carousel from './Components/Carousel/Carousel';
+import { Carousel, SearchedListLayout, PopularExperiences, ActivityListLayout } from './Components';
 import Search from '@/components/Search/Search';
-import SearchedListLayout from './Components/SearchedListLayout/SearchedListLayout';
-import PopulationExperiences from './Components/PopularExperiences/PopularExperiences';
-import ActivityListLayout from './Components/ActivityListLayout/ActivityListLayout';
 import { useGetPopularActivities } from '@/apis/apiHooks/MyReservations';
 
 const cn = classNames.bind(styles);
@@ -34,7 +31,7 @@ export default function LandingLayout() {
           <SearchedListLayout keyword={keyword} />
         ) : (
           <>
-            <PopulationExperiences />
+            <PopularExperiences />
             <ActivityListLayout />
           </>
         )}

@@ -2,10 +2,13 @@ import classNames from 'classnames/bind';
 import styles from './ActivityPostForm.module.scss';
 import { useState, useRef, CSSProperties, ChangeEvent, FormEvent, MouseEvent } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import { Image } from './next/image';
+import { useRouter } from 'next/router';
+import { useQueryClient } from '@tanstack/react-query';
 
 import LongStroke from '@/images/icon/icon_stroke_long.svg';
 import Stroke from '@/images/icon/icon_stroke.svg';
-import { categoryList } from '@/constants';
+import { ROUTE, categoryList } from '@/constants';
 import Button from '@/components/Button/Button';
 import { Input } from '@/components/Input/Input';
 import { Dropdown } from '@/components/Dropdown/Dropdown';
@@ -17,6 +20,8 @@ import DeleteBtn from '@/components/btns/DeleteBtn/DeleteBtn';
 import { usePostActivity } from '@/apis/apiHooks/PostActivities';
 import AddressInput from '@/components/AddressInput/AddressInput';
 import AlertModal from '@/components/Popup/AlertModal/AlertModal';
+
+const cn = classNames.bind(styles);
 
 interface Schedule {
   date: Date;
@@ -39,8 +44,8 @@ interface FormData {
 }
 
 export default function ActivityPostForm() {
-  const cn = classNames.bind(styles);
   const isPc = useMediaQuery({ query: '(min-width: 767px)' });
+  const router = useRouter();
 
   const initialState: FormData = {
     title: '',
@@ -57,6 +62,7 @@ export default function ActivityPostForm() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const { mutate: postActivity } = usePostActivity();
+  const queryClient = useQueryClient();
 
   const dateInputRef = useRef<DateInputRef>(null);
 
@@ -136,6 +142,8 @@ export default function ActivityPostForm() {
     setFormData(initialState);
     setModalMessage('체험 등록이 완료되었습니다.');
     setIsModalOpen(true);
+    queryClient.invalidateQueries({ queryKey: ['myActivities'] });
+    router.push(ROUTE.USER_ACTIVITIES);
   };
 
   const inputStyle: CSSProperties = {
@@ -297,7 +305,7 @@ export default function ActivityPostForm() {
             {formData.bannerImageUrl && (
               <div className={cn('imagePreviewBox')}>
                 <DeleteBtn sx={deleteBtnStyle} onClick={handleDeleteBannerImageClick} />
-                <img className={cn('imagePreview')} src={formData.bannerImageUrl} alt="배너 이미지 미리보기" />
+                <Image className={cn('imagePreview')} src={formData.bannerImageUrl} alt="배너 이미지 미리보기" />
               </div>
             )}
           </div>
@@ -312,7 +320,7 @@ export default function ActivityPostForm() {
                   sx={deleteBtnStyle}
                   onClick={(event: MouseEvent<HTMLButtonElement>) => handleDeleteIntroImageClick(event, index)}
                 />
-                <img className={cn('imagePreview')} src={imageUrl} alt={`소개 이미지 ${index + 1} 미리보기`} />
+                <Image className={cn('imagePreview')} src={imageUrl} alt={`소개 이미지 ${index + 1} 미리보기`} />
               </div>
             ))}
           </div>
