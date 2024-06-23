@@ -20,6 +20,7 @@ import DeleteBtn from '@/components/btns/DeleteBtn/DeleteBtn';
 import { usePostActivity } from '@/apis/apiHooks/PostActivities';
 import AddressInput from '@/components/AddressInput/AddressInput';
 import AlertModal from '@/components/Popup/AlertModal/AlertModal';
+import { CATEGORY_MENU_ITEMS, TIME_MENU_ITEMS } from '@/constants';
 
 const cn = classNames.bind(styles);
 
@@ -157,35 +158,6 @@ export default function ActivityPostForm() {
     zIndex: 1,
   };
 
-  const menuItems = [
-    '0:00',
-    '1:00',
-    '2:00',
-    '3:00',
-    '4:00',
-    '5:00',
-    '6:00',
-    '7:00',
-    '8:00',
-    '9:00',
-    '10:00',
-    '11:00',
-    '12:00',
-    '13:00',
-    '14:00',
-    '15:00',
-    '16:00',
-    '17:00',
-    '18:00',
-    '19:00',
-    '20:00',
-    '21:00',
-    '22:00',
-    '23:00',
-  ];
-
-  const categoryMenuItems = [...categoryList];
-
   return (
     <form onSubmit={handleSubmit}>
       <div className={cn('titleBox')}>
@@ -203,7 +175,7 @@ export default function ActivityPostForm() {
         />
         <Dropdown
           isLabelVisible={false}
-          menuItems={categoryMenuItems}
+          menuItems={CATEGORY_MENU_ITEMS}
           onSelect={(value) => handleChange('category', value)}
         />
         <Textarea
@@ -235,7 +207,7 @@ export default function ActivityPostForm() {
               <Dropdown
                 className={cn('dropdown')}
                 isLabelVisible={false}
-                menuItems={menuItems}
+                menuItems={TIME_MENU_ITEMS}
                 onSelect={(value) => handleChange('startTime', value)}
                 selectedValue={formData.startTime}
               />
@@ -246,7 +218,7 @@ export default function ActivityPostForm() {
               <Dropdown
                 className={cn('dropdown')}
                 isLabelVisible={false}
-                menuItems={menuItems}
+                menuItems={TIME_MENU_ITEMS}
                 onSelect={(value) => handleChange('endTime', value)}
                 selectedValue={formData.endTime}
               />

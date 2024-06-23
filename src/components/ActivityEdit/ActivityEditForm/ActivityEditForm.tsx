@@ -17,6 +17,7 @@ import { useRouter } from 'next/router';
 import AddressInput from '@/components/AddressInput/AddressInput';
 import { useGetActivity } from '@/apis/apiHooks/temporary';
 import { useEditActivity } from '@/apis/apiHooks/PostActivities';
+import { CATEGORY_MENU_ITEMS, TIME_MENU_ITEMS } from '@/constants';
 
 interface Schedule {
   date: Date;
@@ -217,35 +218,6 @@ export default function ActivityEditForm() {
     zIndex: 1,
   };
 
-  const menuItems = [
-    '0:00',
-    '1:00',
-    '2:00',
-    '3:00',
-    '4:00',
-    '5:00',
-    '6:00',
-    '7:00',
-    '8:00',
-    '9:00',
-    '10:00',
-    '11:00',
-    '12:00',
-    '13:00',
-    '14:00',
-    '15:00',
-    '16:00',
-    '17:00',
-    '18:00',
-    '19:00',
-    '20:00',
-    '21:00',
-    '22:00',
-    '23:00',
-  ];
-
-  const categoryMenuItems = ['문화 예술', '식음료', '스포츠', '투어', '관광', '웰빙'];
-
   return (
     <form onSubmit={handleSubmit}>
       <div className={cn('titleBox')}>
@@ -264,7 +236,7 @@ export default function ActivityEditForm() {
         />
         <Dropdown
           isLabelVisible={false}
-          menuItems={categoryMenuItems}
+          menuItems={CATEGORY_MENU_ITEMS}
           selectedValue={formData.category}
           onSelect={(value) => handleChange('category', value)}
         />
@@ -303,7 +275,7 @@ export default function ActivityEditForm() {
               <Dropdown
                 className={cn('dropdown')}
                 isLabelVisible={false}
-                menuItems={menuItems}
+                menuItems={TIME_MENU_ITEMS}
                 selectedValue={formData.startTime}
                 onSelect={(value) => handleChange('startTime', value)}
               />
@@ -314,7 +286,7 @@ export default function ActivityEditForm() {
               <Dropdown
                 className={cn('dropdown')}
                 isLabelVisible={false}
-                menuItems={menuItems}
+                menuItems={TIME_MENU_ITEMS}
                 selectedValue={formData.endTime}
                 onSelect={(value) => handleChange('endTime', value)}
               />
