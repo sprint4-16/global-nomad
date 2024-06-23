@@ -145,6 +145,9 @@ export default function ActivityPostForm() {
         queryClient.invalidateQueries({ queryKey: ['myActivities'] });
         router.push(ROUTE.USER_ACTIVITIES);
       },
+      onError: () => {
+        setIsModalOpen(false);
+      },
     });
   };
 
