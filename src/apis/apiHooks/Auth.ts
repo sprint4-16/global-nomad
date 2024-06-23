@@ -32,10 +32,13 @@ export interface useSignupParams extends useLoginParams {
   nickname: string;
 }
 
-export function useSignup() {
+export function useSignup({ onSuccess }: { onSuccess: () => void }) {
   return useMutation({
     mutationFn: async (bodyData: useSignupParams) => {
       return axiosInstance.post(END_POINT.USERS, bodyData);
+    },
+    onSuccess: () => {
+      onSuccess();
     },
   });
 }

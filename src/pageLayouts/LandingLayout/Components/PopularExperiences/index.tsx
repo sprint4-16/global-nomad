@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import Router from 'next/router';
 import classNames from 'classnames/bind';
 
+import { ROUTE } from '@/constants';
 import useResizeHook from '@/hooks/useResizeHook';
 import { useGetPopularActivities } from '@/apis/apiHooks/MyReservations';
 import { ArrowButtonLeft, ArrowButtonRight } from '@/images/btn';
@@ -120,7 +121,7 @@ export default function PopulationExperiences() {
       e.preventDefault();
       e.stopPropagation();
     } else {
-      Router.push(`/activities/${id}`);
+      Router.push(`${ROUTE.ACTIVITY_DETAIL}/${id}`);
     }
   };
 
