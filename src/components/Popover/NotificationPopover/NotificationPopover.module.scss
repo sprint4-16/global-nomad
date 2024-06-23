@@ -27,6 +27,10 @@
   border-radius: 0.5rem;
 }
 
+.header {
+  height: 1.8rem;
+}
+
 .content {
   @include pretendard-14-400;
   white-space: normal;

@@ -7,6 +7,7 @@ import styles from './NotificationPopover.module.scss';
 import { ref, remove } from 'firebase/database';
 import { database } from '@/firebase';
 import useGetCookie from '@/hooks/useCookies';
+import { useEffect, useState } from 'react';
 
 const cn = classNames.bind(styles);
 
@@ -66,20 +67,30 @@ const handleDeleteClick = async (reservationId: number, masterId: number) => {
 };
 
 export default function Notification({ content }: NotificationProps) {
-  // 사용자 불러와야하는 부분
   const { getCookie } = useGetCookie();
   const userId = getCookie('userId');
+  const [isPending, setIsPending] = useState(true);
+
+  useEffect(() => {
+    if (content.status == 'pending') {
+      setIsPending(false);
+    } else {
+      setIsPending(true);
+    }
+  }, [content]);
 
   return (
     <div className={cn('notification')}>
       <div className={cn('header')}>
         <span className={cn('dot', { [content.status]: content.status !== null })}></span>
-        <CloseBtn
-          size={15}
-          onClick={() => {
-            handleDeleteClick(content.id, Number(userId));
-          }}
-        />
+        {isPending && (
+          <CloseBtn
+            size={15}
+            onClick={() => {
+              handleDeleteClick(content.id, Number(userId));
+            }}
+          />
+        )}
       </div>
       <span className={cn('content')}>
         {content.title}({content.schedule}) 예약이
