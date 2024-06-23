@@ -12,6 +12,8 @@ import { useBookReservations, useGetAvailableSchedule } from '@/apis/apiHooks/te
 import { AvailableScheduleType, Time } from '@/types/activities.types';
 import { AxiosError } from 'axios';
 import saveActivityToFirebase from '@/firebase/saveActivityToFirebase';
+import useGetCookie from '@/hooks/useCookies';
+import { COOKIE } from '@/constants';
 
 const cn = classNames.bind(styles);
 
@@ -53,6 +55,9 @@ export default function FloatingBox({ activityData, price, activityId }: Floatin
 
   const obj_mapped_date_times = (data && getObjMappedDateAndTimes(data)) as { [key: string]: Time[] };
 
+  const { getCookie } = useGetCookie();
+  const userId = Number(getCookie(COOKIE.USER_ID));
+
   const handleReservationClick = async ({ scheduleId, headCount }: { scheduleId: number; headCount: number }) => {
     if (scheduleId < 0) {
       alert('시간대를 선택해주세요');
@@ -62,7 +67,7 @@ export default function FloatingBox({ activityData, price, activityId }: Floatin
     try {
       const result = await reservationMutateFn({ scheduleId, headCount });
       const reservationId = result.reservationId;
-      saveActivityToFirebase(activityData, obj_mapped_date_times, scheduleId, reservationId);
+      saveActivityToFirebase(activityData, obj_mapped_date_times, scheduleId, reservationId, userId);
     } catch (error) {
       console.error('Error during reservation:', error);
     }

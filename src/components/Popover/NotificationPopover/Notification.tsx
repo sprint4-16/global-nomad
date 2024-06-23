@@ -8,6 +8,7 @@ import { ref, remove } from 'firebase/database';
 import { database } from '@/firebase';
 import useGetCookie from '@/hooks/useCookies';
 import { useEffect, useState } from 'react';
+import { COOKIE } from '@/constants';
 
 const cn = classNames.bind(styles);
 
@@ -68,7 +69,7 @@ const handleDeleteClick = async (reservationId: number, masterId: number) => {
 
 export default function Notification({ content }: NotificationProps) {
   const { getCookie } = useGetCookie();
-  const userId = getCookie('userId');
+  const userId = getCookie(COOKIE.USER_ID);
   const [isPending, setIsPending] = useState(true);
 
   useEffect(() => {

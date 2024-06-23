@@ -6,6 +6,7 @@ import { onValue, ref } from 'firebase/database';
 import { database } from '@/firebase';
 import useGetCookie from '@/hooks/useCookies';
 import styles from './NotificationPopover.module.scss';
+import { COOKIE } from '@/constants';
 
 interface NotificationPopoverProps {
   className?: string;
@@ -27,7 +28,7 @@ const cn = classNames.bind(styles);
 
 export default function NotificationPopover({ sx, className, onClose }: NotificationPopoverProps) {
   const { getCookie } = useGetCookie();
-  const userId = getCookie('userId');
+  const userId = getCookie(COOKIE.USER_ID);
   const [notificationList, setDataBaseData] = useState<ReservationData[]>([]);
 
   // 실시간 대기

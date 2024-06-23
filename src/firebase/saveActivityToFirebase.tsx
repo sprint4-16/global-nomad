@@ -1,6 +1,5 @@
 import { ref, set } from 'firebase/database';
 import { database } from '@/firebase';
-import useGetCookie from '@/hooks/useCookies';
 
 interface ScheduleEntry {
   id: number;
@@ -24,6 +23,7 @@ export default async function saveActivityToFirebase(
   obj_mapped_date_times: Data,
   scheduleId: number,
   reservationId: number,
+  userId: number,
 ) {
   const findScheduleById = (data: Data, id: number) => {
     for (const date in data) {
@@ -42,8 +42,6 @@ export default async function saveActivityToFirebase(
     const scheduleString = schedule
       ? `${schedule.date} ${schedule.startTime} ~ ${schedule.endTime}`
       : 'No schedule available';
-    const { getCookie } = useGetCookie();
-    const userId = getCookie('userId');
 
     await set(ref(database, `activity/${activityData.userId}/${reservationId}`), {
       id: reservationId,

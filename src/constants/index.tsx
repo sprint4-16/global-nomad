@@ -79,4 +79,5 @@ export const COOKIE = {
   ACCESS_TOKEN: 'accessToken',
   PROFILE_IMAGE_URL: 'profileImageUrl',
   NICKNAME: 'nickname',
+  USER_ID: 'userId',
 };
