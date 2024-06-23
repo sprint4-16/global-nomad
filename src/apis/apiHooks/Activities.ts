@@ -11,6 +11,7 @@ interface getActivitiesProps {
   page?: number;
   size?: number;
 }
+
 export function UseGetActivities({ method, category, keyword, sort, page, size }: getActivitiesProps) {
   return useQuery({
     queryKey: ['Activities', { method, category, keyword, sort, page, size }],
