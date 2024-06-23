@@ -15,7 +15,13 @@
   gap: 2.4rem;
 }
 
-.customLabel {
+.inputBox {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.label {
   @include pretendard-24-700;
 }
 

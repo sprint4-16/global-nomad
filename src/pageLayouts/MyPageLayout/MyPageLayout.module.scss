@@ -1,3 +1,11 @@
 .wrapper {
-  width: 32rem;
+  width: 80rem;
+
+  @include tablet {
+    width: 43rem;
+  }
+
+  @include mobile {
+    width: 32rem;
+  }
 }
