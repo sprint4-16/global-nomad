@@ -1,0 +1,206 @@
+.commonWidth {
+  width: 35.8rem;
+
+  @include tablet {
+    width: 14.9rem;
+  }
+
+  @include mobile {
+    width: 13.2rem;
+  }
+}
+
+.titleBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.4rem;
+
+  h1 {
+    @include pretendard-32-700;
+  }
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+
+  .selectedItem {
+    margin-top: 21px;
+  }
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.label {
+  @include pretendard-24-700;
+}
+
+.reservationTimeWrapper {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  justify-content: space-between;
+}
+
+.reservationTimeContainer {
+  display: flex;
+  align-items: center;
+  width: 32rem;
+  gap: 1.2rem;
+}
+
+.reservationDateBox {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  @extend .commonWidth;
+}
+
+.reservationTimeBox {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 14rem;
+}
+
+.dropdown {
+  width: 100%;
+}
+
+.smallLabel {
+  @include pretendard-20-500;
+}
+
+.separator {
+  margin-top: 4rem;
+  @include pretendard-20-700;
+}
+
+.wave {
+  @include pretendard-20-700;
+}
+
+.controlTimeBtnContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+}
+
+.selectItems {
+  display: flex;
+  flex-direction: column;
+}
+
+.selectedItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  p {
+    @include pretendard-20-700;
+  }
+}
+
+.selectedItem:first-child {
+  margin-top: 2.1rem;
+}
+
+.selectedItem:not(:last-child) {
+  margin-bottom: 2.1rem;
+}
+
+.dateInputBox {
+  @extend .commonWidth;
+}
+
+.timeInputBox {
+  width: 100%;
+}
+
+.imageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.bannerImagePreview {
+  display: flex;
+}
+
+.imagePreview {
+  width: 18rem;
+  height: 18rem;
+  border-radius: 2.4rem;
+  object-fit: cover;
+}
+
+.bannerImagePreviewContainer {
+  display: flex;
+  gap: 2rem;
+}
+
+.introImagePreviewContainer {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.imagePreviewBox {
+  width: 18rem;
+  height: 18rem;
+  border-radius: 2.4rem;
+  position: relative;
+}
+
+.description {
+  color: $gray-800;
+  @include pretendard-14-400;
+}
+
+@include tablet {
+  .reservationTimeWrapper {
+    gap: 0.5rem;
+  }
+
+  .reservationTimeContainer {
+    width: 21.3rem;
+    gap: 0.5rem;
+  }
+
+  .reservationTimeBox {
+    width: 10.4rem;
+  }
+
+  .selectedItem {
+    gap: 0.5rem;
+  }
+
+  .bannerImagePreviewContainer {
+    gap: 1rem;
+  }
+
+  .introImagePreviewContainer {
+    gap: 1rem;
+  }
+}
+
+@include mobile {
+  .label {
+    @include pretendard-20-700;
+  }
+
+  .reservationTimeContainer {
+    width: 15.4rem;
+    gap: 0.4rem;
+  }
+
+  .reservationTimeBox {
+    width: 7.5rem;
+  }
+}

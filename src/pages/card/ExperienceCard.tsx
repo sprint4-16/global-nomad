@@ -2,6 +2,7 @@ import Card from '../../components/Card/Card';
 
 interface CardProps {
   cardData: {
+    id: number;
     title: string;
     price: number;
     bannerImageUrl: string;
@@ -21,7 +22,7 @@ export default function ExperienceCard({ cardData }: CardProps) {
         </div>
         <Card.Footer>
           <Card.Price price={cardData.price} />
-          <Card.Dropdown />
+          <Card.Dropdown activityId={cardData.id} />
         </Card.Footer>
       </Card.Description>
     </Card>

@@ -10,7 +10,7 @@ export interface useLoginParams {
   password: string;
 }
 
-export function useLogin() {
+export function useLogin({ onSuccess }: { onSuccess: () => void }) {
   const { updateCookie } = useGetCookie();
   return useMutation({
     mutationFn: async (bodyData: useLoginParams) => {
@@ -23,6 +23,7 @@ export function useLogin() {
       updateCookie('userId', data.user.id);
       updateCookie('nickname', data.user.nickname);
       if (data.user.profileImageUrl !== null) updateCookie('profileImageUrl', data.user.profileImageUrl);
+      onSuccess();
     },
   });
 }
@@ -32,10 +33,13 @@ export interface useSignupParams extends useLoginParams {
   nickname: string;
 }
 
-export function useSignup() {
+export function useSignup({ onSuccess }: { onSuccess: () => void }) {
   return useMutation({
     mutationFn: async (bodyData: useSignupParams) => {
       return axiosInstance.post(END_POINT.USERS, bodyData);
+    },
+    onSuccess: () => {
+      onSuccess();
     },
   });
 }

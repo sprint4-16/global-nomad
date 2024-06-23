@@ -42,9 +42,7 @@ export default function Map({ address }: MapProps) {
   return (
     <div className={cn('container')}>
       <div className={cn('mapContent')}>
-        {/* {!!location && <KakaoMap location={location} draggable={draggable} mapRef={mapRef} />} */}
         {location && <KakaoMap location={location} draggable={draggable} mapRef={mapRef} />}
-        {/* {!!location && <div>주야</div>} */}
         <div className={cn('buttons')}>
           <Button className={cn('button')} type="primary" size="small" onClick={handleReset}>
             위치 초기화

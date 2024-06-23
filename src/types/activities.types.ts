@@ -8,6 +8,7 @@ export type ActivityType = {
   address: string;
   bannerImageUrl: string;
   subImageUrls?: { id: number; imageUrl: string }[];
+  subImages: SubImage[];
   schedules: {
     id: number;
     date: string;
@@ -19,6 +20,11 @@ export type ActivityType = {
   createdAt: string;
   updatedAt: string;
 };
+
+interface SubImage {
+  id: number;
+  imageUrl: string;
+}
 
 export type Time = {
   endTime: string;

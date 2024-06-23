@@ -1,9 +1,5 @@
-import LandingLayout from '@/pageLayouts/LandingLayout/landingLayout';
+import LandingLayout from '@/pageLayouts/LandingLayout';
 
-export default function Home() {
-  return (
-    <>
-      <LandingLayout />
-    </>
-  );
+export default function LandingPage() {
+  return <LandingLayout />;
 }
