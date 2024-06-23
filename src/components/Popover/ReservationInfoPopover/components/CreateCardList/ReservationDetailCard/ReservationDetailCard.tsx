@@ -7,6 +7,10 @@ import Button from '../../../../../Button/Button';
 import { Chips } from '../../../../../Chips/Chips';
 import AlertModal from '@/components/Popup/AlertModal/AlertModal';
 import { UsePatchScheduleStatus } from '@/apis/apiHooks/MyActivities';
+import useGetCookie from '@/hooks/useCookies';
+
+import { get, ref, remove, set } from 'firebase/database';
+import { database } from '@/firebase';
 
 const cn = classNames.bind(styles);
 
@@ -27,7 +31,7 @@ export default function ReservationDetailCard({
   reservationState,
   disableOutsideClick,
 }: Props) {
-  const { mutate: patchSchedule } = UsePatchScheduleStatus({ activityId, reservationId });
+  const { mutateAsync: patchSchedule } = UsePatchScheduleStatus({ activityId, reservationId });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
 
@@ -37,17 +41,21 @@ export default function ReservationDetailCard({
     setIsModalOpen((prev) => !prev);
   };
 
-  const handleConfirmClick = () => {
+  const handleConfirmClick = async () => {
     disableOutsideClick();
     handleModalOpen();
-    patchSchedule({ status: 'confirmed' });
+    const result = await patchSchedule({ status: 'confirmed' });
+    console.log(result);
+    changeStatusInFirebase(result.id, result.userId, "accepted")
     setAlertMessage('예약이 확정되었습니다.');
   };
 
-  const handleDeclinedClick = () => {
+  const handleDeclinedClick = async () => {
     disableOutsideClick();
     handleModalOpen();
-    patchSchedule({ status: 'declined' });
+    const result = await patchSchedule({ status: 'declined' });
+    console.log(result);
+    changeStatusInFirebase(result.id, result.userId, "rejected")
     setAlertMessage('예약이 거절되었습니다.');
   };
 
@@ -55,6 +63,37 @@ export default function ReservationDetailCard({
     queryClient.invalidateQueries({ queryKey: ['reservation'] });
     disableOutsideClick();
   };
+
+  const changeStatusInFirebase = async (reservationId: number, customerId: number, status: "pending" | "rejected" | "accepted") => {
+    const { getCookie } = useGetCookie();
+    const userId = getCookie('userId');
+
+    try {
+      // 기존 위치에서 데이터 가져오기
+      console.log(userId, customerId, reservationId)
+      const reservationRef = ref(database, `activity/${userId}/${reservationId}`);
+      const reservationSnapshot = await get(reservationRef);
+
+      if (reservationSnapshot.exists()) {
+        // 데이터 가져오기
+        const reservationData = reservationSnapshot.val();
+        reservationData.status = status;
+        reservationData.createdAt = new Date().toISOString(),
+
+          // 새 위치에 데이터 등록
+          await set(ref(database, `activity/${customerId}/${reservationId}`), reservationData);
+
+        // 기존 위치에서 데이터 제거
+        await remove(ref(database, `activity/${userId}/${reservationId}`));
+
+        console.log(`Reservation ${reservationId} moved successfully.`);
+      } else {
+        console.log(`Reservation ${reservationId} not found at ${userId}.`);
+      }
+    } catch (error) {
+      console.error('Error moving reservation:');
+    }
+  }
 
   return (
     <>

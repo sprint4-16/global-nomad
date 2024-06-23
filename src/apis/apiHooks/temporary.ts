@@ -48,6 +48,7 @@ export function useBookReservations({ activityId }: { activityId: string }) {
       );
       return {
         success: response.status === 200,
+        error: response.status === 401 || 409,
         reservationId: response.data?.id,
       };
     },

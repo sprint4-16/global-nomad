@@ -122,11 +122,11 @@ export function UsePatchScheduleStatus({ activityId, reservationId }: UsePatchSc
   return useMutation({
     mutationFn: async (body: BodyParams) => {
       if (!accessToken) throw new Error('Access token is not available');
-      const { data } = await axiosInstanceToken(accessToken).patch(
+      const response = await axiosInstanceToken(accessToken).patch(
         `${END_POINT.MY_ACTIVITIES}/${activityId}/reservations/${reservationId}`,
         { status: body.status },
       );
-      return data;
+      return response.data;
     },
   });
 }

@@ -1,5 +1,6 @@
 import { ref, set } from 'firebase/database';
 import { database } from '@/firebase';
+import useGetCookie from '@/hooks/useCookies';
 
 interface ScheduleEntry {
   id: number;
@@ -41,12 +42,14 @@ export default async function saveActivityToFirebase(
     const scheduleString = schedule
       ? `${schedule.date} ${schedule.startTime} ~ ${schedule.endTime}`
       : 'No schedule available';
+    const { getCookie } = useGetCookie();
+    const userId = getCookie('userId');
 
     await set(ref(database, `activity/${activityData.userId}/${reservationId}`), {
       id: reservationId,
       activityId: activityData.id,
       title: activityData.title,
-      customerId: 1234,
+      customerId: userId,
       schedule: scheduleString,
       status: 'pending',
       createdAt: new Date().toISOString(),
