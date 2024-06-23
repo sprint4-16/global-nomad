@@ -1,16 +1,16 @@
-import { Input } from '@/components/Input/Input';
-import Layout from '../_layout';
-import styles from '../_style/auth.module.scss';
 import classNames from 'classnames/bind';
-import Button from '@/components/Button/Button';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { schema_for_signin } from '../_shema';
-import { useForm } from 'react-hook-form';
-import { useLogin } from '@/apis/apiHooks/Auth';
+import styles from '../_style/auth.module.scss';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
-// import useCookies from '@/hooks/useCookies';
-// import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+
+import { ROUTE } from '@/constants';
+import { Input } from '@/components/Input/Input';
+import Layout from '../_layout';
+import Button from '@/components/Button/Button';
+import { schema_for_signin } from '../_shema';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useLogin } from '@/apis/apiHooks/Auth';
 
 const cn = classNames.bind(styles);
 
@@ -22,25 +22,20 @@ export default function Signin() {
     resolver: yupResolver(schema_for_signin),
   });
 
-  const { mutate, error } = useLogin();
+  const { mutate: login, error } = useLogin({
+    onSuccess: () => {
+      router.push(ROUTE.HOME);
+    },
+  });
 
   const onSubmit = () => {
     const signinFormValues = signinForm.getValues();
 
-    mutate({
+    login({
       email: signinFormValues.email,
       password: signinFormValues.password,
     });
-
-    router.push('/');
   };
-
-  // const { getCookie } = useCookies();
-  // useEffect(() => {
-  //   if (getCookie('accessToken')) {
-  //     router.back();
-  //   }
-  // }, []);
 
   return (
     <div>
@@ -64,7 +59,6 @@ export default function Signin() {
             )}
             {error && error instanceof AxiosError && <div className={cn('error')}>{error.response?.data.message}</div>}
           </div>
-
           <Button type="primary" disabled={!signinForm.formState.isValid} size="full" sx={{ marginTop: '3rem' }}>
             로그인 하기
           </Button>

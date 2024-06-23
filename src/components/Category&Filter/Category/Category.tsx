@@ -6,7 +6,7 @@ const cn = classNames.bind(styles);
 
 interface CategoryProps {
   className?: string;
-  list: string[];
+  list: ReadonlyArray<string>;
   onSelected: (index: number) => void;
 }
 export default function Category({ className, list, onSelected }: CategoryProps) {

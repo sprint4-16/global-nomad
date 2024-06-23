@@ -1,14 +1,16 @@
+import classNames from 'classnames/bind';
+import styles from '../_style/auth.module.scss';
+import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
+import { AxiosError } from 'axios';
+
+import { ROUTE } from '@/constants';
 import { Input } from '@/components/Input/Input';
 import Layout from '../_layout';
-import styles from '../_style/auth.module.scss';
-import classNames from 'classnames/bind';
 import Button from '@/components/Button/Button';
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema_for_signup } from '../_shema';
 import { useSignup } from '@/apis/apiHooks/Auth';
-import { AxiosError } from 'axios';
-import { useRouter } from 'next/router';
 
 const cn = classNames.bind(styles);
 
@@ -19,7 +21,12 @@ export default function Signup() {
     resolver: yupResolver(schema_for_signup),
   });
 
-  const { mutate, error } = useSignup();
+  const { mutate, error } = useSignup({
+    onSuccess: () => {
+      if (error) return;
+      router.push(ROUTE.LOGIN);
+    },
+  });
 
   const onSubmit = () => {
     const signupFormValues = signupForm.getValues();
@@ -29,8 +36,6 @@ export default function Signup() {
       email: signupFormValues.email,
       password: signupFormValues.password,
     });
-
-    router.push('/signin');
   };
 
   return (

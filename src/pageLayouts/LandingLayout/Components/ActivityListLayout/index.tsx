@@ -1,14 +1,16 @@
-import { useMediaQuery } from 'react-responsive';
-import { useEffect, useState } from 'react';
-import Router from 'next/router';
 import classNames from 'classnames/bind';
+import styles from './ActivityListLayout.module.scss';
+import { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
+import Router from 'next/router';
 
+import { ROUTE } from '@/constants';
+import { categoryList } from '@/constants';
 import Category from '@/components/Category&Filter/Category/Category';
 import Filter from '@/components/Category&Filter/Filter/Filter';
 import Pagination from '@/components/Pagination/Pagination';
 import CardResourceSmall from '@/components/CardResource/CardResourceSmall';
 import { UseGetActivities } from '@/apis/apiHooks/Activities';
-import styles from './ActivityListLayout.module.scss';
 
 interface CardResourceProps {
   id: number;
@@ -24,7 +26,6 @@ const cn = classNames.bind(styles);
 export default function ActivityListLayout() {
   const [sort, setSort] = useState<string | undefined>();
   const [category, setCategory] = useState<string | undefined>();
-  const categoryList = ['문화 · 예술', '식음료', '스포츠', '투어', '관광', '웰빙'];
 
   const isMobile = useMediaQuery({ maxWidth: 375 });
   const isTablet = useMediaQuery({ minWidth: 745, maxWidth: 1239 });
@@ -59,7 +60,7 @@ export default function ActivityListLayout() {
   };
 
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>, id: number) => {
-    Router.push(`/activities/${id}`);
+    Router.push(`${ROUTE.ACTIVITY_DETAIL}/${id}`);
   };
 
   return (
