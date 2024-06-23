@@ -135,14 +135,17 @@ export default function ActivityPostForm() {
         endTime: schedule.endTime,
       })),
     };
-    postActivity(submitData);
-    localStorage.removeItem('bannerImageUrl');
-    localStorage.removeItem('subImageUrl');
-    setFormData(initialState);
-    setModalMessage('체험 등록이 완료되었습니다.');
-    setIsModalOpen(true);
-    queryClient.invalidateQueries({ queryKey: ['myActivities'] });
-    router.push(ROUTE.USER_ACTIVITIES);
+    postActivity(submitData, {
+      onSuccess: () => {
+        localStorage.removeItem('bannerImageUrl');
+        localStorage.removeItem('subImageUrl');
+        setFormData(initialState);
+        setModalMessage('체험 등록이 완료되었습니다.');
+        setIsModalOpen(true);
+        queryClient.invalidateQueries({ queryKey: ['myActivities'] });
+        router.push(ROUTE.USER_ACTIVITIES);
+      },
+    });
   };
 
   const inputStyle: CSSProperties = {
