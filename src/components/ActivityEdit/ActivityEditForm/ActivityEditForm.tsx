@@ -17,7 +17,7 @@ import { useRouter } from 'next/router';
 import AddressInput from '@/components/AddressInput/AddressInput';
 import { useGetActivity } from '@/apis/apiHooks/temporary';
 import { useEditActivity } from '@/apis/apiHooks/PostActivities';
-import { CATEGORY_MENU_ITEMS, TIME_MENU_ITEMS } from '@/constants';
+import { TIME_MENU_ITEMS, categoryList } from '@/constants';
 
 interface Schedule {
   date: Date;
@@ -160,12 +160,14 @@ export default function ActivityEditForm() {
   };
 
   const handleDeleteItemClick = (index: number) => {
-    const deletedScheduleId = activityData.schedules[index].id;
-    setScheduleIdsToRemove((prev) => [...prev, deletedScheduleId]);
-    handleChange(
-      'schedules',
-      formData.schedules.filter((_, i) => i !== index),
-    );
+    if (activityData) {
+      const deletedScheduleId = activityData.schedules[index].id;
+      setScheduleIdsToRemove((prev) => [...prev, deletedScheduleId]);
+      handleChange(
+        'schedules',
+        formData.schedules.filter((_, i) => i !== index),
+      );
+    }
   };
 
   const formatDate = (date: Date): string => {
@@ -196,9 +198,9 @@ export default function ActivityEditForm() {
       subImageUrlsToAdd: subImageUrlsToAdd,
       scheduleIdsToRemove: scheduleIdsToRemove,
       schedulesToAdd: formattedSchedulesToAdd,
+      subImageUrls: formData.subImages.map((subImage) => subImage.imageUrl),
     };
 
-    console.log(submitData);
     editActivity(submitData);
 
     localStorage.removeItem('bannerImageUrl');
@@ -218,6 +220,8 @@ export default function ActivityEditForm() {
     zIndex: 1,
   };
 
+  const categoryMenuItems = [...categoryList];
+
   return (
     <form onSubmit={handleSubmit}>
       <div className={cn('titleBox')}>
@@ -236,7 +240,7 @@ export default function ActivityEditForm() {
         />
         <Dropdown
           isLabelVisible={false}
-          menuItems={CATEGORY_MENU_ITEMS}
+          menuItems={categoryMenuItems}
           selectedValue={formData.category}
           onSelect={(value) => handleChange('category', value)}
         />

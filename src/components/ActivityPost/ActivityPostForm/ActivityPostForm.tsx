@@ -2,13 +2,12 @@ import classNames from 'classnames/bind';
 import styles from './ActivityPostForm.module.scss';
 import { useState, useRef, CSSProperties, ChangeEvent, FormEvent, MouseEvent } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { Image } from './next/image';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useQueryClient } from '@tanstack/react-query';
-
 import LongStroke from '@/images/icon/icon_stroke_long.svg';
 import Stroke from '@/images/icon/icon_stroke.svg';
-import { ROUTE, categoryList } from '@/constants';
+import { ROUTE, TIME_MENU_ITEMS, categoryList } from '@/constants';
 import Button from '@/components/Button/Button';
 import { Input } from '@/components/Input/Input';
 import { Dropdown } from '@/components/Dropdown/Dropdown';
@@ -20,7 +19,6 @@ import DeleteBtn from '@/components/btns/DeleteBtn/DeleteBtn';
 import { usePostActivity } from '@/apis/apiHooks/PostActivities';
 import AddressInput from '@/components/AddressInput/AddressInput';
 import AlertModal from '@/components/Popup/AlertModal/AlertModal';
-import { CATEGORY_MENU_ITEMS, TIME_MENU_ITEMS } from '@/constants';
 
 const cn = classNames.bind(styles);
 
@@ -158,6 +156,8 @@ export default function ActivityPostForm() {
     zIndex: 1,
   };
 
+  const categoryMenuItems = [...categoryList];
+
   return (
     <form onSubmit={handleSubmit}>
       <div className={cn('titleBox')}>
@@ -175,7 +175,7 @@ export default function ActivityPostForm() {
         />
         <Dropdown
           isLabelVisible={false}
-          menuItems={CATEGORY_MENU_ITEMS}
+          menuItems={categoryMenuItems}
           onSelect={(value) => handleChange('category', value)}
         />
         <Textarea

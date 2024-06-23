@@ -99,4 +99,4 @@ export const TIME_MENU_ITEMS = [
   '23:00',
 ] as string[];
 
-export const CATEGORY_MENU_ITEMS = ['문화 예술', '식음료', '스포츠', '투어', '관광', '웰빙'] as string[];
+export const categoryList = ['문화 · 예술', '식음료', '스포츠', '투어', '관광', '웰빙'] as const;
