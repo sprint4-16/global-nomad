@@ -201,12 +201,17 @@ export default function ActivityEditForm() {
       subImageUrls: formData.subImages.map((subImage) => subImage.imageUrl),
     };
 
-    editActivity(submitData);
-
-    localStorage.removeItem('bannerImageUrl');
-    localStorage.removeItem('subImageUrl');
-    setModalMessage('체험 수정이 완료되었습니다.');
-    setIsModalOpen(true);
+    editActivity(submitData, {
+      onSuccess: () => {
+        localStorage.removeItem('bannerImageUrl');
+        localStorage.removeItem('subImageUrl');
+        setModalMessage('체험 수정이 완료되었습니다.');
+        setIsModalOpen(true);
+      },
+      onError: () => {
+        setIsModalOpen(false);
+      },
+    });
   };
 
   const inputStyle: CSSProperties = {
