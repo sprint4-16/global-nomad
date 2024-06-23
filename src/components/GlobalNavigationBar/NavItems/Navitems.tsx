@@ -1,15 +1,15 @@
+import classNames from 'classnames/bind';
+import styles from './NavItems.module.scss';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import useCookies from '@/hooks/useCookies';
-import classNames from 'classnames/bind';
-import styles from './NavItems.module.scss';
-
-const cn = classNames.bind(styles);
 
 import { ROUTE } from '@/constants';
 import ButtonAlertIcon from './items/ButtonAlertIcon';
 import ButtonProfile from './items/ButtonProfile';
+
+const cn = classNames.bind(styles);
 
 export default function NavItems() {
   const router = useRouter();
@@ -17,6 +17,7 @@ export default function NavItems() {
   const [isLoggedIn, setLoggedIn] = useState(false);
 
   const { getCookie, deleteAllCookie } = useCookies();
+
   const nickname = getCookie('nickname');
   const profileImageUrl = getCookie('profileImageUrl');
 

@@ -10,7 +10,7 @@ export interface useLoginParams {
   password: string;
 }
 
-export function useLogin() {
+export function useLogin({ onSuccess }: { onSuccess: () => void }) {
   const { updateCookie } = useGetCookie();
   return useMutation({
     mutationFn: async (bodyData: useLoginParams) => {
@@ -22,6 +22,7 @@ export function useLogin() {
       updateCookie('refreshToken', data.refreshToken);
       updateCookie('nickname', data.user.nickname);
       if (data.user.profileImageUrl !== null) updateCookie('profileImageUrl', data.user.profileImageUrl);
+      onSuccess();
     },
   });
 }
