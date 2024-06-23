@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import Router from 'next/router';
 
+import { ROUTE } from '@/constants';
 import { categoryList } from '@/constants';
 import Category from '@/components/Category&Filter/Category/Category';
 import Filter from '@/components/Category&Filter/Filter/Filter';
@@ -59,7 +60,7 @@ export default function ActivityListLayout() {
   };
 
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>, id: number) => {
-    Router.push(`/activities/${id}`);
+    Router.push(`${ROUTE.ACTIVITY_DETAIL}/${id}`);
   };
 
   return (
