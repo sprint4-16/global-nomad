@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useRef, CSSProperties, ChangeEvent, FormEvent, MouseEvent, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import classNames from 'classnames/bind';
