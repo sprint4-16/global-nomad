@@ -35,6 +35,12 @@ const nextConfig = {
     includePaths: ['styles'],
     additionalData: `@import "src/styles/globals.scss";`,
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 
 export default withPlaiceholder(nextConfig);

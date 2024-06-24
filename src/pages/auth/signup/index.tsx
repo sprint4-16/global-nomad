@@ -9,7 +9,7 @@ import { Input } from '@/components/Input/Input';
 import Layout from '../_layout';
 import Button from '@/components/Button/Button';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { schema_for_signup } from '../_shema';
+import { schema_for_signup } from '../../../utills/schema';
 import { useSignup } from '@/apis/apiHooks/Auth';
 
 const cn = classNames.bind(styles);

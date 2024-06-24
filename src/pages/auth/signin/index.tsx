@@ -8,7 +8,7 @@ import { ROUTE } from '@/constants';
 import { Input } from '@/components/Input/Input';
 import Layout from '../_layout';
 import Button from '@/components/Button/Button';
-import { schema_for_signin } from '../_shema';
+import { schema_for_signin } from '../../../utills/schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useLogin } from '@/apis/apiHooks/Auth';
 

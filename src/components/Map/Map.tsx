@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Map.module.scss';
 
-import LocationIcon from '@/images/icon/icon_Location.svg';
+import LocationIcon from '@/images/icon/icon_location.svg';
 import Button from '@/components/Button/Button';
 import ControlTimeBtn from '@/components/btns/ControlTimeBtn/ControlTimeBtn';
 import KakaoMap from './components/KakaoMap';
