@@ -12,7 +12,7 @@ const cn = classNames.bind(styles);
 
 interface ButtonProfileProps {
   nickname?: string;
-  profileImageUrl: string | undefined;
+  profileImageUrl?: string;
   onLogout: () => void;
 }
 export default function ButtonProfile({ nickname = '프로필', profileImageUrl, onLogout }: ButtonProfileProps) {

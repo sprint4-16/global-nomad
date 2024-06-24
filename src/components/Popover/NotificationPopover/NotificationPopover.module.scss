@@ -1,9 +1,11 @@
 .container {
-  //   width: 36.8rem;
-  width: 100%;
+  width: 36.8rem;
+  height: 49rem;
   background-color: $green-100;
   padding: 2.4rem 2rem;
-  // border-radius: 1rem;
+  border-radius: 1rem;
+  overflow-y: scroll;
+  scrollbar-width: none;
   // box-shadow: 0 0.2rem 0.8rem 0 #78748640;
 }
 
@@ -25,8 +27,13 @@
   border-radius: 0.5rem;
 }
 
+.header {
+  height: 1.8rem;
+}
+
 .content {
   @include pretendard-14-400;
+  white-space: normal;
 }
 
 .dot {
@@ -37,12 +44,28 @@
   border-radius: 50%;
 }
 
+.dot.pending {
+  background-color: $light-green-100;
+}
+
 .dot.rejected {
   background-color: $red-200;
 }
 
 .dot.accepted {
   background-color: $blue-300;
+}
+
+.pending {
+  color: $light-green-100;
+}
+
+.rejected {
+  color: $red-200;
+}
+
+.accepted {
+  color: $blue-300;
 }
 
 .header {

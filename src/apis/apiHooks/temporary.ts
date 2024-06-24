@@ -42,7 +42,15 @@ export function useBookReservations({ activityId }: { activityId: string }) {
 
   return useMutation({
     mutationFn: async (bodyData: { scheduleId: number; headCount: number }) => {
-      return axiosInstanceToken(accessToken).post(`${END_POINT.ACTIVITIES}/${activityId}/reservations`, bodyData);
+      const response = await axiosInstanceToken(accessToken).post(
+        `${END_POINT.ACTIVITIES}/${activityId}/reservations`,
+        bodyData,
+      );
+      return {
+        success: response.status === 200,
+        error: response.status === 401 || 409,
+        reservationId: response.data?.id,
+      };
     },
   });
 }

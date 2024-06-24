@@ -71,6 +71,13 @@ export const RESERVATION_STATE_LABEL_MAP = {
   completed: '체험 완료',
 } as const;
 
+export const COOKIE = {
+  ACCESS_TOKEN: 'accessToken',
+  PROFILE_IMAGE_URL: 'profileImageUrl',
+  NICKNAME: 'nickname',
+  USER_ID: 'userId',
+};
+        
 // 상수 정의
 export const TIME_MENU_ITEMS = [
   '0:00',
@@ -100,3 +107,4 @@ export const TIME_MENU_ITEMS = [
 ] as string[];
 
 export const categoryList = ['문화 · 예술', '식음료', '스포츠', '투어', '관광', '웰빙'] as const;
+

@@ -7,6 +7,9 @@ import Button from '../../../../../Button/Button';
 import { Chips } from '../../../../../Chips/Chips';
 import AlertModal from '@/components/Popup/AlertModal/AlertModal';
 import { UsePatchScheduleStatus } from '@/apis/apiHooks/MyActivities';
+import useGetCookie from '@/hooks/useCookies';
+import changeStatusInFirebase from '@/firebase/changeStatusInFireBase';
+import { COOKIE } from '@/constants';
 
 const cn = classNames.bind(styles);
 
@@ -27,27 +30,34 @@ export default function ReservationDetailCard({
   reservationState,
   disableOutsideClick,
 }: Props) {
-  const { mutate: patchSchedule } = UsePatchScheduleStatus({ activityId, reservationId });
+  const { mutateAsync: patchSchedule } = UsePatchScheduleStatus({ activityId, reservationId });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
 
   const queryClient = useQueryClient();
 
+  const { getCookie } = useGetCookie();
+  const userId = Number(getCookie(COOKIE.USER_ID));
+
   const handleModalOpen = () => {
     setIsModalOpen((prev) => !prev);
   };
 
-  const handleConfirmClick = () => {
+  const handleConfirmClick = async () => {
     disableOutsideClick();
     handleModalOpen();
-    patchSchedule({ status: 'confirmed' });
+    const result = await patchSchedule({ status: 'confirmed' });
+    console.log(result);
+    changeStatusInFirebase(result.id, result.userId, userId, 'accepted');
     setAlertMessage('예약이 확정되었습니다.');
   };
 
-  const handleDeclinedClick = () => {
+  const handleDeclinedClick = async () => {
     disableOutsideClick();
     handleModalOpen();
-    patchSchedule({ status: 'declined' });
+    const result = await patchSchedule({ status: 'declined' });
+    console.log(result);
+    changeStatusInFirebase(result.id, result.userId, userId, 'rejected');
     setAlertMessage('예약이 거절되었습니다.');
   };
 

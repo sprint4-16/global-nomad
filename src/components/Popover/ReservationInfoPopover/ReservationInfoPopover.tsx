@@ -34,17 +34,17 @@ export default function ReservationInfoPopover({
     data: scheduleData,
   }: {
     data:
-      | {
-          scheduleId: number;
-          startTime: string;
-          endTime: string;
-          count: {
-            declined: number;
-            confirmed: number;
-            pending: number;
-          };
-        }[]
-      | undefined;
+    | {
+      scheduleId: number;
+      startTime: string;
+      endTime: string;
+      count: {
+        declined: number;
+        confirmed: number;
+        pending: number;
+      };
+    }[]
+    | undefined;
   } = UseGetSchedule({ activityId, date });
   const scheduleId = scheduleData?.[dropdownIndex]?.scheduleId || undefined;
 

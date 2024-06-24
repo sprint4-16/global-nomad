@@ -4,17 +4,19 @@ import classNames from 'classnames/bind';
 
 interface HeaderProps {
   title: string;
-  onClose: () => void;
   isNotificationHeader?: boolean;
+  onClose: () => void;
 }
+
+const CLOSE_BUTTON_SIZE = { small: 20, large: 30 };
 
 const cn = classNames.bind(styles);
 
-export default function Header({ title, onClose, isNotificationHeader = false }: HeaderProps) {
+export default function Header({ title, isNotificationHeader = false, onClose }: HeaderProps) {
   return (
     <div className={cn('container')}>
       <h2 className={cn('title', { notificationTitle: isNotificationHeader })}>{title}</h2>
-      <CloseBtn onClick={onClose} size={isNotificationHeader ? 20 : 30} />
+      <CloseBtn onClick={onClose} size={isNotificationHeader ? CLOSE_BUTTON_SIZE.small : CLOSE_BUTTON_SIZE.large} />
     </div>
   );
 }

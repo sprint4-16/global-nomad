@@ -1,5 +1,6 @@
 .navItems {
   display: flex;
+  position: relative;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -25,4 +26,11 @@
   .loggedInComponent {
     gap: 1.2rem;
   }
+}
+
+.notice {
+  position: absolute;
+  top: 6.2rem;
+  right: 0;
+  width: 36.8rem;
 }
