@@ -44,7 +44,7 @@
 }
 .stroke {
   @include tablet {
-    width: 25.1rem;
+    width: 100%;
   }
   @include mobile {
     display: none;
