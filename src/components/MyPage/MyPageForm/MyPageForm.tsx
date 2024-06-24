@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useGetProfile, usePatchProfile, usePatchProfileProps } from '@/apis/apiHooks/MyProfile';
 import { useEffect, useState } from 'react';
+import AlertModal from '@/components/Popup/AlertModal/AlertModal';
 
 const cn = classNames.bind(styles);
 
@@ -15,6 +16,8 @@ export default function MyPageForm() {
   const { data: profileData } = useGetProfile();
   const [email, setEmail] = useState('');
   const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null);
+  const [modalMessage, setModalMessage] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const nicknameSchema = yup.object({
     nickname: yup.string().max(10, '열 자 이하로 작성해 주세요.').required('닉네임을 입력해 주세요.'),
@@ -68,9 +71,6 @@ export default function MyPageForm() {
       bodyData.profileImageUrl = profileImageUrl;
     }
 
-    console.log(profileImageUrl);
-    console.log(profileData?.profileImageUrl);
-
     patchProfile.mutate(bodyData, {
       onSuccess: () => {
         console.log('프로필 업데이트 성공!');
@@ -79,10 +79,12 @@ export default function MyPageForm() {
           newPassword: '',
         });
         localStorage.removeItem('profileImageUrl');
-        alert('프로필이 저장되었습니다!');
+        setModalMessage('프로필이 저장되었습니다!');
+        setIsModalOpen(true);
       },
       onError: (error: any) => {
         console.error('프로필 업데이트 에러!', error);
+        setIsModalOpen(false);
       },
     });
   };
@@ -105,8 +107,8 @@ export default function MyPageForm() {
       </div>
       <div className={cn('formContainer')}>
         <div className={cn('inputBox')}>
+          <label className={cn('label')}>닉네임</label>
           <Input
-            label="닉네임"
             type="text"
             placeholder={profileData ? profileData.nickname : '정만철'}
             labelClassName={cn('customLabel')}
@@ -117,8 +119,8 @@ export default function MyPageForm() {
           )}
         </div>
         <div className={cn('inputBox')}>
+          <label className={cn('label')}>이메일</label>
           <Input
-            label="이메일"
             type="email"
             value={email}
             placeholder={profileData ? profileData.email : '12345@example.com'}
@@ -127,8 +129,8 @@ export default function MyPageForm() {
           />
         </div>
         <div className={cn('inputBox')}>
+          <label className={cn('label')}>비밀번호</label>
           <Input
-            label="비밀번호"
             type="password"
             placeholder="8자 이상 입력해 주세요"
             labelClassName={cn('customLabel')}
@@ -139,8 +141,8 @@ export default function MyPageForm() {
           )}
         </div>
         <div className={cn('inputBox')}>
+          <label className={cn('label')}>비밀번호 확인</label>
           <Input
-            label="비밀번호 확인"
             type="password"
             placeholder="비밀번호를 한 번 더 입력해 주세요"
             labelClassName={cn('customLabel')}
@@ -151,6 +153,12 @@ export default function MyPageForm() {
           )}
         </div>
       </div>
+      <AlertModal
+        alertMessage={modalMessage}
+        onConfirm={() => setIsModalOpen(false)}
+        handleModalOpen={() => setIsModalOpen(false)}
+        isModalOpen={isModalOpen}
+      />
     </form>
   );
 }

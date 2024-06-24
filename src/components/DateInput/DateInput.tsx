@@ -34,12 +34,15 @@ export const DateInput = forwardRef<DateInputRef, DateInputProps>(({ dateText, c
   };
 
   const handleDateChange = (date: Date) => {
-    setSelectedDate(date);
-    const formattedDate = `${date.getFullYear().toString().slice(-2)}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}`;
+    const timezoneOffsetInMs = date.getTimezoneOffset() * 60000;
+    const adjustedDate = new Date(date.getTime() - timezoneOffsetInMs);
+
+    setSelectedDate(adjustedDate);
+    const formattedDate = `${adjustedDate.getFullYear().toString().slice(-2)}/${(adjustedDate.getUTCMonth() + 1).toString().padStart(2, '0')}/${adjustedDate.getUTCDate().toString().padStart(2, '0')}`;
     setDisplayDateText(formattedDate);
     setShowDatePicker(false);
     if (onChange) {
-      onChange(date);
+      onChange(adjustedDate);
     }
   };
 

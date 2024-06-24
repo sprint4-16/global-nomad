@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.scss';
 import Image from 'next/image';
 import classNames from 'classnames/bind';
-import styles from '../../landingLayout.module.scss';
+import styles from '../../SlickLayout.module.scss';
 
 const cn = classNames.bind(styles);
 

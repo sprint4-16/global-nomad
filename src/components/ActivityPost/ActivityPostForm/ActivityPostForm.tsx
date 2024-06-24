@@ -2,13 +2,12 @@ import classNames from 'classnames/bind';
 import styles from './ActivityPostForm.module.scss';
 import { useState, useRef, CSSProperties, ChangeEvent, FormEvent, MouseEvent } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { Image } from './next/image';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useQueryClient } from '@tanstack/react-query';
-
 import LongStroke from '@/images/icon/icon_stroke_long.svg';
 import Stroke from '@/images/icon/icon_stroke.svg';
-import { ROUTE, categoryList } from '@/constants';
+import { ROUTE, TIME_MENU_ITEMS, categoryList } from '@/constants';
 import Button from '@/components/Button/Button';
 import { Input } from '@/components/Input/Input';
 import { Dropdown } from '@/components/Dropdown/Dropdown';
@@ -136,14 +135,20 @@ export default function ActivityPostForm() {
         endTime: schedule.endTime,
       })),
     };
-    postActivity(submitData);
-    localStorage.removeItem('bannerImageUrl');
-    localStorage.removeItem('subImageUrl');
-    setFormData(initialState);
-    setModalMessage('체험 등록이 완료되었습니다.');
-    setIsModalOpen(true);
-    queryClient.invalidateQueries({ queryKey: ['myActivities'] });
-    router.push(ROUTE.USER_ACTIVITIES);
+    postActivity(submitData, {
+      onSuccess: () => {
+        localStorage.removeItem('bannerImageUrl');
+        localStorage.removeItem('subImageUrl');
+        setFormData(initialState);
+        setModalMessage('체험 등록이 완료되었습니다.');
+        setIsModalOpen(true);
+        queryClient.invalidateQueries({ queryKey: ['myActivities'] });
+        router.push(ROUTE.USER_ACTIVITIES);
+      },
+      onError: () => {
+        setIsModalOpen(false);
+      },
+    });
   };
 
   const inputStyle: CSSProperties = {
@@ -156,33 +161,6 @@ export default function ActivityPostForm() {
     right: '-1rem',
     zIndex: 1,
   };
-
-  const menuItems = [
-    '0:00',
-    '1:00',
-    '2:00',
-    '3:00',
-    '4:00',
-    '5:00',
-    '6:00',
-    '7:00',
-    '8:00',
-    '9:00',
-    '10:00',
-    '11:00',
-    '12:00',
-    '13:00',
-    '14:00',
-    '15:00',
-    '16:00',
-    '17:00',
-    '18:00',
-    '19:00',
-    '20:00',
-    '21:00',
-    '22:00',
-    '23:00',
-  ];
 
   const categoryMenuItems = [...categoryList];
 
@@ -235,7 +213,7 @@ export default function ActivityPostForm() {
               <Dropdown
                 className={cn('dropdown')}
                 isLabelVisible={false}
-                menuItems={menuItems}
+                menuItems={TIME_MENU_ITEMS}
                 onSelect={(value) => handleChange('startTime', value)}
                 selectedValue={formData.startTime}
               />
@@ -246,9 +224,9 @@ export default function ActivityPostForm() {
               <Dropdown
                 className={cn('dropdown')}
                 isLabelVisible={false}
-                menuItems={menuItems}
+                menuItems={TIME_MENU_ITEMS}
                 onSelect={(value) => handleChange('endTime', value)}
-                selectedValue={formData.startTime}
+                selectedValue={formData.endTime}
               />
             </div>
           </div>
