@@ -9,7 +9,7 @@ export function useGetReservation(status?: string) {
   const accessToken = getCookie('accessToken');
 
   return useInfiniteQuery({
-    queryKey: ['reservation', accessToken, status],
+    queryKey: ['reservation', status],
     queryFn: async ({ pageParam }) => {
       if (!accessToken) throw new Error('Access token is not available');
       const { data } = await axiosInstanceToken(accessToken).get(`${END_POINT.MY_RESERVATIONS}`, {
