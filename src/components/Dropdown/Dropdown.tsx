@@ -12,12 +12,18 @@ const cn = classNames.bind(styles);
 interface DropdownProps {
   className?: string;
   menuItems: string[];
-  onSelect?: (value: string) => void;
+  onSelect?: (value: number) => void;
   isLabelVisible?: boolean;
   selectedValue?: string;
 }
 
-export function Dropdown({ className, menuItems, onSelect, isLabelVisible = false, selectedValue }: DropdownProps) {
+export default function Dropdown({
+  className,
+  menuItems,
+  onSelect,
+  isLabelVisible = false,
+  selectedValue,
+}: DropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
 
@@ -43,7 +49,7 @@ export function Dropdown({ className, menuItems, onSelect, isLabelVisible = fals
     handleDropdownOpen();
 
     if (onSelect) {
-      onSelect(menuItems[index]);
+      onSelect(index);
     }
   };
 

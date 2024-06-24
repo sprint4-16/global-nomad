@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './ScheduleDropdown.module.scss';
 import dayjs from 'dayjs';
 
-import { Dropdown } from '@/components/Dropdown/Dropdown';
+import Dropdown from '@/components/Dropdown/Dropdown';
 
 const cn = classNames.bind(styles);
 
