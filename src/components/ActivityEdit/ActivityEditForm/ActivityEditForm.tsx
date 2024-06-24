@@ -1,34 +1,30 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import classNames from 'classnames/bind';
+import styles from './ActivityEditForm.module.scss';
 import { useState, useRef, CSSProperties, ChangeEvent, FormEvent, MouseEvent, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import classNames from 'classnames/bind';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
+
+import { TIME_MENU_ITEMS, categoryList, ROUTE } from '@/constants';
+import LongStroke from '@/images/icon/icon_stroke_long.svg';
+import Stroke from '@/images/icon/icon_stroke.svg';
 import Button from '@/components/Button/Button';
-import { Input } from '@/components/Input/Input';
-import { Dropdown } from '@/components/Dropdown/Dropdown';
+import Dropdown from '@/components/Dropdown/Dropdown';
 import Textarea from '@/components/Textarea/Textarea';
-import { DateInput, DateInputRef } from '@/components/DateInput/DateInput';
 import AddImageBtn from '@/components/btns/AddImageBtn/AddImageBtn';
 import ControlTimeBtn from '@/components/btns/ControlTimeBtn/ControlTimeBtn';
 import DeleteBtn from '@/components/btns/DeleteBtn/DeleteBtn';
-import LongStroke from '@/images/icon/icon_stroke_long.svg';
-import Stroke from '@/images/icon/icon_stroke.svg';
-import styles from './ActivityEditForm.module.scss';
 import AlertModal from '@/components/Popup/AlertModal/AlertModal';
-import { useRouter } from 'next/router';
 import AddressInput from '@/components/AddressInput/AddressInput';
+import { Input } from '@/components/Input/Input';
+import { DateInput, DateInputRef } from '@/components/DateInput/DateInput';
 import { useGetActivity } from '@/apis/apiHooks/temporary';
 import { useEditActivity } from '@/apis/apiHooks/PostActivities';
-import { TIME_MENU_ITEMS, categoryList } from '@/constants';
 
 interface Schedule {
   date: Date;
   startTime: string;
   endTime: string;
-}
-
-interface SubImage {
-  id: number;
-  imageUrl: string;
 }
 
 interface FormData {
@@ -39,7 +35,10 @@ interface FormData {
   price: string;
   schedules: Schedule[];
   bannerImageUrl: string | null;
-  subImages: SubImage[];
+  subImages: {
+    id: number;
+    imageUrl: string;
+  }[];
   selectedDate?: Date;
   startTime?: string;
   endTime?: string;
@@ -53,27 +52,24 @@ export default function ActivityEditForm() {
   const { data: activityData } = useGetActivity({ activityId: router.query.activityId?.toString() ?? '' });
   const { mutate: editActivity } = useEditActivity({ activityId: router.query.activityId?.toString() ?? '' });
 
-  const initialState: FormData = {
-    title: activityData ? activityData.title : '',
-    category: activityData ? activityData.category : '투어',
-    description: activityData ? activityData.description : '',
-    address: activityData ? activityData.address : '',
-    price: activityData ? activityData.price.toString() : '',
-    schedules: activityData
-      ? activityData.schedules.map((schedule: any) => ({
-          date: new Date(schedule.date),
-          startTime: schedule.startTime,
-          endTime: schedule.endTime,
-        }))
-      : [],
-    bannerImageUrl: activityData ? activityData.bannerImageUrl : null,
-    subImages: activityData ? activityData.subImages || [] : [],
+  const [formData, setFormData] = useState<FormData>({
+    title: activityData?.title ?? '',
+    category: activityData?.category ?? '투어',
+    description: activityData?.description ?? '',
+    address: activityData?.address ?? '',
+    price: activityData?.price.toString() ?? '',
+    schedules:
+      activityData?.schedules.map((schedule) => ({
+        date: new Date(schedule.date),
+        startTime: schedule.startTime,
+        endTime: schedule.endTime,
+      })) ?? [],
+    bannerImageUrl: activityData?.bannerImageUrl ?? null,
+    subImages: activityData?.subImages ?? [],
     selectedDate: undefined,
     startTime: '0:00',
     endTime: '0:00',
-  };
-
-  const [formData, setFormData] = useState<FormData>(initialState);
+  });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const [subImageIdsToRemove, setSubImageIdsToRemove] = useState<number[]>([]);
@@ -90,13 +86,13 @@ export default function ActivityEditForm() {
         description: activityData.description,
         address: activityData.address,
         price: activityData.price.toString(),
-        schedules: activityData.schedules.map((schedule: any) => ({
+        schedules: activityData.schedules.map((schedule) => ({
           date: new Date(schedule.date),
           startTime: schedule.startTime,
           endTime: schedule.endTime,
         })),
         bannerImageUrl: activityData.bannerImageUrl,
-        subImages: activityData.subImages || [],
+        subImages: activityData.subImages,
         selectedDate: undefined,
         startTime: '0:00',
         endTime: '0:00',
@@ -104,17 +100,13 @@ export default function ActivityEditForm() {
     }
   }, [activityData]);
 
-  const handleChange = (field: keyof FormData, value: any) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
-
-  const handleBannerImageSelect = (imageUrl: string) => {
-    handleChange('bannerImageUrl', imageUrl);
+  const handleBannerImageSelect = (bannerImageUrl: string) => {
+    setFormData((prev) => ({ ...prev, bannerImageUrl }));
   };
 
   const handleIntroImageSelect = (imageUrl: string) => {
     if (formData.subImages.length < 4) {
-      handleChange('subImages', [...formData.subImages, { imageUrl }]);
+      setFormData((prev) => ({ ...prev, subImages: [...formData.subImages, { id: prev.subImages.length, imageUrl }] }));
 
       if (imageUrl.startsWith('http')) {
         setSubImageUrlsToAdd((prev) => [...prev, imageUrl]);
@@ -124,7 +116,7 @@ export default function ActivityEditForm() {
 
   const handleDeleteBannerImageClick = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    handleChange('bannerImageUrl', null);
+    setFormData((prev) => ({ ...prev, bannerImageUrl: null }));
   };
 
   const handleDeleteIntroImageClick = (event: MouseEvent<HTMLButtonElement>, index: number) => {
@@ -133,7 +125,7 @@ export default function ActivityEditForm() {
     setSubImageIdsToRemove((prev) => [...prev, deletedSubImageId]);
 
     const updatedSubImages = formData.subImages.filter((_, i) => i !== index);
-    handleChange('subImages', updatedSubImages);
+    setFormData((prev) => ({ ...prev, subImages: updatedSubImages }));
   };
 
   const handleControlTimeClick = () => {
@@ -148,12 +140,12 @@ export default function ActivityEditForm() {
         const newSchedule: Schedule = { date: selectedDate, startTime, endTime };
         setSchedulesToAdd((prev) => [...prev, newSchedule]);
         const updatedSchedules = [...schedules, newSchedule];
-        handleChange('schedules', updatedSchedules);
+        setFormData((prev) => ({ ...prev, schedules: updatedSchedules }));
         if (dateInputRef.current) dateInputRef.current.reset();
 
-        handleChange('selectedDate', undefined);
-        handleChange('startTime', '0:00');
-        handleChange('endTime', '0:00');
+        setFormData((prev) => ({ ...prev, selectedDate: undefined }));
+        setFormData((prev) => ({ ...prev, startTime: '0:00' }));
+        setFormData((prev) => ({ ...prev, endTime: '0:00' }));
       } else {
         alert('이미 선택된 시간대입니다.');
       }
@@ -164,10 +156,7 @@ export default function ActivityEditForm() {
     if (activityData) {
       const deletedScheduleId = activityData.schedules[index].id;
       setScheduleIdsToRemove((prev) => [...prev, deletedScheduleId]);
-      handleChange(
-        'schedules',
-        formData.schedules.filter((_, i) => i !== index),
-      );
+      setFormData((prev) => ({ ...prev, schedules: formData.schedules.filter((_, i) => i !== index) }));
     }
   };
 
@@ -204,10 +193,9 @@ export default function ActivityEditForm() {
 
     editActivity(submitData, {
       onSuccess: () => {
-        localStorage.removeItem('bannerImageUrl');
-        localStorage.removeItem('subImageUrl');
         setModalMessage('체험 수정이 완료되었습니다.');
         setIsModalOpen(true);
+        router.push(ROUTE.USER_ACTIVITIES);
       },
       onError: () => {
         setIsModalOpen(false);
@@ -242,18 +230,20 @@ export default function ActivityEditForm() {
           placeholder="제목"
           sx={inputStyle}
           value={formData.title}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange('title', e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData((prev) => ({ ...prev, title: e.target.value }))}
         />
         <Dropdown
           isLabelVisible={false}
           menuItems={categoryMenuItems}
           selectedValue={formData.category}
-          onSelect={(value) => handleChange('category', value)}
+          onSelect={(index) => setFormData((prev) => ({ ...prev, category: categoryMenuItems[index] }))}
         />
         <Textarea
           placeholder="설명"
           value={formData.description}
-          onChange={(e: ChangeEvent<HTMLTextAreaElement>) => handleChange('description', e.target.value)}
+          onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+            setFormData((prev) => ({ ...prev, description: e.target.value }))
+          }
         />
         <div className={cn('inputContainer')}>
           <label className={cn('label')}>가격</label>
@@ -262,14 +252,16 @@ export default function ActivityEditForm() {
             placeholder="가격"
             sx={inputStyle}
             value={formData.price}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange('price', e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData((prev) => ({ ...prev, price: e.target.value }))}
           />
         </div>
         <div className={cn('inputContainer')}>
           <label className={cn('label')}>주소</label>
           <AddressInput
             value={formData.address}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange('address', e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setFormData((prev) => ({ ...prev, address: e.target.value }))
+            }
             placeholder={formData.address}
           />
         </div>
@@ -277,7 +269,11 @@ export default function ActivityEditForm() {
         <div className={cn('reservationTimeWrapper')}>
           <div className={cn('reservationDateBox', 'commonWidth')}>
             <label className={cn('smallLabel')}>날짜</label>
-            <DateInput dateText="YY/MM/DD" onChange={(date) => handleChange('selectedDate', date)} ref={dateInputRef} />
+            <DateInput
+              dateText="YY/MM/DD"
+              onChange={(date) => setFormData((prev) => ({ ...prev, selectedDate: date }))}
+              ref={dateInputRef}
+            />
           </div>
           <div className={cn('reservationTimeContainer')}>
             <div className={cn('reservationTimeBox')}>
@@ -287,7 +283,7 @@ export default function ActivityEditForm() {
                 isLabelVisible={false}
                 menuItems={TIME_MENU_ITEMS}
                 selectedValue={formData.startTime}
-                onSelect={(value) => handleChange('startTime', value)}
+                onSelect={(index) => setFormData((prev) => ({ ...prev, startTime: TIME_MENU_ITEMS[index] }))}
               />
             </div>
             {isPc && <div className={cn('separator')}>~</div>}
@@ -298,7 +294,7 @@ export default function ActivityEditForm() {
                 isLabelVisible={false}
                 menuItems={TIME_MENU_ITEMS}
                 selectedValue={formData.endTime}
-                onSelect={(value) => handleChange('endTime', value)}
+                onSelect={(index) => setFormData((prev) => ({ ...prev, endTime: TIME_MENU_ITEMS[index] }))}
               />
             </div>
           </div>
@@ -306,7 +302,7 @@ export default function ActivityEditForm() {
             <ControlTimeBtn type="plus" onClick={handleControlTimeClick} />
           </div>
         </div>
-        {formData.schedules.length > 0 && (
+        {formData?.schedules?.length > 0 && (
           <>
             <div className={cn('selectedItems')}>
               {isPc ? <LongStroke /> : <Stroke />}
@@ -355,7 +351,13 @@ export default function ActivityEditForm() {
             {formData.bannerImageUrl && (
               <div className={cn('imagePreviewBox')}>
                 <DeleteBtn sx={deleteBtnStyle} onClick={handleDeleteBannerImageClick} />
-                <img className={cn('imagePreview')} src={formData.bannerImageUrl} alt="배너 이미지 미리보기" />
+                <Image
+                  className={cn('imagePreview')}
+                  width="180"
+                  height="180"
+                  src={formData.bannerImageUrl}
+                  alt="배너 이미지 미리보기"
+                />
               </div>
             )}
           </div>
@@ -370,7 +372,13 @@ export default function ActivityEditForm() {
                   sx={deleteBtnStyle}
                   onClick={(event: MouseEvent<HTMLButtonElement>) => handleDeleteIntroImageClick(event, index)}
                 />
-                <img className={cn('imagePreview')} src={image.imageUrl} alt={`소개 이미지 ${index + 1} 미리보기`} />
+                <Image
+                  className={cn('imagePreview')}
+                  width="180"
+                  height="180"
+                  src={image.imageUrl}
+                  alt={`소개 이미지 ${index + 1} 미리보기`}
+                />
               </div>
             ))}
           </div>

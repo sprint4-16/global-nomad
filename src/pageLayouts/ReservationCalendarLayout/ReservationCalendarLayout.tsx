@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './ReservationCalendarLayout.module.scss';
 
-import { Dropdown } from '@/components/Dropdown/Dropdown';
+import Dropdown from '@/components/Dropdown/Dropdown';
 import CalendarLayout from './components/CalendarLayout/CalendarLayout';
 import EmptyIcon from '@/images/icon/icon_empty.svg';
 

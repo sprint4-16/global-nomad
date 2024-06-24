@@ -5,20 +5,21 @@ import { useMediaQuery } from 'react-responsive';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useQueryClient } from '@tanstack/react-query';
+
+import { ROUTE, TIME_MENU_ITEMS, categoryList } from '@/constants';
 import LongStroke from '@/images/icon/icon_stroke_long.svg';
 import Stroke from '@/images/icon/icon_stroke.svg';
-import { ROUTE, TIME_MENU_ITEMS, categoryList } from '@/constants';
 import Button from '@/components/Button/Button';
-import { Input } from '@/components/Input/Input';
-import { Dropdown } from '@/components/Dropdown/Dropdown';
+import Dropdown from '@/components/Dropdown/Dropdown';
 import Textarea from '@/components/Textarea/Textarea';
-import { DateInput, DateInputRef } from '@/components/DateInput/DateInput';
 import AddImageBtn from '@/components/btns/AddImageBtn/AddImageBtn';
 import ControlTimeBtn from '@/components/btns/ControlTimeBtn/ControlTimeBtn';
 import DeleteBtn from '@/components/btns/DeleteBtn/DeleteBtn';
-import { usePostActivity } from '@/apis/apiHooks/PostActivities';
 import AddressInput from '@/components/AddressInput/AddressInput';
 import AlertModal from '@/components/Popup/AlertModal/AlertModal';
+import { Input } from '@/components/Input/Input';
+import { DateInput, DateInputRef } from '@/components/DateInput/DateInput';
+import { usePostActivity } from '@/apis/apiHooks/PostActivities';
 
 const cn = classNames.bind(styles);
 
@@ -42,13 +43,11 @@ interface FormData {
   endTime?: string;
 }
 
-type FormDataValue = string | Date | string[] | Schedule[] | null;
-
 export default function ActivityPostForm() {
   const isPc = useMediaQuery({ query: '(min-width: 767px)' });
   const router = useRouter();
 
-  const initialState: FormData = {
+  const [formData, setFormData] = useState<FormData>({
     title: '',
     category: '투어',
     description: '',
@@ -57,9 +56,7 @@ export default function ActivityPostForm() {
     schedules: [],
     bannerImageUrl: null,
     subImageUrls: [],
-  };
-
-  const [formData, setFormData] = useState<FormData>(initialState);
+  });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const { mutate: postActivity } = usePostActivity();
@@ -67,31 +64,24 @@ export default function ActivityPostForm() {
 
   const dateInputRef = useRef<DateInputRef>(null);
 
-  const handleChange = (field: keyof FormData, value: FormDataValue) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+  const handleBannerImageSelect = (bannerImageUrl: string) => {
+    setFormData((prev) => ({ ...prev, bannerImageUrl }));
   };
 
-  const handleBannerImageSelect = (imageUrl: string) => {
-    handleChange('bannerImageUrl', imageUrl);
-  };
-
-  const handleIntroImageSelect = (imageUrl: string) => {
+  const handleIntroImageSelect = (subImageUrls: string) => {
     if (formData.subImageUrls.length < 4) {
-      handleChange('subImageUrls', [...formData.subImageUrls, imageUrl]);
+      setFormData((prev) => ({ ...prev, subImageUrls: [...formData.subImageUrls, subImageUrls] }));
     }
   };
 
   const handleDeleteBannerImageClick = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    handleChange('bannerImageUrl', null);
+    setFormData((prev) => ({ ...prev, bannerImageUrl: null }));
   };
 
   const handleDeleteIntroImageClick = (event: MouseEvent<HTMLButtonElement>, index: number) => {
     event.preventDefault();
-    handleChange(
-      'subImageUrls',
-      formData.subImageUrls.filter((_, i) => i !== index),
-    );
+    setFormData((prev) => ({ ...prev, subImageUrls: formData.subImageUrls.filter((_, i) => i !== index) }));
   };
 
   const handleControlTimeClick = () => {
@@ -104,7 +94,7 @@ export default function ActivityPostForm() {
 
       if (!isDuplicate) {
         const newSchedule: Schedule = { date: selectedDate, startTime, endTime };
-        handleChange('schedules', [...schedules, newSchedule]);
+        setFormData((prev) => ({ ...prev, schedules: [...schedules, newSchedule] }));
         if (dateInputRef.current) dateInputRef.current.reset();
       } else {
         alert('이미 선택된 시간대입니다.');
@@ -113,10 +103,7 @@ export default function ActivityPostForm() {
   };
 
   const handleDeleteItemClick = (index: number) => {
-    handleChange(
-      'schedules',
-      formData.schedules.filter((_, i) => i !== index),
-    );
+    setFormData((prev) => ({ ...prev, schedules: formData.schedules.filter((_, i) => i !== index) }));
   };
 
   const formatDate = (date: Date): string => {
@@ -139,9 +126,6 @@ export default function ActivityPostForm() {
     };
     postActivity(submitData, {
       onSuccess: () => {
-        localStorage.removeItem('bannerImageUrl');
-        localStorage.removeItem('subImageUrl');
-        setFormData(initialState);
         setModalMessage('체험 등록이 완료되었습니다.');
         setIsModalOpen(true);
         queryClient.invalidateQueries({ queryKey: ['myActivities'] });
@@ -179,16 +163,18 @@ export default function ActivityPostForm() {
           type="text"
           placeholder="제목"
           sx={inputStyle}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange('title', e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData((prev) => ({ ...prev, title: e.target.value }))}
         />
         <Dropdown
           isLabelVisible={false}
           menuItems={categoryMenuItems}
-          onSelect={(value) => handleChange('category', value)}
+          onSelect={(index) => setFormData((prev) => ({ ...prev, category: categoryMenuItems[index] }))}
         />
         <Textarea
           placeholder="설명"
-          onChange={(e: ChangeEvent<HTMLTextAreaElement>) => handleChange('description', e.target.value)}
+          onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+            setFormData((prev) => ({ ...prev, description: e.target.value }))
+          }
         />
         <div className={cn('inputContainer')}>
           <label className={cn('label')}>가격</label>
@@ -196,18 +182,26 @@ export default function ActivityPostForm() {
             type="text"
             placeholder="가격"
             sx={inputStyle}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange('price', e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData((prev) => ({ ...prev, price: e.target.value }))}
           />
         </div>
         <div className={cn('inputContainer')}>
           <label className={cn('label')}>주소</label>
-          <AddressInput onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange('address', e.target.value)} />
+          <AddressInput
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setFormData((prev) => ({ ...prev, address: e.target.value }))
+            }
+          />
         </div>
         <label className={cn('label')}>예약 가능한 시간대</label>
         <div className={cn('reservationTimeWrapper')}>
           <div className={cn('reservationDateBox', 'commonWidth')}>
             <label className={cn('smallLabel')}>날짜</label>
-            <DateInput dateText="YY/MM/DD" onChange={(date) => handleChange('selectedDate', date)} ref={dateInputRef} />
+            <DateInput
+              dateText="YY/MM/DD"
+              onChange={(date) => setFormData((prev) => ({ ...prev, selectedDate: date }))}
+              ref={dateInputRef}
+            />
           </div>
           <div className={cn('reservationTimeContainer')}>
             <div className={cn('reservationTimeBox')}>
@@ -216,7 +210,7 @@ export default function ActivityPostForm() {
                 className={cn('dropdown')}
                 isLabelVisible={false}
                 menuItems={TIME_MENU_ITEMS}
-                onSelect={(value) => handleChange('startTime', value)}
+                onSelect={(index) => setFormData((prev) => ({ ...prev, startTime: TIME_MENU_ITEMS[index] }))}
                 selectedValue={formData.startTime}
               />
             </div>
@@ -227,7 +221,7 @@ export default function ActivityPostForm() {
                 className={cn('dropdown')}
                 isLabelVisible={false}
                 menuItems={TIME_MENU_ITEMS}
-                onSelect={(value) => handleChange('endTime', value)}
+                onSelect={(index) => setFormData((prev) => ({ ...prev, endTime: TIME_MENU_ITEMS[index] }))}
                 selectedValue={formData.endTime}
               />
             </div>
@@ -285,7 +279,13 @@ export default function ActivityPostForm() {
             {formData.bannerImageUrl && (
               <div className={cn('imagePreviewBox')}>
                 <DeleteBtn sx={deleteBtnStyle} onClick={handleDeleteBannerImageClick} />
-                <Image className={cn('imagePreview')} src={formData.bannerImageUrl} alt="배너 이미지 미리보기" />
+                <Image
+                  className={cn('imagePreview')}
+                  width="180"
+                  height="180"
+                  src={formData.bannerImageUrl}
+                  alt="배너 이미지 미리보기"
+                />
               </div>
             )}
           </div>
@@ -300,7 +300,13 @@ export default function ActivityPostForm() {
                   sx={deleteBtnStyle}
                   onClick={(event: MouseEvent<HTMLButtonElement>) => handleDeleteIntroImageClick(event, index)}
                 />
-                <Image className={cn('imagePreview')} src={imageUrl} alt={`소개 이미지 ${index + 1} 미리보기`} />
+                <Image
+                  className={cn('imagePreview')}
+                  width="180"
+                  height="180"
+                  src={imageUrl}
+                  alt={`소개 이미지 ${index + 1} 미리보기`}
+                />
               </div>
             ))}
           </div>
