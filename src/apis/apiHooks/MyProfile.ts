@@ -9,7 +9,7 @@ export function useGetProfile() {
   const accessToken = getCookie('accessToken');
 
   return useQuery({
-    queryKey: ['profile'],
+    queryKey: ['profile', accessToken],
     queryFn: async () => {
       if (!accessToken) throw new Error('Access token is not available');
       const { data } = await axiosInstanceToken(accessToken).get(`${END_POINT.USERS}/me`);
