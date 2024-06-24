@@ -1,17 +1,21 @@
-import Button from '@/components/Button/Button';
-import styles from './MyPageForm.module.scss';
 import classNames from 'classnames/bind';
-import { Input } from '@/components/Input/Input';
+import styles from './MyPageForm.module.scss';
+import { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useQueryClient } from '@tanstack/react-query';
+
+import Button from '@/components/Button/Button';
+import { Input } from '@/components/Input/Input';
 import { useGetProfile, usePatchProfile, usePatchProfileProps } from '@/apis/apiHooks/MyProfile';
-import { useEffect, useState } from 'react';
 import AlertModal from '@/components/Popup/AlertModal/AlertModal';
 
 const cn = classNames.bind(styles);
 
 export default function MyPageForm() {
+  const queryClient = useQueryClient();
+
   const patchProfile = usePatchProfile();
   const { data: profileData } = useGetProfile();
   const [email, setEmail] = useState('');
@@ -73,7 +77,6 @@ export default function MyPageForm() {
 
     patchProfile.mutate(bodyData, {
       onSuccess: () => {
-        console.log('프로필 업데이트 성공!');
         passwordForm.reset({
           password: '',
           newPassword: '',
@@ -81,6 +84,7 @@ export default function MyPageForm() {
         localStorage.removeItem('profileImageUrl');
         setModalMessage('프로필이 저장되었습니다!');
         setIsModalOpen(true);
+        queryClient.invalidateQueries({ queryKey: ['profile'] });
       },
       onError: (error: Error) => {
         console.error('프로필 업데이트 에러!', error);
