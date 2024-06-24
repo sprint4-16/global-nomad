@@ -5,7 +5,6 @@ import { useMediaQuery } from 'react-responsive';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useQueryClient } from '@tanstack/react-query';
-
 import { ROUTE, TIME_MENU_ITEMS, categoryList } from '@/constants';
 import LongStroke from '@/images/icon/icon_stroke_long.svg';
 import Stroke from '@/images/icon/icon_stroke.svg';
@@ -59,6 +58,7 @@ export default function ActivityPostForm() {
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const { mutate: postActivity } = usePostActivity();
   const queryClient = useQueryClient();
 
@@ -128,8 +128,7 @@ export default function ActivityPostForm() {
       onSuccess: () => {
         setModalMessage('체험 등록이 완료되었습니다.');
         setIsModalOpen(true);
-        queryClient.invalidateQueries({ queryKey: ['myActivities'] });
-        router.push(ROUTE.USER_ACTIVITIES);
+        setIsFormSubmitted(true);
       },
       onError: () => {
         setIsModalOpen(false);
@@ -149,6 +148,14 @@ export default function ActivityPostForm() {
   };
 
   const categoryMenuItems = [...categoryList];
+
+  const handleModalConfirm = () => {
+    setIsModalOpen(false);
+    if (isFormSubmitted) {
+      queryClient.invalidateQueries({ queryKey: ['myActivities'] });
+      router.push(ROUTE.USER_ACTIVITIES);
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -315,7 +322,7 @@ export default function ActivityPostForm() {
       </div>
       <AlertModal
         alertMessage={modalMessage}
-        onConfirm={() => setIsModalOpen(false)}
+        onConfirm={handleModalConfirm}
         handleModalOpen={() => setIsModalOpen(false)}
         isModalOpen={isModalOpen}
       />

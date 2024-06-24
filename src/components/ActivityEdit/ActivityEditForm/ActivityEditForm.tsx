@@ -76,6 +76,7 @@ export default function ActivityEditForm() {
   const [subImageUrlsToAdd, setSubImageUrlsToAdd] = useState<string[]>([]);
   const [scheduleIdsToRemove, setScheduleIdsToRemove] = useState<number[]>([]);
   const [schedulesToAdd, setSchedulesToAdd] = useState<Schedule[]>([]);
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const dateInputRef = useRef<DateInputRef>(null);
 
   useEffect(() => {
@@ -195,12 +196,19 @@ export default function ActivityEditForm() {
       onSuccess: () => {
         setModalMessage('체험 수정이 완료되었습니다.');
         setIsModalOpen(true);
-        router.push(ROUTE.USER_ACTIVITIES);
+        setIsFormSubmitted(true);
       },
       onError: () => {
         setIsModalOpen(false);
       },
     });
+  };
+
+  const handleModalConfirm = () => {
+    setIsModalOpen(false);
+    if (isFormSubmitted) {
+      router.push(ROUTE.USER_ACTIVITIES);
+    }
   };
 
   const inputStyle: CSSProperties = {
@@ -387,7 +395,7 @@ export default function ActivityEditForm() {
       </div>
       <AlertModal
         alertMessage={modalMessage}
-        onConfirm={() => setIsModalOpen(false)}
+        onConfirm={handleModalConfirm}
         handleModalOpen={() => setIsModalOpen(false)}
         isModalOpen={isModalOpen}
       />
