@@ -1,0 +1,119 @@
+.landing {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  
+    .inner {
+      width: 100%;
+      max-width: 124.8rem;
+      padding: 0 2.4rem;
+  
+      @include mobile {
+        padding: 0 1.6rem;
+      }
+  
+      .searchWrapper {
+        display: flex;
+        width: 100%;
+        position: relative;
+        z-index: $z-index-searchBar;
+        margin-top: -5rem;
+        border-radius: 1.6rem;
+        background-color: $white;
+        overflow: hidden;
+      }
+    }
+  }
+  .carousel-wrapper {
+    width: 100%;
+    .dimmed {
+      filter: brightness(50%);
+    }
+    .bannerImg {
+      height: 55rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  
+      width: 100%;
+      object-fit: cover;
+      position: static;
+      z-index: $zindex-banner-img;
+  
+      @include mobile {
+        height: 24rem;
+      }
+    }
+    .mainTitle {
+      width: calc(100vw - 2.4rem);
+      height: 23rem;
+      display: flex;
+      flex-direction: column;
+      margin-top: 15.9rem;
+      gap: 2rem;
+      position: absolute;
+      top: 0;
+      z-index: $z-index-mainTitle;
+      padding-left: 2.4rem;
+  
+      @include tablet {
+        gap: 0.8rem;
+      }
+  
+      @include mobile {
+        width: calc(100vw - 1.6rem);
+        height: 9rem;
+        margin-top: 7.4rem;
+        padding-left: 1.6rem;
+      }
+  
+      .title {
+        max-width: 120rem;
+        width: 100%;
+        padding-right: 15%;
+        margin-left: auto;
+        margin-right: auto;
+        color: $white;
+        font-size: clamp(5.4rem, 5vw, 6.8rem);
+        font-weight: 700;
+        text-overflow: ellipsis;
+        overflow: hidden;
+  
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+  
+        @include tablet {
+          font-size: clamp(3.6rem, 5vw, 5.4rem);
+        }
+  
+        @include mobile {
+          font-size: 2.4rem;
+        }
+      }
+  
+      .description {
+        max-width: 120rem;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        color: $white;
+        font-size: 2.4rem;
+        font-weight: 700;
+  
+        @include tablet {
+          font-size: 2rem;
+        }
+  
+        @include mobile {
+          font-size: 1.4rem;
+        }
+      }
+    }
+  
+    button {
+      display: none !important;
+    }
+  }
