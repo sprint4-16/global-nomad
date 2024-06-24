@@ -98,25 +98,25 @@ export default function Activity() {
             <div className={cn('subCovers')}>
               <div className={cn('subCovers-section')}>
                 <div className={cn('subCover')}>
-                  {data?.subImageUrls && data.subImageUrls[0] && (
-                    <Image fill src={data?.bannerImageUrl as string} alt="배너이미지" />
+                  {data?.subImages && data.subImages[0] && (
+                    <Image fill src={data.subImages[0].imageUrl as string} alt="배너이미지" />
                   )}
                 </div>
                 <div className={cn('subCover')}>
-                  {data?.subImageUrls && data.subImageUrls[1] && (
-                    <Image fill src={data?.bannerImageUrl as string} alt="배너이미지" />
+                  {data?.subImages && data.subImages[1] && (
+                    <Image fill src={data.subImages[1].imageUrl as string} alt="배너이미지" />
                   )}
                 </div>
               </div>
               <div className={cn('subCovers-section')}>
                 <div className={cn('subCover')}>
-                  {data?.subImageUrls && data.subImageUrls[2] && (
-                    <Image fill src={data?.bannerImageUrl as string} alt="배너이미지" />
+                  {data?.subImages && data.subImages[2] && (
+                    <Image fill src={data.subImages[2].imageUrl as string} alt="배너이미지" />
                   )}
                 </div>
                 <div className={cn('subCover')}>
-                  {data?.subImageUrls && data.subImageUrls[3] && (
-                    <Image fill src={data?.bannerImageUrl as string} alt="배너이미지" />
+                  {data?.subImages && data.subImages[3] && (
+                    <Image fill src={data.subImages[3].imageUrl as string} alt="배너이미지" />
                   )}
                 </div>
               </div>
