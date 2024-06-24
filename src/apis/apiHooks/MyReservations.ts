@@ -9,7 +9,7 @@ export function useGetReservation(status?: string) {
   const accessToken = getCookie('accessToken');
 
   return useInfiniteQuery({
-    queryKey: ['reservation', status],
+    queryKey: ['reservation', accessToken, status],
     queryFn: async ({ pageParam }) => {
       if (!accessToken) throw new Error('Access token is not available');
       const { data } = await axiosInstanceToken(accessToken).get(`${END_POINT.MY_RESERVATIONS}`, {
@@ -91,7 +91,7 @@ export function useGetMyActivities() {
   const accessToken = getCookie('accessToken');
 
   return useQuery({
-    queryKey: ['myActivities'],
+    queryKey: ['myActivities', accessToken],
     queryFn: async () => {
       if (!accessToken) throw new Error('Access token is not available');
       const { data } = await axiosInstanceToken(accessToken).get(`my-activities?size=20`);
