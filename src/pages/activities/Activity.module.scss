@@ -129,6 +129,10 @@
 .sidebar {
   width: 30.4rem;
   flex-shrink: 0;
+
+  @include tablet{
+    width: 23.4rem;
+  }
 }
 
 .mapContainer {
