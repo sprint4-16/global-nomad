@@ -38,13 +38,6 @@ export default function DateInfo({
     setTabletSize(isTalbet);
   }, [isTalbet]);
 
-  console.log(obj_mapped_date_times);
-  console.log(
-    'datepick:',
-    `${datepick.getFullYear()}-${(datepick.getMonth() + 1).toString().padStart(2, '0')}-${datepick.getDate().toString().padStart(2, '0')}`,
-  );
-  console.log(scheduleId);
-
   return (
     <div className={cn('dateInfo')}>
       {!tabletSize ? (

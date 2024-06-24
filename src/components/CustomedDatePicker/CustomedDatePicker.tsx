@@ -27,8 +27,6 @@ export default function CustomedDatePicker({
     increaseMonth();
   };
 
-  console.log('availableDates:', availableDates);
-
   return (
     <DatePicker
       selected={selected}

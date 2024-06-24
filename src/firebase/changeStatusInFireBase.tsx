@@ -22,10 +22,8 @@ export default async function changeStatusInFirebase(
 
       // 기존 위치에서 데이터 제거
       await remove(ref(database, `activity/${userId}/${reservationId}`));
-
-      console.log(`Reservation ${reservationId} moved successfully.`);
     } else {
-      console.log(`Reservation ${reservationId} not found at ${userId}.`);
+      console.error(`Error`);
     }
   } catch (error) {
     console.error('Error moving reservation:');
