@@ -25,7 +25,7 @@ export function useGetAvailableSchedule({
   month: string;
 }) {
   return useQuery<AvailableScheduleType>({
-    queryKey: ['available-schedule', year, month],
+    queryKey: ['available-schedule', activityId, year, month],
     queryFn: async () => {
       const { data } = await axiosInstance.get(
         `${END_POINT.ACTIVITIES}/${activityId}/available-schedule?year=${year}&month=${month}`,
