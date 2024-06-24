@@ -11,6 +11,7 @@ import { GNB_REQUIRES, SIDE_NAV_MENU_REQUIRES, ROUTE } from '@/constants/index';
 import GlobalNavigationBar from '@/components/GlobalNavigationBar/GlobalNavigationBar';
 import Footer from '@/components/Footer/Footer';
 import SideNavigationMenuLayout from '@/pageLayouts/commonLayouts/SideNavigationMenuLayout/SideNavigationMenuLayout';
+import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -37,24 +38,26 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {checkRouteInGNB ? (
-        <div style={isInActivityDetailPage ? { backgroundColor: '#fafafa' } : {}} id="wrapper">
-          <div id="modal-root" />
-          <GlobalNavigationBar />
-          <div id="contentWrapper" style={contentStyle}>
-            {checkRouteInSideNavMenu ? (
-              <SideNavigationMenuLayout>
+      <ErrorBoundary>
+        {checkRouteInGNB ? (
+          <div style={isInActivityDetailPage ? { backgroundColor: '#fafafa' } : {}} id="wrapper">
+            <div id="modal-root" />
+            <GlobalNavigationBar />
+            <div id="contentWrapper" style={contentStyle}>
+              {checkRouteInSideNavMenu ? (
+                <SideNavigationMenuLayout>
+                  <Component {...pageProps} />
+                </SideNavigationMenuLayout>
+              ) : (
                 <Component {...pageProps} />
-              </SideNavigationMenuLayout>
-            ) : (
-              <Component {...pageProps} />
-            )}
+              )}
+            </div>
+            <Footer />
           </div>
-          <Footer />
-        </div>
-      ) : (
-        <Component {...pageProps} />
-      )}
+        ) : (
+          <Component {...pageProps} />
+        )}
+      </ErrorBoundary>
 
       <ReactQueryDevtools />
     </QueryClientProvider>

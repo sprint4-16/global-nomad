@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 2.4rem;
+  .logoContainer {
+    width: 34rem;
+    height: 19.2rem;
+    background-size: cover;
+    background-image: url('/logo/logo.svg');
+    flex-shrink: 0;
+    @include tablet {
+      width: 30rem;
+      height: 17rem;
+    }
+    @include mobile {
+      width: 27rem;
+      height: 15.4rem;
+    }
+  }
+  h1 {
+    @include pretendard-32-700;
+    @include tablet {
+      @include pretendard-24-700;
+    }
+  }
+  button {
+    @include pretendard-16-700;
+    text-decoration: underline;
+  }
+}
