@@ -51,9 +51,9 @@ export default function MyPageForm() {
       setEmail(profileData.email);
       setProfileImageUrl(profileData.profileImageUrl);
     }
-  }, [profileData, nicknameForm.setValue]);
+  }, [profileData, nicknameForm.setValue, nicknameForm]);
 
-  const onSubmit = (data: any) => {
+  const onSubmit = () => {
     const nicknameData = nicknameForm.getValues();
     const passwordData = passwordForm.getValues();
 
@@ -82,7 +82,7 @@ export default function MyPageForm() {
         setModalMessage('프로필이 저장되었습니다!');
         setIsModalOpen(true);
       },
-      onError: (error: any) => {
+      onError: (error: Error) => {
         console.error('프로필 업데이트 에러!', error);
         setIsModalOpen(false);
       },

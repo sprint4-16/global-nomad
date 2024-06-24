@@ -42,6 +42,8 @@ interface FormData {
   endTime?: string;
 }
 
+type FormDataValue = string | Date | string[] | Schedule[] | null;
+
 export default function ActivityPostForm() {
   const isPc = useMediaQuery({ query: '(min-width: 767px)' });
   const router = useRouter();
@@ -65,7 +67,7 @@ export default function ActivityPostForm() {
 
   const dateInputRef = useRef<DateInputRef>(null);
 
-  const handleChange = (field: keyof FormData, value: any) => {
+  const handleChange = (field: keyof FormData, value: FormDataValue) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
