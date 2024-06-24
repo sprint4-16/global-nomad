@@ -37,8 +37,7 @@ export function useGetAvailableSchedule({
 
 export function useBookReservations({ activityId }: { activityId: string }) {
   const { getCookie } = useGetCookie();
-  const accessToken = getCookie('accessToken');
-  if (!accessToken) throw new Error('Access token is not available');
+  const accessToken = getCookie('accessToken') || null;
 
   return useMutation({
     mutationFn: async (bodyData: { scheduleId: number; headCount: number }) => {

@@ -156,13 +156,6 @@ export default function Activity() {
                     </li>
                   ))}
                 </ul>
-                <div className={cn('paginationContainer')}>
-                  <Pagination
-                    total={reviewsData?.totalCount as number}
-                    page={page}
-                    onChangePage={(page: number) => setPage(page)}
-                  />
-                </div>
               </div>
             </div>
             <div className={cn('sidebar')}>
@@ -170,6 +163,9 @@ export default function Activity() {
                 <FloatingBox activityData={data} price={data?.price} activityId={activityId?.toString() as string} />
               )}
             </div>
+          </div>
+          <div className={cn('paginationContainer')}>
+            <Pagination total={reviewsData?.totalCount as number} nowPage={page} setNowPage={setPage} />
           </div>
         </div>
       )}
