@@ -22,7 +22,7 @@
     "dayjs": "^1.11.11",
     "firebase": "^10.12.2",
     "js-cookie": "^3.0.5",
-    "next": "14.2.3",
+    "next": "14.2.4",
     "plaiceholder": "^3.0.0",
     "react": "^18",
     "react-datepicker": "^6.9.0",
