@@ -1,30 +1,29 @@
+import { categoryList, TIME_MENU_ITEMS } from '@/constants';
+
 export type ActivityType = {
   id: number;
   userId: number;
   title: string;
   description: string;
-  category: string;
+  category: typeof categoryList;
   price: number;
   address: string;
   bannerImageUrl: string;
-  subImageUrls?: { id: number; imageUrl: string }[];
-  subImages: SubImage[];
+  rating: number;
+  reviewCount: number;
+  createdAt: string;
+  updatedAt: string;
+  subImages: {
+    id: number;
+    imageUrl: string;
+  }[];
   schedules: {
     id: number;
     date: string;
-    startTime: string;
-    endTime: string;
+    startTime: typeof TIME_MENU_ITEMS;
+    endTime: typeof TIME_MENU_ITEMS;
   }[];
-  reviewCount: number;
-  rating: number;
-  createdAt: string;
-  updatedAt: string;
 };
-
-interface SubImage {
-  id: number;
-  imageUrl: string;
-}
 
 export type Time = {
   endTime: string;

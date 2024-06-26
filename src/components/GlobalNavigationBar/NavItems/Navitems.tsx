@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import useCookies from '@/hooks/useCookies';
 
-import { COOKIE, ROUTE } from '@/constants';
+import { ROUTE } from '@/constants';
 import ButtonAlertIcon from './items/ButtonAlertIcon';
 import ButtonProfile from './items/ButtonProfile';
 import NotificationPopover from '@/components/Popover/NotificationPopover/NotificationPopover';
@@ -14,20 +14,20 @@ import { useGetProfile } from '@/apis/apiHooks/MyProfile';
 const cn = classNames.bind(styles);
 
 export default function NavItems() {
-  const { data: profileData } = useGetProfile();
+  const { data: profileData, isError } = useGetProfile();
   const router = useRouter();
 
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [notice, setNotice] = useState(false);
 
-  const { getCookie, deleteAllCookie } = useCookies();
   const nickname = profileData?.nickname ?? '';
   const profileImageUrl = profileData?.profileImageUrl ?? '';
 
+  const { getCookie, deleteAllCookie } = useCookies();
+
   useEffect(() => {
-    const accessToken = getCookie(COOKIE.ACCESS_TOKEN);
-    setLoggedIn(!!accessToken);
-  }, [getCookie]);
+    setLoggedIn(profileData);
+  }, [getCookie, profileData]);
 
   const onLogout = () => {
     deleteAllCookie();
@@ -37,6 +37,8 @@ export default function NavItems() {
   const handleNoticeClick = () => {
     setNotice((notice) => !notice);
   };
+
+  if (isError) deleteAllCookie();
 
   return (
     <>

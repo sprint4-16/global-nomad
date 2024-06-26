@@ -47,7 +47,6 @@ export default function ReservationDetailCard({
     disableOutsideClick();
     handleModalOpen();
     const result = await patchSchedule({ status: 'confirmed' });
-    console.log(result);
     changeStatusInFirebase(result.id, result.userId, userId, 'accepted');
     setAlertMessage('예약이 확정되었습니다.');
   };
@@ -56,7 +55,6 @@ export default function ReservationDetailCard({
     disableOutsideClick();
     handleModalOpen();
     const result = await patchSchedule({ status: 'declined' });
-    console.log(result);
     changeStatusInFirebase(result.id, result.userId, userId, 'rejected');
     setAlertMessage('예약이 거절되었습니다.');
   };

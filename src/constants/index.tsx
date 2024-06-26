@@ -52,8 +52,6 @@ export const END_POINT = {
   USERS: '/users',
 } as const;
 
-export const COOKIE_NAMES = ['accessToken', 'reservationId', 'refreshToken', 'nickname', 'profileImageUrl'] as const;
-
 export const SIDE_NAV_MENU_REQUIRES: string[] = [
   ROUTE.USER,
   ROUTE.RESERVATIONS,
@@ -71,8 +69,19 @@ export const RESERVATION_STATE_LABEL_MAP = {
   completed: '체험 완료',
 } as const;
 
+export const COOKIE_NAMES = [
+  'accessToken',
+  'reservationId',
+  'refreshToken',
+  'profileImageUrl',
+  'nickname',
+  'userId',
+] as const;
+
 export const COOKIE = {
   ACCESS_TOKEN: 'accessToken',
+  RESERVATION_ID: 'reservationId',
+  REFRESH_TOKEN: 'refreshToken',
   PROFILE_IMAGE_URL: 'profileImageUrl',
   NICKNAME: 'nickname',
   USER_ID: 'userId',

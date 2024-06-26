@@ -18,6 +18,7 @@ export default function RatingComponent({ onRatingChange }: RaitingComponentProp
   const handleMouseOver = (index: number) => {
     clicked.current = false;
     setRating({ ...rating, temporary: index + 1 });
+    console.log(rating);
   };
 
   const handleMouseOut = () => {
@@ -35,13 +36,21 @@ export default function RatingComponent({ onRatingChange }: RaitingComponentProp
       {[...Array(5)].map((star, index) => {
         return index < (clicked.current ? rating.permanent : rating.temporary) ? (
           <StarOn
+            width="5.6rem"
+            height="5.6rem"
             key={`star-${index}`}
             onMouseOver={() => handleMouseOver(index)}
             onMouseLeave={handleMouseOut}
             onClick={() => onStarClick(index)}
           />
         ) : (
-          <StarOff key={`star-${index}`} onMouseOver={() => handleMouseOver(index)} onMouseLeave={handleMouseOut} />
+          <StarOff
+            width="5.6rem"
+            height="5.6rem"
+            key={`star-${index}`}
+            onMouseOver={() => handleMouseOver(index)}
+            onMouseLeave={handleMouseOut}
+          />
         );
       })}
     </div>
