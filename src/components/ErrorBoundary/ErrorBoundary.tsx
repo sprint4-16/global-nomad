@@ -37,14 +37,12 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   render() {
     if (this.state.hasError) {
       return (
-        <div>
-          <div className={cn('container')}>
-            <div className={cn('logoContainer')}></div>
-            <h1>Sorry... 오류가 발생했어요 😭</h1>
-            <button type="button" onClick={this.handleRetry}>
-              이전으로 돌아가기
-            </button>
-          </div>
+        <div className={cn('container')}>
+          <div className={cn('logoContainer')}></div>
+          <h1>Sorry... 오류가 발생했어요 😭</h1>
+          <button type="button" onClick={this.handleRetry}>
+            이전으로 돌아가기
+          </button>
         </div>
       );
     }

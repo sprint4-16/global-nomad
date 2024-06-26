@@ -1,0 +1,19 @@
+.descriptionContainer {
+  padding-bottom: 3.5rem;
+  border-bottom: 0.1rem solid $gray-400;
+}
+
+.subTitle {
+  @include pretendard-20-700;
+  margin-bottom: 2rem;
+}
+
+.activityDescription {
+  @include pretendard-16-400;
+}
+
+.mapContainer {
+  border-bottom: 0.1rem solid $gray-400;
+  padding: 3.5rem 0;
+  margin-bottom: 3.5rem;
+}

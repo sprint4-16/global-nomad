@@ -7,7 +7,7 @@ import '@/styles/datepicker_custom.scss';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import { GNB_REQUIRES, SIDE_NAV_MENU_REQUIRES, ROUTE } from '@/constants/index';
+import { GNB_REQUIRES, SIDE_NAV_MENU_REQUIRES } from '@/constants/index';
 import GlobalNavigationBar from '@/components/GlobalNavigationBar/GlobalNavigationBar';
 import Footer from '@/components/Footer/Footer';
 import SideNavigationMenuLayout from '@/pageLayouts/commonLayouts/SideNavigationMenuLayout/SideNavigationMenuLayout';
