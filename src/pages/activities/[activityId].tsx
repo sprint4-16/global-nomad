@@ -1,24 +1,28 @@
-import { useGetActivity } from '@/apis/apiHooks/temporary';
-import { useRouter } from 'next/router';
-import styles from './Activity.module.scss';
 import classNames from 'classnames/bind';
-import KebabBtn from '@/components/btns/KebabBtn/KebabBtn';
+import styles from './Activity.module.scss';
+import { useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
+import useCookies from '@/hooks/useCookies';
+
+import { COOKIE, ROUTE } from '@/constants';
 import StarIcon from '@/images/icon/icon_star_on.svg';
 import LocationIcon from '@/images/icon/icon_location.svg';
+import AlertModal from '@/components/Popup/AlertModal/AlertModal';
+import KebabBtn from '@/components/btns/KebabBtn/KebabBtn';
 import Header from './_skeleton-ui/skeleton-header';
-import { useRef, useState } from 'react';
-import useOutsideClick from '@/hooks/useOutsideClick';
-import Image from 'next/image';
 import Map from '@/components/Map/Map';
 import FloatingBox from '@/components/FloatingBox/FloatingBox';
 import Pagination from '@/components/Pagination/Pagination';
+import useOutsideClick from '@/hooks/useOutsideClick';
+import { useGetActivity } from '@/apis/apiHooks/temporary';
 import { useGetReviews } from '@/apis/apiHooks/Review';
 
 const cn = classNames.bind(styles);
 
 const REVIEWS_PER_PAGE = 3;
 
-function formatDate(dateString: string): string {
+function FormatDate(dateString: string): string {
   // Date 객체 생성
   const date = new Date(dateString);
 
@@ -54,6 +58,25 @@ export default function Activity() {
       setIsPopoverOpened(false);
     },
   });
+
+  const { getCookie } = useCookies();
+  const accessToken = getCookie(COOKIE.ACCESS_TOKEN);
+  const onConfirm = () => {
+    router.replace(ROUTE.LOGIN);
+  };
+
+  const handleModalOpen = () => {};
+
+  if (!accessToken) {
+    return (
+      <AlertModal
+        alertMessage="로그인 후에 이용할 수 있습니다."
+        onConfirm={onConfirm}
+        isModalOpen={true}
+        handleModalOpen={handleModalOpen}
+      />
+    );
+  }
 
   return (
     <>
@@ -149,7 +172,7 @@ export default function Activity() {
                       <div className={cn('reviewContents')}>
                         <div className={cn('header')}>
                           <div className={cn('reviewer')}>{review.user.nickname}</div>
-                          <div className={cn('date')}>{formatDate(review.createdAt)}</div>
+                          <div className={cn('date')}>{FormatDate(review.createdAt)}</div>
                         </div>
                         <p className={cn('reviewDescription')}>{review.content}</p>
                       </div>

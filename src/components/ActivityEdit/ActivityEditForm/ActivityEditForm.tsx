@@ -4,6 +4,7 @@ import { useState, useRef, CSSProperties, ChangeEvent, FormEvent, MouseEvent, us
 import { useMediaQuery } from 'react-responsive';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { TIME_MENU_ITEMS, categoryList, ROUTE } from '@/constants';
 import LongStroke from '@/images/icon/icon_stroke_long.svg';
@@ -20,6 +21,8 @@ import { Input } from '@/components/Input/Input';
 import { DateInput, DateInputRef } from '@/components/DateInput/DateInput';
 import { useGetActivity } from '@/apis/apiHooks/temporary';
 import { useEditActivity } from '@/apis/apiHooks/PostActivities';
+
+const cn = classNames.bind(styles);
 
 interface Schedule {
   date: Date;
@@ -46,8 +49,8 @@ interface FormData {
 
 export default function ActivityEditForm() {
   const router = useRouter();
-  const cn = classNames.bind(styles);
   const isPc = useMediaQuery({ query: '(min-width: 767px)' });
+  const queryClient = useQueryClient();
 
   const { data: activityData } = useGetActivity({ activityId: router.query.activityId?.toString() ?? '' });
   const { mutate: editActivity } = useEditActivity({ activityId: router.query.activityId?.toString() ?? '' });
@@ -208,6 +211,7 @@ export default function ActivityEditForm() {
     setIsModalOpen(false);
     if (isFormSubmitted) {
       router.push(ROUTE.USER_ACTIVITIES);
+      queryClient.invalidateQueries({ queryKey: ['myActivities', 'activity-detail'] });
     }
   };
 

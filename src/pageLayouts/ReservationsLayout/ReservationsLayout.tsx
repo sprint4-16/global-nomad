@@ -23,6 +23,7 @@ export default function ReservationsLayout() {
       }
     });
   };
+
   useEffect(() => {
     const observer = new IntersectionObserver(handleIntersection);
     if (observerRef.current) {
@@ -38,9 +39,7 @@ export default function ReservationsLayout() {
     <div className={cn('container')}>
       <div className={cn('header')}>
         <div className={cn('header_text')}>예약 내역</div>
-        {isLoading || reservations.length === 0 ? null : (
-          <Filter filterType="reservation" setFilterStatus={setFilterStatus} />
-        )}
+        <Filter filterType="reservation" setFilterStatus={setFilterStatus} />
       </div>
       <div className={cn('content')}>
         {isLoading || reservations.length === 0 ? (
