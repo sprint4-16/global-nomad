@@ -76,8 +76,8 @@ export const COOKIE = {
   PROFILE_IMAGE_URL: 'profileImageUrl',
   NICKNAME: 'nickname',
   USER_ID: 'userId',
-};
-        
+} as const;
+
 // 상수 정의
 export const TIME_MENU_ITEMS = [
   '0:00',
@@ -107,4 +107,3 @@ export const TIME_MENU_ITEMS = [
 ] as string[];
 
 export const categoryList = ['문화 · 예술', '식음료', '스포츠', '투어', '관광', '웰빙'] as const;
-

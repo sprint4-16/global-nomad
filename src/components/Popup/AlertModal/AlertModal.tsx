@@ -14,7 +14,7 @@ interface PopupModalProps {
   alertMessage: string;
   onConfirm: () => void;
   isModalOpen: boolean;
-  handleModalOpen: () => void;
+  handleModalOpen?: () => void;
 }
 
 export default function AlertModal({
@@ -26,7 +26,7 @@ export default function AlertModal({
 }: PopupModalProps) {
   const handleConfirm = () => {
     onConfirm();
-    handleModalOpen();
+    if (handleModalOpen) handleModalOpen();
   };
 
   const [modalRoot, setModalRoot] = useState<HTMLElement | null>(null);
